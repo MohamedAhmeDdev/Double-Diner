@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.container-AddMenu{
+    background-image: url(../Dashboard/cropped-GettyImages-643764514.jpg);
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 587px;
+}
+
+.formMenu{
+    margin: 50px 0;
+    height: 350px;
+    width: 450px;
+    max-width: 500px;
+    border: 2px solid black;
+}
+.menuLabel{
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+}
+.menuInput{
+    opacity: 0.5;
+    outline: none;
+    margin: 10px;
+    height: 40px;
+    width: 400px;
+}
+.submitMenu{
+    background-color: gold;
+    border: none;
+    outline: none;
+    margin: 0 10px;
+    width: 130px;
+    height: 40px;
+}
+.menuInputFile{
+    color: white;
+}

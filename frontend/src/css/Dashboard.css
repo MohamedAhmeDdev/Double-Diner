@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.logo-div{
+    height: 100px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.logo{
+    font-size: 40px;
+    color: #0092CA;
+    font-family: 'Abril Fatface', cursive;
+}
+.container{
+  width: 100%; 
+  height: auto;
+  display: grid;
+  justify-content: space-evenly;
+  align-content: center;
+  grid-gap: 4px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.container-div{
+    margin: 25px 5px;
+    text-decoration: none;
+    border-radius: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 170px;
+    background-color: #2C2E43;
+}
+.Link{
+    text-decoration: none;
+}
+.icon{
+    color: white;
+}
+.grid-name{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.menu{
+    position: absolute;
+    right: 20px;
+    top: 25px;
+   gap: 4px;
+   flex-direction: column;
+   display: none;
+}
+
+.menu div{
+    background-color: white;
+    height: 4px;
+    width: 40px;
+}
+
+
+@media only screen and (max-width: 800px)
+ {
+
+    .container{
+        grid-template-columns: 1fr 1fr;
+        display: flex;
+        display: grid;
+        grid-gap: 10px;
+    }
+    .container-div{
+        margin: 15px;
+        text-decoration: none;
+        border-radius: 20px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 200px;
+        background-color: rgba(0, 0, 0, 0.849);
+    }
+    
+}
