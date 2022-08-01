@@ -28,21 +28,20 @@ body{
   height: auto;
   display: grid;
   justify-content: space-evenly;
-  align-content: center;
+  align-content: center;     
   grid-gap: 4px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .container-div{
+    background-color: #232323;
     margin: 25px 5px;
-    text-decoration: none;
     border-radius: 5px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     display: flex;
     height: 170px;
-    background-color: #2C2E43;
 }
 .Link{
     text-decoration: none;
@@ -85,13 +84,13 @@ body{
     .container-div{
         margin: 15px;
         text-decoration: none;
-        border-radius: 20px;
+        border-radius: 5px;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         display: flex;
         height: 200px;
-        background-color: rgba(0, 0, 0, 0.849);
+        background-color:  #232323;
     }
     
 }

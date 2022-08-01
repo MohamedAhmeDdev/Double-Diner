@@ -5,7 +5,8 @@ import AddMenu from './Dashboard/AddMenu';
 import AddStaff from './Dashboard/AddStaff';
 import Dashboard from './Dashboard/Dashboard'
 import Inventory from './Dashboard/Inventory';
-import Navbar from './Navbar';
+import Navbar from './Dashboard/Navbar';
+
 
 function App() {
   return (

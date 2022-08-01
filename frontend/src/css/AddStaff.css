@@ -18,7 +18,7 @@
     height: 320px;
     width: 450px;
     max-width: 500px;
-    border: 2px solid black;
+    border: 2px solid  #232323;
 }
 label{
     font-family: 'Courier New', Courier, monospace;
