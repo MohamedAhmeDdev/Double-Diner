@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+SC:wght@300&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.logo{
+    background-image: url(../Images/HERO+Web-22.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px;
+    width: 100%;
+}
+.quotes{
+    opacity: 0.8;
+    color: white;
+    text-align: center;
+    width: 400px;
+    height: 150px;
+    background-color: #24272e;
+}
+.logo-name{
+    letter-spacing: 2px;
+    font-size: 25px;
+    padding: 20px;
+}
+.logo-info{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+.container-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 10px;
+    background-color: #444444;
+    padding: 20px;
+}
+
+.container-div {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.div {
+    border-radius: 10px;
+    position: relative;
+    background-color: #24272e;
+    height: 400px;
+}
+
+.image {
+    position: absolute;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background-color: black;
+    height: 200px;
+    width: 100%;
+}
+
+.info {
+    position: absolute;
+    border-radius: 0 0 10px 10px;
+    bottom: 0;
+    height: 220px;
+    width: 100%;
+
+}
+
+.food {
+    color: white;
+    font-size: 17px;
+    margin: 10px 15px;
+}
+
+.increase {
+    color: white;
+    top: 20px;
+    font-size: 20px;
+}
+
+.add{
+    border-radius: 50px;
+    margin: 20px 50px;
+    outline: none;
+    border: none;
+    background-color: gold;
+    width: 120px;
+    height: 40px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+
+    .container-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 10px;
+        background-color: #444444;
+        padding: 20px;
+    }
+    .container-div {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+    .div {
+        border-radius: 10px;
+        background-color: #24272e;
+        height: 400px;
+    }
+
+    .image {
+        position: absolute;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        height: 150px;
+        width: 100%;
+    }
+
+    .info {
+        position: absolute;
+        border-radius: 0 0 10px 10px;
+        bottom: 0;
+        height: 220px;
+        width: 100%;
+
+    }
+
+    .food {
+        letter-spacing: 2px;
+        color: white;
+        font-size: 12px;
+        margin: 10px 5px;
+    }
+
+    .increase {
+        color: white;
+        top: 20px;
+        font-size: 15px;
+    }
+
+    .add{
+        border-radius: 50px;
+        margin: 20px 50px;
+        outline: none;
+        border: none;
+        background-color: gold;
+        width: 120px;
+        height: 40px;
+    }
+}
+
+
+
+
+@media only screen and (max-width: 800px) {
+
+    .container-grid {
+        position: relative;
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 10px;
+        background-color: #444444;
+        padding: 20px;
+
+    }
+
+    .div {
+        border-radius: 10px;
+        background-color: #24272e;
+        height: 400px;
+    }
+
+    .container-div {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .image {
+        position: absolute;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        height: 170px;
+        width: 100%;
+    }
+    .info {
+        position: absolute;
+        border-radius: 0 0 10px 10px;
+        bottom: 0;
+        height: 220px;
+        width: 100%;
+
+    }
+
+    .food {
+        color: white;
+        font-size: 13px;
+        letter-spacing: 2px;
+        margin: 10px 7px;
+    }
+
+    .increase {
+        color: white;
+        top: 20px;
+        font-size: 20px;
+    }
+
+    .add{
+        border-radius: 50px;
+        margin: 20px 25px;
+        outline: none;
+        border: none;
+        background-color: gold;
+        width: 120px;
+        height: 40px;
+    }
+    
+
+}

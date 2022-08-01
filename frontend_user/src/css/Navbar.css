@@ -1,0 +1,141 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    overflow-x : hidden;
+    width: 100%;
+}
+.navbar {
+    position: relative;
+    height: 70px;
+    width: 100%;
+    background-color: #24272e;
+    justify-content: center;
+}
+
+.open-menu{
+   grid-gap: 4px;
+   flex-direction: column;
+   display: flex;
+   display: none;
+}
+
+.open-menu div{
+    background-color: white;
+    height: 4px;
+    width: 40px;
+}
+
+
+.navbar-list {
+    justify-content: center;
+    display: flex;
+}
+
+.navbar-list li {
+    padding: 13px;
+    list-style: none;
+}
+
+a {
+    align-items: center;
+    font-size: 17px;
+    padding: 10px 20px;
+    display: flex;
+    color: white;
+    text-decoration: none;
+}
+
+
+.login {
+    padding: 10px 0;
+    list-style: none;
+}
+
+.sign {
+    list-style: none;
+}
+
+#form {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    justify-content: center;
+    display: flex;
+    width: 150px;
+    height: 70px;
+
+}
+
+@media only screen and (max-width: 800px) {
+    
+    .open-menu{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+        grid-gap: 4px;
+        flex-direction: column;
+        display: flex;
+     }
+     
+     .open-menu div{
+         background-color: white;
+         height: 4px;
+         width: 40px;
+     }
+
+     .navbar {
+        position: relative;
+        height: 70px;
+        width: 100%;
+        background-color: #24272e;
+        justify-content: center;
+    }
+     
+        .navbar-list{
+            opacity: 0.7;
+        display: none;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        height: 210px;
+         width: 100%;
+         background-color: #262e24;
+         padding: 6px 14px;
+         transition: 1s;
+    }
+
+    a {
+        padding: 0;
+        align-items: center;
+        font-size: 17px;
+        display: flex;
+        color: white;
+        text-decoration: none;
+    }
+    .navbar ul li{
+        border-bottom: 2px solid white;
+    }
+
+    #form {
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        justify-content: center;
+        display: flex;
+        width: 150px;
+        height: 70px;
+    
+    }
+    .login {
+        padding: 20px 10px;
+        list-style: none;
+    }
+}
