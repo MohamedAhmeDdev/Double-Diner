@@ -52,7 +52,6 @@ function Home() {
                 <div className="div" >
                     <div className="image"><img src="" width="100%" height="100%" alt="" /></div>
                     <div className="info">
-                        <p className="increase">+</p>
                         <p className="food">food name</p>
                         <p className="food">200</p>
                         <p className="food">rice with chicken and soda</p>

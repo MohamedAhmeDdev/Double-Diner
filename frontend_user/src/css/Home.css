@@ -70,7 +70,7 @@
     position: absolute;
     border-radius: 0 0 10px 10px;
     bottom: 0;
-    height: 220px;
+    height: 200px;
     width: 100%;
 
 }
@@ -79,12 +79,6 @@
     color: white;
     font-size: 17px;
     margin: 10px 15px;
-}
-
-.increase {
-    color: white;
-    top: 20px;
-    font-size: 20px;
 }
 
 .add{
@@ -103,7 +97,7 @@
     .container-grid {
         width: 100%;
         display: grid;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: auto auto auto;
         gap: 10px;
         background-color: #444444;
         padding: 20px;
@@ -125,7 +119,7 @@
         display: flex;
         justify-content: center;
         background-color: black;
-        height: 150px;
+        height: 180px;
         width: 100%;
     }
 
@@ -142,13 +136,7 @@
         letter-spacing: 2px;
         color: white;
         font-size: 12px;
-        margin: 10px 5px;
-    }
-
-    .increase {
-        color: white;
-        top: 20px;
-        font-size: 15px;
+        margin: 10px 10px;
     }
 
     .add{
@@ -165,7 +153,7 @@
 
 
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 480px) {
 
     .container-grid {
         position: relative;
@@ -196,7 +184,7 @@
         display: flex;
         justify-content: center;
         background-color: black;
-        height: 170px;
+        height: 180px;
         width: 100%;
     }
     .info {
@@ -215,11 +203,6 @@
         margin: 10px 7px;
     }
 
-    .increase {
-        color: white;
-        top: 20px;
-        font-size: 20px;
-    }
 
     .add{
         border-radius: 50px;
