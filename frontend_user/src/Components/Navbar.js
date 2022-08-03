@@ -18,15 +18,15 @@ function Navbar() {
         </li> */}
 
         <li>
-          <Link to="/">Menu</Link>
+          <Link onClick={openResponsive} to="/">Menu</Link>
         </li>
 
         <li>
-          <Link to="/Reservation">Reservation</Link>
+          <Link onClick={openResponsive} to="/Reservation">Reservation</Link>
         </li>
 
         <li>
-          <Link to="/Contact">Contact</Link>
+          <Link onClick={openResponsive} to="/Contact">Contact</Link>
         </li>
       </ul>
 

@@ -69,7 +69,9 @@
     }
 
     .reservationForm{
-    padding: 20px 200px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
     flex-direction: column;
     }
 
@@ -94,6 +96,7 @@
 
 @media only screen and (max-width: 480px){
     .form-container{
+
         margin: 50px 20px;
         height: 100%;
         width: 700px;
@@ -101,7 +104,9 @@
     }
 
     .reservationForm{
-    padding: 20px 30px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
     flex-direction: column;
     }
 

@@ -82,11 +82,12 @@
 }
 
 .add{
+    font-size: 15px;
     border-radius: 50px;
     margin: 20px 50px;
     outline: none;
     border: none;
-    background-color: gold;
+    background-color: rgba(255, 217, 0, 0.747);
     width: 120px;
     height: 40px;
 }
@@ -144,7 +145,7 @@
         margin: 20px 50px;
         outline: none;
         border: none;
-        background-color: gold;
+        background-color: rgba(255, 217, 0, 0.747);
         width: 120px;
         height: 40px;
     }
@@ -209,7 +210,7 @@
         margin: 20px 25px;
         outline: none;
         border: none;
-        background-color: gold;
+        background-color: rgba(255, 217, 0, 0.747);
         width: 120px;
         height: 40px;
     }
