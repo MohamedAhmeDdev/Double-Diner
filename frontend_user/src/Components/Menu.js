@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import '../css/Home.css'
+import '../css/Menu.css'
+import Footer from './Footer.js'
 
 function Home() {
     const [data, setData] = useState([
@@ -67,13 +68,14 @@ function Home() {
             <div className='logo'> 
             <div className='quotes'>
             <h3 className='logo-name'>Double Diner</h3>
-            <p className='logo-info'>Food Test Better When You Eat With Your Family Or Friends</p>
+            <p className='logo-info'>Food Tastes Better When You Eat With Your Family Or Friends</p>
             </div>
             </div>
 
             <div className="container-grid">
                 {food}
             </div>
+            <Footer></Footer>
         </div>
     )
 }

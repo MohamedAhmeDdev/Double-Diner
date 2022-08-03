@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+SC:wght@300&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+.contact-container{
+    width: 100%;
+    height: 100%;
+}
+.small-div{
+    font-size: 25px;
+    padding: 20px 0;
+    text-align: center;
+    height: 90px;
+    width: 100%;
+}
+
+.contacts{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-info{
+    padding: 30px 0;
+    height: 300px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+}
+
+.contact{
+    border: 1px solid black;
+    height: 220px;
+    width: 250px;
+    max-width: 250px;
+} 
+
+.head{
+    font-size: 20px;
+    padding: 5px 0;
+    text-align: center;
+} 
+.contact:hover{
+    box-shadow: 0 5px 10px #444444;
+}
+
+.head-info{
+    letter-spacing: 1px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 16px;
+    padding: 7px 5px;
+    text-align: center;
+}
+ .email{
+    position: relative;
+    top: 30px;
+}
+.contact-icon{
+    position: relative;
+    bottom: 20px;
+    display: flex;
+    left: 100px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .contacts{
+        height: 800px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .contact-info{
+        padding: 30px 0;
+        height: 550px;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 15px;
+    }
+    
+    .contact{
+        border: 1px solid black;
+        height: 220px;
+        width: 250px;
+        max-width: 250px;
+    } 
+    .contact:nth-child(3){
+        position: relative;
+        left: 140px;
+    }
+    .head{
+        font-size: 20px;
+        padding: 5px 0;
+        text-align: center;
+    } 
+    .contact:hover{
+        box-shadow: 0 5px 10px #444444;
+    }
+    
+    .head-info{
+        letter-spacing: 1px;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 16px;
+        padding: 7px 5px;
+        text-align: center;
+    }
+     .email{
+        position: relative;
+        top: 0;
+    }
+    .contact-icon{
+        position: relative;
+        bottom: 20px;
+        display: flex;
+        left: 100px;
+    }
+
+    @media only screen and (max-width: 480px) {
+        .contacts{
+            height: 900px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .contact-info{
+            padding: 30px 0;
+            height: 800px;
+            display: grid;
+            grid-template-columns: auto;
+            gap: 10px;
+        }
+        
+        .contact{
+            border: 1px solid black;
+            height: 220px;
+            width: 250px;
+            max-width: 250px;
+        } 
+       
+        .contact:nth-child(3){
+            position: relative;
+            left: 0;
+        }
+        .head{
+            font-size: 20px;
+            padding: 5px 0;
+            text-align: center;
+        } 
+        .contact:hover{
+            box-shadow: 0 5px 10px #444444;
+        }
+        
+        .head-info{
+            letter-spacing: 1px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 16px;
+            padding: 7px 5px;
+            text-align: center;
+        }
+         .email{
+            position: relative;
+            top: 0;
+        }
+        .contact-icon{
+            position: relative;
+            bottom: 20px;
+            display: flex;
+            left: 100px;
+        }
+    }
+}

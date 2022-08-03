@@ -13,12 +13,12 @@ function Navbar() {
     <div className='navbar'>
     
       <ul className='navbar-list' style={{left: openMenu ? "-100%" :"0"}}>
-        <li>
+        {/* <li>
           <Link to="">Home</Link>
-        </li>
+        </li> */}
 
         <li>
-          <Link to="">Menu</Link>
+          <Link to="/">Menu</Link>
         </li>
 
         <li>
@@ -26,7 +26,7 @@ function Navbar() {
         </li>
 
         <li>
-          <Link to="">Contact</Link>
+          <Link to="/Contact">Contact</Link>
         </li>
       </ul>
 

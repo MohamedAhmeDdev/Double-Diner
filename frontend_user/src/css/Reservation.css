@@ -1,0 +1,125 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.reservation-container{
+    width: 100%;
+    
+}
+
+.display-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.form-container{
+    margin: 70px 0;
+    height: 100%;
+    width: 700px;
+    max-width: 700px;
+}
+
+.reservationForm{
+   
+    padding: 20px;
+    justify-content: space-between;
+    display: flex;
+}
+
+.reservationInput{
+    outline: none;
+    width: 300px;
+    height: 30px;
+}
+
+.reservationLabel{
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+.reservationOption{
+    letter-spacing: 2px;
+    font-size: 15px;
+    outline: none;
+    width: 300px;
+    height: 30px;  
+}
+
+.reservation{
+    font-size: 16px;
+    letter-spacing: 1px;
+    outline: none;
+    border: none;
+    height: 40px;
+    width: 150px;
+    background-color: greenyellow;
+}
+
+
+
+
+
+@media only screen and (max-width: 800px){
+    .form-container{
+        margin: 50px 0;
+        height: 100%;
+        width: 700px;
+        max-width: 700px;
+    }
+
+    .reservationForm{
+    padding: 20px 200px;
+    flex-direction: column;
+    }
+
+    .reservationInput{
+        outline: none;
+        width: 300px;
+        height: 30px;
+    }
+    
+    .reservationLabel{
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+    .reservationOption{
+        letter-spacing: 2px;
+        font-size: 15px;
+        outline: none;
+        width: 300px;
+        height: 30px;  
+    }
+}
+
+@media only screen and (max-width: 480px){
+    .form-container{
+        margin: 50px 20px;
+        height: 100%;
+        width: 700px;
+        max-width: 700px;
+    }
+
+    .reservationForm{
+    padding: 20px 30px;
+    flex-direction: column;
+    }
+
+    .reservationInput{
+        outline: none;
+        width: 300px;
+        height: 30px;
+    }
+    
+    .reservationLabel{
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+    .reservationOption{
+        letter-spacing: 2px;
+        font-size: 15px;
+        outline: none;
+        width: 300px;
+        height: 30px;  
+    }
+}
