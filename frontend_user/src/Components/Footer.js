@@ -8,8 +8,8 @@ function Footer() {
         <div className='footer'>
             <div className='footer-nav'>
                 <ul className='footer-ul'>
-                    <li><Link to="">Privacy Policy</Link></li>
-                    <li><Link to="">Terms Of Use</Link></li>
+                    <li><Link to="/Policy">Privacy Policy</Link></li>
+                    <li><Link to="/Terms">Terms Of Use</Link></li>
                 </ul>
             </div>
 

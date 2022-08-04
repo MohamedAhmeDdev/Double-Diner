@@ -8,6 +8,8 @@ import {
 import Navbar from './Components/Navbar';
 import Reservaton from './Components/Reservaton';
 import Contact from './Components/Contact';
+import Policy from './Components/Policy';
+import Terms from './Components/Terms';
 // import Footer from './Components/Footer';
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/Reservation" element={<Reservaton/>} />
       <Route path="/Contact" element={<Contact/>} />
-      {/* <Route path="/footer" element={<Footer/>} /> */}
+      <Route path="/Policy" element={<Policy/>} />
+      <Route path="/Terms" element={<Terms/>} />
       </Routes>
       </BrowserRouter>
     </div>

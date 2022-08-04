@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+SC:wght@300&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.policy-container{
+    width: 100%;
+    height: 100%;
+}
+
+.policy-info{
+    padding: 50px;
+    width: 100%;
+    max-width: 100%;
+}
+.policy-head{
+    font-size: 30px;
+    text-align: center;
+}
+
+dt{
+    padding: 25px 0;
+}
+dd{
+    line-height: 25px;
+    letter-spacing: 1px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 15px;
+}

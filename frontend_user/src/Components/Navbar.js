@@ -13,9 +13,6 @@ function Navbar() {
     <div className='navbar'>
     
       <ul className='navbar-list' style={{left: openMenu ? "-100%" :"0"}}>
-        {/* <li>
-          <Link to="">Home</Link>
-        </li> */}
 
         <li>
           <Link onClick={openResponsive} to="/">Menu</Link>
