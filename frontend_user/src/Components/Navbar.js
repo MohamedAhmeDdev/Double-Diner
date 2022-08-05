@@ -35,10 +35,10 @@ function Navbar() {
       
       <div id='form'>
         <li className='login'>
-          <Link to="" >Login</Link>
+          <Link to="/Login" >Login</Link>
         </li>
 
-          <Link to="" ><FaUserCircle size='2em ' color='white' /></Link>
+          <Link to="/RegistrationForm" ><FaUserCircle size='2em ' color='white' /></Link>
       </div>
 
     </div>

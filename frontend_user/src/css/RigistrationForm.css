@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.container-RegistrationForm{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.RegistrationForm{
+    padding: 10px 0;
+    background-color: #444444;
+    position: relative;
+    border-radius: 10px;
+    margin: 50px 0;
+    height: 370px;
+    width: 350px;
+    max-width: 500px;
+}
+.RegistrationLabel{
+    color: white;
+    margin: 0 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 17px;
+}
+.RegistrationInput{
+    border-radius: 5px;
+    color: white;
+    background: #2323238c;
+    border: none;
+    outline: none;
+    margin: 20px 20px;
+    height: 40px;
+    width: 300px;
+}
+
+.RegistrationInput:focus{
+    color: black ;
+    background: white;
+    border: 2px solid white;
+}
+
+.submitRegistration{
+    border-radius: 10px;
+    letter-spacing: 1px;
+    font-size: 20px;
+    position: absolute;
+    left: 90px;
+    bottom: 10px;
+    background-color: white;
+    border: none;
+    outline: none;
+    margin: 0 10px;
+    width: 130px;
+    height: 40px;
+}
+
+@media only screen and (max-width: 800px){
+    .RegistrationForm{
+        padding: 10px 0;
+        background-color: #444444;
+        position: relative;
+        border-radius: 10px;
+        margin: 50px 0;
+        height: 370px;
+        width: 300px;
+        max-width: 300px;
+        border: 2px solid  #232323;
+    }
+    .RegistrationLabel{
+        color: white;
+        margin: 0 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 17px;
+    }
+    .RegistrationInput{
+        border-radius: 5px;
+        color: white;
+        background: #2323238c;
+        border: none;
+        outline: none;
+        margin: 20px 20px;
+        height: 40px;
+        width: 250px;
+    }
+    
+    .RegistrationInput:focus{
+        color: black ;
+        background: white;
+        border: 2px solid white;
+    }
+    
+    .submitRegistration{
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 20px;
+        position: absolute;
+        left: 60px;
+        bottom: 10px;
+        background-color: white;
+        border: none;
+        outline: none;
+        margin: 0 10px;
+        width: 130px;
+        height: 40px;
+    }
+    
+}

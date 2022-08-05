@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.container-LoginForm{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+.LoginForm{
+    padding: 10px 0;
+    background-color: #444444;
+    position: relative;
+    border-radius: 10px;
+    margin: 50px 0;
+    height: 270px;
+    width: 350px;
+    max-width: 500px;
+}
+.LoginLabel{
+    color: white;
+    margin: 0 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 17px;
+}
+.LoginInput{
+    border-radius: 5px;
+    color: white;
+    background: #2323238c;
+    border: none;
+    outline: none;
+    margin: 20px 20px;
+    height: 40px;
+    width: 300px;
+}
+
+.LoginInput:focus{
+    color: black ;
+    background: white;
+    border: 2px solid white;
+}
+
+.submitLogin{
+    border-radius: 10px;
+    letter-spacing: 1px;
+    font-size: 20px;
+    position: absolute;
+    left: 90px;
+    bottom: 10px;
+    background-color: white;
+    border: none;
+    outline: none;
+    margin: 0 10px;
+    width: 130px;
+    height: 40px;
+}
+
+@media only screen and (max-width: 800px){
+    .LoginForm{
+        padding: 10px 0;
+        background-color: #444444;
+        position: relative;
+        border-radius: 10px;
+        margin: 50px 0;
+        height: 270px;
+        width: 300px;
+        max-width: 300px;
+    }
+    .LoginLabel{
+        color: white;
+        margin: 0 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 17px;
+    }
+    .LoginInput{
+        border-radius: 5px;
+        color: white;
+        background: #2323238c;
+        border: none;
+        outline: none;
+        margin: 20px 20px;
+        height: 40px;
+        width: 250px;
+    }
+    
+    .LoginInput:focus{
+        color: black ;
+        background: white;
+        border: 2px solid white;
+    }
+    
+    .submitLogin{
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 20px;
+        position: absolute;
+        left: 60px;
+        bottom: 10px;
+        background-color: white;
+        border: none;
+        outline: none;
+        margin: 0 10px;
+        width: 130px;
+        height: 40px;
+    }
+}
