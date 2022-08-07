@@ -71,7 +71,67 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    height: 800px;
+    height: 750px;
+    width: 100%;
+}
+
+    .RegistrationForm{
+        padding: 10px 0;
+        background-color: #444444;
+        border-radius: 10px;
+        margin: 50px 0;
+        height: 370px;
+        width: 300px;
+        max-width: 300px;
+    }
+    .RegistrationLabel{
+        color: white;
+        margin: 0 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 17px;
+    }
+    .RegistrationInput{
+        border-radius: 5px;
+        color: white;
+        background: #2323238c;
+        border: none;
+        outline: none;
+        margin: 20px 20px;
+        height: 40px;
+        width: 250px;
+    }
+    
+    .RegistrationInput:focus{
+        color: black ;
+        background: white;
+        border: 2px solid white;
+    }
+    
+    .submitRegistration{
+        border-radius: 10px;
+        letter-spacing: 1px;
+        font-size: 20px;
+        position: relative;
+        left: 60px;
+        background-color: white;
+        border: none;
+        outline: none;
+        margin: 0 10px;
+        width: 130px;
+        height: 40px;
+        color: black;
+    }
+    
+}
+
+
+@media only screen and (max-width: 480px){
+    .container-RegistrationForm{
+    background-color: #232323;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 430px;
     width: 100%;
 }
 
