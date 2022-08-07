@@ -92,6 +92,7 @@ a {
      }
      
      .open-menu div{
+        display: block;
          background-color: white;
          height: 4px;
          width: 40px;
