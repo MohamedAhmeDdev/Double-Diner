@@ -199,7 +199,7 @@
 
     .food {
         color: white;
-        font-size: 13px;
+        font-size: 18px;
         letter-spacing: 2px;
         margin: 10px 7px;
     }
@@ -265,7 +265,7 @@
 
     .food {
         color: white;
-        font-size: 13px;
+        font-size: 18px;
         letter-spacing: 2px;
         margin: 10px 7px;
     }
@@ -274,7 +274,7 @@
     .add{
         color: black;
         border-radius: 50px;
-        margin: 20px 25px;
+        margin: 30px 25px;
         outline: none;
         border: none;
         background-color: rgba(255, 217, 0, 0.747);
