@@ -160,6 +160,72 @@
         position: relative;
         width: 100%;
         display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 10px;
+        background-color: #444444;
+        padding: 20px;
+
+    }
+
+    .div {
+        border-radius: 10px;
+        background-color: #24272e;
+        height: 400px;
+    }
+
+    .container-div {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .image {
+        position: absolute;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: black;
+        height: 180px;
+        width: 100%;
+    }
+    .info {
+        position: absolute;
+        border-radius: 0 0 10px 10px;
+        bottom: 0;
+        height: 220px;
+        width: 100%;
+
+    }
+
+    .food {
+        color: white;
+        font-size: 13px;
+        letter-spacing: 2px;
+        margin: 10px 7px;
+    }
+
+
+    .add{
+        color: black;
+        border-radius: 50px;
+        margin: 20px 25px;
+        outline: none;
+        border: none;
+        background-color: rgba(255, 217, 0, 0.747);
+        width: 120px;
+        height: 40px;
+    }
+    
+
+}
+
+
+@media only screen and (max-width: 480px) {
+
+    .container-grid {
+        position: relative;
+        width: 100%;
+        display: grid;
         grid-template-columns: auto auto;
         gap: 10px;
         background-color: #444444;

@@ -1,9 +1,11 @@
 import React from 'react'
 import '../css/RigistrationForm.css'
+import Footer from './Footer'
 
 function RegistrationForm() {
     return (
-        <div className='container-RegistrationForm'>
+       <div className='container-signup'>
+         <div className='container-RegistrationForm'>
             <form className='RegistrationForm'>
                 <label htmlFor="name" className='RegistrationLabel'>Name</label> <br />
                 <input className="RegistrationInput" type="text" />
@@ -19,6 +21,8 @@ function RegistrationForm() {
                 <button className='submitRegistration' type="submit">Login</button>
             </form>
         </div>
+        <Footer/>
+       </div>
     )
 }
 
