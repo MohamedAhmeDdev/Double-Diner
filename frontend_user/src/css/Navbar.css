@@ -71,16 +71,9 @@ a {
 }
 
 @media only screen and (max-width: 800px) {
-    .open-menu{
-        position: absolute;
-        left: 10px;
-        top: 20px;
-        grid-gap: 6px;
-        flex-direction: column;
-        display: flex;
-     }
      
      .open-menu div{
+        display: none;
          background-color: white;
          height: 4px;
          width: 40px;
