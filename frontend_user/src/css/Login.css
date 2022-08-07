@@ -129,11 +129,11 @@
 @media only screen and (max-width: 480px){
 
     .container-Form{
-        background-color: #d12020;
+        background-color: #242424;
         justify-content: center;
         align-items: center;
         display: flex;
-        height: 450px;
+        height: 490px;
         width: 100%;
     }
     
