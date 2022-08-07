@@ -208,7 +208,7 @@
     .add{
         color: black;
         border-radius: 50px;
-        margin: 40px 50px;
+        margin: 25px 50px;
         outline: none;
         border: none;
         background-color: rgba(255, 217, 0, 0.747);
@@ -274,7 +274,7 @@
     .add{
         color: black;
         border-radius: 50px;
-        margin: 25px 25px;
+        margin: 20px 25px;
         outline: none;
         border: none;
         background-color: rgba(255, 217, 0, 0.747);
