@@ -1,9 +1,11 @@
 import React from 'react'
 import '../css/Login.css'
+import Footer from './Footer'
 
 function Login() {
     return (
-        <div className='container-LoginForm'>
+        <div className='container-login'>
+            <div className='container-Form'>
             <form className='LoginForm'>
 
                 <label htmlFor="Email" className='LoginLabel'>Email</label><br />
@@ -15,6 +17,8 @@ function Login() {
 
                 <button className='submitLogin' type="submit">Login</button>
             </form>
+        </div>
+        <Footer/>
         </div>
     )
 }
