@@ -72,13 +72,15 @@ body{
 
 @media only screen and (max-width: 1024px) {
     .contacts{
-        height: 800px;
+        background-color: bisque;
+        height: 700px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
     
     .contact-info{
+        background-color: aqua;
         padding: 30px 0;
         height: 550px;
         display: grid;
