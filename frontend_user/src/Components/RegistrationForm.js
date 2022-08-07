@@ -1,6 +1,5 @@
 import React from 'react'
 import '../css/RigistrationForm.css'
-import Footer from './Footer'
 
 function RegistrationForm() {
     return (
@@ -21,7 +20,6 @@ function RegistrationForm() {
                 <button className='submitRegistration' type="submit">Login</button>
             </form>
         </div>
-        <Footer/>
        </div>
     )
 }

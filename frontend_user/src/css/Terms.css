@@ -23,7 +23,10 @@
     font-size: 25px;
     text-align: center;
 }
-.ol-info{
+.ol-list{
+    padding: 0 25px;
+}
+.ul-info{
     line-height: 25px;
     letter-spacing: 1px;
     font-family: 'Quicksand', sans-serif;

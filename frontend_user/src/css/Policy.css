@@ -13,9 +13,10 @@
 }
 
 .policy-info{
-    padding: 50px;
+    padding: 50px 20px;
     width: 100%;
     max-width: 100%;
+    height: 100%;
 }
 .policy-head{
     font-size: 30px;

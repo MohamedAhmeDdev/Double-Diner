@@ -1,6 +1,5 @@
 import React from 'react'
 import '../css/Reservation.css'
-import Footer from './Footer'
 
 function Reservaton() {
   return (
@@ -47,7 +46,6 @@ function Reservaton() {
           </form>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

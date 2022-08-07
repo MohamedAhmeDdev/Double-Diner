@@ -3,7 +3,6 @@ import '../css/Contact.css'
 import {MdPhoneAndroid } from "react-icons/md";
 import {MdEmail } from "react-icons/md";
 import {ImLocation2 } from "react-icons/im";
-import Footer from './Footer';
 
 function Contact() {
     return (
@@ -38,7 +37,6 @@ function Contact() {
 
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }

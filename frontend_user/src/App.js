@@ -12,7 +12,7 @@ import Policy from './Components/Policy';
 import Terms from './Components/Terms';
 import RegistrationForm from './Components/RegistrationForm';
 import Login from './Components/Login';
-// import Footer from './Components/Footer';
+import Footer from './Components/Footer';
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
       <Route path="/RegistrationForm" element={<RegistrationForm/>} />
       <Route path="/Login" element={<Login/>} />
       </Routes>
+      <Footer/>
       </BrowserRouter>
     </div>
   )

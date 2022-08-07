@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import '../css/Menu.css'
-import Footer from './Footer.js'
 
 function Home() {
     const [data, setData] = useState([
@@ -75,7 +74,6 @@ function Home() {
             <div className="container-grid">
                 {food}
             </div>
-            <Footer></Footer>
         </div>
     )
 }

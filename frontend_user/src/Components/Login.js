@@ -1,6 +1,5 @@
 import React from 'react'
 import '../css/Login.css'
-import Footer from './Footer'
 
 function Login() {
     return (
@@ -18,7 +17,6 @@ function Login() {
                 <button className='submitLogin' type="submit">Login</button>
             </form>
         </div>
-        <Footer/>
         </div>
     )
 }
