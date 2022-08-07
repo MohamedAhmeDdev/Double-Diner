@@ -71,6 +71,23 @@ a {
 }
 
 @media only screen and (max-width: 800px) {
+    .open-menu{
+        position: absolute;
+        left: 10px;
+        top: 20px;
+        grid-gap: 6px;
+        flex-direction: column;
+        display: flex;
+     }
+     
+     .open-menu div{
+         background-color: white;
+         height: 4px;
+         width: 40px;
+     }
+}
+
+@media only screen and (max-width: 480px) {
     
     .open-menu{
         position: absolute;
