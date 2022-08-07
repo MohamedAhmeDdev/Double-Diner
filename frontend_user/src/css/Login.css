@@ -6,7 +6,7 @@
 
 
 .container-LoginForm{
-    background-color: #232323;
+    background-color: #242424;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -62,6 +62,16 @@
 }
 
 @media only screen and (max-width: 800px){
+
+    .container-LoginForm{
+        background-color: #242424;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100%;
+        width: 100%;
+    }
+    
     .LoginForm{
         padding: 10px 0;
         background-color: #444444;
