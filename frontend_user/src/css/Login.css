@@ -23,7 +23,7 @@
     background-color: #444444;
     border-radius: 10px;
     margin: 50px 0;
-    height: 270px;
+    height: 290px;
     width: 350px;
     max-width: 500px;
 }
@@ -64,6 +64,12 @@
     width: 130px;
     height: 40px;
 }
+.loginError{
+    color: white;
+    position: relative;
+    bottom: 10px;
+    left: 20px;
+}
 
 @media only screen and (max-width: 800px){
 
@@ -81,7 +87,7 @@
         background-color: #444444;
         border-radius: 10px;
         margin: 50px 0;
-        height: 270px;
+        height: 290px;
         width: 300px;
         max-width: 300px;
     }
@@ -142,7 +148,7 @@
         background-color: #444444;
         border-radius: 10px;
         margin: 50px 0;
-        height: 270px;
+        height: 290px;
         width: 300px;
         max-width: 300px;
     }
