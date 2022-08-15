@@ -9,11 +9,12 @@ body{
     width: 100%;
 }
 .navbar {
+    justify-content: center;
     position: relative;
     height: 70px;
     width: 100%;
     background-color: #24272e;
-    justify-content: center;
+    display: flex;
 }
 
 .open-menu{
@@ -31,6 +32,7 @@ body{
 
 
 .navbar-list {
+    width: 500px;
     justify-content: center;
     display: flex;
 }
@@ -60,24 +62,41 @@ a {
 }
 
 #form {
-    position: absolute;
-    right: 1px;
-    top: 1px;
     justify-content: center;
+    position: absolute;
+    right: 0;
     display: flex;
-    width: 150px;
     height: 70px;
 
 }
 
 @media only screen and (max-width: 800px) {
-     
+    .navbar-list {
+        width: 400px;
+        justify-content: space-around;
+        display: flex;
+    }
+    
+    
+     .navbar-list li {
+        padding: 5px;
+        list-style: none;
+    }
+     #form {
+        position: absolute;
+        right: 0;
+        justify-content: center;
+        display: flex;
+        height: 70px;
+    
+    }
      .open-menu div{
         display: none;
          background-color: white;
          height: 4px;
          width: 40px;
      }
+
 }
 
 @media only screen and (max-width: 480px) {
@@ -107,7 +126,7 @@ a {
     }
      
         .navbar-list{
-            opacity: 0.9;
+        opacity: 0.9;
         display: none;
         justify-content: center;
         display: flex;
@@ -137,11 +156,9 @@ a {
 
     #form {
         position: absolute;
-        right: 1px;
-        top: 1px;
+        right: 0;
         justify-content: center;
         display: flex;
-        width: 150px;
         height: 70px;
     
     }

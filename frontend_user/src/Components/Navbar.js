@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import '../css/Navbar.css'
 import { Link } from "react-router-dom"
 import { FaUserCircle } from "react-icons/fa";
+import { BsCartCheck } from "react-icons/bs";
 
 
 function Navbar() {
@@ -34,10 +35,10 @@ function Navbar() {
       </div>
       
       <div id='form'>
+      {/* <Link to="/RegistrationForm" ><BsCartCheck size='2em ' color='white' /></Link> */}
         <li className='login'>
           <Link to="/Login" >Login</Link>
         </li>
-
           <Link to="/RegistrationForm" ><FaUserCircle size='2em ' color='white' /></Link>
       </div>
 
