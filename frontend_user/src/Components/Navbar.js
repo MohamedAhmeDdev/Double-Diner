@@ -35,7 +35,7 @@ function Navbar() {
       </div>
       
       <div id='form'>
-      {/* <Link to="/RegistrationForm" ><BsCartCheck size='2em ' color='white' /></Link> */}
+      <Link to="/RegistrationForm" ><BsCartCheck size='2em ' color='white' /></Link>
         <li className='login'>
           <Link to="/Login" >Login</Link>
         </li>
