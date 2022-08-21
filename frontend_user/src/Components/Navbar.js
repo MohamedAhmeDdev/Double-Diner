@@ -5,10 +5,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsCartCheck } from "react-icons/bs";
 
 
-function Navbar() {
+function Navbar({cartItems}) {
 
   const[openMenu, setMenu] = useState(true)
   const openResponsive = () => setMenu(!openMenu)
+ 
 
   return (
     <div className='navbar'>
@@ -35,7 +36,7 @@ function Navbar() {
       </div>
       
       <div id='form'>
-      <Link to="/RegistrationForm" ><BsCartCheck size='2em ' color='white' /></Link>
+      <Link to="/cart" ><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
         <li className='login'>
           <Link to="/Login" >Login</Link>
         </li>

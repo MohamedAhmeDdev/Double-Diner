@@ -69,6 +69,14 @@ a {
     height: 70px;
 
 }
+.counter-div{
+    color: #24272e;
+    border-radius: 50px;
+    font-size: 20px;
+    width: 14px;
+    height: 27px;
+    background-color:  white;
+}
 
 @media only screen and (max-width: 800px) {
     .navbar-list {
@@ -135,7 +143,7 @@ a {
         position: absolute;
         top: 70px;
         right: 0;
-        height: 210px;
+        height: 170px;
          width: 100%;
          background-color: #24272e;
          padding: 6px 14px;
@@ -151,6 +159,7 @@ a {
         text-decoration: none;
     }
     .navbar ul li{
+
         border-bottom: 2px solid white;
     }
 

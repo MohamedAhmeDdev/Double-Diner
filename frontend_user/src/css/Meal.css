@@ -10,7 +10,7 @@
     background-color: #444444;
 }
 
-.header{
+.product-header{
     text-align: center;
     padding: 5px 10px;
     font-size: 20px;
@@ -40,7 +40,7 @@
     height: 400px;
 }
 
-.image {
+.product-image {
     position: absolute;
     align-items: center;
     display: flex;
@@ -98,7 +98,7 @@
         height: 400px;
     }
 
-    .image {
+    .product-image {
         position: absolute;
         align-items: center;
         display: flex;
@@ -163,7 +163,7 @@
         overflow: hidden;
     }
 
-    .image {
+    .product-image {
         position: absolute;
         align-items: center;
         display: flex;
@@ -229,7 +229,7 @@
         overflow: hidden;
     }
 
-    .image {
+    .product-image {
         position: absolute;
         align-items: center;
         display: flex;

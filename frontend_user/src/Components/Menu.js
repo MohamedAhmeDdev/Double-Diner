@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../css/Menu.css'
-import Juice from './Juice'
+import '../css/Meal.css'
 import Meal from './Meal'
+import Juice from './Juice'
 import Shakes from './Shakes'
 
-function Home() {
+function Home({ cartItems,setCartItems }) {
+      
     return (
         <div className='home-container'>
             <div className='logo'>
@@ -15,9 +17,9 @@ function Home() {
             </div>
 
             <div className="menu">
-                <Meal />
-                <Juice />
-                <Shakes/>
+            <Meal cartItems={cartItems} setCartItems={setCartItems}/>
+            <Juice cartItems={cartItems} setCartItems={setCartItems}/>
+            <Shakes cartItems={cartItems} setCartItems={setCartItems}/>
             </div>
         </div>
     )
