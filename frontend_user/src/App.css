@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 .dd-logo{
+  border-radius: 50%;
   position: relative;
   top: 200px;
   left: 600px;
@@ -12,10 +13,26 @@
   pointer-events: none;
 }
 
-@media only screen and (max-width: 800px) {
+
+
+@media only screen and (max-width: 1024px) {
   .dd-logo{
     position: relative;
-    top: 300px;
+    top: 350px;
+    left: 250px;
+    width: 250px;
+    height: 200px;
+    pointer-events: none;
+  }
+  
+}
+
+
+@media only screen and (max-width: 480px) {
+  .dd-logo{
+    border-radius: 50%;
+    position: relative;
+    top: 270px;
     left: 60px;
     width: 250px;
     height: 200px;

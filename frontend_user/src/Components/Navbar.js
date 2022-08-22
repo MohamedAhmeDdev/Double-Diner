@@ -5,16 +5,22 @@ import { FaUserCircle } from "react-icons/fa";
 import { BsCartCheck } from "react-icons/bs";
 
 
-function Navbar({cartItems}) {
+function Navbar({ cartItems }) {
 
-  const[openMenu, setMenu] = useState(true)
+  const [openMenu, setMenu] = useState(true)
   const openResponsive = () => setMenu(!openMenu)
- 
+
 
   return (
     <div className='navbar'>
-    
-      <ul className='navbar-list' style={{left: openMenu ? "-100%" :"0"}}>
+
+      <div className='open-menu' onClick={openResponsive}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <ul className='navbar-list' style={{ left: openMenu ? "-100%" : "0" }}>
 
         <li>
           <Link onClick={openResponsive} to="/">Menu</Link>
@@ -29,18 +35,12 @@ function Navbar({cartItems}) {
         </li>
       </ul>
 
-  <div className='open-menu' onClick={openResponsive}>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      
       <div id='form'>
-      <Link to="/cart" ><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
+        <Link to="/cart" ><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
         <li className='login'>
           <Link to="/Login" >Login</Link>
         </li>
-          <Link to="/RegistrationForm" ><FaUserCircle size='2em ' color='white' /></Link>
+        <Link to="/RegistrationForm" ><FaUserCircle size='2em ' color='white' /></Link>
       </div>
 
     </div>

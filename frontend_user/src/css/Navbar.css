@@ -9,12 +9,13 @@ body{
     width: 100%;
 }
 .navbar {
+    align-items: center;
     justify-content: center;
+    display: flex;
     position: relative;
     height: 70px;
     width: 100%;
     background-color: #24272e;
-    display: flex;
 }
 
 .open-menu{
@@ -33,7 +34,6 @@ body{
 
 .navbar-list {
     width: 500px;
-    justify-content: center;
     display: flex;
 }
 
@@ -62,12 +62,12 @@ a {
 }
 
 #form {
-    justify-content: center;
+    justify-content: space-around;
     position: absolute;
+    top: 0;
     right: 0;
     display: flex;
     height: 70px;
-
 }
 .counter-div{
     color: #24272e;
@@ -81,25 +81,22 @@ a {
 @media only screen and (max-width: 800px) {
     .navbar-list {
         width: 400px;
-        justify-content: space-around;
         display: flex;
     }
-    
-    
      .navbar-list li {
         padding: 5px;
         list-style: none;
     }
      #form {
         position: absolute;
+        top: 0;
         right: 0;
-        justify-content: center;
+        justify-content: space-around;
         display: flex;
         height: 70px;
-    
     }
      .open-menu div{
-        display: none;
+         display: none;
          background-color: white;
          height: 4px;
          width: 40px;
@@ -159,17 +156,16 @@ a {
         text-decoration: none;
     }
     .navbar ul li{
-
         border-bottom: 2px solid white;
     }
 
     #form {
         position: absolute;
+        top: 0;
         right: 0;
-        justify-content: center;
+        justify-content: space-around;
         display: flex;
         height: 70px;
-    
     }
     .login {
         padding: 20px 10px;
