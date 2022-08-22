@@ -12,22 +12,22 @@ function Navbar() {
             <div className="sidebar">
                  <ul id="nav-list" style={{top: menu ? "-100%" :"0"}}>
                  <li>
-                     <Link to="/">
+                     <Link to="/"  onClick={open}>
                          <span className="links_name">DASHBOARD</span>
                      </Link>
                  </li>
                  <li>
-                     <Link to="/Inventory">
+                     <Link to="/Inventory"  onClick={open}>
                          <span className="links_name">Inventory</span>
                      </Link>
                  </li>
                  <li>
-                     <Link to="">
+                     <Link to=""  onClick={open}>
                          <span className="links_name">Staff Duties</span>
                      </Link>
                  </li>
                  <li>
-                     <Link to="">
+                     <Link to=""  onClick={open}>
                          <span className="links_name">Menu</span>
                      </Link>
                  </li>

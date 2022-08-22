@@ -6,28 +6,26 @@
 
 
 .container-AddMenu{
-    background-image: url(../Dashboard/cropped-GettyImages-643764514.jpg);
     background-size: cover;
     justify-content: center;
     align-items: center;
     display: flex;
-    height: 587px;
+    height: 100%;
 }
 
 .formMenu{
     margin: 50px 0;
-    height: 350px;
+    height: 450px;
     width: 450px;
     max-width: 500px;
     border: 2px solid  #232323;
 }
 .menuLabel{
-    color: white;
+    color: black;
     font-family: 'Courier New', Courier, monospace;
     font-size: 25px;
 }
 .menuInput{
-    opacity: 0.5;
     outline: none;
     margin: 10px;
     height: 40px;
@@ -42,5 +40,48 @@
     height: 40px;
 }
 .menuInputFile{
-    color: white;
+    color: black;
+}
+
+@media only screen and (max-width: 480px) {
+
+    .container-AddMenu{
+        background-size: cover;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        height: 100%;
+    }
+    
+    .formMenu{
+        margin: 100px 0;
+        height: 450px;
+        width: 350px;
+        max-width: 500px;
+        border: 2px solid  #232323;
+    }
+    .menuLabel{
+        margin: 0 10px;
+        color: black;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 25px;
+    }
+    .menuInput{
+        outline: none;
+        margin: 10px 20px;
+        height: 40px;
+        width: 300px;
+    }
+    .submitMenu{
+        background-color: gold;
+        border: none;
+        outline: none;
+        margin: 0 10px;
+        width: 130px;
+        height: 40px;
+    }
+    .menuInputFile{
+        color: black;
+    }
+    
 }
