@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import  './App.css'
 import Menu from './Components/Menu'
 import {
   BrowserRouter,
@@ -18,28 +19,39 @@ import Juice from './Components/Juice';
 import Shakes from './Components/Shakes';
 import Cart from './Components/Cart';
 
+
 function App() {
   const [cartItems, setCartItems] =useState([])
+  const [loading, setLoading] =useState(false)
+
+  useEffect(() =>{
+    setLoading(true)
+    setTimeout(() =>{
+      setLoading(false)
+    }, 3000)
+  },[])
 
   return (
     <div>
+      {loading ? <img className='dd-logo' src='/Images/dd.jpg' width="100%" height="100%" alt="" /> :
       <BrowserRouter>
-        <Navbar cartItems={cartItems}/>
-        <Routes>
-          <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems}/>} />
-          <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems}/>} />
-          <Route path="/Meal" element={<Meal />} />
-          <Route path="/Juice" element={<Juice />} />
-          <Route path="/Shakes" element={<Shakes/>} />
-          <Route path="/Reservation" element={<Reservaton />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Policy" element={<Policy />} />
-          <Route path="/Terms" element={<Terms />} />
-          <Route path="/RegistrationForm" element={<RegistrationForm />} />
-          <Route path="/Login" element={<Login />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
+      <Navbar cartItems={cartItems}/>
+      <Routes>
+        <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems}/>} />
+        <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems}/>} />
+        <Route path="/Meal" element={<Meal />} />
+        <Route path="/Juice" element={<Juice />} />
+        <Route path="/Shakes" element={<Shakes/>} />
+        <Route path="/Reservation" element={<Reservaton />} />
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/Policy" element={<Policy />} />
+        <Route path="/Terms" element={<Terms />} />
+        <Route path="/RegistrationForm" element={<RegistrationForm />} />
+        <Route path="/Login" element={<Login />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
+      }
     </div>
   )
 }
