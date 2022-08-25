@@ -1,0 +1,70 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.reservation-container{
+    width: 100%;
+    height: 100%;
+}
+.reservation-table{
+    width: 100%;
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+.reservation-table thead tr th{
+    font-size: 20px;
+    padding: 2px;
+    border-bottom: 2px solid black;
+}
+tbody tr td{
+    padding: 5px;
+}
+.reservation-table, tbody, tr{
+    text-align: center;
+    border: 1px solid black;
+
+}
+.reservation-table tbody tr:nth-child(odd):hover{
+    background-color: rgba(173, 216, 230, 0.37);
+}
+
+.remove-button{
+    font-size: 13px;
+    background-color: lightblue;
+    border: none;
+    height: 35px;
+    width: 100px;
+}
+
+
+@media only screen and (max-width: 480px){
+    .reservation-table thead tr th{
+        font-size: 10px;
+        padding: 2px;
+        border-bottom: 2px solid black;
+    }
+    tbody tr td{
+        padding: 5px;
+    }
+    .reservation-table, tbody, tr{
+        text-align: center;
+        border: 2px solid black;
+    }
+
+    .reservation-table tbody tr:nth-child(odd):hover{
+        background-color: rgba(173, 216, 230, 0.37);
+    }
+
+    .remove-button{
+        font-size: 5px;
+        background-color: lightblue;
+        border: none;
+        height: 20px;
+        width: 35px;
+    }
+    
+}
+

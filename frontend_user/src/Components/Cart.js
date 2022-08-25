@@ -3,15 +3,15 @@ import '../css/Cart.css'
 
 function Cart({ cartItems, setCartItems }) {
 
-    const handleRemove = (Product) => {
+    const removeToCart = (Product) => {
         let newCart = [...cartItems];
         let itemInCart = newCart.find(
-            (item) => Product.name === item.name
+            (item) => Product.foodName === item.foodName
         );
         if (itemInCart.quantity === 1) {
-            setCartItems(cartItems.filter((item) => item.name !== Product.name))
+            setCartItems(cartItems.filter((item) => item.foodName !== Product.foodName))
         } else {
-            setCartItems(cartItems.map((item) => item.name === Product.name ? { ...itemInCart, quantity: itemInCart.quantity - 1 } : item))
+            setCartItems(cartItems.map((item) => item.foodName === Product.foodName ? { ...itemInCart, quantity: itemInCart.quantity - 1 } : item))
         }
     }
 
@@ -19,11 +19,10 @@ function Cart({ cartItems, setCartItems }) {
         setCartItems([])
     }
 
-    const handleAddProduct = (product) => {
+    const addToCart = (product) => {
         let newCart = [...cartItems];
         let itemInCart = newCart.find(
-            (item) => product.name === item.name
-        );
+            (item) => product.foodName === item.foodName);
         if (itemInCart) {
             itemInCart.quantity++;
         } else {
@@ -38,6 +37,7 @@ function Cart({ cartItems, setCartItems }) {
 
     const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price,
         0)
+        
     return (
         <div className='cart-container'>
             <div className='cart-container-grid'>
@@ -49,15 +49,15 @@ function Cart({ cartItems, setCartItems }) {
                         <div className="cart-div">
                             <div className="image"><img src={item.img} width="100%" height="100%" alt="" /></div>
                             <div className="cart-info">
-                                <p className="item-info">grf</p>
-                                <p className="item-info">yhm</p>
+                                <p className="item-info">{item.foodName}</p>
+                                <p className="item-info">{item.price}</p>
                             </div>
                         </div>
 
                         <div className="count">
-                            <button className="items" onClick={() => handleAddProduct(item)}>+</button>
+                            <button className="items" onClick={() =>addToCart(item)}>+</button>
                             <p className="quantity">{item.quantity}</p>
-                            <button className="items" onClick={() => handleRemove(item)}>-</button>
+                            <button className="items" onClick={() => removeToCart(item)}>-</button>
                         </div>
 
                         <div className="price">

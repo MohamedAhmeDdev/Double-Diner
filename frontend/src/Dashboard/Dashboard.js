@@ -11,10 +11,13 @@ function Dashboard() {
         <h3 className='logo'>Double Diner</h3>
         </div>
     <div className='container'>
-        <div className='container-div'>
+       
+       <Link className='Link' to='/Reservation'>
+       <div className='container-div'>
             <p ><BsTable color='gold' size='2em'/></p>
             <p className='grid-name'>Reservations</p>
             </div>
+       </Link>
 
 
         <Link className='Link' to='/AddInventory'>

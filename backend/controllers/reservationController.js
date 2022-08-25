@@ -19,3 +19,29 @@ export const  createReservation = async (req, res) => {
     }
   
 } 
+
+export const getReservation = async (req, res) => {
+    try {
+        const reservations = await reservation.findAll();
+        res.json(reservations);
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
+
+export const deleteReservation = async (req, res) => {
+    try {
+        await reservation.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            "message": "reservation Deleted"
+        });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+
