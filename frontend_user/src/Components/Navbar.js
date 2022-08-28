@@ -7,8 +7,8 @@ import { BsCartCheck } from "react-icons/bs";
 
 function Navbar({ cartItems }) {
 
-  const [openMenu, setMenu] = useState(true)
-  const openResponsive = () => setMenu(!openMenu)
+  const [openMenu, setOpenMenu] = useState(true)
+  const openResponsive = () => setOpenMenu(!openMenu)
 
 
   return (

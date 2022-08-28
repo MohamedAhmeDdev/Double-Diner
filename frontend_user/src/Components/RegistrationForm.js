@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios";
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../css/RigistrationForm.css'
 
 
@@ -11,9 +11,9 @@ const RegistrationForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false)
+    let navigate = useNavigate()
 
     const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
-    // let navigate = useNavigate();
 
     const createUser = async (e) => {
         e.preventDefault();
@@ -38,7 +38,7 @@ const RegistrationForm = () => {
             } 
         }
         
-        // navigate("/");
+        navigate("/login");
 
     }
 

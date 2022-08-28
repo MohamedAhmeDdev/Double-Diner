@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div>
-      {loading ? <img className='dd-logo' src='/Images/dd.jpg' width="100%" height="100%" alt="" /> :
+      {loading ? <div className='loading-img'><img className='dd-logo' src='/Images/dd.jpg' width="100%" height="100%" alt="" /></div> :
       <BrowserRouter>
       <Navbar cartItems={cartItems}/>
       <Routes>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../css/Login.css'
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
+    let navigate = useNavigate();
 
     const login = async (e) => {
         e.preventDefault();
@@ -24,8 +26,8 @@ function Login() {
                 setError("email and password doesn't much")
 
             }
-
         }
+        navigate('/')
     }
 
 

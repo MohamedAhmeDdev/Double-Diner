@@ -4,9 +4,9 @@ import '../css/Navbar.css'
 
 
 function Navbar() {
-    const[menu, setOpenMenu] = useState(true);
+    const[menu, setMenu] = useState(true);
 
-    const open = () => setOpenMenu(!menu)
+    const open = () => setMenu(!menu)
          
     return (
             <div className="sidebar">
