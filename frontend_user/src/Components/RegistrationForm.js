@@ -25,21 +25,21 @@ const RegistrationForm = () => {
             }
             else if(password.length<=4){
                 setErrors("password must be more than 4 digits")
-            }else (
+            }else if(
                 await axios.post('http://localhost:5000/useraccount', {
                     name: name,
                     email: email,
                     password: password
                 })
-            )
+            ){
+                navigate("/login");
+            }
         } catch (error) {
             if (error.response?.status === 401) {
                 setErrors("Email already exists");
             } 
         }
         
-        navigate("/login");
-
     }
 
     return (

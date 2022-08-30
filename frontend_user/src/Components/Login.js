@@ -12,11 +12,14 @@ function Login() {
     const login = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/login', {
+            if(
+             await axios.post('http://localhost:5000/login', {
                 email: email,
                 password: password
             })
-            console.log(response?.data);
+            ){
+                navigate('/')
+            }
 
         } catch (error) {
             if (error.response?.status === 400) {
@@ -27,7 +30,6 @@ function Login() {
 
             }
         }
-        navigate('/')
     }
 
 
