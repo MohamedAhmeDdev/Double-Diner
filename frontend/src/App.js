@@ -20,7 +20,7 @@ function App() {
       <Route  path='/Inventory' element={<Inventory/>} />
       <Route  path='/Reservation' element={<Reservation/>} />
       <Route  path='/AddInventory' element={<AddInventory/>} />
-      <Route  path='/edit/:id' element={<UpdateInventory/>} />
+      <Route  path='/updateInventory/:id' element={<UpdateInventory/>} />
       <Route  path='/AddStaff' element={<AddStaff/>} />
       <Route  path='/AddMenu' element={<AddMenu/>} />
       </Routes>

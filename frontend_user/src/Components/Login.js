@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/Login.css'
 
 function Login() {
@@ -47,6 +47,7 @@ function Login() {
                     {error && <p className='loginError'>{error}</p>}
 
                     <button className='submitLogin' type="submit">Login</button>
+                    <p className='registerationLink'><Link to="/RegistrationForm">Register</Link> </p>
                 </form>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import '../css/Navbar.css'
 import { Link } from "react-router-dom"
-import { FaUserCircle } from "react-icons/fa";
+
 import { BsCartCheck } from "react-icons/bs";
 
 
@@ -38,9 +38,8 @@ function Navbar({ cartItems }) {
       <div id='form'>
         <Link to="/cart" ><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
         <li className='login'>
-          <Link to="/Login" >Login</Link>
+          <Link to="/Login" >Registration/Login</Link>
         </li>
-        <Link to="/RegistrationForm" ><FaUserCircle size='2em ' color='white' /></Link>
       </div>
 
     </div>

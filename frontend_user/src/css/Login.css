@@ -70,6 +70,11 @@
     bottom: 10px;
     left: 20px;
 }
+.registerationLink{
+    justify-content: center;
+    display: flex;
+    color: white;
+}
 
 @media only screen and (max-width: 800px){
 

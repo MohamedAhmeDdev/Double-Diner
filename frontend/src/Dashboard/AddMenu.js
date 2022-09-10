@@ -18,7 +18,7 @@ const AddMenu = () => {
     formData.append('foodName', foodName)
     formData.append('image', image)
 
-    await axios.post('http://localhost:8080/menu',formData)
+    await axios.post('http://localhost:5000/menu',formData)
   }
 
 

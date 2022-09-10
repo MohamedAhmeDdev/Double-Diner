@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const Product = sequelize.define("menu", {
+    const menu = sequelize.define("menu", {
         image: {
             type: DataTypes.STRING
         },
@@ -16,6 +16,5 @@ module.exports = (sequelize, DataTypes) => {
     
     })
 
-    return Product
-
+    return menu
 }

@@ -2,6 +2,7 @@ const dbConfig = require('../config/dbConfig.js');
 
 const {Sequelize, DataTypes} = require('sequelize');
 
+//NEW sequelize
 const sequelize = new Sequelize(
     dbConfig.DB,
     dbConfig.USER,
@@ -9,17 +10,10 @@ const sequelize = new Sequelize(
         host: dbConfig.HOST,
         dialect: dbConfig.dialect,
         operatorsAliases: false,
-
-        pool: {
-            max: dbConfig.pool.max,
-            min: dbConfig.pool.min,
-            acquire: dbConfig.pool.acquire,
-            idle: dbConfig.pool.idle
-
-        }
     }
 )
 
+//connecting to database
 try {
      dbConfig.authenticate();
     console.log('Database connected...');
@@ -29,11 +23,11 @@ try {
  
 
 const db = {}
-
-
-
-db.products = require('./productModel.js')(sequelize, DataTypes)
-
+db.menus = require('./menuModel.js')(sequelize, DataTypes)
+db.users = require('./userModel.js')(sequelize, DataTypes)
+db.reservations = require('./reservationModel.js')(sequelize, DataTypes)
+db.inventory = require('./inventoryModel.js')(sequelize, DataTypes)
+db.staffs = require('./StaffModel.js')(sequelize, DataTypes)
 
 
 module.exports = db

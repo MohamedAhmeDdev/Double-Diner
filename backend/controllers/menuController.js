@@ -1,5 +1,5 @@
 const db = require('../models')
-const menus = db.products
+const menus = db.menus
  
 // image Upload
 const multer = require('multer')

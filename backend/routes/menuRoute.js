@@ -7,8 +7,7 @@ const{
     updateMenu,
     deleteMenu,
     upload
-}= require ('../controllers/productController.js')
-
+}= require ('../controllers/menuController.js')
 
 
 
