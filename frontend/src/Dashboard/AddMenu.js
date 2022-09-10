@@ -3,27 +3,30 @@ import axios from "axios"
 import '../css/AddMenu.css'
 
 const AddMenu = () => {
-  const [picture, setPicture] = useState('')
-  const [price, setPrice] = useState('')
   const [foodName, setFoodName] = useState('')
+  const [price, setPrice] = useState()
   const [foodType, setFoodType] = useState('')
+  const [image, setImage] = useState('')
 
   const menu = async (e) =>{
     e.preventDefault();
-    await axios.post('http://localhost:5000/menu',{
-      picture: picture,
-      price: price,
-      foodName: foodName,
-      foodType: foodType
-    })
+
+    const formData = new FormData()
+    
+    formData.append('foodType', foodType)
+    formData.append('price', price)
+    formData.append('foodName', foodName)
+    formData.append('image', image)
+
+    await axios.post('http://localhost:8080/menu',formData)
   }
 
 
   return (
     <div className='container-AddMenu'>
-      <form className='formMenu' onSubmit={menu}>
+      <form className='formMenu' onSubmit={menu}  method="POST" encType='multipart/form-data'>
         <label htmlFor="item" className='menuLabel'>Picture</label> <br />
-        <input className="menuInputFile" type="file" value={picture} onChange={(e) => setPicture(e.target.value)}/>
+        <input className="menuInputFile" type="file"  onChange={(e) => setImage(e.target.files[0])}/>
         <br /><br />
 
         <label htmlFor="price" className='menuLabel'>Price</label><br />
@@ -45,3 +48,6 @@ const AddMenu = () => {
 }
 
 export default AddMenu
+
+
+

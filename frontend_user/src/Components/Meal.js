@@ -5,8 +5,8 @@ import '../css/Meal.css'
 function Meal({ cartItems, setCartItems }) {
     const [food, setFood] = useState([])
 
-    const getMenu = async() =>{
-        const menu = await axios.get('http://localhost:5000/menu')
+    const getMenu = async () => {
+        const menu = await axios.get('http://localhost:8080/menu/getMealMenu')
         setFood(menu.data)
     }
 
@@ -14,6 +14,7 @@ function Meal({ cartItems, setCartItems }) {
         getMenu();
     }, []);
 
+   
     const addToCart = (product) => {
         let newCart = [...cartItems];
         let itemInCart = newCart.find((item) => product.foodName === item.foodName);
@@ -33,7 +34,7 @@ function Meal({ cartItems, setCartItems }) {
                 {food.map((productItem, id) => (
                     <div className='container-div' key={id}>
                         <div className="div" >
-                            <div className="product-image"><img src={productItem.picture} width="100%" height="100%" alt="" /></div>
+                            <div className="product-image"><img src={`http://localhost:8080/${productItem.image}`} width="100%" height="100%" alt="" /></div>
                             <div className="info">
                                 <p className="food">{productItem.foodName}</p>
                                 <p className="food">{productItem.price}</p>
