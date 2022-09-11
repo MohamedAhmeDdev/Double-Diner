@@ -3,11 +3,12 @@ const {
     getStaff,
     getStaffById,
     deleteStaff,
-    updateStaff
+    updateStaff,
+    upload 
 }=require ("../controllers/staffController.js")
 
 const router = require('express').Router() 
-router.post('/', createStaff);
+router.post('/',upload , createStaff);
 router.get('/', getStaff);
 router.get('/:id', getStaffById);
 router.delete('/:id', deleteStaff);

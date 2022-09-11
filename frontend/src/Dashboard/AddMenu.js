@@ -1,24 +1,26 @@
 import React, { useState } from 'react'
 import axios from "axios"
 import '../css/AddMenu.css'
+import { useNavigate } from 'react-router-dom';
 
 const AddMenu = () => {
   const [foodName, setFoodName] = useState('')
   const [price, setPrice] = useState()
   const [foodType, setFoodType] = useState('')
   const [image, setImage] = useState('')
+  const navigate = useNavigate();
 
   const menu = async (e) =>{
     e.preventDefault();
 
-    const formData = new FormData()
-    
+    const formData = new FormData() 
     formData.append('foodType', foodType)
     formData.append('price', price)
     formData.append('foodName', foodName)
     formData.append('image', image)
 
     await axios.post('http://localhost:5000/menu',formData)
+    navigate("/Menu");
   }
 
 

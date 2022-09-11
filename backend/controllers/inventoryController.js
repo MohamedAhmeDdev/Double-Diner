@@ -1,5 +1,4 @@
-const db = require('../models')
-const inventory = db.inventory
+const inventory =require("../models/inventoryModel.js")
 
  const createInventory = async(req, res) => {
     try {
@@ -22,13 +21,11 @@ const inventory = db.inventory
 }
  
  const getInventoryById = async (req, res) => {
+    let id = req.params.id
     try {
-        const inventory = await inventory.findAll({
-            where: {
-                id: req.params.id 
-            }
-        });
-        res.json(user[0]);
+        const inventorys = await inventory.findOne({
+            where: { id: id }});
+            res.status(200).send(inventorys)
     } catch (error) {
         res.json({ message: error.message });
     }  

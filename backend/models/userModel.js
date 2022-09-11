@@ -1,17 +1,18 @@
-module.exports = (sequelize, DataTypes) => {
+const { DataTypes } = require("sequelize")
+const db = require("../config/dbConfig.js")
 
-    const useraccount = sequelize.define("useraccounts", {
-        name:{
-            type: DataTypes.STRING
-        },
-        email:{
-            type: DataTypes.STRING
-        },
-        password:{
-            type:DataTypes.INTEGER
-        }
-    })
 
-    return useraccount
+const useraccount = db.define("useraccounts", {
+    name: {
+        type: DataTypes.STRING
+    },
+    email: {
+        type: DataTypes.STRING
+    },
+    password: {
+        type: DataTypes.INTEGER
+    }
+})
 
-}
+module.exports = useraccount
+

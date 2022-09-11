@@ -22,12 +22,12 @@ function Navbar() {
                      </Link>
                  </li>
                  <li>
-                     <Link to=""  onClick={open}>
+                     <Link to="/Staff"  onClick={open}>
                          <span className="links_name">Staff Duties</span>
                      </Link>
                  </li>
                  <li>
-                     <Link to=""  onClick={open}>
+                     <Link to="/Menu"  onClick={open}>
                          <span className="links_name">Menu</span>
                      </Link>
                  </li>

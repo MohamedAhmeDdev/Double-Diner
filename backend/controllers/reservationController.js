@@ -1,5 +1,5 @@
-const db = require('../models')
-const reservation = db.reservations
+
+const reservation =require("../models/reservationModel.js")
 
 
  const  createReservation = async (req, res) => {

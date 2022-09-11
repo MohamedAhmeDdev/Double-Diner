@@ -1,5 +1,4 @@
-const db = require('../models')
-const users = db.users
+const users =require("../models/userModel.js")
 
 
 const createUsers = async (req, res) => {

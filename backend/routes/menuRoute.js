@@ -1,5 +1,6 @@
 const{
     menu,
+    getMenu ,
     getShakesMenu,
     getJuiceMenu,
     getMealMenu,
@@ -13,11 +14,13 @@ const{
 
 const router = require('express').Router()
 router.post('/',upload ,menu)
+router.get('/',getMenu )
 router.get('/getShakesMenu',getShakesMenu)
 router.get('/getMealMenu',getMealMenu)
 router.get('/getJuiceMenu',getJuiceMenu)
 router.get('/',getMealMenu)
 router.get('/:id',getMenuById)
-router.put('/:id',updateMenu)
+router.patch('/:id',updateMenu)
 router.delete('/:id', deleteMenu)
+
 module.exports = router

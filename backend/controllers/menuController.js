@@ -1,6 +1,5 @@
-const db = require('../models')
-const menus = db.menus
- 
+const menus = require("../models/menuModel.js")
+
 // image Upload
 const multer = require('multer')
 const path = require('path')
@@ -9,7 +8,7 @@ const path = require('path')
 const menu = async (req, res) => {
     let info = {
         image: req.file.path,
-        foodName: req.body. foodName,
+        foodName: req.body.foodName,
         price: req.body.price,
         foodType: req.body.foodType,
     }
@@ -21,7 +20,11 @@ const menu = async (req, res) => {
     }
 }
 
+const getMenu = async (req, res) => {
+    let menu = await menus.findAll()
+    res.status(200).send(menu)
 
+}
 
 const getMealMenu = async (req, res) => {
     let menu = await menus.findAll({ where: { foodType: 'meal' } })
@@ -54,7 +57,6 @@ const updateMenu = async (req, res) => {
     let id = req.params.id
     const menu = await menus.update(req.body, { where: { id: id } })
     res.status(200).send(menu)
-
 }
 
 
@@ -97,6 +99,7 @@ const upload = multer({
 
 module.exports = {
     menu,
+    getMenu ,
     getShakesMenu,
     getJuiceMenu,
     getMealMenu,

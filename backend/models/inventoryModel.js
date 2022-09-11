@@ -1,18 +1,20 @@
-module.exports = (sequelize, DataTypes) => {
-const inventory = sequelize.define('inventory',{
-    item:{
+const { DataTypes } = require("sequelize")
+const db = require("../config/dbConfig.js")
+
+
+const inventory = db.define('inventory', {
+    item: {
         type: DataTypes.STRING
     },
-    price:{
+    price: {
         type: DataTypes.INTEGER
     },
-    quantity:{
+    quantity: {
         type: DataTypes.STRING
     },
-    date:{
+    date: {
         type: DataTypes.DATE
     }
 })
 
- return inventory
-}
+module.exports = inventory

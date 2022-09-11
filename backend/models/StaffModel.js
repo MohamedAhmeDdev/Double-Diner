@@ -1,20 +1,22 @@
-module.exports = (sequelize, DataTypes) => {
-const staff = sequelize.define('staff',{
-    idNo:{
-        type:DataTypes.STRING
+const { DataTypes } = require("sequelize")
+const db = require("../config/dbConfig.js")
+
+
+const staff = db.define('staff', {
+    idNo: {
+        type: DataTypes.STRING
     },
-    fullName:{
-        type:DataTypes.STRING
+    fullName: {
+        type: DataTypes.STRING
     },
-    department:{
-        type:DataTypes.STRING
+    department: {
+        type: DataTypes.STRING
     },
-    picture:{
-        type:DataTypes.STRING
+    image: {
+        type: DataTypes.STRING
     }
-},{
+}, {
     freezeTableName: true
 });
 
-return staff
-}
+module.exports = staff
