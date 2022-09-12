@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../css/Reservation.css'
 
 
 const Reservaton = () => {
+  const[message, setMessage] = useState(false)
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [tableFor, setTableFor] = useState('');
@@ -17,7 +18,7 @@ const Reservaton = () => {
     try {
       if (fullName.length === 0 || phone.length === 0 || tableFor.length === 0 || time.length === 0 || dateReserve.length === 0) {
         setErrors("Fill in the fields")
-      } else {
+      } else if(
         await axios.post('http://localhost:5000/reservation', {
           fullName: fullName,
           phone: phone,
@@ -25,6 +26,8 @@ const Reservaton = () => {
           time: time,
           dateReserve: dateReserve
         })
+      ){
+        setMessage("Reservation Booked")
       }
     } catch (error) {
       if (error.response?.status === 401) {
@@ -34,10 +37,20 @@ const Reservaton = () => {
 
   }
 
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => {
+      setMessage(false);
+    }, 2000);
+    }
+  }, [message]);
+
   return (
     <div className='reservation-container'>
       <div className='display-form'>
-        <div className='form-container'>
+        <div className='form-container'>   
+           {message && <p className='messageDiv'>{message}</p>}
+           
           <form className='reservationForm' onSubmit={reservation}>
             <div>
 
