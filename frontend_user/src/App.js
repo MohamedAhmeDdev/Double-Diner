@@ -19,11 +19,15 @@ import Juice from './Components/Juice';
 import Shakes from './Components/Shakes';
 import Cart from './Components/Cart';
 
-
+const storelocalStorage =JSON.parse(localStorage.getItem("cartItems") || "[]")
 function App() {
-  const [cartItems, setCartItems] =useState([])
+
+  const [cartItems, setCartItems] =useState(storelocalStorage)
   const [loading, setLoading] =useState(false)
 
+  useEffect(() =>{
+    localStorage.setItem("cartItems",JSON.stringify(cartItems))
+  },[cartItems])
   // useEffect(() =>{
   //   setLoading(true)
   //   setTimeout(() =>{

@@ -4,7 +4,7 @@ import '../css/Reservation.css'
 
 
 const Reservaton = () => {
- 
+  const[message, setMessage] = useState(false)
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [tableFor, setTableFor] = useState('');
@@ -27,7 +27,7 @@ const Reservaton = () => {
           dateReserve: dateReserve
         })
       ){
-       
+        setMessage("Reservation Booked")
       }
     } catch (error) {
       if (error.response?.status === 401) {
@@ -37,11 +37,19 @@ const Reservaton = () => {
 
   }
 
- 
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => {
+      setMessage(false);
+    }, 2000);
+    }
+  }, [message]);
+
   return (
     <div className='reservation-container'>
       <div className='display-form'>
         <div className='form-container'>   
+           {message && <p className='messageDiv'>{message}</p>}
            
           <form className='reservationForm' onSubmit={reservation}>
             <div>

@@ -47,7 +47,7 @@ function Cart({ cartItems, setCartItems }) {
                 {cartItems.map((item, id) => (
                     <div className="cart-grid" key={id}>
                         <div className="cart-div">
-                            <div className="image"><img src={item.img} width="100%" height="100%" alt="" /></div>
+                            <div className="image"><img src={`http://localhost:5000/${item.image}`} width="100%" height="100%" alt="" /></div>
                             <div className="cart-info">
                                 <p className="item-info">{item.foodName}</p>
                                 <p className="item-info">{item.price}</p>

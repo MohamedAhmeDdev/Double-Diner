@@ -21,51 +21,78 @@ const menu = async (req, res) => {
 }
 
 const getMenu = async (req, res) => {
-    let menu = await menus.findAll()
-    res.status(200).send(menu)
+    try {
+        let menu = await menus.findAll()
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
 const getMealMenu = async (req, res) => {
-    let menu = await menus.findAll({ where: { foodType: 'meal' } })
-    res.status(200).send(menu)
+    try {
+        let menu = await menus.findAll({ where: { foodType: 'meal' } })
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
 const getJuiceMenu = async (req, res) => {
-    let menu = await menus.findAll({ where: { foodType: 'juice' } })
-    res.status(200).send(menu)
+    try {
+        let menu = await menus.findAll({ where: { foodType: 'juice' } })
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
 
 const getShakesMenu = async (req, res) => {
-    let menu = await menus.findAll({ where: { foodType: 'shakes' } })
-    res.status(200).send(menu)
+    try {
+        let menu = await menus.findAll({ where: { foodType: 'shakes' } })
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
 const getMenuById = async (req, res) => {
     let id = req.params.id
-    let menu = await menus.findOne({ where: { id: id } })
-    res.status(200).send(menu)
+    try {
+        let menu = await menus.findOne({ where: { id: id } })
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
 
 const updateMenu = async (req, res) => {
     let id = req.params.id
-    const menu = await menus.update(req.body, { where: { id: id } })
-    res.status(200).send(menu)
+    try {
+        const menu = await menus.update(req.body, { where: { id: id } })
+        res.status(200).send(menu)
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 }
 
 
 const deleteMenu = async (req, res) => {
     let id = req.params.id
 
-    await menus.destroy({ where: { id: id } })
-
-    res.status(200).send('Product is deleted !')
+    try {
+        await menus.destroy({ where: { id: id } })
+        res.status(200).send(' deleted ')
+    } catch (error) {
+        res.json({ message: error.message });
+    }
 
 }
 
@@ -99,7 +126,7 @@ const upload = multer({
 
 module.exports = {
     menu,
-    getMenu ,
+    getMenu,
     getShakesMenu,
     getJuiceMenu,
     getMealMenu,
