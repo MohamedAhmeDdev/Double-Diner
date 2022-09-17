@@ -18,6 +18,7 @@ import Meal from './Components/Meal';
 import Juice from './Components/Juice';
 import Shakes from './Components/Shakes';
 import Cart from './Components/Cart';
+import OrdersInfo from './Components/OrdersInfo';
 
 const storelocalStorage =JSON.parse(localStorage.getItem("cartItems") || "[]")
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/Contact" element={<Contact />} />
         <Route path="/Policy" element={<Policy />} />
         <Route path="/Terms" element={<Terms />} />
+        <Route path="/OrdersInfo" element={<OrdersInfo />} />
         <Route path="/RegistrationForm" element={<RegistrationForm />} />
         <Route path="/Login" element={<Login />} />
       </Routes>

@@ -26,6 +26,7 @@ function Reservation() {
         <table className='reservation-table'>
             <thead>
                 <tr>
+                   <th>Numbers</th>
                     <th>Names</th>
                     <th>Phone Number</th>
                     <th>Table For</th>
@@ -37,6 +38,7 @@ function Reservation() {
             <tbody>
                 {reservation.map((data,id) =>(
                     <tr key={id}>
+                        <td>{id+1}</td>
                         <td>{data.fullName}</td>
                         <td>{data.phone}</td>
                         <td>{data.tableFor}</td>

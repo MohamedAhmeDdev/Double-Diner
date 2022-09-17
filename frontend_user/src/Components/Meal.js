@@ -12,7 +12,7 @@ function Meal({ cartItems, setCartItems }) {
 
     useEffect(() => {
         getMenu();
-    }, []);
+    }, [food]);
 
    
     const addToCart = (product) => {

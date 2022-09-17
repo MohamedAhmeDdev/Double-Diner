@@ -31,7 +31,7 @@
 
 
 .header{
-    color: black;
+    color: white;
     padding: 20px;
     text-align: center;
 }
@@ -111,6 +111,18 @@
     text-align: center;
 }
 
+.orderPage{
+    letter-spacing: 1px;
+    font-size: 20px;
+    justify-content: center;
+    color: black;
+    background-color: white;
+}
+
+.orderPage:hover{
+    color: white;
+    background-color: #24272e;
+}
 
 @media only screen and (max-width: 480px) {
     .cart-container{
@@ -139,7 +151,7 @@
     
     
     .header{
-        color: black;
+        color: white;
         padding: 20px;
         text-align: center;
     }

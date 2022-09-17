@@ -28,6 +28,7 @@ function Inventory() {
       <table className='inventory-table'>
         <thead>
           <tr>
+            <th>Numbers</th>
             <th>Item</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -38,6 +39,7 @@ function Inventory() {
         <tbody>
           {inventory.map((data, id) => (
             <tr key={data.id}>
+              <td>{id+1}</td>
               <td>{data.item}</td>
               <td>{data.price}</td>
               <td>{data.quantity}</td>
