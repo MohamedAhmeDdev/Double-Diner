@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { Link } from "react-router-dom";
-
-import '../css/Inventory.css'
+import '../css/style.css'
 
 function Inventory() {
   const [inventory, setInventory] = useState([]);
+  const [search, setSearch] = useState('');
 
   const getInventory = async () => {
     const inventory = await axios.get('http://localhost:5000/inventory')
@@ -22,13 +22,21 @@ function Inventory() {
     getInventory();
   }
 
+  const filterInventory = inventory.filter(inventory => {
+    return inventory.item.toLowerCase().includes(search.toLowerCase())
+  })
+  
+
 
   return (
     <div className='reservation-container'>
+      <div className='search-box'>
+        <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="item" />
+      </div>
       <table className='inventory-table'>
         <thead>
           <tr>
-            <th>Numbers</th>
+            {/* <th>Numbers</th> */}
             <th>Item</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -37,9 +45,9 @@ function Inventory() {
           </tr>
         </thead>
         <tbody>
-          {inventory.map((data, id) => (
+          {filterInventory.map((data, id) => (
             <tr key={data.id}>
-              <td>{id+1}</td>
+              {/* <td>{id+1}</td> */}
               <td>{data.item}</td>
               <td>{data.price}</td>
               <td>{data.quantity}</td>

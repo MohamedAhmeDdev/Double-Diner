@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
-import '../css/Reservation.css'
+import '../css/style.css'
 
 function Reservation() {
     const [reservation, setReservation] =useState([])

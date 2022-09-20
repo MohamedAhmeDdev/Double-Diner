@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import { Link } from "react-router-dom";
-
-import '../css/Inventory.css'
+import '../css/style.css'
 
 function Menu() {
     const [menu, setMenu] = useState([]);
+    const [search, setSearch] = useState('');
 
 
     const getMenu = async () => {
@@ -23,13 +23,20 @@ function Menu() {
         getMenu();
       }
 
+      const filterMenu = menu.filter(menu => {
+        return menu.foodName.toLowerCase().includes(search.toLowerCase())
+      })
+      
 
     return (
         <div className='reservation-container'>
+            <div className='search-box'>
+        <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="foodName" />
+      </div>
             <table className='inventory-table'>
                 <thead>
                     <tr>
-                        <th>Numbers</th>
+                        {/* <th>Numbers</th> */}
                         <th>image</th>
                         <th>foodName</th>
                         <th>foodType</th>
@@ -38,9 +45,9 @@ function Menu() {
                     </tr>
                 </thead>
                 <tbody>
-                    {menu.map((data, id) => (
+                    {filterMenu.map((data, id) => (
                         <tr key={data.id}>
-                             <td>{id+1}</td>
+                             {/* <td>{id+1}</td> */}
                             <td><img src={`http://localhost:5000/${data.image}`} width="100px" height="50px" alt="" /></td>
                             <td>{data.foodName}</td>
                             <td>{data.foodType}</td>
