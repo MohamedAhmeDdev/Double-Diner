@@ -51,6 +51,7 @@
 }
 
 .submitLogin{
+    cursor: pointer;
     color: black;
     border-radius: 10px;
     letter-spacing: 1px;

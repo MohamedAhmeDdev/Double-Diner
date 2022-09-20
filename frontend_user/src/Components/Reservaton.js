@@ -4,7 +4,7 @@ import '../css/Reservation.css'
 
 
 const Reservaton = () => {
-  const[message, setMessage] = useState(false)
+  const [message, setMessage] = useState(false)
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [tableFor, setTableFor] = useState('');
@@ -18,15 +18,15 @@ const Reservaton = () => {
     try {
       if (fullName.length === 0 || phone.length === 0 || tableFor.length === 0 || time.length === 0 || dateReserve.length === 0) {
         setErrors("Fill in the fields")
-      } else if(
+      } else if (
         await axios.post('http://localhost:5000/reservation', {
           fullName: fullName,
           phone: phone,
           tableFor: tableFor,
           time: time,
-          dateReserve: dateReserve
+          dateReserve: dateReserve,
         })
-      ){
+      ) {
         setMessage("Reservation Booked")
       }
     } catch (error) {
@@ -40,17 +40,17 @@ const Reservaton = () => {
   useEffect(() => {
     if (message) {
       setTimeout(() => {
-      setMessage(false);
-    }, 2000);
+        setMessage(false);
+      }, 2000);
     }
   }, [message]);
 
   return (
     <div className='reservation-container'>
       <div className='display-form'>
-        <div className='form-container'>   
-           {message && <p className='messageDiv'>{message}</p>}
-           
+        <div className='form-container'>
+          {message && <p className='messageDiv'>{message}</p>}
+
           <form className='reservationForm' onSubmit={reservation}>
             <div>
 

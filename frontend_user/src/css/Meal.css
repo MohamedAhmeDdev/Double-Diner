@@ -66,6 +66,7 @@
 }
 
 .add{
+    cursor: pointer;
     font-size: 15px;
     border-radius: 50px;
     margin: 20px 50px;
@@ -75,7 +76,10 @@
     width: 120px;
     height: 40px;
 }
-
+.add:hover{
+    background-color: #444444;
+    color:  white;
+}
 
 @media only screen and (max-width: 1024px) {
 
