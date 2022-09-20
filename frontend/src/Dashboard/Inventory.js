@@ -55,7 +55,7 @@ function Inventory() {
               <td>
                 <div className='div-button'>
                   <button className='remove-button' onClick={() => deleteInventory(data.id)}>Remove</button>
-                  <Link to={`/updateInventory/${data.id}`} className='Update'>Update</Link>
+                  <p className='Update'><Link to={`/updateInventory/${data.id}`} className='Update'>Update</Link></p>
                 </div>
               </td>
             </tr>

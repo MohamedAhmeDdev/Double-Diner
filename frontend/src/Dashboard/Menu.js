@@ -36,7 +36,6 @@ function Menu() {
             <table className='inventory-table'>
                 <thead>
                     <tr>
-                        {/* <th>Numbers</th> */}
                         <th>image</th>
                         <th>foodName</th>
                         <th>foodType</th>
@@ -47,7 +46,6 @@ function Menu() {
                 <tbody>
                     {filterMenu.map((data, id) => (
                         <tr key={data.id}>
-                             {/* <td>{id+1}</td> */}
                             <td><img src={`http://localhost:5000/${data.image}`} width="100px" height="50px" alt="" /></td>
                             <td>{data.foodName}</td>
                             <td>{data.foodType}</td>

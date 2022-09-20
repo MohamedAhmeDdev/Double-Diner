@@ -114,20 +114,24 @@ tbody tr td{
     .Update{
         letter-spacing: 1px;
         color: black;
-        font-size: 20px;
+        font-size: 50px;
         text-decoration: none;
-        margin: 0 10px;
         font-size: 5px;
         background-color: lightblue;
-        border: none;
-        height: 20px;
-        width: 50px;
+        border: none; 
+         height: 30px;
+    }
+    .Update a {
+        background-image: url();
+        font-weight: bold;
+        font-size: 10px;
     }
 
     .div{
         width: 100px;
     }
     .div-button{
+        margin-right: 40px;
         width: 100px;
     }
     
