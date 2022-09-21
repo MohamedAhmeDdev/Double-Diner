@@ -14,8 +14,8 @@ function Footer() {
             </div>
 
             <div className='footer-info'>
-            <p className='moto'>we Don't just serve food to our customer, we make sure you are satisfied</p>
-            <p className='copy'><CgCopyright size='1.5em'/>2022 Double Diner</p>
+                <p className='moto'>we Don't just serve food to our customer, we make sure you are satisfied</p>
+                <p className='copy'><CgCopyright size='1.5em' />2022 Double Diner</p>
             </div>
         </div>
     )

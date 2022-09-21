@@ -4,41 +4,40 @@ import { Link } from "react-router-dom"
 
 function Cart({ cartItems, setCartItems }) {
 
+    // this  removes one items in cart 
     const removeToCart = (Product) => {
-        let newCart = [...cartItems];
+        let newCart = [...cartItems]; // what is in cart
         let itemInCart = newCart.find(
-            (item) => Product.foodName === item.foodName
+            (item) => Product.foodName === item.foodName // it finds where foodName equals to foodName
         );
-        if (itemInCart.quantity === 1) {
-            setCartItems(cartItems.filter((item) => item.foodName !== Product.foodName))
-        } else {
-            setCartItems(cartItems.map((item) => item.foodName === Product.foodName ? { ...itemInCart, quantity: itemInCart.quantity - 1 } : item))
+        if (itemInCart.quantity === 1) { // if there is item in the cart
+            setCartItems(cartItems.filter((item) => item.foodName !== Product.foodName))   // then filter trough the cartItems and if foodName is not equals to foodName 
+        } else {  // then 
+            setCartItems(cartItems.map((item) => item.foodName === Product.foodName ? { ...itemInCart, quantity: itemInCart.quantity - 1 } : item)) // it minus the quantity of items in cart
         }
     }
 
+    // it clears all the items in cart
     const clear = () => {
         setCartItems([])
     }
 
+    // when you click the increase button it will increase item in cart
     const addToCart = (product) => {
-        let newCart = [...cartItems];
-        let itemInCart = newCart.find(
-            (item) => product.foodName === item.foodName);
-        if (itemInCart) {
-            itemInCart.quantity++;
+        let newCart = [...cartItems]; // what is in cart
+        let itemInCart = newCart.find((item) => product.foodName === item.foodName); // it finds where foodName equals to foodName
+        if (itemInCart) { // then if there is a much
+            itemInCart.quantity++; // then increase the number of that item
         } else {
-            itemInCart = {
-                ...product,
-                quantity: 1,
-            };
-            newCart.push(itemInCart);
+            itemInCart = { ...product, quantity: 1, }; // if there is no any much then added it to cart
+            newCart.push(itemInCart);  // push the item in cart
         }
         setCartItems(newCart);
     };
 
-    const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price,
-        0)
-        
+    // it calculates the total price of each item
+    const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0) // it adds the single price then it times it with the quantity 
+
     return (
         <div className='cart-container'>
             <div className='cart-container-grid'>
@@ -56,7 +55,7 @@ function Cart({ cartItems, setCartItems }) {
                         </div>
 
                         <div className="count">
-                            <button className="items" onClick={() =>addToCart(item)}>+</button>
+                            <button className="items" onClick={() => addToCart(item)}>+</button>
                             <p className="quantity">{item.quantity}</p>
                             <button className="items" onClick={() => removeToCart(item)}>-</button>
                         </div>
@@ -67,8 +66,8 @@ function Cart({ cartItems, setCartItems }) {
                     </div>
                 ))}
                 <p className="total">TOTAL : Ksh {totalPrice}</p>
-                {cartItems.length >= 1 && ( <Link className='orderPage' to="/OrdersInfo">Order</Link>)}
-               
+                {cartItems.length >= 1 && (<Link className='orderPage' to="/OrdersInfo">Order</Link>)}
+
             </div>
         </div>
     )

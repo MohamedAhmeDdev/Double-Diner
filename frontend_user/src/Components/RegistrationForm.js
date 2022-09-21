@@ -18,28 +18,28 @@ const RegistrationForm = () => {
     const createUser = async (e) => {
         e.preventDefault();
         try {
-            if (name.length===0 || email.length===0 || password.length===0) {
+            if (name.length === 0 || email.length === 0 || password.length === 0) {
                 setErrors("Fill the field")
-            }else if(!regEx.test(email)){
+            } else if (!regEx.test(email)) {
                 setErrors("invalid email")
             }
-            else if(password.length<=4){
+            else if (password.length <= 4) {
                 setErrors("password must be more than 4 digits")
-            }else if(
+            } else if (
                 await axios.post('http://localhost:5000/useraccount', {
                     name: name,
                     email: email,
                     password: password
                 })
-            ){
+            ) {
                 navigate("/login");
             }
         } catch (error) {
             if (error.response?.status === 401) {
-                setErrors("Email already exists");
-            } 
+                setErrors("Email already exists"); //send errors if email exist in database
+            }
         }
-        
+
     }
 
     return (
@@ -55,7 +55,7 @@ const RegistrationForm = () => {
                     <label htmlFor="password" className='RegistrationLabel'>Password</label>
                     <input className='RegistrationInput' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                    {errors &&<p className='formError'>{errors}</p>}
+                    {errors && <p className='formError'>{errors}</p>}
 
                     <button className='submitRegistration' type="submit">Login</button>
                 </form>

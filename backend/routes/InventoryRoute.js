@@ -1,10 +1,10 @@
-const{
+const {
     createInventory,
     getInventory,
     getInventoryById,
     deleteInventory,
     updateInventory
-} =require ("../controllers/inventoryController.js");
+} = require("../controllers/inventoryController.js");
 
 
 const router = require('express').Router()

@@ -11,28 +11,28 @@ function Menu() {
     const getMenu = async () => {
         const inventory = await axios.get('http://localhost:5000/menu')
         setMenu(inventory.data)
-      }
-    
-      useEffect(() => {
+    }
+
+    useEffect(() => {
         getMenu();
-      }, []);
-    
-    
-      const deleteMenu = async (id) => {
+    }, []);
+
+
+    const deleteMenu = async (id) => {
         await axios.delete(`http://localhost:5000/menu/${id}`)
         getMenu();
-      }
+    }
 
-      const filterMenu = menu.filter(menu => {
+    const filterMenu = menu.filter(menu => {
         return menu.foodName.toLowerCase().includes(search.toLowerCase())
-      })
-      
+    })
+
 
     return (
         <div className='reservation-container'>
             <div className='search-box'>
-        <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="foodName" />
-      </div>
+                <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="foodName" />
+            </div>
             <table className='inventory-table'>
                 <thead>
                     <tr>

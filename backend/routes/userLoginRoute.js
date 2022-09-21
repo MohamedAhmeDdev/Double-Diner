@@ -1,11 +1,11 @@
-const { 
+const {
     verifyUser
-}= require ("../controllers/userLogin.js");
- 
+} = require("../controllers/userLogin.js");
 
-const router = require('express').Router() 
+
+const router = require('express').Router()
 router.post('/', verifyUser);
 
 module.exports = router;
 
- 
+

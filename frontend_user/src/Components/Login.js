@@ -12,21 +12,21 @@ function Login() {
     const login = async (e) => {
         e.preventDefault();
         try {
-            if(
-             await axios.post('http://localhost:5000/login', {
-                email: email,
-                password: password
-            })
-            ){
+            if (
+                await axios.post('http://localhost:5000/login', {
+                    email: email,
+                    password: password
+                })
+            ) {
                 navigate('/')
             }
 
         } catch (error) {
             if (error.response?.status === 400) {
-                setError("not yet sign in")
+                setError("not yet sign in")  //send errors if you have not sing in 
 
             } else if (error.response?.status === 401) {
-                setError("email and password doesn't much")
+                setError("email and password doesn't much") // /send errors if password and email does not much 
 
             }
         }

@@ -5,8 +5,8 @@ import Meal from './Meal'
 import Juice from './Juice'
 import Shakes from './Shakes'
 
-function Home({ cartItems,setCartItems }) {
-      
+function Home({ cartItems, setCartItems }) {
+
     return (
         <div className='home-container'>
             <div className='logo'>
@@ -17,9 +17,9 @@ function Home({ cartItems,setCartItems }) {
             </div>
 
             <div className="menu">
-            <Meal cartItems={cartItems} setCartItems={setCartItems}/>
-            <Juice cartItems={cartItems} setCartItems={setCartItems}/>
-            <Shakes cartItems={cartItems} setCartItems={setCartItems}/>
+                <Meal cartItems={cartItems} setCartItems={setCartItems} />
+                <Juice cartItems={cartItems} setCartItems={setCartItems} />
+                <Shakes cartItems={cartItems} setCartItems={setCartItems} />
             </div>
         </div>
     )

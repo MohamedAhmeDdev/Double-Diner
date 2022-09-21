@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import  './App.css'
+import './App.css'
 import Menu from './Components/Menu'
 import {
   BrowserRouter,
@@ -20,15 +20,15 @@ import Shakes from './Components/Shakes';
 import Cart from './Components/Cart';
 import OrdersInfo from './Components/OrdersInfo';
 
-const storelocalStorage =JSON.parse(localStorage.getItem("cartItems") || "[]")
+const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
 function App() {
 
-  const [cartItems, setCartItems] =useState(storelocalStorage)
-  const [loading, setLoading] =useState(false)
+  const [cartItems, setCartItems] = useState(storelocalStorage)
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() =>{
-    localStorage.setItem("cartItems",JSON.stringify(cartItems))
-  },[cartItems])
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems))
+  }, [cartItems])
   // useEffect(() =>{
   //   setLoading(true)
   //   setTimeout(() =>{
@@ -39,24 +39,24 @@ function App() {
   return (
     <div>
       {loading ? <div className='loading-img'><img className='dd-logo' src='/Images/dd.jpg' width="100%" height="100%" alt="" /></div> :
-      <BrowserRouter>
-      <Navbar cartItems={cartItems}/>
-      <Routes>
-        <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems}/>} />
-        <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems}/>} />
-        <Route path="/Meal" element={<Meal />} />
-        <Route path="/Juice" element={<Juice />} />
-        <Route path="/Shakes" element={<Shakes/>} />
-        <Route path="/Reservation" element={<Reservaton />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/Policy" element={<Policy />} />
-        <Route path="/Terms" element={<Terms />} />
-        <Route path="/OrdersInfo" element={<OrdersInfo />} />
-        <Route path="/RegistrationForm" element={<RegistrationForm />} />
-        <Route path="/Login" element={<Login />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+        <BrowserRouter>
+          <Navbar cartItems={cartItems} />
+          <Routes>
+            <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems} />} />
+            <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />} />
+            <Route path="/Meal" element={<Meal />} />
+            <Route path="/Juice" element={<Juice />} />
+            <Route path="/Shakes" element={<Shakes />} />
+            <Route path="/Reservation" element={<Reservaton />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Policy" element={<Policy />} />
+            <Route path="/Terms" element={<Terms />} />
+            <Route path="/OrdersInfo" element={<OrdersInfo />} />
+            <Route path="/RegistrationForm" element={<RegistrationForm />} />
+            <Route path="/Login" element={<Login />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
       }
     </div>
   )

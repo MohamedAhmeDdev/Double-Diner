@@ -35,8 +35,9 @@ const getStaffById = async (req, res) => {
     let id = req.params.id
     try {
         const staffs = await staff.findOne({
-            where: { id: id } });
-            res.status(200).send(staffs)
+            where: { id: id }
+        });
+        res.status(200).send(staffs)
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -62,7 +63,7 @@ const deleteStaff = async (req, res) => {
 const updateStaff = async (req, res) => {
     let id = req.params.id
     try {
-        await staff.update(req.body, { where: {id: id} });
+        await staff.update(req.body, { where: { id: id } });
         res.json({
             "message": "Updated"
         });

@@ -26,7 +26,7 @@ function Staff() {
   const filterStaff = staff.filter(staff => {
     return staff.fullName.toLowerCase().includes(search.toLowerCase())
   })
-  
+
 
 
   return (

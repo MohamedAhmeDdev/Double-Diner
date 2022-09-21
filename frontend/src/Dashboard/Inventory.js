@@ -25,7 +25,7 @@ function Inventory() {
   const filterInventory = inventory.filter(inventory => {
     return inventory.item.toLowerCase().includes(search.toLowerCase())
   })
-  
+
 
 
   return (
@@ -36,7 +36,6 @@ function Inventory() {
       <table className='inventory-table'>
         <thead>
           <tr>
-            {/* <th>Numbers</th> */}
             <th>Item</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -47,7 +46,6 @@ function Inventory() {
         <tbody>
           {filterInventory.map((data, id) => (
             <tr key={data.id}>
-              {/* <td>{id+1}</td> */}
               <td>{data.item}</td>
               <td>{data.price}</td>
               <td>{data.quantity}</td>

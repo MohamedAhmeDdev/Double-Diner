@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import '../css/Meal.css'
 
@@ -14,14 +14,16 @@ function Meal({ cartItems, setCartItems }) {
         getMenu();
     }, [food]);
 
-   
+
+    // when you you click the add button it adds the items in cart
     const addToCart = (product) => {
-        let newCart = [...cartItems];
-        let itemInCart = newCart.find((item) => product.foodName === item.foodName);
-        if (itemInCart) {
-            itemInCart.quantity++;
+        let newCart = [...cartItems];  // what is in cart
+        let itemInCart = newCart.find((item) => product.foodName === item.foodName); // it finds where foodName equals to foodName
+        if (itemInCart) { // then if there is a much
+            itemInCart.quantity++;  // then increase the number of that item
         } else {
-            itemInCart = { ...product, quantity: 1, }; newCart.push(itemInCart);
+            itemInCart = { ...product, quantity: 1, }; // if there is no any much then added it to cart
+            newCart.push(itemInCart); // push the item in cart 
         }
         setCartItems(newCart);
     };

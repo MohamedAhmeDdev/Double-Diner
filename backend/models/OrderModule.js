@@ -14,10 +14,10 @@ const order = db.define('customerorders', {
     },
     location: {
         type: DataTypes.STRING
-     },
-     tableNo: {
+    },
+    tableNo: {
         type: DataTypes.INTEGER
-     }  
+    }
 });
 
 module.exports = order
