@@ -32,7 +32,7 @@ const getMenu = async (req, res) => {
 
 const getMealMenu = async (req, res) => {
     try {
-        let menu = await menus.findAll({ where: { foodType: 'meal' } })
+        let menu = await menus.findAll({ where: { foodType: 'Meal' } })
         res.status(200).send(menu)
     } catch (error) {
         res.json({ message: error.message });
@@ -42,7 +42,7 @@ const getMealMenu = async (req, res) => {
 
 const getJuiceMenu = async (req, res) => {
     try {
-        let menu = await menus.findAll({ where: { foodType: 'juice' } })
+        let menu = await menus.findAll({ where: { foodType: 'Juice' } })
         res.status(200).send(menu)
     } catch (error) {
         res.json({ message: error.message });

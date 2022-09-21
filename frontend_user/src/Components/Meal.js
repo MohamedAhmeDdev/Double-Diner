@@ -39,7 +39,7 @@ function Meal({ cartItems, setCartItems }) {
                             <div className="product-image"><img src={`http://localhost:5000/${productItem.image}`} width="100%" height="100%" alt="" /></div>
                             <div className="info">
                                 <p className="food">{productItem.foodName}</p>
-                                <p className="food">{productItem.price}</p>
+                                <p className="food">${productItem.price}</p>
                                 <button className='add' onClick={() => addToCart(productItem)} >Add</button>
                             </div>
 
