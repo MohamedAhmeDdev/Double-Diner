@@ -44,6 +44,11 @@ function Cart({ cartItems, setCartItems }) {
                 <h3 className='header'>Add To Cart</h3>
                 {cartItems.length === 0 && (<p className='error' >No item added to the cart</p>)}
                 {cartItems.length >= 1 && (<button className='clear-button' onClick={clear}>clear</button>)}
+                <div className='head-div'>
+                    <p>Item</p>
+                    <p>Quantity</p>
+                    <p>Price</p>
+                </div>
                 {cartItems.map((item, id) => (
                     <div className="cart-grid" key={id}>
                         <div className="cart-div">

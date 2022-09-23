@@ -10,6 +10,7 @@ function Footer() {
                 <ul className='footer-ul'>
                     <li><Link to="/Policy">Privacy Policy</Link></li>
                     <li><Link to="/Terms">Terms Of Use</Link></li>
+                    <li><Link to="/Contact">FeedBack</Link></li>
                 </ul>
             </div>
 

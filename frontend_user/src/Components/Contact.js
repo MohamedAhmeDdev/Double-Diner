@@ -1,10 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import axios from "axios";
 import '../css/Contact.css'
 import { MdPhoneAndroid } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { ImLocation2 } from "react-icons/im";
 
-function Contact() {
+const Contact = () => {
+    const [feedback, setFeedback] = useState('');
+    const [email, setEmail] = useState('');
+
+    const sendFeedback = async (e) =>{
+        e.preventDefault()
+
+        await axios.post('http://localhost:5000/feedback', {
+            feedback: feedback,
+            email: email,
+        })
+    }
+
+
+
     return (
         <div className='contact-container'>
             <div>
@@ -35,6 +50,17 @@ function Contact() {
                         <p className='head-info'>our restaurant is located in Nairobi</p>
                     </div>
 
+                </div>
+            </div>
+
+            <div className='container-feedback' id='feedback'>
+                <p className='feedback-head'>Send Your FeedBacks</p>
+                <div className='feedback'>
+                    <form className='feedbackForm' onSubmit={sendFeedback}>
+                        <input type="text" className='text-input' placeholder='Feedback' value={feedback} onChange={(e) => setFeedback(e.target.value)}/><br/><br/>
+                        <input type="text" className='email-input' placeholder='email' value={email} onChange={(e) => setEmail(e.target.value)} /><br/><br/>
+                        <button className='send'>Send</button>
+                    </form>
                 </div>
             </div>
         </div>

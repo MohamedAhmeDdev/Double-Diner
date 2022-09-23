@@ -26,7 +26,7 @@
      border-right: 1px solid black;
     list-style: none;
 }
-li:nth-child(2){
+li:nth-child(3){
     border: none;
 }
 .footer-ul a{

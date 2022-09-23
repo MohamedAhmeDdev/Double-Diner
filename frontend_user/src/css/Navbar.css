@@ -70,6 +70,7 @@ a {
     height: 70px;
 }
 .counter-div{
+    text-align: center;
     color: #24272e;
     border-radius: 50px;
     font-size: 20px;

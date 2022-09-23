@@ -1,19 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Cormorant+SC:wght@300&display=swap');
 
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-body{
+
+body {
     height: 100%;
     width: 100%;
 }
-.contact-container{
+
+.contact-container {
     width: 100%;
     height: 100%;
 }
-.small-div{
+
+.small-div {
     font-size: 25px;
     padding: 20px 0;
     text-align: center;
@@ -21,14 +24,14 @@ body{
     width: 100%;
 }
 
-.contacts{
-    height: 500px;
+.contacts {
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.contact-info{
+.contact-info {
     padding: 30px 0;
     height: 300px;
     display: grid;
@@ -36,145 +39,254 @@ body{
     gap: 10px;
 }
 
-.contact{
+.contact {
     border: 1px solid black;
     height: 220px;
     width: 250px;
     max-width: 250px;
-} 
+}
 
-.head{
+.head {
     font-size: 20px;
     padding: 5px 0;
     text-align: center;
-} 
-.contact:hover{
+}
+
+.contact:hover {
     box-shadow: 0 5px 10px #444444;
 }
 
-.head-info{
+.head-info {
     letter-spacing: 1px;
     font-family: 'Quicksand', sans-serif;
     font-size: 16px;
     padding: 7px 5px;
     text-align: center;
 }
- .email{
+
+.email {
     position: relative;
     top: 30px;
 }
-.contact-icon{
+
+.contact-icon {
     position: relative;
     bottom: 20px;
     display: flex;
     left: 100px;
 }
 
+.container-feedback {
+    background-color: #444444;
+    height: 250px;
+    width: 100%;
+}
+
+.feedback-head {
+    font-size: 20px;
+    color: black;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedbackForm {
+    margin: 20px 0;
+}
+
+.text-input {
+    padding: 5px;
+    border: 1px solid black;
+    width: 500px;
+    height: 35px;
+    outline: none;
+}
+
+.email-input {
+    padding: 5px;
+    border: 1px solid black;
+    margin: 0 70px;
+    width: 350px;
+    height: 35px;
+    outline: none;
+}
+
+.send {
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    margin: 0 170px;
+    width: 150px;
+    height: 35px;
+}
+.send:hover{
+    border: 1px solid white;
+    background-color: black;
+    color: white;
+}
+
 @media only screen and (max-width: 1024px) {
-    .contacts{
+    .contacts {
         height: 660px;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    
-    .contact-info{
+
+    .contact-info {
         padding: 30px 0;
         height: 550px;
         display: grid;
         grid-template-columns: auto auto;
         gap: 15px;
     }
-    
-    .contact{
+
+    .contact {
         border: 1px solid black;
         height: 220px;
         width: 250px;
         max-width: 250px;
-    } 
-    .contact:nth-child(3){
+    }
+
+    .contact:nth-child(3) {
         position: relative;
         left: 140px;
     }
-    .head{
+
+    .head {
         font-size: 20px;
         padding: 5px 0;
         text-align: center;
-    } 
-    .contact:hover{
+    }
+
+    .contact:hover {
         box-shadow: 0 5px 10px #444444;
     }
-    
-    .head-info{
+
+    .head-info {
         letter-spacing: 1px;
         font-family: 'Quicksand', sans-serif;
         font-size: 16px;
         padding: 7px 5px;
         text-align: center;
     }
-     .email{
+
+    .email {
         position: relative;
         top: 0;
     }
-    .contact-icon{
+
+    .contact-icon {
         position: relative;
         bottom: 20px;
         display: flex;
         left: 100px;
     }
-
+}
     @media only screen and (max-width: 480px) {
-        .contacts{
+        .contacts {
             height: 900px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        
-        .contact-info{
+
+        .contact-info {
             padding: 30px 0;
             height: 800px;
             display: grid;
             grid-template-columns: auto;
             gap: 10px;
         }
-        
-        .contact{
+
+        .contact {
             border: 1px solid black;
             height: 220px;
             width: 250px;
             max-width: 250px;
-        } 
-       
-        .contact:nth-child(3){
+        }
+
+        .contact:nth-child(3) {
             position: relative;
             left: 0;
         }
-        .head{
+
+        .head {
             font-size: 20px;
             padding: 5px 0;
             text-align: center;
-        } 
-        .contact:hover{
+        }
+
+        .contact:hover {
             box-shadow: 0 5px 10px #444444;
         }
-        
-        .head-info{
+
+        .head-info {
             letter-spacing: 1px;
             font-family: 'Quicksand', sans-serif;
             font-size: 16px;
             padding: 7px 5px;
             text-align: center;
         }
-         .email{
+
+        .email {
             position: relative;
             top: 0;
         }
-        .contact-icon{
+
+        .contact-icon {
             position: relative;
             bottom: 20px;
             display: flex;
             left: 100px;
         }
+
+        .container-feedback {
+            height: 250px;
+            width: 100%;
+        }
+        
+        .feedback-head {
+            font-size: 20px;
+            color: black;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        .feedback {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .feedbackForm {
+            margin: 20px 0;
+        }
+        
+        .text-input {
+            width: 350px;
+            height: 35px;
+            outline: none;
+        }
+        
+        .email-input {
+            margin: 0 40px;
+            width: 250px;
+            height: 35px;
+            outline: none;
+        }
+        
+        .send {
+            margin: 0 80px;
+            width: 150px;
+            height: 35px;
+        }
+        
+
+
     }
-}
