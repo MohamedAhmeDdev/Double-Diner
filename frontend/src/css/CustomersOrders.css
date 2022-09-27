@@ -1,0 +1,174 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-OrderList {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.headerList-div {
+    border-bottom: 1px solid white;
+    color: white;
+    padding: 10px 0;
+    background-color: #444444;
+    width: 300px;
+    height: 50px;
+    font-size: 16px;
+    justify-content: space-around;
+    display: flex;
+}
+
+.ListDiv {
+    width: 300px;
+    height: 80px;
+    background-color: #444444;
+}
+
+.listCard {
+    color: white;
+    padding: 10px 0;
+    justify-content: space-around;
+    display: flex;
+}
+
+
+
+
+.customer-div {
+    border-top: 1px solid white;
+    background-color: #444444;
+    width: 300px;
+    height: 155px;
+}
+
+.title-list {
+    width: 300px;
+    justify-content: space-around;
+    padding: 10px 0;
+    display: flex;
+}
+
+.titles {
+    letter-spacing: 1px;
+    color: white;
+    font-size: 13px;
+}
+
+.titles p {
+    padding: 3px 0;
+}
+
+.list p {
+    padding: 3px 0;
+}
+
+.list {
+    letter-spacing: 1px;
+    color: white;
+    font-size: 13px;
+}
+
+.cancel-order {
+    color: black;
+    background-color: rgba(255, 217, 0, 0.747);
+    margin: 5px 0;
+    font-size: 17px;
+    outline: none;
+    border: none;
+    width: 120px;
+    height: 35px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .container-OrderList {
+        margin: 10px 0;
+        z-index: -1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .headerList-div {
+        border-bottom: 1px solid white;
+        color: white;
+        padding: 10px 0;
+        background-color: #444444;
+        width: 250px;
+        height: 50px;
+        font-size: 14px;
+        justify-content: space-around;
+        display: flex;
+    }
+    
+    .ListDiv {
+        width: 250px;
+        height: 80px;
+        background-color: #444444;
+    }
+    
+    .listCard {
+        font-size: 13px;
+        color: white;
+        padding: 6px 0;
+        justify-content: space-around;
+        display: flex;
+    }
+    
+    
+    
+    
+    .customer-div {
+        border-top: 1px solid white;
+        background-color: #444444;
+        width: 250px;
+        height: 155px;
+    }
+    
+    .title-list {
+        /* background-color: aqua; */
+        width: 250px;
+        justify-content: space-around;
+        padding: 10px 0;
+        display: flex;
+    }
+    
+    .titles {
+        letter-spacing: 1px;
+        color: white;
+        font-size: 12px;
+    }
+    
+    .titles p {
+        padding: 3px 0;
+    }
+    
+    .list p {
+        padding: 3px 0;
+    }
+    
+    .list {
+        letter-spacing: 1px;
+        color: white;
+        font-size: 12px;
+    }
+    
+    .cancel-order {
+        color: black;
+        background-color: rgba(255, 217, 0, 0.747);
+        margin: 5px 0;
+        font-size: 17px;
+        outline: none;
+        border: none;
+        width: 120px;
+        height: 35px;
+    }
+}
