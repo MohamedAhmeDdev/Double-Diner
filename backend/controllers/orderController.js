@@ -1,28 +1,43 @@
-const order = require("../models/OrderModule.js")
+const orderInfo = require("../models/OrdersInfoModule.js")
+const orderedItem = require("../models/orderedItems")
 
 const createOrder = async (req, res) => {
     try {
-        await order.create(req.body);
-        res.json({
-            "message": "Created"
+        const { order_info, items } = req.body;
+        // console.log(order_info, items)
+
+        //create order in orders table
+        const myOrder = await orderInfo.create(order_info)
+        const order_id = myOrder.dataValues.id;
+
+        items.forEach(async item => {
+            await orderedItem.create({
+                ...item,
+                order_id
+            })
         });
+
+        res.json({ "message": "Created" });
     } catch (error) {
         res.json({ message: error.message });
     }
 }
+
+
 const getOrder = async (req, res) => {
     try {
-        const Orders = await order.findAll();
+        const Orders = await orderInfo.findAll();
         res.json(Orders);
     } catch (error) {
         res.json({ message: error.message });
     }
 }
 
+
 const getOrderById = async (req, res) => {
     let id = req.params.id
     try {
-        const Orders = await order.findOne({
+        const Orders = await orderInfo.findOne({
             where: { id: id }
         });
         res.status(200).send(Orders)
@@ -35,11 +50,11 @@ const getOrderById = async (req, res) => {
 
 const deleteOrder = async (req, res) => {
     try {
-        await order.destroy({
+        await orderInfo.destroy({
             where: { id: req.params.id }
         });
         res.json({
-            "message": "inventory Deleted"
+            "message": "Deleted"
         });
     } catch (error) {
         res.json({ message: error.message });

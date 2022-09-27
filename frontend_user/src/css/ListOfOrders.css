@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-OrderList {
+    position: relative;
+    margin: 50px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerList-div {
+    color: white;
+    padding: 10px 0;
+    margin: 7px 0;
+    background-color: #444444;
+    width: 600px;
+    height: 50px;
+    font-size: 17px;
+    justify-content: space-around;
+    display: flex;
+}
+
+.ListDiv {
+    position: relative;
+    width: 600px;
+    height: 65px;
+    background-color: #444444;
+}
+
+.listCard {
+    padding: 10px 0;
+    justify-content: space-evenly;
+    display: flex;
+}
+
+.list-image {
+    font-size: 14px;
+    position: absolute;
+    left: 40px;
+}
+
+.list-foodName {
+    color: white;
+    font-size: 14px;
+    position: absolute;
+    left: 200px;
+}
+
+.list-quantity {
+    color: white;
+    position: absolute;
+    right: 210px;
+}
+
+.list-price {
+    color: white;
+    position: absolute;
+    right: 50px;
+}
+
+
+
+.customer-div {
+    justify-content: space-around;
+    display: flex;
+    margin: 10px 0;
+    padding: 10px 0;
+    background-color: #444444;
+    width: 600px;
+    height: 200px;
+}
+
+.title-list {
+    width: 400px;
+    justify-content: space-around;
+    padding: 10px 0;
+    display: flex;
+}
+
+.titles {
+    letter-spacing: 1px;
+    color: white;
+    font-size: 16px;
+}
+
+.titles p {
+    padding: 2px 0;
+}
+
+.list p {
+    padding: 2px 0;
+}
+
+.list {
+    letter-spacing: 1px;
+    color: white;
+    font-size: 16px;
+}
+
+.cancel-order {
+    color: black;
+    background-color: rgba(255, 217, 0, 0.747);
+    margin: 45px 0;
+    font-size: 17px;
+    outline: none;
+    border: none;
+    width: 120px;
+    height: 35px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .container-OrderList {
+        z-index: -1;
+        margin: 0;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+
+    .headerList-div {
+        color: white;
+        padding: 5px 0;
+        margin: 7px 0;
+        background-color: #444444;
+        width: 350px;
+        height: 30px;
+        font-size: 14px;
+        justify-content: space-around;
+        display: flex;
+    }
+
+    .ListDiv {
+        position: relative;
+        width: 350px;
+        height: 65px;
+        background-color: #444444;
+    }
+
+    .listCard {
+        padding: 10px 0;
+        justify-content: space-evenly;
+        display: flex;
+    }
+
+    .list-image {
+        font-size: 14px;
+        position: absolute;
+        left: 20px;
+    }
+
+    .list-foodName {
+        color: white;
+        font-size: 14px;
+        position: absolute;
+        left: 100px;
+    }
+
+    .list-quantity {
+        color: white;
+        position: absolute;
+        right: 110px;
+    }
+
+    .list-price {
+        color: white;
+        position: absolute;
+        right: 20px;
+    }
+
+
+    .customer-div {
+        justify-content: space-around;
+        flex-direction: column;
+        margin: 10px 0;
+        padding: 10px 0;
+        background-color: #444444;
+        width: 350px;
+        height: 200px;
+    }
+
+    .title-list {
+        position: relative;
+        top: 45px;
+        /* background-color: aqua; */
+        width: 300px;
+        justify-content: space-around;
+        margin: 0 20px;
+        display: flex;
+    }
+
+    .titles {
+        letter-spacing: 1px;
+        color: white;
+        font-size: 11px;
+    }
+
+    .titles p {
+        padding: 2px 0;
+    }
+
+    .list p {
+        padding: 2px 0;
+    }
+
+    .list {
+        letter-spacing: 1px;
+        color: white;
+        font-size: 11px;
+    }
+
+    .cancel-order {
+        color: black;
+        background-color: rgba(255, 217, 0, 0.747);
+        margin: 50px 100px;
+        font-size: 11px;
+        outline: none;
+        border: none;
+        width: 120px;
+        height: 35px;
+    }
+
+
+}

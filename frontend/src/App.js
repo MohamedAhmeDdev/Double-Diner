@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AddInventory from './Dashboard/AddInventory';
 import AddMenu from './Dashboard/AddMenu';
 import AddStaff from './Dashboard/AddStaff';
+import CustomersOrders from './Dashboard/CustomersOrders';
 import Dashboard from './Dashboard/Dashboard'
 import Inventory from './Dashboard/Inventory';
 import Menu from './Dashboard/Menu';
@@ -31,6 +32,7 @@ function App() {
           <Route path='/UpdateStaff/:id' element={<UpdateStaff />} />
           <Route path='/Menu' element={<Menu />} />
           <Route path='/UpdateMenu/:id' element={<UpdateMenu />} />
+          <Route path='/CustomersOrders' element={<CustomersOrders/>} />
         </Routes>
       </BrowserRouter>
     </div>

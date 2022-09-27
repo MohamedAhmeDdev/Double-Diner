@@ -1,6 +1,7 @@
 import React from 'react'
 import '../css/Dashboard.css'
 import { BsGear, BsPeopleFill, BsTable, BsPlusSquareFill, BsMenuButtonWideFill } from "react-icons/bs";
+import { GrOrderedList } from "react-icons/gr";
 import { Link } from 'react-router-dom';
 
 
@@ -38,6 +39,13 @@ function Dashboard() {
                     <div className='container-div'>
                         <p className='icons'><BsMenuButtonWideFill color='gold' size='2em' /></p>
                         <p className='grid-name'>Add Menu</p>
+                    </div>
+                </Link>
+
+                <Link className='Link' to='/CustomersOrders' >
+                    <div className='container-div'>
+                        <p className='icons'><GrOrderedList color='gold' size='2em' /></p>
+                        <p className='grid-name'>Customers Orders</p>
                     </div>
                 </Link>
 

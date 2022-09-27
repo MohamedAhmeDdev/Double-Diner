@@ -27,6 +27,10 @@ function Navbar({ cartItems }) {
         </li>
 
         <li>
+          <Link onClick={openResponsive} to="/ListOfOrders">Orders</Link>
+        </li>
+
+        <li>
           <Link onClick={openResponsive} to="/Reservation">Reservation</Link>
         </li>
 
