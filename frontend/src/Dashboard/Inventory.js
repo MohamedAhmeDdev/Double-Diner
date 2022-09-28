@@ -29,11 +29,11 @@ function Inventory() {
 
 
   return (
-    <div className='reservation-container'>
+    <div className='container-table'>
       <div className='search-box'>
         <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="item" />
       </div>
-      <table className='inventory-table'>
+      <table className='table'>
         <thead>
           <tr>
             <th>Item</th>

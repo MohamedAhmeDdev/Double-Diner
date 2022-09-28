@@ -22,17 +22,17 @@
 .search:focus{
     border: 2px solid black;
 }
-.inventory-container{
+.container-table{
     width: 100%;
     height: 100%;
 }
-.inventory-table{
+.table{
     width: 100%;
     border: 2px solid black;
     border-collapse: collapse;
 }
 
-.inventory-table thead tr th{
+.table thead tr th{
     font-size: 20px;
     padding: 2px;
     border-bottom: 2px solid black;
@@ -40,18 +40,23 @@
 tbody tr td{
     padding: 5px;
 }
-.inventory-table, tbody, tr{
+.table, tbody, tr{
     text-align: center;
     border: 1px solid black;
 
 }
-.inventory-table tbody tr:nth-child(odd):hover{
+.table tbody tr:nth-child(odd):hover{
     background-color: rgba(173, 216, 230, 0.37);
 }
 
-.remove-button{
+
+
+.Update{
     letter-spacing: 1px;
+    padding: 7px 0;
     color: black;
+    font-size: 20px;
+    text-decoration: none;
     margin: 0 10px;
     font-size: 13px;
     background-color: lightblue;
@@ -60,12 +65,9 @@ tbody tr td{
     width: 100px;
 }
 
-.Update{
+.remove-button{
     letter-spacing: 1px;
-    padding: 7px 0;
     color: black;
-    font-size: 20px;
-    text-decoration: none;
     margin: 0 10px;
     font-size: 13px;
     background-color: lightblue;
@@ -82,8 +84,66 @@ tbody tr td{
     width: 200px;
 }
 
+
+.remove-button-reservation{
+    letter-spacing: 1px;
+    color: black;
+    margin: 0 10px;
+    font-size: 13px;
+    background-color: lightblue;
+    border: none;
+    height: 35px;
+    width: 100px;
+}
+
+.div-reservation{
+    width: 50px;
+}
+.div-button-reservation{
+    display: flex;
+    width: 200px;
+}
+
+.remove-button-staff{
+    letter-spacing: 1px;
+    color: black;
+    margin: 0 10px;
+    font-size: 13px;
+    background-color: lightblue;
+    border: none;
+    height: 35px;
+    width: 100px;
+}
+
+.div-staff{
+    width: 50px;
+}
+.div-button-staff{
+    display: flex;
+    width: 200px;
+}
+
+.remove-button-menu{
+    letter-spacing: 1px;
+    color: black;
+    margin: 0 10px;
+    font-size: 13px;
+    background-color: lightblue;
+    border: none;
+    height: 35px;
+    width: 100px;
+}
+
+.div-menu{
+    width: 50px;
+}
+.div-button-menu{
+    display: flex;
+    width: 200px;
+}
+
 @media only screen and (max-width: 480px){
-    .inventory thead tr th{
+    .table thead tr th{
         font-size: 10px;
         padding: 2px;
         border-bottom: 2px solid black;
@@ -91,12 +151,12 @@ tbody tr td{
     tbody tr td{
         padding: 5px;
     }
-    .reservation-table, tbody, tr{
+    .table, tbody, tr{
         text-align: center;
         border: 2px solid black;
     }
 
-    .inventory-table tbody tr:nth-child(odd):hover{
+    .table tbody tr:nth-child(odd):hover{
         background-color: rgba(173, 216, 230, 0.37);
     }
 
@@ -111,6 +171,7 @@ tbody tr td{
         width: 1000px;
     }
 
+  
     .Update{
         letter-spacing: 1px;
         color: black;
@@ -127,6 +188,63 @@ tbody tr td{
         font-size: 10px;
     }
 
+
+    .remove-button-reservation{
+        letter-spacing: 1px;
+        color: rgb(0, 0, 0);
+        margin: 0;
+        font-size: 11px;
+        background-color: lightblue;
+        border: none;
+        height: 35px;
+        width: 50px;
+    }
+    .div-reservation{
+        width: 50px;
+    }
+    .div-button-reservation{
+        margin-right: 20px;
+        width: 20px;
+    }
+
+
+
+
+    .remove-button-menu{
+        letter-spacing: 1px;
+        color: rgb(0, 0, 0);
+        font-size: 11px;
+        background-color: lightblue;
+        border: none;
+        height: 35px;
+        width: 50px;
+    }
+    .div-menu{
+        width: 100px;
+    }
+    .div-button-menu{
+        margin-right:0 10px;
+        width: 100px;
+    }
+
+    .remove-button-staff{
+        letter-spacing: 1px;
+        color: rgb(0, 0, 0);
+        font-size: 11px;
+        background-color: lightblue;
+        border: none;
+        height: 35px;
+        width: 50px;
+    }
+    .div-staff{
+        width: 100px;
+    }
+    .div-button-staff{
+        margin-right:0 10px;
+        width: 100px;
+    }
+
+
     .div{
         width: 100px;
     }
@@ -134,7 +252,7 @@ tbody tr td{
         margin-right: 40px;
         width: 100px;
     }
-    
+  
     
 }
 

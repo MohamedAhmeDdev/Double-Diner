@@ -48,25 +48,37 @@ function CustomersOrders() {
                     {customerList.map((item, id) => (
                         <div className='customer-div' key={id}>
                             <div className='title-list'>
-                                <div className='titles'>
-                                    <p>fullName:</p>
-                                    <p>Email Address:</p>
-                                    <p>Phone:</p>
-                                    <p>Location:</p>
-                                    <p>Status:</p>
-                                    <p>Total:</p>
+                                <div className='container-info'>
+
+                                    <div className='info-div'>
+                                        <div className='titles'>
+                                            <p>fullName:</p>
+                                            <p>Email Address:</p>
+                                            <p>Phone:</p>
+                                            <p>Location:</p>
+                                            <p>Status:</p>
+                                            <p>Total:</p>
+                                        </div>
+                                        <div className='list'>
+                                            <p className="list-total">{item.fullName}</p>
+                                            <p className="list-total">{item.address}</p>
+                                            <p className="list-total">{item.phone}</p>
+                                            <p className="list-total">{item.location}</p>
+                                            <p className="list-total">{item.status}</p>
+                                            <p className="list-total">TOTAL : Ksh {item.priceTotal}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className='select-div'>
+                                        <select className='select-input'>
+                                            <option>Status</option>
+                                            <option>Decline</option>
+                                            <option>Accept</option>
+                                            <option>Complete</option>
+                                        </select>
+                                    </div>
+                                    
                                 </div>
-                                <div className='list'>
-                                    <p className="list-total">{item.fullName}</p>
-                                    <p className="list-total">{item.address}</p>
-                                    <p className="list-total">{item.phone}</p>
-                                    <p className="list-total">{item.location}</p>
-                                    <p className="list-total">{item.status}</p>
-                                    <p className="list-total">TOTAL : Ksh {item.priceTotal}</p>
-                                </div>
-                            </div>
-                            <div>
-                                {/* <button className='cancel-order'>Cancel Order</button> */}
                             </div>
                         </div>
                     ))}

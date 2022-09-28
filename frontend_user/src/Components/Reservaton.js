@@ -16,26 +16,25 @@ const Reservaton = () => {
   const reservation = async (e) => {
     e.preventDefault();
     try {
-      if (fullName.length === 0 || phone.length === 0 || tableFor.length === 0 || time.length === 0 || dateReserve.length === 0) {
-        setErrors("Fill in the fields")
-      } else if (
-        await axios.post('http://localhost:5000/reservation', {
-          fullName: fullName,
-          phone: phone,
-          tableFor: tableFor,
-          time: time,
-          dateReserve: dateReserve,
-        })
-      ) {
+     const reserve = await axios.post('http://localhost:5000/reservation', {
+        fullName: fullName,
+        phone: phone,
+        tableFor: tableFor,
+        time: time,
+        dateReserve: dateReserve,
+      })
+      {
         setMessage("Reservation Booked")
-      }
+      }  
     } catch (error) {
       if (error.response?.status === 401) {
         setErrors("already reserved choose another time");
+      } else if (error.response?.status === 402) {
+        setMessage("Fill In The Fields")
       }
     }
-
   }
+
 
   useEffect(() => {
     if (message) {

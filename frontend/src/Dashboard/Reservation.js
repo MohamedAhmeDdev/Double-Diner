@@ -22,8 +22,8 @@ function Reservation() {
 
 
     return (
-        <div className='reservation-container'>
-            <table className='reservation-table'>
+        <div className='container-table'>
+            <table className='table'>
                 <thead>
                     <tr>
                         <th>Numbers</th>
@@ -32,7 +32,7 @@ function Reservation() {
                         <th>Table For</th>
                         <th>Date Reserved</th>
                         <th>Time Reserved</th>
-                        <th>Edit</th>
+                        <th className='div-reservation'>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,11 @@ function Reservation() {
                             <td>{data.tableFor}</td>
                             <td>{data.dateReserve}</td>
                             <td>{data.time}</td>
-                            <td><button className='remove-button' onClick={() => deleteReservation(data.id)}>Remove</button></td>
+                            <td>
+                            <div className='div-button-reservation'>
+                            <button className='remove-button-reservation' onClick={() => deleteReservation(data.id)}>Remove</button>    
+                            </div>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

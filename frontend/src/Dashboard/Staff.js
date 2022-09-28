@@ -30,18 +30,18 @@ function Staff() {
 
 
   return (
-    <div className='reservation-container'>
+    <div className='container-table'>
       <div className='search-box'>
         <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="FullName" />
       </div>
-      <table className='inventory-table'>
+      <table className='table'>
         <thead>
           <tr>
             <th>IdNo</th>
             <th>fullName</th>
             <th>Department</th>
             <th>image</th>
-            <th className='div'>Edit</th>
+            <th className='div-staff'>Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -50,10 +50,10 @@ function Staff() {
               <td>{data.idNo}</td>
               <td>{data.fullName}</td>
               <td>{data.department}</td>
-              <td><img src={`http://localhost:5000/${data.image}`} width="100px" height="50px" alt="" /></td>
+              <td><img src={`http://localhost:5000/${data.image}`} width="50px" height="50px" alt="" /></td>
               <td>
-                <div className='div-button'>
-                  <button className='remove-button' onClick={() => deleteStaff(data.id)}>Remove</button>
+                <div className='div-button-staff'>
+                  <button className='remove-button-staff' onClick={() => deleteStaff(data.id)}>Remove</button>
                   <Link to={`/updateStaff/${data.id}`} className='Update'>Update</Link>
                 </div>
               </td>

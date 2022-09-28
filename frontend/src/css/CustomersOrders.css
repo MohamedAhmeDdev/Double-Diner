@@ -27,7 +27,7 @@
     display: flex;
 }
 
-.container-flex{
+.container-flex {
     display: flex;
 }
 
@@ -36,14 +36,31 @@
     margin: 0 20px;
     border-bottom: 1px solid white;
     background-color: #444444;
-    width: 300px;
+    width: 500px;
     height: 163px;
 }
 
-.title-list {
-    width: 300px;
+.container-info {
     justify-content: space-around;
-    padding: 10px 0;
+    height: 163px;
+    width: 500px;
+    display: flex;
+}
+
+.info-div {
+    padding: 10px;
+    justify-content: space-around;
+    width: 300px;
+    display: flex;
+}
+
+.title-list {
+    /* background-color: aqua; */
+    justify-content: space-around;
+    height: 163px;
+    width: 500px;
+    justify-content: space-around;
+    margin: 2px 0;
     display: flex;
 }
 
@@ -67,16 +84,22 @@
     font-size: 13px;
 }
 
-.cancel-order {
-    color: black;
-    background-color: rgba(255, 217, 0, 0.747);
-    margin: 5px 0;
-    font-size: 17px;
+.select-div {
+    padding: 10px 0;
+    height: 30px;
+    width: 200px;
+}
+
+.select-input {
+    font-size: 15px;
+    padding: 0 10px;
+    border-radius: 50px;
     outline: none;
     border: none;
-    width: 120px;
-    height: 35px;
+    width: 200px;
+    height: 30px;
 }
+
 
 
 @media only screen and (max-width: 1024px) {
@@ -90,17 +113,17 @@
         height: 100%;
     }
 
-    .container-flex{
+    .container-flex {
         flex-direction: column;
     }
 
-    
+
     .ListDiv {
         width: 250px;
         height: 80px;
         background-color: #444444;
     }
-    
+
     .listCard {
         font-size: 13px;
         color: white;
@@ -108,53 +131,71 @@
         justify-content: space-around;
         display: flex;
     }
-    
-    
-    
-    
+
+
     .customer-div {
-        margin: 0;
+        margin: 10px 0;
         border-top: 1px solid white;
         background-color: #444444;
         width: 250px;
-        height: 155px;
+        height: 250px;
     }
-    
+
+
+
+    .container-info {
+        height: 250px;
+        width: 250px;
+        flex-direction: column;
+    }
+
+    .info-div {
+        width: 250px;
+        display: flex;
+    }
+
     .title-list {
+        height: 250px;
         width: 250px;
         justify-content: space-around;
         padding: 10px 0;
         display: flex;
     }
-    
+
     .titles {
         letter-spacing: 1px;
         color: white;
         font-size: 12px;
     }
-    
+
     .titles p {
         padding: 3px 0;
     }
-    
+
     .list p {
         padding: 3px 0;
     }
-    
+
     .list {
         letter-spacing: 1px;
         color: white;
         font-size: 12px;
     }
-    
-    .cancel-order {
-        color: black;
-        background-color: rgba(255, 217, 0, 0.747);
-        margin: 5px 0;
-        font-size: 17px;
+
+    .select-div {
+        padding: 0;
+        margin-left: 20px;
+        margin-bottom: 20px;
+        height: 30px;
+        width: 200px;
+    }
+
+    .select-input {
+        font-size: 15px;
+        border-radius: 50px;
         outline: none;
         border: none;
-        width: 120px;
-        height: 35px;
+        width: 200px;
+        height: 30px;
     }
 }
