@@ -5,28 +5,18 @@
 }
 
 .container-OrderList {
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    gap: 10px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
 }
 
-.headerList-div {
-    border-bottom: 1px solid white;
-    color: white;
-    padding: 10px 0;
-    background-color: #444444;
-    width: 300px;
-    height: 50px;
-    font-size: 16px;
-    justify-content: space-around;
-    display: flex;
-}
 
 .ListDiv {
     width: 300px;
-    height: 80px;
+    height: 65px;
     background-color: #444444;
 }
 
@@ -37,14 +27,17 @@
     display: flex;
 }
 
-
+.container-flex{
+    display: flex;
+}
 
 
 .customer-div {
-    border-top: 1px solid white;
+    margin: 0 20px;
+    border-bottom: 1px solid white;
     background-color: #444444;
     width: 300px;
-    height: 155px;
+    height: 163px;
 }
 
 .title-list {
@@ -96,18 +89,11 @@
         width: 100%;
         height: 100%;
     }
-    
-    .headerList-div {
-        border-bottom: 1px solid white;
-        color: white;
-        padding: 10px 0;
-        background-color: #444444;
-        width: 250px;
-        height: 50px;
-        font-size: 14px;
-        justify-content: space-around;
-        display: flex;
+
+    .container-flex{
+        flex-direction: column;
     }
+
     
     .ListDiv {
         width: 250px;
@@ -127,6 +113,7 @@
     
     
     .customer-div {
+        margin: 0;
         border-top: 1px solid white;
         background-color: #444444;
         width: 250px;
@@ -134,7 +121,6 @@
     }
     
     .title-list {
-        /* background-color: aqua; */
         width: 250px;
         justify-content: space-around;
         padding: 10px 0;

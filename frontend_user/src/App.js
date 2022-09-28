@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import Menu from './Components/Menu'
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
+import {BrowserRouter, Routes, Route,} from "react-router-dom";
 import Navbar from './Components/Navbar';
 import Reservaton from './Components/Reservaton';
 import Contact from './Components/Contact';

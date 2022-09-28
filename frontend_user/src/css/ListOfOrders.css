@@ -4,6 +4,29 @@
     box-sizing: border-box;
 }
 
+.loader {
+    color: #444444;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .loader {
+        animation: loader infinite 20s linear;
+    }
+}
+
+@keyframes loader {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
 .container-OrderList {
     position: relative;
     margin: 50px;
