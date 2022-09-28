@@ -9,17 +9,6 @@
     height: 100%;
     width: 100%;
 }
-.message-div{
-    padding: 10px;
-    color: white;
-    text-align: center;
-    margin: 5px 0;
-    position: relative;
-    left: 400px;
-    height: 50px;
-    width: 650px;
-    background-color: #444444;
-}
 
 .header-div{
     color: white;

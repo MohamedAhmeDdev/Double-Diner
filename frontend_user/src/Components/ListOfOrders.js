@@ -7,6 +7,7 @@ function ListOfOrders() {
     const [orderList, setOrderList] = useState([])
     const [customerList, setCustomerList] = useState([])
     const [loading, setLoading] = useState(false)
+    const [message, setMessage] = useState(false)
 
 
     const getOrderList = async () => {
@@ -32,13 +33,22 @@ function ListOfOrders() {
         setLoading(true)
         setTimeout(() => {
             setLoading(false)
+        }, 4000)
+    }, [])
+
+    useEffect(() => {
+        setMessage("The Order IS Being Prossed")
+        setTimeout(() => {
+            setMessage(false)
         }, 3000)
     }, [])
+
 
 
     return (
         <div className='container-OrderList'>
             <div>
+            {message && <p className='message-div'>{message}</p>}
                 <div className='headerList-div'>
                     <p>Picture</p>
                     <p>FoodName</p>

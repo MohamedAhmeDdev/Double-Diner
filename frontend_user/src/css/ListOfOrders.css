@@ -4,7 +4,18 @@
     box-sizing: border-box;
 }
 
+.message-div{
+    padding: 2px 0;
+    text-align: center;
+    margin: 5px 0;
+    background-color: #444444;
+    width: 600px;
+    height: 35px;
+    color: white;
+}
+
 .loader {
+    margin: 10px 0;
     color: #444444;
     display: flex;
     justify-content: center;
@@ -40,7 +51,6 @@
 .headerList-div {
     color: white;
     padding: 10px 0;
-    margin: 7px 0;
     background-color: #444444;
     width: 600px;
     height: 50px;
@@ -155,7 +165,6 @@
     .headerList-div {
         color: white;
         padding: 5px 0;
-        margin: 7px 0;
         background-color: #444444;
         width: 350px;
         height: 30px;

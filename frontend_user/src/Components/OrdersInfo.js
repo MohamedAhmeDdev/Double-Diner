@@ -6,7 +6,6 @@ import '../css/OrdersInfo.css'
 
 const OrdersInfo = ({ cartItems }) => {
   let navigate = useNavigate()
-  const [message, setMessage] = useState(false)
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
@@ -43,7 +42,6 @@ const OrdersInfo = ({ cartItems }) => {
         }))
       })
     ){
-      // setMessage("Your Order Is Being Processed")
       navigate("/ListOfOrders");
 
     }
@@ -72,17 +70,9 @@ const OrdersInfo = ({ cartItems }) => {
   // }
 
 
-  useEffect(() => {
-    if (message) {
-      setTimeout(() => {
-        setMessage(false);
-      }, 3000);
-    }
-  }, [message]);
 
   return (
     <>
-      {message && <div className='message-div'>{message}</div>}
       <div className='containerDiv'>
 
         <div className='container-cart'>
