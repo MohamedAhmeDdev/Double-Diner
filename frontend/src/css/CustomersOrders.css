@@ -55,7 +55,6 @@
 }
 
 .title-list {
-    /* background-color: aqua; */
     justify-content: space-around;
     height: 163px;
     width: 500px;
@@ -86,11 +85,12 @@
 
 .select-div {
     padding: 10px 0;
-    height: 30px;
+    height: 163px;
     width: 200px;
 }
 
 .select-input {
+    flex-direction: column;
     font-size: 15px;
     padding: 0 10px;
     border-radius: 50px;
@@ -100,6 +100,18 @@
     height: 30px;
 }
 
+.change-button{
+    letter-spacing: 1px;
+    color: black;
+    font-size: 18x;
+    background-color: rgba(255, 217, 0, 0.747);
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    margin: 40px 45px;
+    width: 100px;
+    height: 30px;
+}
 
 
 @media only screen and (max-width: 1024px) {
@@ -138,7 +150,7 @@
         border-top: 1px solid white;
         background-color: #444444;
         width: 250px;
-        height: 250px;
+        height: 270px;
     }
 
 
@@ -186,7 +198,7 @@
         padding: 0;
         margin-left: 20px;
         margin-bottom: 20px;
-        height: 30px;
+        height: 100px;
         width: 200px;
     }
 
@@ -197,5 +209,8 @@
         border: none;
         width: 200px;
         height: 30px;
+    }
+    .change-button{
+        margin: 15px 50px;
     }
 }

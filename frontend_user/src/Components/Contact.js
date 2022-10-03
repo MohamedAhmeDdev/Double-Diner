@@ -11,11 +11,15 @@ const Contact = () => {
 
     const sendFeedback = async (e) =>{
         e.preventDefault()
-
-        await axios.post('http://localhost:5000/feedback', {
+       if( await axios.post('http://localhost:5000/feedback', {
             feedback: feedback,
             email: email,
         })
+       ){
+        //it remove the data which is in the input
+        setEmail('');
+        setFeedback('');
+       }
     }
 
 

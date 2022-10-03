@@ -22,8 +22,15 @@ const Reservaton = () => {
         tableFor: tableFor,
         time: time,
         dateReserve: dateReserve,
+        
       })
       {
+        //it remove the data which is in the input
+        setFullName('');
+        setDateReserve('');
+        setPhone('');
+        setTableFor('');
+        setTime('');
         setMessage("Reservation Booked")
       }  
     } catch (error) {

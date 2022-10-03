@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import '../css/CustomersOrders.css'
+import { Link } from 'react-router-dom'
 
 function CustomersOrders() {
     const [orderList, setOrderList] = useState([])
@@ -70,14 +71,9 @@ function CustomersOrders() {
                                     </div>
 
                                     <div className='select-div'>
-                                        <select className='select-input'>
-                                            <option>Status</option>
-                                            <option>Decline</option>
-                                            <option>Accept</option>
-                                            <option>Complete</option>
-                                        </select>
+                                        <Link to={`/updateStatus/${item.id}`}  ><button className='change-button'>Change</button> </Link>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
