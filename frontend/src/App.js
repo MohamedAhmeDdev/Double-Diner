@@ -13,6 +13,7 @@ import Staff from './Dashboard/Staff';
 import UpdateInventory from './Dashboard/UpdateInventory';
 import UpdateMenu from './Dashboard/UpdateMenu';
 import UpdateStaff from './Dashboard/UpdateStaff';
+import UpdateStatus from './Dashboard/UpdateStatus';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path='/Menu' element={<Menu />} />
           <Route path='/UpdateMenu/:id' element={<UpdateMenu />} />
           <Route path='/CustomersOrders' element={<CustomersOrders/>} />
+          <Route path='/UpdateStatus/:id' element={<UpdateStatus/>} />
         </Routes>
       </BrowserRouter>
     </div>
