@@ -13,7 +13,7 @@ function Login() {
         e.preventDefault();
         try {
             if (
-                await axios.post('http://localhost:5000/login', {
+                await axios.post('http://localhost:5000/useraccount/verifyUser', {
                     email: email,
                     password: password
                 })

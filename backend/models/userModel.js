@@ -10,7 +10,7 @@ const useraccount = db.define("useraccounts", {
         type: DataTypes.STRING
     },
     password: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     }
 })
 
