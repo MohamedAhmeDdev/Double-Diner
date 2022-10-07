@@ -43,7 +43,7 @@ function Login() {
                     <br />
 
                     <label htmlFor="password" className='LoginLabel'>Password</label> <br />
-                    <input className='LoginInput' type="text" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input className='LoginInput' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     {error && <p className='loginError'>{error}</p>}
 
                     <button className='submitLogin' type="submit">Login</button>
