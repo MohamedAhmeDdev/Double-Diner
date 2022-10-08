@@ -26,19 +26,26 @@ const createUsers = async (req, res) => {
 
 
 const verifyUser = async (req, res) => {
-  const { email, password } = req.body
-  
-  if (!email || !password) // if there is no email & password send status 400
-   return res.sendStatus(400);  
-
+  const { email, password } = req.body;
   const foundUser = await users.findOne({ where: { email: email } }) // find email and password in database
 
-  if (!foundUser && (await bcrypt.compare(password, foundUser.password))){ // if the email and password does not much send 401
+  if (!email || !password) // if there is no email & password send status 400
+  return res.sendStatus(400); 
+
+  if (!foundUser){ // if the email and password does not much send 401
     return res.sendStatus(401)
-  }else{
-    return res.json({ 'message': 'success' })
   }
-}
+
+  const dbPassword = foundUser.password;  // find HashPassword in database
+  bcrypt.compare(password, dbPassword).then((match) => {
+    if (!match) {
+        return res.sendStatus(401)
+    } else {
+      return res.json({ 'message': 'success' })
+    }
+  });
+};
+
 
   
 
