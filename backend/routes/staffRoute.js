@@ -12,7 +12,7 @@ router.post('/', upload, createStaff);
 router.get('/', getStaff);
 router.get('/:id', getStaffById);
 router.delete('/:id', deleteStaff);
-router.patch('/:id', updateStaff);
+router.patch('/:id',upload, updateStaff);
 
 
 module.exports = router;

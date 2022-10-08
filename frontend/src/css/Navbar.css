@@ -72,7 +72,7 @@
 }
 
 
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 800px){
     .menu{
         position: absolute;
         right: 20px;

@@ -7,16 +7,20 @@ function UpdateMenu() {
   const [foodName, setFoodName] = useState('')
   const [price, setPrice] = useState()
   const [foodType, setFoodType] = useState('')
+  const [image, setImage] = useState('')
   const navigate = useNavigate();
   const { id } = useParams();
 
   const UpdateMenu = async (e) => {
     e.preventDefault();
-    await axios.patch(`http://localhost:5000/menu/${id}`, {
-      foodName: foodName,
-      foodType: foodType,
-      price: price
-    })
+
+    const formData = new FormData()
+    formData.append('foodType', foodType)
+    formData.append('price', price)
+    formData.append('foodName', foodName)
+    formData.append('image', image)
+
+    await axios.patch(`http://localhost:5000/menu/${id}`, formData)
     navigate("/Menu");
   }
 
@@ -33,7 +37,11 @@ function UpdateMenu() {
 
   return (
     <div className='container-AddMenu'>
-      <form className='formMenu' onSubmit={UpdateMenu} >
+      <form className='formMenu' onSubmit={UpdateMenu} method="POST" encType='multipart/form-data'>
+      <label htmlFor="item" className='menuLabel'>Picture</label> <br />
+        <input className="menuInputFile" type="file" onChange={(e) => setImage(e.target.files[0])} />
+        <br /><br />
+
         <label htmlFor="price" className='menuLabel'>Price</label><br />
         <input className='menuInput' type="text" value={price} onChange={(e) => setPrice(e.target.value)} />
         <br /><br />

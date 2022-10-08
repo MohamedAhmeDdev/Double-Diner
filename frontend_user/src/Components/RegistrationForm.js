@@ -57,7 +57,7 @@ const RegistrationForm = () => {
 
                     {errors && <p className='formError'>{errors}</p>}
 
-                    <button className='submitRegistration' type="submit">Login</button>
+                    <button className='submitRegistration' type="submit">Signup</button>
                 </form>
             </div>
         </div>

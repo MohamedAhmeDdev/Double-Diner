@@ -47,7 +47,7 @@ function Login() {
                     {error && <p className='loginError'>{error}</p>}
 
                     <button className='submitLogin' type="submit">Login</button>
-                    <p className='registerationLink'><Link to="/RegistrationForm">Register</Link> </p>
+                    <p className='registerationLink'><Link to="/RegistrationForm">Create account if Not SignUp?</Link> </p>
                 </form>
             </div>
         </div>

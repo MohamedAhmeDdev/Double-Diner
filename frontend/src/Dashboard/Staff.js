@@ -32,7 +32,7 @@ function Staff() {
   return (
     <div className='container-table'>
       <div className='search-box'>
-        <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="FullName" />
+        <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="Search By FullName" />
       </div>
       <table className='table'>
         <thead>

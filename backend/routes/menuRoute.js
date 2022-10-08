@@ -20,7 +20,7 @@ router.get('/getMealMenu',getMealMenu)
 router.get('/getJuiceMenu',getJuiceMenu)
 router.get('/',getMealMenu)
 router.get('/:id',getMenuById)
-router.patch('/:id',updateMenu)
+router.patch('/:id',upload, updateMenu)
 router.delete('/:id', deleteMenu)
 
 module.exports = router

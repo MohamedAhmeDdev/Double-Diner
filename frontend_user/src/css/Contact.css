@@ -125,6 +125,7 @@ body {
     height: 35px;
 }
 .send:hover{
+    border-radius: 50px;
     border: 1px solid white;
     background-color: black;
     color: white;

@@ -4,6 +4,7 @@ import '../css/style.css'
 
 function Reservation() {
     const [reservation, setReservation] = useState([])
+    const [search, setSearch] = useState('');
 
     const getReservation = async () => {
         const reservation = await axios.get('http://localhost:5000/Reservation')
@@ -20,9 +21,16 @@ function Reservation() {
         getReservation();
     }
 
+    const filterReservation = reservation.filter(reserve => {
+        return reserve.fullName.toLowerCase().includes(search.toLowerCase())
+    })
+    
 
     return (
         <div className='container-table'>
+            <div className='search-box'>
+                <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="Search By FullName" />
+            </div>
             <table className='table'>
                 <thead>
                     <tr>
@@ -36,7 +44,7 @@ function Reservation() {
                     </tr>
                 </thead>
                 <tbody>
-                    {reservation.map((data, id) => (
+                    {filterReservation.map((data, id) => (
                         <tr key={id}>
                             <td>{id + 1}</td>
                             <td>{data.fullName}</td>

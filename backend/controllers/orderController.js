@@ -4,7 +4,6 @@ const orderedItem = require("../models/orderedItems")
 const createOrder = async (req, res) => {
     try {
         const { order_info, items } = req.body;
-        // console.log(order_info, items)
 
         //create order in orders table
         const myOrder = await orderInfo.create(order_info)

@@ -31,7 +31,7 @@ function Menu() {
     return (
         <div className='container-table'>
             <div className='search-box'>
-                <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="foodName" />
+                <input className="search" type="search" onChange={e => setSearch(e.target.value)} placeholder="Search By FoodName" />
             </div>
             <table className='table'>
                 <thead>

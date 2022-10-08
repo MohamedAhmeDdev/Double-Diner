@@ -8,14 +8,18 @@ import { ImLocation2 } from "react-icons/im";
 const Contact = () => {
     const [feedback, setFeedback] = useState('');
     const [email, setEmail] = useState('');
+    const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
 
     const sendFeedback = async (e) =>{
         e.preventDefault()
-       if( await axios.post('http://localhost:5000/feedback', {
+
+        if (!regEx.test(email)) {
+            alert("Email Is Invalid")
+        }else if( await axios.post('http://localhost:5000/feedback', {
             feedback: feedback,
             email: email,
-        })
-       ){
+        }))
+        {
         //it remove the data which is in the input
         setEmail('');
         setFeedback('');

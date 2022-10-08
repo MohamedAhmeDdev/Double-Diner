@@ -75,8 +75,14 @@ const getMenuById = async (req, res) => {
 
 const updateMenu = async (req, res) => {
     let id = req.params.id
+    let update = {
+        image: req.file.path,
+        foodName: req.body.foodName,
+        price: req.body.price,
+        foodType: req.body.foodType,
+    }
     try {
-        const menu = await menus.update(req.body, { where: { id: id } })
+        const menu = await menus.update(update, { where: { id: id } })
         res.status(200).send(menu)
     } catch (error) {
         res.json({ message: error.message });

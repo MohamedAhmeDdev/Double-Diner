@@ -120,19 +120,6 @@ const OrdersInfo = ({ cartItems }) => {
             <button className='submitOrder' type="submit">Submit</button>
           </form>
         </div>
-
-        {/* <p className='or'>OR</p> */}
-
-        {/* <div>
-       <div className='container-tableInfo'>
-         <form className='formTableOrder' onSubmit={tableInfo}>
-           <p className='formHead'>fill in the form if you within the restaurant restaurant</p><br></br>
-           <label htmlFor="item" className='orderLabel'>Table No</label> <br />
-           <input className="OrderInput" type="text" value={tableNo} onChange={(e) => setTableNo(e.target.value)} />
-           <button className='submitOrder' type="submit">Submit</button>
-         </form>
-       </div>
-     </div> */}
       </div>
     </>
   )

@@ -62,8 +62,14 @@ const deleteStaff = async (req, res) => {
 
 const updateStaff = async (req, res) => {
     let id = req.params.id
+    let update = {
+        image: req.file.path,
+        fullName: req.body.fullName,
+        idNo: req.body.idNo,
+        department: req.body.department,
+    }
     try {
-        await staff.update(req.body, { where: { id: id } });
+        await staff.update(update, { where: { id: id } });
         res.json({
             "message": "Updated"
         });
