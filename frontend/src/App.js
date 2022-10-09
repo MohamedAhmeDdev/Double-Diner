@@ -5,6 +5,7 @@ import AddMenu from './Dashboard/AddMenu';
 import AddStaff from './Dashboard/AddStaff';
 import CustomersOrders from './Dashboard/CustomersOrders';
 import Dashboard from './Dashboard/Dashboard'
+import FeedBack from './Dashboard/FeedBack';
 import Inventory from './Dashboard/Inventory';
 import Menu from './Dashboard/Menu';
 import Navbar from './Dashboard/Navbar';
@@ -35,6 +36,7 @@ function App() {
           <Route path='/UpdateMenu/:id' element={<UpdateMenu />} />
           <Route path='/CustomersOrders' element={<CustomersOrders/>} />
           <Route path='/UpdateStatus/:id' element={<UpdateStatus/>} />
+          <Route path='/FeedBack' element={<FeedBack/>} />
         </Routes>
       </BrowserRouter>
     </div>

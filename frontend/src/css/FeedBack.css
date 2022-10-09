@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.feedBack-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 15px;
+    padding: 20px;
+}
+
+.feedBack-div{
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #444444;
+    height: 200px;
+}
+
+.feedback{
+    line-height: 40px;
+    padding: 20px 0;
+    color: white;
+    font-size: 15px;
+}
+
+.deleteFeedback{
+    background-color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    outline: none;
+    border: none;
+    height: 30px;
+    width: 150px;
+}
+
+.deleteFeedback:hover{
+    border: 1px solid black;
+}
+
+@media only screen and (max-width: 1024px) {
+    .feedBack-grid{
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    .feedBack-grid{
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+
+@media only screen and (max-width: 480px) {
+    .feedBack-grid{
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 15px;
+        padding: 20px;
+    }
+    .feedBack-div{
+        display: flex;
+        justify-content: center;
+        border-radius: 10px;
+        background-color: #444444;
+        height: 120px;
+    }
+    
+    .feedback{
+        line-height: 20px;
+        padding: 20px 0;
+        color: white;
+        font-size: 7px;
+    }
+    
+    .deleteFeedback{
+        background-color: white;
+        font-size: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        letter-spacing: 1px;
+        outline: none;
+        border: none;
+        height: 21px;
+        width: 120px;
+    }
+    
+    
+}

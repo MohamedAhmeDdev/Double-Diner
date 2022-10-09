@@ -101,8 +101,9 @@ tbody tr td{
 }
 .div-button-reservation{
     display: flex;
-    width: 200px;
+    width: 140px;
 }
+
 
 .remove-button-staff{
     letter-spacing: 1px;
