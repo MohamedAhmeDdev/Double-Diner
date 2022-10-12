@@ -9,12 +9,14 @@ import FeedBack from './Dashboard/FeedBack';
 import Inventory from './Dashboard/Inventory';
 import Menu from './Dashboard/Menu';
 import Navbar from './Dashboard/Navbar';
+import Register from './Dashboard/Register';
 import Reservation from './Dashboard/Reservation';
 import Staff from './Dashboard/Staff';
 import UpdateInventory from './Dashboard/UpdateInventory';
 import UpdateMenu from './Dashboard/UpdateMenu';
 import UpdateStaff from './Dashboard/UpdateStaff';
 import UpdateStatus from './Dashboard/UpdateStatus';
+import Login from './Dashboard/Login';
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+          <Route path='/Login' element={<Login/>} />
+          <Route path='/Register' element={<Register/>} />
           <Route path='/' element={<Dashboard />} />
           <Route path='/Inventory' element={<Inventory />} />
           <Route path='/Reservation' element={<Reservation />} />

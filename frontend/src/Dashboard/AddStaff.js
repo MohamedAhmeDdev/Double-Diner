@@ -37,7 +37,17 @@ const AddStaff = () => {
         <br />
 
         <label htmlFor="quantity" className='department'>Department</label> <br />
-        <input className="InputStaff" type="text" value={department} onChange={(e) => setDepartment(e.target.value)} />
+        <select className="InputStaff" type="text" value={department} onChange={(e) => setDepartment(e.target.value)}>
+          <option></option>
+          <option>Manager</option>
+          <option>Supervisor</option>
+          <option>Head Chief</option>
+          <option>Chief</option>
+          <option>Dish Cleaner</option>
+          <option>Waiter</option>
+          <option>Waiters</option>
+          <option>Cleaner</option>
+        </select>
         <br />
         <label htmlFor="picture" className='labeStaff'>Choose A picture</label>
         <input className="InputStaff" type="file" onChange={(e) => setImage(e.target.files[0])} />

@@ -44,15 +44,15 @@ const verifyUser = async (req, res) => {
     return res.sendStatus(401)
   }
 
-  const token = createToken(foundUser.id)
-  res.json({ email, token })
+ 
 
   const dbPassword = foundUser.password;  // find HashPassword in database
   bcrypt.compare(password, dbPassword).then((match) => {
     if (!match) {
       return res.sendStatus(401)
     } else {
-      return res.json({ 'message': 'success' })
+      const token = createToken(foundUser.id)
+      res.json({ 'message': 'success' })
     }
   });
 };
