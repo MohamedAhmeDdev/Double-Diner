@@ -1,22 +1,22 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AddInventory from './Dashboard/AddInventory';
-import AddMenu from './Dashboard/AddMenu';
-import AddStaff from './Dashboard/AddStaff';
-import CustomersOrders from './Dashboard/CustomersOrders';
-import Dashboard from './Dashboard/Dashboard'
-import FeedBack from './Dashboard/FeedBack';
-import Inventory from './Dashboard/Inventory';
-import Menu from './Dashboard/Menu';
-import Navbar from './Dashboard/Navbar';
-import Register from './Dashboard/Register';
-import Reservation from './Dashboard/Reservation';
-import Staff from './Dashboard/Staff';
-import UpdateInventory from './Dashboard/UpdateInventory';
-import UpdateMenu from './Dashboard/UpdateMenu';
-import UpdateStaff from './Dashboard/UpdateStaff';
-import UpdateStatus from './Dashboard/UpdateStatus';
-import Login from './Dashboard/Login';
+import AddInventory from './Components/AddInventory';
+import AddMenu from './Components/AddMenu';
+import AddStaff from './Components/AddStaff';
+import CustomersOrders from './Components/CustomersOrders';
+import Dashboard from './Components/Dashboard'
+import FeedBack from './Components/FeedBack';
+import Inventory from './Components/Inventory';
+import Menu from './Components/Menu';
+import Navbar from './Components/Navbar';
+import Register from './Components/Register';
+import Reservation from './Components/Reservation';
+import Staff from './Components/Staff';
+import UpdateInventory from './Components/UpdateInventory';
+import UpdateMenu from './Components/UpdateMenu';
+import UpdateStaff from './Components/UpdateStaff';
+import UpdateStatus from './Components/UpdateStatus';
+import Login from './Components/Login';
 
 
 function App() {

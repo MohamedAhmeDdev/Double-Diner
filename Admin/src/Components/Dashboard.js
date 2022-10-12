@@ -56,11 +56,6 @@ function Dashboard() {
                         <p className='grid-name'>FeedBacks</p>
                     </div>
                 </Link>
-
-                <div className='container-div'>
-                    <p className='icons'><BsGear color='gold' size='2em' /></p>
-                    <p className='grid-name'>Settings</p>
-                </div>
             </div>
         </div>
     )
