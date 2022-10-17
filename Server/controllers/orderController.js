@@ -36,7 +36,7 @@ const getOrder = async (req, res) => {
 const getOrderById = async (req, res) => {
     let id = req.params.id
     try {
-        const Orders = await orderInfo.findOne({
+       let Orders = await orderInfo.findOne({
             where: { id: id }
         });
         res.status(200).send(Orders)
@@ -45,6 +45,20 @@ const getOrderById = async (req, res) => {
     }
 }
 
+const updateOrder = async (req, res) => {
+    try {
+        await orderInfo.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            "message": "Updated"
+        });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
 
 
 const deleteOrder = async (req, res) => {
@@ -65,6 +79,6 @@ module.exports = {
     createOrder,
     getOrder,
     getOrderById,
-    deleteOrder
-
+    deleteOrder,
+    updateOrder
 }

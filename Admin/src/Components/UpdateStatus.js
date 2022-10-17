@@ -14,6 +14,15 @@ function UpdateStatus() {
     const navigate = useNavigate();
     const { id } = useParams();
 
+
+    const UpdateStatus = async (e) => {
+        e.preventDefault();
+        await axios.patch(`http://localhost:5000/order/${id}`, {
+            status: status
+        })
+        // navigate("/inventory");
+    }
+
     const getStatusById = async () => {
         const response = await axios.get(`http://localhost:5000/order/${id}`);
         setFullName(response.data.fullName);
@@ -21,12 +30,13 @@ function UpdateStatus() {
         setPhone(response.data.phone);
         setStatus(response.data.status);
         setLocation(response.data.location);
+        setStatus(response.data.status);
         setPriceTotal(response.data.priceTotal);
-      }
-    
-      useEffect(() => {
+    }
+
+    useEffect(() => {
         getStatusById();
-      }, []);
+    }, []);
 
 
     return (
@@ -57,9 +67,9 @@ function UpdateStatus() {
                                 </div>
 
                                 <div className='select-div'>
-                                    <form >
-                                        <select className='select-input'>
-                                            <option>Status</option>
+                                    <form onSubmit={UpdateStatus}>
+                                        <select className='select-input' value={status} onChange={(e) => setStatus(e.target.value)}>
+                                            <option></option>
                                             <option>Decline</option>
                                             <option>Accept</option>
                                             <option>Complete</option>
