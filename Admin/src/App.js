@@ -9,7 +9,6 @@ import FeedBack from './Components/FeedBack';
 import Inventory from './Components/Inventory';
 import Menu from './Components/Menu';
 import Navbar from './Components/Navbar';
-import Register from './Components/Register';
 import Reservation from './Components/Reservation';
 import Staff from './Components/Staff';
 import UpdateInventory from './Components/UpdateInventory';
@@ -26,7 +25,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/Login' element={<Login/>} />
-          <Route path='/Register' element={<Register/>} />
           <Route path='/' element={<Dashboard />} />
           <Route path='/Inventory' element={<Inventory />} />
           <Route path='/Reservation' element={<Reservation />} />

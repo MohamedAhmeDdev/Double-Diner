@@ -11,7 +11,6 @@ const staffRouter = require('./routes/staffRoute.js')
 const orderRouter = require('./routes/OrderRoute.js')
 const orderItemsRouter = require('./routes/OrersItemRoute.js')
 const FeedbackRouter = require('./routes/FeedbackRoute.js')
-const adminRouter = require('./routes/AdminRoutes')
 
 
 try {
@@ -36,7 +35,6 @@ app.use('/staff', staffRouter)
 app.use('/order', orderRouter)
 app.use('/orderItems', orderItemsRouter)
 app.use('/feedback', FeedbackRouter)
-app.use('/admin', adminRouter)
 
 
  

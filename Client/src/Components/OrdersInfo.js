@@ -58,16 +58,6 @@ const OrdersInfo = ({ cartItems }) => {
   // it calculates the total price of each item
   const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0) // it adds the single price then it times it with the quantity 
 
-  // const tableInfo = async (e) => {
-  //   e.preventDefault();
-  //   await axios.post('http://localhost:5000/order', {
-  //     fullName: fullName,
-  //     address: address,
-  //     phone: phone,
-  //     location: location,
-  //     tableNo: tableNo
-  //   })
-  // }
 
 
 

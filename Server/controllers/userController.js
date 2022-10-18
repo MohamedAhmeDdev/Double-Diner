@@ -1,4 +1,5 @@
 const users = require("../models/userModel.js")
+const staff = require("../models/StaffModel.js")
 const bcrypt = require('bcrypt')
 const JWT = require('jsonwebtoken')
 const dotenv = require('dotenv'); dotenv.config()
@@ -57,6 +58,24 @@ const verifyUser = async (req, res) => {
   });
 };
 
+
+const verifyAdmin = async (req, res) => {
+  const {fullName, department} = req.body;
+
+  const findAdmin = await staff.findOne({ where: { fullName: fullName, department: 'Manager' || 'Supervisor' } })
+
+  if (!fullName || !department) 
+    return res.sendStatus(400);
+
+  if (!findAdmin) { 
+    return res.sendStatus(401)
+    } else {
+        const token = createToken(findAdmin.id)
+        res.json({'message': 'success'})
+    }
+};
+
+
 const getUsers = async (req, res) => {
   try {
     const user = await users.findAll();
@@ -71,6 +90,7 @@ const getUsers = async (req, res) => {
 module.exports = {
   createUsers,
   verifyUser,
+  verifyAdmin,
   getUsers
 }
 

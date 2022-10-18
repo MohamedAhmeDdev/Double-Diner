@@ -13,7 +13,7 @@ function Login() {
         e.preventDefault();
         try {
             if (
-                await axios.post('http://localhost:5000/admin/verifyAdmin', {
+                await axios.post('http://localhost:5000/useraccount/verifyAdmin', {
                     fullName: fullName,
                     department: department
                 })

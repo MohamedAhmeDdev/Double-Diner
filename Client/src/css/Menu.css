@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+ .home-container{
+    margin-top:70px;
+
+ }
 .logo{
     background-image: url(../HERO+Web-22.jpg);
     background-repeat: no-repeat;

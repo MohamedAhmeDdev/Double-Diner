@@ -9,12 +9,18 @@ body{
     width: 100%;
 }
 .navbar {
+    z-index: 99;
     align-items: center;
     justify-content: center;
     display: flex;
-    position: relative;
+    position: fixed;
+    top: 0;
     height: 70px;
     width: 100%;
+    background-color: #24272e;
+}
+
+.navbar.active{
     background-color: #24272e;
 }
 
@@ -100,11 +106,15 @@ a {
      }
 
      .navbar {
-        position: relative;
+        position: fixed;
+        top: 0;
         height: 70px;
         width: 100%;
         background-color: #24272e;
         justify-content: center;
+    }
+    .navbar.navbar.active{
+        background-color: #24272e;
     }
      
         .navbar-list{
@@ -117,7 +127,7 @@ a {
         position: absolute;
         top: 70px;
         right: 0;
-        height: 170px;
+        height: 200px;
          width: 100%;
          background-color: #24272e;
          padding: 6px 14px;

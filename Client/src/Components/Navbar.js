@@ -6,13 +6,23 @@ import { BsCartCheck } from "react-icons/bs";
 
 
 function Navbar({ cartItems }) {
-
   const [openMenu, setOpenMenu] = useState(true)
   const openResponsive = () => setOpenMenu(!openMenu)
+  const[bColor, setBColor] = useState(false)
+
+  const changeBackgroundColor =()=>{
+    if(window.scrollY >= 80){
+      setBColor(true)
+    }else{
+      setBColor(false)
+    }   
+  }
+
+  window.addEventListener('scroll', changeBackgroundColor)
 
 
   return (
-    <div className='navbar'>
+    <div className={bColor? 'navbar active' : 'navbar'}>
 
       <div className='open-menu' onClick={openResponsive}>
         <div></div>
