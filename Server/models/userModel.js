@@ -11,6 +11,9 @@ const useraccount = db.define("useraccounts", {
     },
     password: {
         type: DataTypes.STRING
+    }, status: {
+        type: DataTypes.STRING,
+        defaultValue: "user"
     }
 })
 
