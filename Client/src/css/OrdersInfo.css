@@ -5,6 +5,7 @@
 }
 
  .containerDiv{
+    margin-top:70px;
     display: flex;
     height: 100%;
     width: 100%;
