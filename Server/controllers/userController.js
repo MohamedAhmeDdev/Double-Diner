@@ -62,7 +62,7 @@ const verifyUser = async (req, res) => {
 const verifyAdmin = async (req, res) => {
   const {fullName, department} = req.body;
 
-  const findAdmin = await staff.findOne({ where: { fullName: fullName, department: 'Manager' || 'Supervisor' } })
+  const findAdmin = await staff.findOne({ where: { fullName: fullName, department: 'Manager' } })
 
   if (!fullName || !department) 
     return res.sendStatus(400);
@@ -71,7 +71,7 @@ const verifyAdmin = async (req, res) => {
     return res.sendStatus(401)
     } else {
         const token = createToken(findAdmin.id)
-        res.json({'message': 'success'})
+        res.json({'message': 'success'})  
     }
 };
 
