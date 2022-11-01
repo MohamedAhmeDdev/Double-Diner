@@ -13,19 +13,12 @@ const RegistrationForm = () => {
     const [errors, setErrors] = useState(false)
     let navigate = useNavigate()
 
-    const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
+
 
     const createUser = async (e) => {
         e.preventDefault();
         try {
-            if (name.length === 0 || email.length === 0 || password.length === 0) {
-                setErrors("Fill the field")
-            } else if (!regEx.test(email)) {
-                setErrors("invalid email")
-            }
-            else if (password.length <= 4) {
-                setErrors("password must be more than 4 digits")
-            } else if (
+            if (
                 await axios.post('http://localhost:5000/useraccount', {
                     name: name,
                     email: email,
@@ -37,6 +30,9 @@ const RegistrationForm = () => {
         } catch (error) {
             if (error.response?.status === 401) {
                 setErrors("Email already exists"); //send errors if email exist in database
+            }
+            if (error.response?.status === 400) {
+                setErrors("Invalid Credential"); //send errors 
             }
         }
 

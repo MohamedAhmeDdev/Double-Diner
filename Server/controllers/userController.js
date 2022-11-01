@@ -11,9 +11,14 @@ const createToken = (id) => {
 
 const createUsers = async (req, res) => {
   const { name, email, password } = req.body
+  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
   const checkingIfEmailExists = await users.findOne({ where: { email: email } })   // find email in database
   const encryptPassword = await bcrypt.hash(password, 10)
 
+
+  if (name.length === 0 || email.length === 0 || password.length < 4 || !regEx.test(email)) {
+    return res.sendStatus(400)
+  }
 
   if (checkingIfEmailExists) {  // if the email much send 401
     return res.sendStatus(401)
@@ -30,7 +35,6 @@ const createUsers = async (req, res) => {
       res.json({ message: error.message });
     }
   }
-
 }
 
 
@@ -45,7 +49,7 @@ const verifyUser = async (req, res) => {
     return res.sendStatus(401)
   }
 
- 
+
 
   const dbPassword = foundUser.password;  // find HashPassword in database
   bcrypt.compare(password, dbPassword).then((match) => {
@@ -59,20 +63,26 @@ const verifyUser = async (req, res) => {
 };
 
 
+
+
+
+
+
+// ------admin----
 const verifyAdmin = async (req, res) => {
-  const {fullName, department} = req.body;
+  const { fullName, department } = req.body;
 
   const findAdmin = await staff.findOne({ where: { fullName: fullName, department: 'Manager' } })
 
-  if (!fullName || !department) 
+  if (!fullName || !department)
     return res.sendStatus(400);
 
-  if (!findAdmin) { 
+  if (!findAdmin) {
     return res.sendStatus(401)
-    } else {
-        const token = createToken(findAdmin.id)
-        res.json({'message': 'success'})  
-    }
+  } else {
+    const token = createToken(findAdmin.id)
+    res.json({ 'message': 'success' })
+  }
 };
 
 
