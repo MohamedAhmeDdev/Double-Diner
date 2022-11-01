@@ -25,7 +25,7 @@ const UpdateInventory = () => {
     getInventoryById();
   }, []);
 
-  const getInventoryById = async () => {
+  const getInventoryById = async () => { 
     const response = await axios.get(`http://localhost:5000/inventory/${id}`);
     setItem(response.data.item);
     setPrice(response.data.price);

@@ -18,7 +18,7 @@ function Login() {
                     department: department
                 })
             ) {
-                navigate('/')
+                navigate('/Dashboard')
             }
 
         } catch (error) {

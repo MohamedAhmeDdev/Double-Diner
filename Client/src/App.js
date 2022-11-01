@@ -27,12 +27,12 @@ function App() {
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems))
   }, [cartItems])
-  // useEffect(() =>{
-  //   setLoading(true)
-  //   setTimeout(() =>{
-  //     setLoading(false)
-  //   }, 3000)
-  // },[])
+  useEffect(() =>{
+    setLoading(true)
+    setTimeout(() =>{
+      setLoading(false)
+    }, 3000)
+  },[])
 
   return (
     <div>
