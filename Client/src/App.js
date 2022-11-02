@@ -19,8 +19,8 @@ import ListOfOrders from './Components/ListOfOrders';
 
 // saving the cart item in localStorage 
 const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
-function App() {
 
+function App() {
   const [cartItems, setCartItems] = useState(storelocalStorage)
   const [loading, setLoading] = useState(false)
 

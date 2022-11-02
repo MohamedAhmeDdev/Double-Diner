@@ -4,15 +4,13 @@
     box-sizing: border-box;
 }
 
-body{
-    overflow-x : hidden;
+body {
+    overflow-x: hidden;
     width: 100%;
 }
+
 .navbar {
     z-index: 99;
-    align-items: center;
-    justify-content: center;
-    display: flex;
     position: fixed;
     top: 0;
     height: 70px;
@@ -20,18 +18,18 @@ body{
     background-color: #24272e;
 }
 
-.navbar.active{
+.navbar.active {
     background-color: #24272e;
 }
 
-.open-menu{
-   grid-gap: 4px;
-   flex-direction: column;
-   display: flex;
-   display: none;
+.open-menu {
+    grid-gap: 4px;
+    flex-direction: column;
+    display: flex;
+    display: none;
 }
 
-.open-menu div{
+.open-menu div {
     background-color: white;
     height: 4px;
     width: 40px;
@@ -39,6 +37,7 @@ body{
 
 
 .navbar-list {
+    margin: 0 60px;
     width: 500px;
     display: flex;
 }
@@ -48,7 +47,7 @@ body{
     list-style: none;
 }
 
-a {
+.navbar-list li a {
     align-items: center;
     font-size: 17px;
     padding: 10px 20px;
@@ -56,7 +55,6 @@ a {
     color: white;
     text-decoration: none;
 }
-
 
 .login {
     padding: 10px 0;
@@ -67,45 +65,69 @@ a {
     list-style: none;
 }
 
+
 #form {
     justify-content: space-around;
     position: absolute;
     top: 0;
     right: 0;
     display: flex;
+    width: 240px;
     height: 70px;
 }
-.counter-div{
+
+.cart {
+    padding: 20px 0;
+    display: flex;
+}
+
+.counter-div {
+    margin: 0 -10px;
     text-align: center;
     color: #24272e;
     border-radius: 50px;
     font-size: 20px;
     width: 25px;
     height: 27px;
-    background-color:  white;
+    background-color: white;
 }
 
+.profile {
+    padding: 20px 0;
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+}
 
+.logout {
+    background-color: white;
+    padding: 0 5px;
+    height: 35px;
+    margin: 20px 0;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+}
 
 @media only screen and (max-width: 800px) {
-    
-    .open-menu{
+
+    .open-menu {
         position: absolute;
         left: 10px;
         top: 20px;
         grid-gap: 4px;
         flex-direction: column;
         display: flex;
-     }
-     
-     .open-menu div{
-        display: block;
-         background-color: white;
-         height: 4px;
-         width: 40px;
-     }
+    }
 
-     .navbar {
+    .open-menu div {
+        display: block;
+        background-color: white;
+        height: 4px;
+        width: 40px;
+    }
+
+    .navbar {
         position: fixed;
         top: 0;
         height: 70px;
@@ -113,11 +135,13 @@ a {
         background-color: #24272e;
         justify-content: center;
     }
-    .navbar.navbar.active{
+
+    .navbar.navbar.active {
         background-color: #24272e;
     }
-     
-        .navbar-list{
+
+    .navbar-list {
+        margin: 0 0;
         opacity: 0.9;
         display: none;
         justify-content: center;
@@ -128,13 +152,13 @@ a {
         top: 70px;
         right: 0;
         height: 200px;
-         width: 100%;
-         background-color: #24272e;
-         padding: 6px 14px;
-         transition: 1s;
+        width: 100%;
+        background-color: #24272e;
+        padding: 6px 14px;
+        transition: 1s;
     }
 
-    a {
+    .navbar-list li a {
         padding: 0;
         align-items: center;
         font-size: 17px;
@@ -142,20 +166,36 @@ a {
         color: white;
         text-decoration: none;
     }
-    .navbar ul li{
+
+    .navbar ul li {
         border-bottom: 2px solid white;
     }
 
-    #form {
-        position: absolute;
-        top: 0;
-        right: 0;
-        justify-content: space-around;
-        display: flex;
-        height: 70px;
+    .counter-div {
+        margin: 0 -10px;
+        text-align: center;
+        color: #24272e;
+        border-radius: 50px;
+        font-size: 19px;
+        width: 25px;
+        height: 27px;
+        background-color: white;
     }
-    .login {
-        padding: 20px 10px;
-        list-style: none;
+
+    .profile {
+        padding: 20px 0;
+        font-size: 15px;
+        text-decoration: none;
+        color: white;
+    }
+
+    .logout {
+        background-color: white;
+        padding: 0 5px;
+        height: 35px;
+        margin: 20px 0;
+        font-size: 15px;
+        text-decoration: none;
+        color: black;
     }
 }

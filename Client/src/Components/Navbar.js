@@ -50,10 +50,9 @@ function Navbar({ cartItems }) {
       </ul>
 
       <div id='form'>
-        <Link to="/cart" ><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
-        <li className='login'>
-          <Link to="/Login" >Registration/Login</Link>
-        </li>
+        <Link to="/cart" className='cart'><BsCartCheck size='2em ' color='white' /><div className='counter-div'>{cartItems.length}</div></Link>
+        {/* <Link to=""  className='profile'>Name</Link> */}
+         <button className='logout' >Logout</button>
       </div>
 
     </div>
