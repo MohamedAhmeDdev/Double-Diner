@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import '../css/RigistrationForm.css'
+import { UseAuthContext } from '../hook/UseAuthContext';
 
 
 
@@ -12,21 +13,32 @@ const RegistrationForm = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false)
     let navigate = useNavigate()
+    const{dispatch} = UseAuthContext()
 
 
 
     const createUser = async (e) => {
         e.preventDefault();
         try {
-            if (
-                await axios.post('http://localhost:5000/useraccount', {
-                    name: name,
-                    email: email,
-                    password: password
-                })
-            ) {
-                navigate("/login");
+            const response = await fetch('http://localhost:5000/useraccount', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            })
+
+            const json = await response.json()
+            if (!response.ok) {
+                console.log(json.error);
             }
+
+            if (response.ok) {
+                // save the user to local storage 
+                localStorage.setItem('user', JSON.stringify(json))
+
+                // update the auth context 
+                dispatch({ type: 'LOGIN', payload: json })
+            }
+
         } catch (error) {
             if (error.response?.status === 401) {
                 setErrors("Email already exists"); //send errors if email exist in database

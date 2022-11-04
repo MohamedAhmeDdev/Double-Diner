@@ -34,9 +34,7 @@ li:nth-child(3){
     color: black;
 }
 
- .footer-ul a:hover{
-    border-bottom: 1px solid white;
-}
+
 .moto{
     text-align: center;
     justify-content: center;

@@ -2,24 +2,43 @@ import React, { useState } from 'react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/Login.css'
+import { UseAuthContext } from '../hook/UseAuthContext';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(false);
     let navigate = useNavigate();
+    const { dispatch } = UseAuthContext()
 
     const login = async (e) => {
         e.preventDefault();
         try {
-            if (
-                await axios.post('http://localhost:5000/useraccount/verifyUser', {
-                    email: email,
-                    password: password
-                })
-            ) {
-                navigate('/')
+
+            const response = await fetch('http://localhost:5000/useraccount/verifyUser', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+
+            const json = await response.json()
+
+            if (!response.ok) {
+                console.log(json.error);
             }
+
+            if (response.ok) {
+                // save the user to local storage 
+                localStorage.setItem('user', JSON.stringify(json))
+                // update the auth context 
+                dispatch({ type: 'LOGIN', payload: json })
+
+            }
+
+
+            //  {
+            //     navigate('/')
+            // }
 
         } catch (error) {
             if (error.response?.status === 400) {

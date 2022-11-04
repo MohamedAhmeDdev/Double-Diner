@@ -66,7 +66,7 @@ body {
 }
 
 
-#form {
+#nav-form {
     justify-content: space-around;
     position: absolute;
     top: 0;
@@ -92,22 +92,90 @@ body {
     background-color: white;
 }
 
-.profile {
-    padding: 20px 0;
-    font-size: 20px;
-    text-decoration: none;
-    color: white;
+.arrow {
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
 }
 
-.logout {
+
+.dropbtn {
+    margin: 15px 0;
     background-color: white;
-    padding: 0 5px;
+    color: black;
+    padding: 9px 3px;
+    font-size: 14px;
+    border: none;
+    width: 170px;
     height: 35px;
+}
+
+.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    margin: -15px 0;
+    display: none;
+    background-color: #f1f1f1cf;
+
+}
+.dropdown-content a {
+    color: black;
+    padding: 7px 0;
+    text-decoration: none;
+    display: block;
+}
+
+.profile{
+    background-color: #f1f1f1;
+    padding: 0 45px;
+    width: 170px;
+    height: 35px;
+}
+
+.signOut{
+    background-color: #f1f1f1;
+    border: none;
+    width: 170px;
+    height: 35px;
+}
+
+.signOut:hover{
+    border: 1px solid gray;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+#form {
+    justify-content: space-around;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: 240px;
+    height: 20px;
+}
+
+#form li {
+    list-style: none;
     margin: 20px 0;
-    font-size: 20px;
+}
+
+.login {
+    border-radius: 5px;
+    background-color: white;
+    padding: 3px 5px;
+    height: 35px;
+    font-size: 17px;
     text-decoration: none;
     color: black;
 }
+
+
+
 
 @media only screen and (max-width: 800px) {
 
@@ -182,20 +250,4 @@ body {
         background-color: white;
     }
 
-    .profile {
-        padding: 20px 0;
-        font-size: 15px;
-        text-decoration: none;
-        color: white;
-    }
-
-    .logout {
-        background-color: white;
-        padding: 0 5px;
-        height: 35px;
-        margin: 20px 0;
-        font-size: 15px;
-        text-decoration: none;
-        color: black;
-    }
 }
