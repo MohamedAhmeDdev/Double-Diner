@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import {  Link, useNavigate } from 'react-router-dom';
 import '../css/RigistrationForm.css'
 import { UseAuthContext } from '../hook/UseAuthContext';
 
@@ -47,7 +47,6 @@ const RegistrationForm = () => {
                 setErrors("Invalid Credential"); //send errors 
             }
         }
-
     }
 
     return (
@@ -66,7 +65,10 @@ const RegistrationForm = () => {
                     {errors && <p className='formError'>{errors}</p>}
 
                     <button className='submitRegistration' type="submit">Signup</button>
+
+                    <p className='registerationLink'><Link to="/Login">Login</Link> </p>
                 </form>
+
             </div>
         </div>
     )

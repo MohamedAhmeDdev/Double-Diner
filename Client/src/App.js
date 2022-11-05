@@ -17,6 +17,7 @@ import Cart from './Components/Cart';
 import OrdersInfo from './Components/OrdersInfo';
 import ListOfOrders from './Components/ListOfOrders';
 import { UseAuthContext } from './hook/UseAuthContext';
+import Profile from './Components/Profile';
 
 // saving the cart item in localStorage 
 const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
@@ -43,6 +44,8 @@ function App() {
           <Navbar cartItems={cartItems} />
           <Routes>
             <Route path="/" element={user? <Menu cartItems={cartItems} setCartItems={setCartItems} /> : <Navigate to= '/Login' />}/>
+            <Route path="/RegistrationForm" element={!user? <RegistrationForm /> :<Navigate to= '/' />}/>
+            <Route path="/Login" element={!user? <Login /> :<Navigate to= '/' />}/>
             <Route path="/cart" element={user? <Cart cartItems={cartItems} setCartItems={setCartItems} /> :<Navigate to= '/' />}/>
             <Route path="/Meal" element={user? <Meal /> :<Navigate to= '/' />}/>
             <Route path="/Juice" element={user? <Juice /> :<Navigate to= '/' />}/>
@@ -53,8 +56,7 @@ function App() {
             <Route path="/Terms" element={user? <Terms /> :<Navigate to= '/' />}/>
             <Route path="/OrdersInfo" element={user? <OrdersInfo cartItems={cartItems}/> :<Navigate to= '/' />}/>
             <Route path="/ListOfOrders" element={user? <ListOfOrders/> :<Navigate to= '/' />}/>
-            <Route path="/RegistrationForm" element={!user? <RegistrationForm /> :<Navigate to= '/' />}/>
-            <Route path="/Login" element={!user? <Login /> :<Navigate to= '/' />}/>
+            <Route path="/Profile" element={user? <Profile/> :<Navigate to= '/' />}/>
           </Routes>
           <Footer />
         </BrowserRouter>

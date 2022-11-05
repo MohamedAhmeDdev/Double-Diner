@@ -31,11 +31,12 @@ li:nth-child(3){
 }
 .footer-ul a{
    padding: 10px;
-    color: black;
+   color: white;
 }
 
 
 .moto{
+    color: white;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -49,9 +50,21 @@ li:nth-child(3){
 }
 
 .copy{
+    color: white;
     text-align: center;
     justify-content: center;
     align-items: center;
     display: flex;
     padding: 10px;
+}
+
+
+
+@media(max-width: 480px){
+    .footer-ul a{
+        font-size: 13px;
+        padding: 10px;
+         color: white;
+     }
+     
 }

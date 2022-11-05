@@ -30,7 +30,7 @@ const createUsers = async (req, res) => {
         password: encryptPassword
       });
       const token = createToken(user.id)
-      res.status(200).json({ email, token })
+      res.status(200).json({ email, password, token })
     } catch (error) {
       res.json({ message: error.message });
     }
@@ -55,7 +55,7 @@ const verifyUser = async (req, res) => {
       return res.sendStatus(401)
     } else {
       const token = createToken(foundUser.id)
-      res.status(200).json({ email, token })
+      res.status(200).json({ email, password, token })
     }
   });
 };

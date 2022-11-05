@@ -2,8 +2,12 @@
 const reservation = require("../models/reservationModel.js")
 
 
-const createReservation = async (req, res) => {
-    const { time } = req.body
+const createReservation = async (req, res) =>{
+    const { time, fullName,phone,tableFor,dateReserve } = req.body
+
+    if (time.length === 0 || fullName.length === 0 || phone.length < 4 || tableFor.length < 4 || dateReserve.length < 4) {
+        return res.sendStatus(400)
+      }
 
     const ifReservationExists = await reservation.findOne({ where: { time: time } })  // find time in database
     if (ifReservationExists) {  // if the time much send 401

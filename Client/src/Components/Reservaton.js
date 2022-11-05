@@ -16,13 +16,14 @@ const Reservaton = () => {
   const reservation = async (e) => {
     e.preventDefault();
     try {
-     const reserve = await axios.post('http://localhost:5000/reservation', {
+
+      const reserve = await axios.post('http://localhost:5000/reservation', {
         fullName: fullName,
         phone: phone,
         tableFor: tableFor,
         time: time,
         dateReserve: dateReserve,
-        
+
       })
       {
         //it remove the data which is in the input
@@ -32,12 +33,13 @@ const Reservaton = () => {
         setTableFor('');
         setTime('');
         setMessage("Reservation Booked")
-      }  
+      }
+
     } catch (error) {
       if (error.response?.status === 401) {
         setErrors("already reserved choose another time");
-      } else if (error.response?.status === 402) {
-        setMessage("Fill In The Fields")
+      } else if (error.response?.status === 400) {
+        setErrors("Fill In The Fields")
       }
     }
   }

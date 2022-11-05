@@ -35,6 +35,7 @@
     font-size: 17px;
 }
 .LoginInput{
+    padding: 0 15px;
     border-radius: 5px;
     color: white;
     background: #2323238c;

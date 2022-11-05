@@ -36,7 +36,6 @@
 
 
 .orderCard{
-    padding: 10px 0;
     justify-content: space-evenly;
     display: flex;
 }
@@ -192,7 +191,6 @@
     
     
     .orderCart{
-        padding: 10px 0;
         justify-content: space-evenly;
         display: flex;
     }

@@ -67,11 +67,10 @@ function Navbar({ cartItems }) {
 
           <div className="dropdown">
             <div className="dropbtn">{user.email}</div>
-            <span className='arrow'><BsFillFileArrowDownFill size='1.5em ' color='black' /></span>
 
             <div className="dropdown-content">
-              <a href="#"><div className='profile'><CgProfile size='1.4em ' color='black' /> Profile</div></a>
-              <a href="#"><button className='signOut' onClick={handleClick}><FaSignOutAlt size='1.5em ' color='black' /> Sing out</button></a>
+              <Link to="/Profile" ><div className='profile'><CgProfile size='1.4em ' color='black' /> Profile</div></Link>
+              <Link to='' ><button className='signOut' onClick={handleClick}><FaSignOutAlt size='1.5em ' color='black' /> Sing out</button></Link>
             </div>
 
           </div>

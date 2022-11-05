@@ -92,19 +92,13 @@ body {
     background-color: white;
 }
 
-.arrow {
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
-}
-
 
 .dropbtn {
+    color: white;
     margin: 15px 0;
-    background-color: white;
-    color: black;
+    background-color: #444444;
     padding: 9px 3px;
-    font-size: 14px;
+    font-size: 12px;
     border: none;
     width: 170px;
     height: 35px;
