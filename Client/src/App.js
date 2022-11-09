@@ -44,7 +44,7 @@ function App() {
           <Navbar cartItems={cartItems} />
           <Routes>
             <Route path="/" element={user? <Menu cartItems={cartItems} setCartItems={setCartItems} /> : <Navigate to= '/Login' />}/>
-            <Route path="/RegistrationForm" element={!user? <RegistrationForm /> :<Navigate to= '/' />}/>
+            <Route path="/RegistrationForm" element={!user? <RegistrationForm /> :<Navigate to= '' />}/>
             <Route path="/Login" element={!user? <Login /> :<Navigate to= '/' />}/>
             <Route path="/cart" element={user? <Cart cartItems={cartItems} setCartItems={setCartItems} /> :<Navigate to= '/' />}/>
             <Route path="/Meal" element={user? <Meal /> :<Navigate to= '/' />}/>

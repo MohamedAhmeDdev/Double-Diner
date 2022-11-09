@@ -14,7 +14,6 @@ function Login() {
     const login = async (e) => {
         e.preventDefault();
         try {
-
             const response = await fetch('http://localhost:5000/useraccount/verifyUser', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -22,31 +21,15 @@ function Login() {
             })
 
             const json = await response.json()
-
-            if (!response.ok) {
-                console.log(json.error);
-            }
-
             if (response.ok) {
-                // save the user to local storage 
                 localStorage.setItem('user', JSON.stringify(json))
-                // update the auth context 
                 dispatch({ type: 'LOGIN', payload: json })
-
             }
-
-
-            //  {
-            //     navigate('/')
-            // }
-
         } catch (error) {
             if (error.response?.status === 400) {
                 setError("not yet sign in")  //send errors if you have not sing in 
-
             } else if (error.response?.status === 401) {
                 setError("email and password doesn't much") // /send errors if password and email does not much 
-
             }
         }
     }

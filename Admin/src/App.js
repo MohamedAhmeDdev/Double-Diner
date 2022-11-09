@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import AddInventory from './Components/AddInventory';
 import AddMenu from './Components/AddMenu';
 import AddStaff from './Components/AddStaff';
@@ -16,29 +16,33 @@ import UpdateMenu from './Components/UpdateMenu';
 import UpdateStaff from './Components/UpdateStaff';
 import UpdateStatus from './Components/UpdateStatus';
 import Login from './Components/Login';
+import { UseAuthContext } from './hook/UseAuthContext';
 
 
 function App() {
+  const {user} = UseAuthContext()
+
+
   return (
     <div>
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/Login' element={<Login/>} />
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/Inventory' element={<Inventory />} />
-          <Route path='/Reservation' element={<Reservation />} />
-          <Route path='/AddInventory' element={<AddInventory />} />
-          <Route path='/updateInventory/:id' element={<UpdateInventory />} />
-          <Route path='/AddStaff' element={<AddStaff />} />
-          <Route path='/AddMenu' element={<AddMenu />} />
-          <Route path='/Staff' element={<Staff />} />
-          <Route path='/UpdateStaff/:id' element={<UpdateStaff />} />
-          <Route path='/Menu' element={<Menu />} />
-          <Route path='/UpdateMenu/:id' element={<UpdateMenu />} />
-          <Route path='/CustomersOrders' element={<CustomersOrders/>} />
-          <Route path='/UpdateStatus/:id' element={<UpdateStatus/>} />
-          <Route path='/FeedBack' element={<FeedBack/>} />
+          <Route path='/Login' element={!user? <Login/> :<Navigate to= '/' />} />
+          <Route path='/' element={user? <Dashboard /> : <Navigate to= '/Login' />} />
+          <Route path='/Inventory' element={user? <Inventory /> :<Navigate to= '/' />} />
+          <Route path='/Reservation' element={user? <Reservation /> :<Navigate to= '/' />} />
+          <Route path='/AddInventory' element={user? <AddInventory /> :<Navigate to= '/' />} />
+          <Route path='/updateInventory/:id' element={user? <UpdateInventory /> :<Navigate to= '/' />} />
+          <Route path='/AddStaff' element={user? <AddStaff /> :<Navigate to= '/' />} />
+          <Route path='/AddMenu' element={user? <AddMenu /> :<Navigate to= '/' />} />
+          <Route path='/Staff' element={user? <Staff /> :<Navigate to= '/' />} />
+          <Route path='/UpdateStaff/:id' element={user? <UpdateStaff /> :<Navigate to= '/' />} />
+          <Route path='/Menu' element={user? <Menu /> :<Navigate to= '/' />} />
+          <Route path='/UpdateMenu/:id' element={user? <UpdateMenu /> :<Navigate to= '/' />} />
+          <Route path='/CustomersOrders' element={user? <CustomersOrders/> :<Navigate to= '/' />} />
+          <Route path='/UpdateStatus/:id' element={ user?<UpdateStatus/> :<Navigate to= '/' />} />
+          <Route path='/FeedBack' element={user? <FeedBack/> :<Navigate to= '/' />} />
         </Routes>
       </BrowserRouter>
     </div>

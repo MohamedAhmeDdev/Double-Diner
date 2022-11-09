@@ -1,29 +1,29 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.sidebar{
- height: 70px;
-  width: 100%;
-  background-color: #5468FF;
-  padding: 6px 14px;
+.sidebar {
+    height: 70px;
+    width: 100%;
+    background-color: #5468FF;
+    padding: 6px 14px;
 }
- 
 
 
-.sidebar ul{
+
+.sidebar ul {
     justify-content: center;
     display: flex;
-    padding:  10px;
+    padding: 10px;
 }
 
-.sidebar li{
+.sidebar li {
     list-style: none;
 }
 
-.sidebar ul li a{
+.sidebar ul li a {
     align-items: center;
     font-size: 17px;
     padding: 13px;
@@ -32,12 +32,12 @@
     text-decoration: none;
 }
 
-.sidebar li{
+.sidebar li {
     list-style: none;
 }
 
-.sidebar ul li a{
-    font-family:'Courier New', Courier, monospace;
+.sidebar ul li a {
+    font-family: 'Courier New', Courier, monospace;
     letter-spacing: 2px;
     align-items: center;
     font-size: 17px;
@@ -47,56 +47,86 @@
     text-decoration: none;
 }
 
-.sidebar li a:hover{
+.sidebar li a:hover {
     border-radius: 10px;
     background-color: white;
     color: black;
 }
-.sidebar span{
-    padding:0 17px;
+
+.sidebar span {
+    padding: 0 17px;
 }
- 
-.menu{
+
+.menu {
     position: absolute;
     right: 20px;
     top: 25px;
-   gap: 4px;
-   flex-direction: column;
-   display: none;
+    gap: 4px;
+    flex-direction: column;
+    display: none;
 }
 
-.menu div{
+.menu div {
     background-color: white;
     height: 4px;
     width: 40px;
 }
 
+.logOut-div {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
 
-@media only screen and (max-width: 800px){
-    .menu{
+.logout {
+    background-color: white;
+    border: none;
+    outline: none;
+    width: 60px;
+    height: 30px;
+}
+
+.logo-divs {
+    height: 50px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.logos {
+    font-size: 40px;
+    color: white;
+    font-family: 'Abril Fatface', cursive;
+}
+
+@media only screen and (max-width: 800px) {
+    .menu {
+        width: 40px;
+        z-index: 99;
         position: absolute;
-        right: 20px;
+        left: 20px;
         top: 25px;
-       gap: 4px;
-       flex-direction: column;
-       display: flex;
+        gap: 4px;
+        flex-direction: column;
+        display: flex;
     }
-    
-    .menu div{
+
+    .menu div {
         background-color: white;
         height: 4px;
         width: 40px;
     }
 
-    
-.sidebar{
-    height: 70px;
-     width: 100%;
-     background-color: #5468FF;
-     padding: 6px 14px;
-   }
-    
-    .sidebar ul{
+
+    .sidebar {
+        height: 70px;
+        width: 100%;
+        background-color: #5468FF;
+        padding: 6px 14px;
+    }
+
+    .sidebar ul {
         display: none;
         justify-content: center;
         display: flex;
@@ -106,13 +136,14 @@
         top: 70px;
         right: 0;
         height: 30%;
-         width: 100%;
-         background-color: #5468FF;
-         padding: 6px 14px;
-         transition: 1s;
-       }
-       .sidebar ul li{
+        width: 100%;
+        background-color: #5468FF;
+        padding: 6px 14px;
+        transition: 1s;
+    }
+
+    .sidebar ul li {
         border-bottom: 2px solid white;
-       }
-    
+    }
+
 }
