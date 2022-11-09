@@ -92,7 +92,7 @@ function ListOfOrders() {
                                     </div>
                                 </div>
                                 <div>
-                                    <button className='cancel-order'>Cancel Order</button>
+                                    {/* <button className='cancel-order'>Cancel Order</button> */}
                                 </div>
                             </div>
                         ))}

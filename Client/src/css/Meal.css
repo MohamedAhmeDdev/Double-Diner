@@ -48,6 +48,10 @@
     background-color: black;
     height: 200px;
     width: 100%;
+    transition: 0.7s;
+}
+.product-image:hover{
+    transform: scale(1.1);
 }
 
 .info {

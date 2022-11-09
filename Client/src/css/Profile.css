@@ -11,12 +11,11 @@
 
 .profile-div{
     margin-top:70px;
-    padding: 10% 20%;
+    padding: 15% 20%;
 }
 
 .profile-form{
     width: 650px;
-    /* background-color: aquamarine; */
 }
 
 .lable-profile{
@@ -39,7 +38,6 @@
 .password{
     margin: 0 -13px;
 }
-
 
 
 

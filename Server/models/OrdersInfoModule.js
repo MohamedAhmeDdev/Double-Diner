@@ -15,9 +15,6 @@ const orderInfo = db.define('customerorders', {
     location: {
         type: DataTypes.STRING
     },
-    tableNo: {
-        type: DataTypes.INTEGER
-    },
     priceTotal: {
         type: DataTypes.INTEGER
     },

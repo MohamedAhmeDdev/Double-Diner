@@ -10,7 +10,6 @@ const OrdersInfo = ({ cartItems }) => {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
   const [location, setLocation] = useState('');
-  const [tableNo, setTableNo] = useState('');
   const [errors, setErrors] = useState(false)
   const [addressError, setAddressError] = useState(false)
   const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g

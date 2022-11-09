@@ -10,8 +10,8 @@ function Profile() {
     <div className="container-profile">
         <div className="profile-div">
             <form className='profile-form'>
-                <label className='lable-profile'>Name</label>
-                <input className='input-profile' type="text" value={user.name} ></input><br/><br/><br/>
+                {/* <label className='lable-profile'>Name</label>
+                <input className='input-profile' type="text" value={user.name} ></input><br/><br/><br/> */}
 
                 <label className='lable-profile'>Email</label>
                 <input className='input-profile' type="text" value={user.email} /><br/><br/><br/>
