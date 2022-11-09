@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import axios from "axios";
-import {  Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../css/RigistrationForm.css'
 import { UseAuthContext } from '../hook/UseAuthContext';
 
@@ -13,7 +13,7 @@ const RegistrationForm = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false)
     let navigate = useNavigate()
-    const{dispatch} = UseAuthContext()
+    const { dispatch } = UseAuthContext()
 
 
 
@@ -37,41 +37,45 @@ const RegistrationForm = () => {
 
                 // update the auth context 
                 dispatch({ type: 'LOGIN', payload: json })
+            }{
+                navigate("/Login");
+
             }
+        
 
         } catch (error) {
-            if (error.response?.status === 401) {
-                setErrors("Email already exists"); //send errors if email exist in database
-            }
-            if (error.response?.status === 400) {
-                setErrors("Invalid Credential"); //send errors 
-            }
+        if (error.response?.status === 401) {
+            setErrors("Email already exists"); //send errors if email exist in database
+        }
+        if (error.response?.status === 400) {
+            setErrors("Invalid Credential"); //send errors 
         }
     }
+}
 
-    return (
-        <div className='container-signup'>
-            <div className='container-RegistrationForm'>
-                <form className='RegistrationForm' onSubmit={createUser}>
-                    <label htmlFor="name" className='RegistrationLabel'>Name</label>
-                    <input className="RegistrationInput" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+return (
+    <div className='container-signup'>
+        <div className='container-RegistrationForm'>
+            <form className='RegistrationForm' onSubmit={createUser}>
+                <label htmlFor="name" className='RegistrationLabel'>Name</label>
+                <input className="RegistrationInput" type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
-                    <label htmlFor="Email" className='RegistrationLabel'>Email</label>
-                    <input className='RegistrationInput' type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label htmlFor="Email" className='RegistrationLabel'>Email</label>
+                <input className='RegistrationInput' type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
 
-                    <label htmlFor="password" className='RegistrationLabel'>Password</label>
-                    <input className='RegistrationInput' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                <label htmlFor="password" className='RegistrationLabel'>Password</label>
+                <input className='RegistrationInput' type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
-                    {errors && <p className='formError'>{errors}</p>}
+                {errors && <p className='formError'>{errors}</p>}
 
-                    <button className='submitRegistration' type="submit">Signup</button>
+                <button className='submitRegistration' type="submit">Signup</button>
 
-                    <p className='registerationLink'><Link to="/Login">Login</Link> </p>
-                </form>
+                <p className='registerationLink'><Link to="/Login">Login</Link> </p>
+            </form>
 
-            </div>
         </div>
-    )
+    </div>
+)
 }
 
 export default RegistrationForm;

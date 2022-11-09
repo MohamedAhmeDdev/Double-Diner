@@ -81,6 +81,18 @@
     color:  white;
 }
 
+
+@media only screen and (min-width: 1200px) {
+    .container-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto;
+        gap: 10px;
+        background-color: #444444;
+        padding: 20px;
+    }
+}
+
 @media only screen and (max-width: 1024px) {
 
     .container-grid {
@@ -203,12 +215,12 @@
         width: 120px;
         height: 40px;
     }
-    
-
 }
 
 
-@media only screen and (max-width: 480px) {
+
+
+@media only screen and (max-width: 600px) {
 
     .container-grid {
         position: relative;
@@ -269,6 +281,12 @@
         width: 120px;
         height: 40px;
     }
-    
-
 }
+
+
+
+
+
+
+
+

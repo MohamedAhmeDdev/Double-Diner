@@ -64,7 +64,6 @@ const verifyUser = async (req, res) => {
 
 
 
-
 // ------admin----
 const verifyAdmin = async (req, res) => {
   const { fullName, department } = req.body;
@@ -78,7 +77,7 @@ const verifyAdmin = async (req, res) => {
     return res.sendStatus(401)
   } else {
     const token = createToken(findAdmin.id)
-    res.json({ 'message': 'success' })
+    res.status(200).json({ fullName, department, token })
   }
 };
 

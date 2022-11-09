@@ -100,7 +100,7 @@ const OrdersInfo = ({ cartItems }) => {
             <br /><br />
 
             <label htmlFor="date" className='orderLabel'>phone <span className='spanError'>{errors && <p className='Error'>{errors}</p>} </span> </label><br />
-            <input className='OrderInput' type="text" value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <input className='OrderInput' type="number" value={phone} onChange={(e) => setPhone(e.target.value)} />
             <br /><br />
 
             <label htmlFor="quantity" className='orderLabel'>Location <span className='spanError'>{errors && <p className='Error'>{errors}</p>} </span> </label> <br />

@@ -5,14 +5,14 @@ import '../css/Meal.css'
 function Meal({ cartItems, setCartItems }) {
     const [food, setFood] = useState([])
 
-    // const getMenu = async () => {
-    //     const menu = await axios.get('http://localhost:5000/menu/getMealMenu')
-    //     setFood(menu.data)
-    // }
+    const getMenu = async () => {
+        const menu = await axios.get('http://localhost:5000/menu/getMealMenu')
+        setFood(menu.data)
+    }
 
-    // useEffect(() => {
-    //     getMenu();
-    // }, [food]);
+    useEffect(() => {
+        getMenu();
+    }, [food]);
 
 
     // when you you click the add button it adds the items in cart

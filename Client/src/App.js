@@ -20,10 +20,10 @@ import { UseAuthContext } from './hook/UseAuthContext';
 import Profile from './Components/Profile';
 
 // saving the cart item in localStorage 
-const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
+// const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
 
 function App() {
-  const [cartItems, setCartItems] = useState(storelocalStorage)
+  const [cartItems, setCartItems] = useState('')
   const [loading, setLoading] = useState(false)
   const {user} = UseAuthContext()
 
