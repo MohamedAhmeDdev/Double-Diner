@@ -131,20 +131,32 @@
     text-align: center;
 }
 
+
 .orderPage {
+    padding: 10px 320px;
+    background-color: white;
+    text-decoration: none;
     letter-spacing: 1px;
     font-size: 20px;
-    justify-content: center;
-    color: black;
-    background-color: white;
 }
 
-.orderPage:hover {
+.orderPage:hover{ 
     color: white;
     background-color: #24272e;
 }
 
-@media only screen and (max-width: 480px) {
+
+@media only screen and (max-width: 500px) {
+    .orderPage {
+        padding: 10px 150px;
+        background-color: white;
+        text-decoration: none;
+        letter-spacing: 1px;
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
     .cart-container {
         justify-content: center;
         align-items: center;
