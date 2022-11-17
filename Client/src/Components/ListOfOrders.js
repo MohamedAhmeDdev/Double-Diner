@@ -49,56 +49,39 @@ function ListOfOrders() {
         <div className='container-OrderList'>
             <div>
             {message && <p className='message-div'>{message}</p>}
-                <div className='headerList-div'>
-                    <p>Picture</p>
-                    <p>FoodName</p>
-                    <p>quantity</p>
-                    <p>Price</p>
-                </div>
-                {loading ? <div className='loader'><ImSpinner6 size='4em'/></div> :
-                    <>
-                        {orderList.map((item, id) => (
-                            <div className='ListDiv' key={id}>
-                                <div className="listCard">
-                                    <p className="list-image"><img src={`http://localhost:5000/${item.image}`} width="50px" height="50px" alt="" /></p>
 
-                                    <p className="list-foodName">{item.foodName}</p>
+            <table className="ListOrders-table">
+        <thead>
+          <tr>
+            <th>FullName</th>
+            <th>Phone</th>
+            <th>Location</th>
+            <th>Food</th>
+            <th>Status</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {customerList.map((item, id) => (
+            <tr key={id}>
+              <td>{item.fullName}</td>
+              <td>{item.phone}</td>
+              <td>{item.location}</td>
 
-                                    <p className="list-quantity">{item.quantity}</p>
+              <td>
+              {orderList.map((item, id) => (
+                <>
+                 {item.foodName},
+                </>
+              ))}
+              </td>
 
-                                    <p className="list-price">{item.price}</p>
-                                </div>
-                            </div>
-                        ))}
-
-                        {customerList.map((item, id) => (
-                            <div className='customer-div' key={id}>
-                                <div className='title-list'>
-                                    <div className='titles'>
-                                        <p>fullName:</p>
-                                        <p>Email Address:</p>
-                                        <p>Phone:</p>
-                                        <p>Location:</p>
-                                        <p>Status:</p>
-                                        <p>Total:</p>
-                                    </div>
-                                    <div className='list'>
-                                        <p className="list-total">{item.fullName}</p>
-                                        <p className="list-total">{item.address}</p>
-                                        <p className="list-total">{item.phone}</p>
-                                        <p className="list-total">{item.location}</p>
-                                        <p className="list-total">{item.status}</p>
-                                        <p className="list-total">TOTAL : Ksh {item.priceTotal}</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    {/* <button className='cancel-order'>Cancel Order</button> */}
-                                </div>
-                            </div>
-                        ))}
-                    </>
-                }
-
+              <td>{item.status}</td>
+              <td>Ksh {item.priceTotal}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
             </div>
         </div>
     )

@@ -20,7 +20,7 @@ function UpdateStatus() {
         await axios.patch(`http://localhost:5000/order/${id}`, {
             status: status
         })
-        // navigate("/inventory");
+        navigate("/CustomersOrders");
     }
 
     const getStatusById = async () => {
@@ -74,7 +74,7 @@ function UpdateStatus() {
                                             <option>Accept</option>
                                             <option>Complete</option>
                                         </select>
-                                        <button className='change-button'>Change</button>
+                                        <button className='update-button'>Change</button>
                                     </form>
                                 </div>
 
