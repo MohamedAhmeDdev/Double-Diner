@@ -65,6 +65,22 @@
     border: 1px solid black; 
 }
 
+.pdf{
+    background-color: #444444;
+    outline: none;
+    border: none;
+    font-size: 15px;
+    color: white;
+    margin: 10px 20px;
+    letter-spacing: 1px;
+    padding: 10px 50px;
+}
+.pdf:hover{
+    border: 1px solid #444444;
+    color: black;
+    background-color: white;
+}
+
 
 @media only screen and (max-width: 480px){
     .ListOrders-table thead tr th{
