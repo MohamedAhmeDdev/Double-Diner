@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 19, 2022 at 06:36 PM
+-- Generation Time: Nov 25, 2022 at 09:04 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -34,7 +34,6 @@ CREATE TABLE `customerorders` (
   `phone` int(11) NOT NULL,
   `address` varchar(50) NOT NULL,
   `location` varchar(50) NOT NULL,
-  `tableNo` int(11) NOT NULL,
   `priceTotal` int(11) NOT NULL,
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date NOT NULL DEFAULT current_timestamp()
@@ -44,9 +43,9 @@ CREATE TABLE `customerorders` (
 -- Dumping data for table `customerorders`
 --
 
-INSERT INTO `customerorders` (`id`, `status`, `fullName`, `phone`, `address`, `location`, `tableNo`, `priceTotal`, `createdAt`, `updatedAt`) VALUES
-(243, 'Decline', 'hjkl;ertfhyujk', 6, 'guikjujnfv@gmail.com', 'efgtynujiop', 0, 1250, '2022-10-17', '2022-10-17'),
-(244, 'PENDING', 'e5ryt6u7iop', 5969225, 'wertyjukil@hmail.com', 'we4t5ryjio', 0, 3000, '2022-10-17', '2022-10-17');
+INSERT INTO `customerorders` (`id`, `status`, `fullName`, `phone`, `address`, `location`, `priceTotal`, `createdAt`, `updatedAt`) VALUES
+(247, 'Accept', 'mohamed', 85656655, 'mohamed@gmail.com', 'sdfghj', 800, '2022-11-09', '2022-11-17'),
+(255, 'PENDING', 'mohamed ahmed', 2147483647, 'mohamed@mail.com', 'parklands', 1300, '2022-11-17', '2022-11-17');
 
 -- --------------------------------------------------------
 
@@ -61,6 +60,13 @@ CREATE TABLE `feedbacks` (
   `createdAt` date NOT NULL DEFAULT current_timestamp(),
   `updatedAt` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `feedback`, `email`, `createdAt`, `updatedAt`) VALUES
+(9, 'nice food and customer service', 'mohamed@gmail.com', '2022-11-09', '2022-11-09');
 
 -- --------------------------------------------------------
 
@@ -149,13 +155,10 @@ CREATE TABLE `ordereditems` (
 --
 
 INSERT INTO `ordereditems` (`id`, `order_id`, `image`, `foodName`, `quantity`, `price`, `createdAt`, `updatedAt`) VALUES
-(210, 243, 'Images\\1663739440032.jpg', 'Mango Juice', 1, 550, '2022-10-17', '2022-10-17'),
-(211, 243, 'Images\\1663739402196.webp', 'Orange Juice', 2, 700, '2022-10-17', '2022-10-17'),
-(212, 244, 'Images\\1663739402196.webp', 'Orange Juice', 2, 700, '2022-10-17', '2022-10-17'),
-(213, 244, 'Images\\1663739292770.jpg', 'Strawberry Juice', 1, 500, '2022-10-17', '2022-10-17'),
-(214, 244, 'Images\\1663739483648.webp', 'Banana Juice', 1, 250, '2022-10-17', '2022-10-17'),
-(215, 244, 'Images\\1663739440032.jpg', 'Mango Juice', 2, 1100, '2022-10-17', '2022-10-17'),
-(216, 244, 'Images\\1663739351109.jpg', 'Pineapple  Juice', 1, 450, '2022-10-17', '2022-10-17');
+(219, 247, 'Images\\1663736633705.jpg', 'Chips and Full Chicken', 1, 800, '2022-11-09', '2022-11-09'),
+(234, 255, 'Images\\1663736460312.jpg', 'Chips', 1, 200, '2022-11-17', '2022-11-17'),
+(235, 255, 'Images\\1663736781078.webp', 'Fish', 1, 500, '2022-11-17', '2022-11-17'),
+(236, 255, 'Images\\1663736743231.jpg', 'Chicken', 1, 600, '2022-11-17', '2022-11-17');
 
 -- --------------------------------------------------------
 
@@ -232,11 +235,9 @@ CREATE TABLE `useraccounts` (
 --
 
 INSERT INTO `useraccounts` (`id`, `name`, `email`, `password`, `status`, `createdAt`, `updatedAt`) VALUES
-(1, 'mohamed', 'mohamed@gmail.com', '$2b$10$PlMiIA5a/MgasCDxQSuYpeHbrXnJXDI0XP5tx5AtPjOuOPntvh336', 'user', '2022-10-14', '2022-10-14'),
-(2, 'ahmed', 'ahmed@gmail.com', '$2b$10$4KZzTJB4F6wIyyUmrlGhMeP9JuH2Jy78f50amLIxWVW25YqLftDWe', 'admin', '2022-10-14', '2022-10-14'),
-(3, 'abdilll', 'abdifn@gmail.com', '$2b$10$J9EB6f0SIyxO063K7T4r7eOkQ6uqUJ3VOT8IIUE/rF2EaKwC1NVMm', '', '2022-10-18', '2022-10-18'),
-(4, 'mahd', 'mahd@gmail.com', '$2b$10$2AS.fRm9N7CLhyd5B.lw1O3k3ujlmYoXY1ttdQDyx3XdfvIBXQMe2', 'admin', '2022-10-18', '2022-10-18'),
-(5, 'sdfghjklkkkk', 'juma@gmail.com', '$2b$10$ZOjFiMuOZ8rfYG8YuYBkgubXZWqKHmgTKvism5HjPVt/yzMPDizLa', 'user', '2022-10-18', '2022-10-18');
+(29, 'mohamed ahmed', 'mohamed@gmail.com', '$2b$10$mNMhbT5j1K3snYzZdpSFl.49XhfmihcRrzrIHMOidC9Tf89I.sCz2', 'user', '2022-11-09', '2022-11-09'),
+(30, 'mohamed', 'mohamedaa@gmail.com', '$2b$10$kKSKKe.pgo/zcAxmB6QN9.5UZ/2I4S2NOSMgcPzNutLXBNGABiSCy', 'user', '2022-11-09', '2022-11-09'),
+(31, 'mohamed ahmed', 'mohamedahmed@gmail.com', '$2b$10$basFsLeAafc9sJQvOjeW6Olbsw0F8a/HFFfZUs3CN29eNidOfqU1S', 'user', '2022-11-09', '2022-11-09');
 
 --
 -- Indexes for dumped tables
@@ -299,13 +300,13 @@ ALTER TABLE `useraccounts`
 -- AUTO_INCREMENT for table `customerorders`
 --
 ALTER TABLE `customerorders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=256;
 
 --
 -- AUTO_INCREMENT for table `feedbacks`
 --
 ALTER TABLE `feedbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `inventories`
@@ -323,13 +324,13 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT for table `ordereditems`
 --
 ALTER TABLE `ordereditems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=237;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=175;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -341,7 +342,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `useraccounts`
 --
 ALTER TABLE `useraccounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
