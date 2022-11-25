@@ -81,7 +81,8 @@ function Navbar({ cartItems }) {
 
       {!user && (<div>
         <div id='form'>
-          <li><Link to="/Login" className='login'>Sign up/Login</Link></li>
+          <li><Link to="/Login" className='login'>Login</Link></li>
+          <li><Link to="/RegistrationForm" className='login'>Sign up</Link></li>
         </div>
       </div>)}
 

@@ -53,8 +53,6 @@ const RegistrationForm = () => {
                     {errors && <p className='formError'>{errors}</p>}
 
                     <button className='submitRegistration' type="submit">Signup</button>
-
-                    <p className='registerationLink'><Link to="/Login">Login</Link> </p>
                 </form>
 
             </div>
