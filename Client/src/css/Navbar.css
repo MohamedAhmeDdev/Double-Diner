@@ -76,7 +76,19 @@ body {
     height: 70px;
 }
 
+#nav-form-not-user{
+    justify-content: space-around;
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: 240px;
+    height: 70px;
+}
+
+
 .cart {
+    margin: 0 -100px;
     padding: 20px 0;
     display: flex;
 }

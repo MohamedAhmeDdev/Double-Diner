@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import '../css/Reservation.css'
-
+import { UseAuthContext } from "../hook/UseAuthContext";
 
 const Reservaton = () => {
   const [message, setMessage] = useState(false)
@@ -11,11 +11,14 @@ const Reservaton = () => {
   const [time, setTime] = useState('');
   const [dateReserve, setDateReserve] = useState('');
   const [errors, setErrors] = useState(false)
-
+  const {user} = UseAuthContext()
 
   const reservation = async (e) => {
     e.preventDefault();
     try {
+      if(!user){
+        alert('You must signup to make a Reservation')
+      }else{
 
       const reserve = await axios.post('http://localhost:5000/reservation', {
         fullName: fullName,
@@ -34,7 +37,7 @@ const Reservaton = () => {
         setTime('');
         setMessage("Reservation Booked")
       }
-
+    }
     } catch (error) {
       if (error.response?.status === 401) {
         setErrors("already reserved choose another time");

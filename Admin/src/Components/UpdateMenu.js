@@ -51,7 +51,12 @@ function UpdateMenu() {
         <br /><br />
 
         <label htmlFor="Food type" className='menuLabel'>Food type</label> <br />
-        <input className='menuInput' type="text" value={foodType} onChange={(e) => setFoodType(e.target.value)} />
+        <select className='menuInput' type="text" value={foodType} onChange={(e) => setFoodType(e.target.value)}>
+          <option></option>
+          <option>Meal</option>
+          <option>Juice</option>
+          <option>Shakes</option>
+        </select>
         <br /><br />
 
         <button className='submitMenu' type="submit">Add</button>

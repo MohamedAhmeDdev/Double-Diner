@@ -42,9 +42,6 @@ const verifyUser = async (req, res) => {
   const { email, password } = req.body;
   const foundUser = await users.findOne({ where: { email: email } }) // find email and password in database
 
-  if (!email || !password) // if there is no email & password send status 400
-    return res.sendStatus(400);
-
   if (!foundUser) { // if the email and password does not much send 401
     return res.sendStatus(401)
   }

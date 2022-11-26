@@ -43,17 +43,17 @@ function App() {
         <BrowserRouter>
           <Navbar cartItems={cartItems} />
           <Routes>
-            <Route path="/" element={user? <Menu cartItems={cartItems} setCartItems={setCartItems} /> : <Navigate to= '/Login' />}/>
-            <Route path="/RegistrationForm" element={!user? <RegistrationForm /> :<Navigate to= '' />}/>
+            <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems} />}/>
+            <Route path="/RegistrationForm" element={<RegistrationForm />}/>
             <Route path="/Login" element={!user? <Login /> :<Navigate to= '/' />}/>
-            <Route path="/cart" element={user? <Cart cartItems={cartItems} setCartItems={setCartItems} /> :<Navigate to= '/' />}/>
-            <Route path="/Meal" element={user? <Meal /> :<Navigate to= '/' />}/>
-            <Route path="/Juice" element={user? <Juice /> :<Navigate to= '/' />}/>
-            <Route path="/Shakes" element={user? <Shakes /> :<Navigate to= '/' />}/>
-            <Route path="/Reservation" element={user? <Reservaton /> :<Navigate to= '/' />}/>
-            <Route path="/Contact" element={user? <Contact /> :<Navigate to= '/' />}/>
-            <Route path="/Policy" element={user? <Policy /> :<Navigate to= '/' />}/>
-            <Route path="/Terms" element={user? <Terms /> :<Navigate to= '/' />}/>
+            <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}/>
+            <Route path="/Meal" element={<Meal />}/>
+            <Route path="/Juice" element={<Juice />}/>
+            <Route path="/Shakes" element={<Shakes />}/>
+            <Route path="/Reservation" element={<Reservaton />}/>
+            <Route path="/Contact" element={ <Contact />}/>
+            <Route path="/Policy" element={ <Policy />}/>
+            <Route path="/Terms" element={ <Terms />}/>
             <Route path="/OrdersInfo" element={user? <OrdersInfo cartItems={cartItems}/> :<Navigate to= '/' />}/>
             <Route path="/ListOfOrders" element={user? <ListOfOrders/> :<Navigate to= '/' />}/>
             <Route path="/Profile" element={user? <Profile/> :<Navigate to= '/' />}/>

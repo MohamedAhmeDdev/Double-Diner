@@ -1,8 +1,12 @@
 import React from 'react'
 import '../css/Cart.css'
 import { Link } from "react-router-dom"
+import { UseAuthContext } from "../hook/UseAuthContext";
+import {Navigate,} from "react-router-dom";
 
 function Cart({ cartItems, setCartItems }) {
+     const {user} = UseAuthContext()
+
 
     // this  removes one items in cart 
     const removeToCart = (Product) => {
@@ -71,7 +75,7 @@ function Cart({ cartItems, setCartItems }) {
                     </div>
                 ))}
                 <p className="total">TOTAL : Ksh {totalPrice}</p>
-                {cartItems.length >= 1 && (<Link className='orderPage' to="/OrdersInfo">Order</Link>)}
+                {cartItems.length >= 1 && (user? <Link className='orderPage' to="/OrdersInfo">Order</Link> :<Navigate to= '/' />)}
 
             </div>
         </div>
