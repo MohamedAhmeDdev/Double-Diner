@@ -1,38 +1,42 @@
-import React, { useState } from "react";
-import axios from "axios";
 import "../css/Contact.css";
 import { MdPhoneAndroid } from "react-icons/md";
 import { MdEmail } from "react-icons/md";
 import { ImLocation2 } from "react-icons/im";
+import emailjs from "emailjs-com"
+import React, { useState } from "react";
 
 const Contact = () => {
-  const [feedback, setFeedback] = useState("");
-  const [email, setEmail] = useState("");
   const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [feedback, setFeedback] = useState('');
 
   const sendFeedback = async (e) => {
     e.preventDefault();
-
     if (!regEx.test(email)) {
       alert("Email Is Invalid");
-    } else if (
-      await axios.post("http://localhost:5000/feedback", {
-        feedback: feedback,
-        email: email,
+    }else if(
+      emailjs.sendForm("service_2p8brdn",'template_ngr7r6j', e.target, "NomCdrnrOBHS1HmPG")
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
       })
-    ) {
+    ){
       //it remove the data which is in the input
-      setEmail("");
-      setFeedback("");
+setEmail("");
+setName("");
+setFeedback("");
     }
-  };
+}
+
+
 
   return (
     <div className="contact-container">
       <div>
         <div className="small-div">
           <h3>Contact Us</h3>
-          <p></p>
         </div>
       </div>
       <div className="contacts">
@@ -65,24 +69,12 @@ const Contact = () => {
         <p className="feedback-head">Send Your FeedBacks</p>
         <div className="feedback">
           <form className="feedbackForm" onSubmit={sendFeedback}>
-            <input
-              type="text"
-              className="text-input"
-              placeholder="Feedback"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            />
-            <br />
-            <br />
-            <input
-              type="text"
-              className="email-input"
-              placeholder="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br />
-            <br />
+            <input type="text" className="email-input" placeholder="Enter Your Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/> <br/><br/>
+
+            <input  type="text" className="text-input" placeholder="Enter Your Name" name="name" value={name}  onChange={(e) => setName(e.target.value)}/> <br/><br/>
+            
+            <input type="text" className="text-input"placeholder="Enter A Massage"  name="message" value={feedback}  onChange={(e) => setFeedback(e.target.value)}/> <br/> <br/>
+
             <button className="send">Send</button>
           </form>
         </div>

@@ -8,28 +8,20 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  let navigate = useNavigate();
   const { dispatch } = UseAuthContext();
 
   const login = async (e) => {
     e.preventDefault();
     try {
-      if (!email || !password) {
-        // if there is no email & password send status 400
-        setError("not yet sign in"); //send errors if you have not sing in
-      } else {
-        const response = await fetch( "http://localhost:5000/useraccount/verifyUser",{
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-          }
-        );
-        const json = await response.json();
-        if (response.ok) {
-          localStorage.setItem("user", JSON.stringify(json));
-          dispatch({ type: "LOGIN", payload: json });
-        }
-      }
+        await axios.post("http://localhost:5000/useraccount/verifyUser",{
+          email: email,
+          password: password    
+        })
+          .then((res)=> {
+            localStorage.setItem("user", JSON.stringify(res.data));
+            dispatch({ type: "LOGIN", payload: res.data });
+          })
+
     } catch (error) {
       if (error.response?.status === 400) {
         setError("not yet sign in"); //send errors if you have not sing in
@@ -47,30 +39,15 @@ function Login() {
             Email
           </label>
           <br />
-          <input
-            className="LoginInput"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <label htmlFor="password" className="LoginLabel">
-            Password
-          </label>{" "}
-          <br />
-          <input
-            className="LoginInput"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <input className="LoginInput" type="text" value={email} onChange={(e) => setEmail(e.target.value)} /><br />
+          <label htmlFor="password" className="LoginLabel"> Password</label><br />
+
+          <input className="LoginInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+
           {error && <p className="loginError">{error}</p>}
-          <button className="submitLogin" type="submit">
-            Login
-          </button>
-          <p className="LoginLink">
-            Create account if <Link to="/RegistrationForm">SignUp?</Link>
-          </p>
+
+          <button className="submitLogin" type="submit">Login</button>
+          <p className="LoginLink"> Create account if <Link to="/RegistrationForm">SignUp?</Link></p>
         </form>
       </div>
     </div>

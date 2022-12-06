@@ -54,7 +54,7 @@ function App() {
             <Route path="/Contact" element={ <Contact />}/>
             <Route path="/Policy" element={ <Policy />}/>
             <Route path="/Terms" element={ <Terms />}/>
-            <Route path="/OrdersInfo" element={user? <OrdersInfo cartItems={cartItems}/> :<Navigate to= '/' />}/>
+            <Route path="/OrdersInfo" element={<OrdersInfo cartItems={cartItems}/> }/>
             <Route path="/ListOfOrders" element={user? <ListOfOrders/> :<Navigate to= '/' />}/>
             <Route path="/Profile" element={user? <Profile/> :<Navigate to= '/' />}/>
           </Routes>

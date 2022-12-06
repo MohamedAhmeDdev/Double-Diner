@@ -40,40 +40,27 @@ function Navbar({ cartItems }) {
             <div></div>
           </div>
 
-          <ul
-            className="navbar-list"
-            style={{ left: openMenu ? "-100%" : "0" }}
-          >
+          <ul className="navbar-list" style={{ left: openMenu ? "-100%" : "0" }} >
             <li>
-              <Link onClick={openResponsive} to="/">
-                Menu
-              </Link>
+              <Link onClick={openResponsive} to="/"> Menu</Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/ListOfOrders">
-                Orders
-              </Link>
+              <Link onClick={openResponsive} to="/ListOfOrders"> Orders </Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/Reservation">
-                Reservation
-              </Link>
+              <Link onClick={openResponsive} to="/Reservation">Reservation </Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/Contact">
-                Contact
-              </Link>
+              <Link onClick={openResponsive} to="/Contact">Contact </Link>
             </li>
           </ul>
 
           {/* ----right menu----- */}
           <div id="nav-form">
-            <Link to="/cart" className="cart">
-              <BsCartCheck size="2em " color="white" />
-              <div className="counter-div">{cartItems.length}</div>
+            <Link to="/cart" className="cart"><BsCartCheck size="2em " color="white" /> <div className="counter-div">{cartItems.length}</div>
             </Link>
 
             <div className="dropdown">
@@ -81,14 +68,10 @@ function Navbar({ cartItems }) {
 
               <div className="dropdown-content">
                 <Link to="/Profile">
-                  <div className="profile">
-                    <CgProfile size="1.4em " color="black" /> Profile
-                  </div>
+                  <div className="profile"> <CgProfile size="1.4em " color="black" /> Profile </div>
                 </Link>
                 <Link to="">
-                  <button className="signOut" onClick={handleClick}>
-                    <FaSignOutAlt size="1.5em " color="black" /> Sing out
-                  </button>
+                  <button className="signOut" onClick={handleClick}><FaSignOutAlt size="1.5em " color="black" /> Sing out</button>
                 </Link>
               </div>
             </div>

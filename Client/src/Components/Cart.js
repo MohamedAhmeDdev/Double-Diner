@@ -75,7 +75,7 @@ function Cart({ cartItems, setCartItems }) {
                     </div>
                 ))}
                 <p className="total">TOTAL : Ksh {totalPrice}</p>
-                {cartItems.length >= 1 && (user? <Link className='orderPage' to="/OrdersInfo">Order</Link> :<Navigate to= '/' />)}
+                {cartItems.length >= 1 && ( <Link className='orderPage' to="/OrdersInfo">Order</Link> )}
 
             </div>
         </div>

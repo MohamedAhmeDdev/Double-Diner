@@ -79,7 +79,7 @@ body {
 
 .container-feedback {
   background-color: #444444;
-  height: 250px;
+  height: 350px;
   width: 100%;
 }
 
@@ -132,65 +132,8 @@ body {
   color: white;
 }
 
-@media only screen and (max-width: 1024px) {
-  .contacts {
-    height: 660px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
-  .contact-info {
-    padding: 30px 0;
-    height: 550px;
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 15px;
-  }
-
-  .contact {
-    border: 1px solid black;
-    height: 220px;
-    width: 250px;
-    max-width: 250px;
-  }
-
-  .contact:nth-child(3) {
-    position: relative;
-    left: 140px;
-  }
-
-  .head {
-    font-size: 20px;
-    padding: 5px 0;
-    text-align: center;
-  }
-
-  .contact:hover {
-    box-shadow: 0 5px 10px #444444;
-  }
-
-  .head-info {
-    letter-spacing: 1px;
-    font-family: "Quicksand", sans-serif;
-    font-size: 16px;
-    padding: 7px 5px;
-    text-align: center;
-  }
-
-  .email {
-    position: relative;
-    top: 0;
-  }
-
-  .contact-icon {
-    position: relative;
-    bottom: 20px;
-    display: flex;
-    left: 100px;
-  }
-}
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 800px) {
   .contacts {
     height: 900px;
     display: flex;
@@ -249,7 +192,7 @@ body {
   }
 
   .container-feedback {
-    height: 250px;
+    height: 350px;
     width: 100%;
   }
 

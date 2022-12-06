@@ -2,9 +2,11 @@ import React, {  useEffect, useState } from 'react'
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import '../css/OrdersInfo.css'
-
+import { UseAuthContext } from "../hook/UseAuthContext";
+import {Navigate,} from "react-router-dom";
 
 const OrdersInfo = ({ cartItems }) => {
+  const {user} = UseAuthContext()
   let navigate = useNavigate()
   const [fullName, setFullName] = useState('');
   const [address, setAddress] = useState('');
@@ -13,6 +15,10 @@ const OrdersInfo = ({ cartItems }) => {
   const [errors, setErrors] = useState(false)
   const [addressError, setAddressError] = useState(false)
   const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
+
+  if(!user){
+    alert('To Proceed you need to signup')
+  }
 
   const createOrderWithDelivery = async (e) => {
     e.preventDefault();
@@ -106,7 +112,7 @@ const OrdersInfo = ({ cartItems }) => {
             <input className='OrderInput' type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
 
 
-            <button className='submitOrder' type="submit">Submit</button>
+           {user?  <button className='submitOrder' type="submit">Submit</button> :<Navigate to= '/cart' />}
           </form>
         </div>
       </div>
