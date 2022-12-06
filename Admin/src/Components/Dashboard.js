@@ -50,12 +50,6 @@ function Dashboard() {
                     </div>
                 </Link>
 
-                <Link className='Link' to='/FeedBack' >
-                    <div className='container-div'>
-                        <p className='icons'><VscFeedback color='gold' size='2em' /></p>
-                        <p className='grid-name'>FeedBacks</p>
-                    </div>
-                </Link>
             </div>
         </div>
     )
