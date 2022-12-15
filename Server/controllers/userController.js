@@ -56,7 +56,7 @@ const verifyUser = async (req, res) => {
       return res.sendStatus(401)
     } else {
       const token = createToken(foundUser.id)
-      res.status(200).json({ email, password, token })
+      res.status(200).json({foundUser, token })
     }
   });
 };

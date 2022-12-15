@@ -10,14 +10,14 @@ function Profile() {
     <div className="container-profile">
         <div className="profile-div">
             <form className='profile-form'>
-                {/* <label className='lable-profile'>Name</label>
-                <input className='input-profile' type="text" value={user.name} ></input><br/><br/><br/> */}
+                <label className='lable-profile'>Name</label>
+                <input className='input-profile' type="text" value={user.foundUser.name} ></input><br/><br/><br/>
 
                 <label className='lable-profile'>Email</label>
-                <input className='input-profile' type="text" value={user.email} /><br/><br/><br/>
+                <input className='input-profile' type="text" value={user.foundUser.email} /><br/><br/><br/>
 
                 <label className="password lable-profile">Password</label>
-                <input className='input-profile' type="text" value={user.password} />
+                <input className='input-profile' type="text" value={user.foundUser.password} />
             </form>
         </div>
     </div>

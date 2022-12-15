@@ -64,7 +64,7 @@ function Navbar({ cartItems }) {
             </Link>
 
             <div className="dropdown">
-              <div className="dropbtn">{user.email}</div>
+              <div className="dropbtn">{user.foundUser.name}</div>
 
               <div className="dropdown-content">
                 <Link to="/Profile">
