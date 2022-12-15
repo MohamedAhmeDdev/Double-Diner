@@ -98,8 +98,15 @@ const getUsers = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { name, email, password } = req.body
+  const encryptPassword = await bcrypt.hash(password, 10)
   const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
   const checkingIfEmailExists = await users.findOne({ where: { email: email } }) 
+
+  let userUpdate = {
+    name: name,
+    email: email,
+    password: encryptPassword
+  }
 
   if (name.length === 0 || email.length === 0 || password.length < 4 || !regEx.test(email)) {
     return res.sendStatus(400)
@@ -109,7 +116,7 @@ const updateUser = async (req, res) => {
     return res.sendStatus(401)
   } else {
   try {
-      await users.update(req.body, {
+      await users.update(userUpdate, {
           where: {
               id: req.params.id
           }
