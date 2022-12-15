@@ -18,6 +18,7 @@ import OrdersInfo from './Components/OrdersInfo';
 import ListOfOrders from './Components/ListOfOrders';
 import { UseAuthContext } from './hook/UseAuthContext';
 import Profile from './Components/Profile';
+import UpdateProfile from './Components/UpdateProfile';
 
 // saving the cart item in localStorage 
 // const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
@@ -57,6 +58,7 @@ function App() {
             <Route path="/OrdersInfo" element={user? <OrdersInfo cartItems={cartItems}/> :<Navigate to= '/' />}/>
             <Route path="/ListOfOrders" element={<ListOfOrders/> }/>
             <Route path="/Profile" element={user? <Profile/> :<Navigate to= '/' />}/>
+            <Route path="/UpdateProfile/:id" element={user? <UpdateProfile/> :<Navigate to= '/' />}/>
           </Routes>
           <Footer />
         </BrowserRouter>

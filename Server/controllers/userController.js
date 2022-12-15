@@ -5,8 +5,12 @@ const JWT = require('jsonwebtoken')
 const dotenv = require('dotenv'); dotenv.config()
 
 
-const createToken = (id) => {
-  return JWT.sign({ id }, process.env.SECRET, { expiresIn: '3d' })
+const createToken = (id, name, email) => {
+  return JWT.sign({ 
+    id: id,
+    name:name,
+    email: email,
+   }, process.env.SECRET, { expiresIn: '3d' })
 }
 
 const createUsers = async (req, res) => {
@@ -29,7 +33,7 @@ const createUsers = async (req, res) => {
         email: email,
         password: encryptPassword
       });
-      const token = createToken(user.id)
+      const token = createToken(user)
       res.status(200).json({ email, password, token })
     } catch (error) {
       res.json({ message: error.message });
@@ -55,8 +59,8 @@ const verifyUser = async (req, res) => {
     if (!match) {
       return res.sendStatus(401)
     } else {
-      const token = createToken(foundUser.id)
-      res.status(200).json({foundUser, token })
+      const token = createToken(foundUser)
+      res.status(200).json({foundUser,password, token })
     }
   });
 };
@@ -92,12 +96,39 @@ const getUsers = async (req, res) => {
   }
 }
 
+const updateUser = async (req, res) => {
+  const { name, email, password } = req.body
+  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
+  const checkingIfEmailExists = await users.findOne({ where: { email: email } }) 
+
+  if (name.length === 0 || email.length === 0 || password.length < 4 || !regEx.test(email)) {
+    return res.sendStatus(400)
+  }
+
+  if (checkingIfEmailExists) {  // if the email much send 401
+    return res.sendStatus(401)
+  } else {
+  try {
+      await users.update(req.body, {
+          where: {
+              id: req.params.id
+          }
+      });
+      res.json({
+          "message": "Updated"
+      });
+  } catch (error) {
+      res.json({ message: error.message });
+  }
+}
+}
 
 
 module.exports = {
   createUsers,
   verifyUser,
   verifyAdmin,
-  getUsers
+  getUsers,
+  updateUser
 }
 
