@@ -7,12 +7,11 @@ import axios from "axios"
 
 function UpdateProfile() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState(false)
   let navigate = useNavigate()
   const { id } = useParams();
-    const { user } = UseAuthContext()
 
 
     const update = async (e) => {
@@ -20,17 +19,17 @@ function UpdateProfile() {
       try {
            await axios.patch(`http://localhost:5000/useraccount/${id}`, {
               name: name,
-              email: email,
-              password: password
+              password: password,
+              confirmPassword: confirmPassword
           })
-          navigate("/Login");
+          navigate("/profile");
 
       } catch (error) {
           if (error.response?.status === 401) {
-              setErrors("Email already exists"); //send errors if email exist in database
+              setErrors("Password Does Not Much"); //send errors if email exist in database
           }
           if (error.response?.status === 400) {
-              setErrors("Fields Must Not Be Empty/Invalid Email"); //send errors 
+              setErrors("Fields Must Not Be Empty"); //send errors 
           }
       }
   }
@@ -45,11 +44,11 @@ function UpdateProfile() {
             <label className='lable-profile'>Name</label>
             <input className='input-profile' type="text"  value={name} onChange={(e) => setName(e.target.value)}></input><br/><br/><br/>
 
-            <label className='lable-profile'>Email</label>
-            <input className='input-profile' type="text"  value={email} onChange={(e) => setEmail(e.target.value)}/><br/><br/><br/>
+            <label className='lable-profile'>Password</label>
+            <input className='input-profile' type="text"  value={password} onChange={(e) => setPassword(e.target.value)}/><br/><br/><br/>
 
-            <label className="password lable-profile">Password</label>
-            <input className='input-profile' type="text"  value={password} onChange={(e) => setPassword(e.target.value)}/><br/><br/>
+            <label className="password lable-profile">confirm Password</label>
+            <input className='input-profile' type="text"  value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/><br/><br/>
 
             <button className='edit-profile'>Update</button>
 

@@ -67,8 +67,6 @@ const verifyUser = async (req, res) => {
 
 
 
-
-
 // ------admin----
 const verifyAdmin = async (req, res) => {
   const { fullName, department } = req.body;
@@ -96,39 +94,39 @@ const getUsers = async (req, res) => {
   }
 }
 
+
 const updateUser = async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, password, confirmPassword } = req.body
   const encryptPassword = await bcrypt.hash(password, 10)
-  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g
-  const checkingIfEmailExists = await users.findOne({ where: { email: email } }) 
 
-  let userUpdate = {
-    name: name,
-    email: email,
-    password: encryptPassword
-  }
-
-  if (name.length === 0 || email.length === 0 || password.length < 4 || !regEx.test(email)) {
+  if (name.length === 0 || confirmPassword.length === 0 || password.length < 4 ) {
     return res.sendStatus(400)
   }
 
-  if (checkingIfEmailExists) {  // if the email much send 401
+   
+  if(password === confirmPassword){
+    res.json({ message: "correct" });
+  }else{
     return res.sendStatus(401)
-  } else {
+}
+
+
   try {
+    let userUpdate = {
+      name: name,
+      password: encryptPassword
+    }
       await users.update(userUpdate, {
-          where: {
-              id: req.params.id
-          }
+          where: { id: req.params.id}
       });
-      res.json({
-          "message": "Updated"
-      });
+      res.json({"message": "Updated"});
   } catch (error) {
       res.json({ message: error.message });
   }
+
+
 }
-}
+
 
 
 module.exports = {

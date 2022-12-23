@@ -2,18 +2,16 @@ import React, { useState } from 'react'
 import axios from "axios";
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/RigistrationForm.css'
-import { UseAuthContext } from '../hook/UseAuthContext';
 
 
 
 const RegistrationForm = () => {
-
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState(false)
     let navigate = useNavigate()
-    const { dispatch } = UseAuthContext()
+    let enabled = name.length> 0 && email.length> 0 && password.length> 0 
 
 
 
@@ -52,7 +50,7 @@ const RegistrationForm = () => {
 
                     {errors && <p className='formError'>{errors}</p>}
 
-                    <button className='submitRegistration' type="submit">Signup</button>
+                    <button className={!enabled? "disable" :"submitRegistration"} disabled={!enabled} type="submit">Signup</button>
                 </form>
 
             </div>

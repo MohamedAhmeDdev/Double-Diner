@@ -12,6 +12,7 @@ const Reservaton = () => {
   const [dateReserve, setDateReserve] = useState('');
   const [errors, setErrors] = useState(false)
   const {user} = UseAuthContext()
+  let enabled = fullName.length> 0 && phone.length> 10 && tableFor.length> 0 && time.length> 0 && dateReserve.length> 0 
 
   const reservation = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const Reservaton = () => {
         alert('You must signup to make a Reservation')
       }else{
 
-      const reserve = await axios.post('http://localhost:5000/reservation', {
+      await axios.post('http://localhost:5000/reservation', {
         fullName: fullName,
         phone: phone,
         tableFor: tableFor,
@@ -88,7 +89,7 @@ const Reservaton = () => {
               <input className='reservationInput' type="Date" value={dateReserve} onChange={(e) => setDateReserve(e.target.value)} />
               <br />
               {errors && <p className='reservationError'>{errors}</p>}
-              <button className='reservation'>Reservation</button>
+              <button className={!enabled? "disableReservation" :"reservation"}  disabled={!enabled} >Reservation</button>
 
             </div>
           </form>

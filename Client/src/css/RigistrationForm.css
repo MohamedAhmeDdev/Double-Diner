@@ -75,6 +75,22 @@
     height: 40px;
 }
 
+.disable{
+     cursor:not-allowed;
+    color: black;
+    border-radius: 10px;
+    letter-spacing: 1px;
+    font-size: 20px;
+    position: relative;
+    left: 90px;
+    background-color: grey;
+    border: none;
+    outline: none;
+    margin: 0 10px;
+    width: 130px;
+    height: 40px;
+}
+
 @media only screen and (max-width: 800px){
     .container-RegistrationForm{
     background-color: #232323;
