@@ -26,10 +26,10 @@ const Users = db.define(
 
 db.sync()
   .then(() => {
-    console.log("Users  table created successfully!");
+    console.log("Users  table Synced successfully!");
   })
   .catch((error) => {
-    console.log("Unable to create Users table", error);
+    console.log("Unable to Synced Users table", error);
   });
 
 module.exports = Users;
