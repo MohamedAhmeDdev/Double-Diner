@@ -15,13 +15,6 @@ const createOrder = async (req, res) => {
       });
     }
 
-    if (dishes.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "No dishes selected",
-      });
-    }
-
     if (!delivery_address || !delivery_phone) {
       return res.status(400).json({
         success: false,
@@ -230,10 +223,6 @@ const deleteOrderForUserById = async (req, res) => {
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.findAll();
-    console.log(
-      "🚀 ~ file: Orders.controller.js:233 ~ getAllOrders ~  orders",
-      orders
-    );
 
     //populate the dishes in the order
     const ordersWithDishes = await Promise.all(
