@@ -9,6 +9,7 @@ app.use(morgan("dev"));
 
 const database = require("./config/dbConfig");
 const AuthRouter = require("./routes/Auth.route");
+const DishesRouter = require("./routes/Dishes.route");
 
 try {
   database.authenticate();
@@ -24,5 +25,6 @@ app.use("/Images", express.static("./Images"));
 
 //Routes
 app.use("/auth", AuthRouter);
+app.use("/dishes", DishesRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
