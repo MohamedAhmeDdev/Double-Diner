@@ -230,6 +230,10 @@ const deleteOrderForUserById = async (req, res) => {
 const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.findAll();
+    console.log(
+      "🚀 ~ file: Orders.controller.js:233 ~ getAllOrders ~  orders",
+      orders
+    );
 
     //populate the dishes in the order
     const ordersWithDishes = await Promise.all(

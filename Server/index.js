@@ -12,6 +12,9 @@ const AuthRouter = require("./routes/Auth.route");
 const DishesRouter = require("./routes/Dishes.route");
 const OrdersRouter = require("./routes/Orders.route");
 
+//Admin
+const AdminOrdersRouter = require("./routes/admin_orders.route");
+
 try {
   database.authenticate();
   console.log("you are connected to the database...");
@@ -24,9 +27,13 @@ app.use(cors());
 //static Images Folder
 app.use("/Images", express.static("./Images"));
 
-//Routes
 app.use("/auth", AuthRouter);
+
+//user api routes
 app.use("/dishes", DishesRouter);
 app.use("/orders", OrdersRouter);
+
+//Admin api routes
+app.use("/admin/orders", AdminOrdersRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));

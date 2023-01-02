@@ -16,7 +16,7 @@ OrderRouter.route("/").post(createOrder).get(getAllOrdersForUser);
 
 OrderRouter.route("/:id")
   .get(getOrderForUserById)
-  .put(updateOrderForUserById)
+  .patch(updateOrderForUserById)
   .delete(deleteOrderById);
 
 module.exports = OrderRouter;
