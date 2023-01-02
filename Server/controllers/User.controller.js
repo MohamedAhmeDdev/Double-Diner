@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
-const dotenv = require("dotenv");
-dotenv.config();
+const { JWT_SECRET } = require("../constants");
 
 const User = require("../models/User.model");
 
@@ -12,7 +11,7 @@ const createToken = (id, name, email) => {
       name: name,
       email: email,
     },
-    process.env.SECRET,
+    JWT_SECRET,
     { expiresIn: "3d" }
   );
 };
