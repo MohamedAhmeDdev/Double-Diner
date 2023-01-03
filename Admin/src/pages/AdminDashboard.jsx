@@ -17,7 +17,7 @@ const AdminDashboard = () => {
         <Link className="Link" to="/orders">
           <div className="container-div">
             <p className="icons">
-              <MdAccountCircle color="gold" size="2em" />
+              <GrOrderedList color="gold" size="2em" />
             </p>
             <p className="grid-name">Orders</p>
           </div>
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
         <Link className="Link" to="/customers">
           <div className="container-div">
             <p className="icons">
-              <GrOrderedList color="gold" size="2em" />
+              <MdAccountCircle color="gold" size="2em" />
             </p>
             <p className="grid-name">Customers</p>
           </div>
