@@ -183,13 +183,13 @@ const updateDetails = async (req, res) => {
   }
 };
 
-//Get all users - admin
+//Get all users  except admins - admin
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll();
     res.status(200).json({
       success: true,
-      users: users,
+      users: users.filter((user) => user.role !== "admin"),
     });
   } catch (error) {
     res.json({ message: error.message, success: false });
