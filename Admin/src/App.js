@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import AddInventory from "./Components/AddInventory";
 import AdminDashboard from "./pages/AdminDashboard";
+import Customers from "./pages/Customers";
 import CustomersOrders from "./Components/CustomersOrders";
 import Inventory from "./Components/Inventory";
 import Login from "./pages/Login";
@@ -51,10 +52,15 @@ function App() {
             element={user ? <Reservation /> : <Navigate to="/" />}
           />
 
+          <Route
+            path="/customers"
+            element={user ? <Customers /> : <Navigate to="/" />}
+          />
+
           {/**
            * TODO:
            * 1. update reservation page
-           * 2. customers page
+       
            * 3. customers profile view page
            * 4. admin profile view page
            * 5. reports page
