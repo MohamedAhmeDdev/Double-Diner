@@ -1,10 +1,10 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import AddInventory from "./Components/AddInventory";
 import AdminDashboard from "./pages/AdminDashboard";
+import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
 import Customers from "./pages/Customers";
 import CustomersOrders from "./Components/CustomersOrders";
-import Inventory from "./Components/Inventory";
+import Inventory from "./pages/Inventory";
 import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
 import React from "react";
@@ -28,18 +28,18 @@ function App() {
             path="/"
             element={user ? <AdminDashboard /> : <Navigate to="/Login" />}
           />
-          <Route
-            path="/inventory"
-            element={user ? <Inventory /> : <Navigate to="/" />}
-          />
 
           <Route
             path="/inventory/add"
-            element={user ? <AddInventory /> : <Navigate to="/" />}
+            element={user ? <CreateNewItemForm /> : <Navigate to="/" />}
           />
           <Route
             path="/inventory/update/:id"
             element={user ? <UpdateInventory /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/inventory"
+            element={user ? <Inventory /> : <Navigate to="/" />}
           />
 
           <Route
