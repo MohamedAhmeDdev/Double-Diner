@@ -9,12 +9,12 @@ const BASE_URL = "http://localhost:5000/admin";
  * @param {object} data
  * @returns {object} response
  */
-export const apiCall = async (url, method, data = {}) => {
+export const apiCall = async (url, method, data = {}, headers = {}) => {
   // get the user token from the local storage
   const user = localStorage.getItem("user");
   const token = user ? JSON.parse(user).token : null;
   const config = {
-    headers: { Authorization: `${token}` },
+    headers: { Authorization: `${token}`, ...headers },
   };
 
   try {
@@ -27,6 +27,6 @@ export const apiCall = async (url, method, data = {}) => {
     });
     return res.data;
   } catch (err) {
-    console.log(err);
+    return Promise.reject(err.response.data);
   }
 };
