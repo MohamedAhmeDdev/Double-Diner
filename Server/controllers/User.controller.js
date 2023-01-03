@@ -56,6 +56,7 @@ const login = async (req, res) => {
           name: foundUser.name,
           email: foundUser.email,
           token: token,
+          role: foundUser.role,
         },
       });
     }
@@ -106,6 +107,7 @@ const signup = async (req, res) => {
           name: user.name,
           email: user.email,
           token: token,
+          role: user.role,
         },
       });
     } catch (error) {
