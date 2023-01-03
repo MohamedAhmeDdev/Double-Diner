@@ -14,6 +14,7 @@ const OrdersRouter = require("./routes/Orders.route");
 
 //Admin
 const AdminOrdersRouter = require("./routes/admin_orders.route");
+const AdminUsersRouter = require("./routes/admin_customers.route");
 
 try {
   database.authenticate();
@@ -35,5 +36,6 @@ app.use("/orders", OrdersRouter);
 
 //Admin api routes
 app.use("/admin/orders", AdminOrdersRouter);
+app.use("/admin/users", AdminUsersRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
