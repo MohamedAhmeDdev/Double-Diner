@@ -34,7 +34,7 @@ const InventoryItem = ({ data, onDelete }) => {
         {/** edit link an delete button in flex */}
         <div className="flex flex-row space-x-4">
           <Link
-            to={`/inventory/edit/${data.id}`}
+            to={`/inventory/update/${data.id}`}
             className="text-indigo-600 hover:text-indigo-900"
           >
             Edit
