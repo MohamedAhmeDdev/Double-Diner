@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import CustomersList from "../Components/Customers/CustomersList";
-import { apiCall } from "../apiCall";
+import { apiCall } from "../utils/apiCall";
 
 const Customers = () => {
   const [customers, setCustomers] = useState([]);
