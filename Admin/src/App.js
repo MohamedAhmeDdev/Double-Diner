@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
 import React from "react";
 import Reservation from "./Components/Reservation";
-import UpdateInventory from "./Components/UpdateInventory";
+import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
 
 function App() {
