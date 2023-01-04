@@ -1,5 +1,7 @@
 const Order = require("../models/Orders.model");
 const OrderDishes = require("../models/OrderDishes.model");
+const User = require("../models/User.model");
+const Dish = require("../models/Dishes.model");
 
 const createOrder = async (req, res) => {
   try {
@@ -224,14 +226,19 @@ const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.findAll();
 
-    //populate the dishes in the order
+    //populate the users  - this is not efficient, but it works for now
     const ordersWithDishes = await Promise.all(
       orders.map(async (order) => {
-        const order_id = order.order_id;
-        const dishes = await OrderDishes.findAll({ where: { order_id } });
+        const user = await User.findOne({ where: { id: order.user_id } });
+
         return {
           ...order.dataValues,
-          dishes,
+
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+          },
         };
       })
     );
@@ -251,7 +258,7 @@ const getAllOrders = async (req, res) => {
 const getOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await Order.findOne({ where: { id } });
+    const order = await Order.findOne({ where: { order_id: id } });
     if (!order) {
       return res.status(404).json({
         success: false,
@@ -260,11 +267,30 @@ const getOrderById = async (req, res) => {
     } else {
       //populate the dishes in the order
       const order_id = order.order_id;
-      const dishes = await OrderDishes.findAll({ where: { order_id } });
+      const orderedDishes = await OrderDishes.findAll({ where: { order_id } });
+      const user = await User.findOne({ where: { id: order.user_id } });
+
+      const orderWithDishDetails = await Promise.all(
+        orderedDishes.map(async (dish) => {
+          const dishDetails = await Dish.findOne({
+            where: { id: dish.dish_id },
+          });
+
+          return {
+            ...dish.dataValues,
+            metadata: dishDetails,
+          };
+        })
+      );
 
       const orderWithDishes = {
         ...order.dataValues,
-        dishes,
+        dishes: orderWithDishDetails,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        },
       };
 
       return res.status(200).json({
@@ -283,28 +309,47 @@ const getOrderById = async (req, res) => {
 const updateOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await Order.findOne({ where: { id } });
+    const order = await Order.findOne({ where: { order_id: id } });
     if (!order) {
       return res.status(404).json({
         success: false,
         message: "Order not found",
       });
     } else {
-      const { dishes, order_status, order_date } = req.body;
-      await Order.update({ dishes, order_status }, { where: { id } });
+      const { order_status } = req.body;
+      await Order.update({ order_status }, { where: { order_id: id } });
 
       const updatedOrder = await Order.findOne({
-        where: { id },
+        where: { order_id: id },
       });
 
       //populate the dishes in the order
       const order_id = updatedOrder.order_id;
 
-      const _dishes = await OrderDishes.findAll({ where: { order_id } });
+      const orderedDishes = await OrderDishes.findAll({ where: { order_id } });
+      const user = await User.findOne({ where: { id: updatedOrder.user_id } });
+
+      const orderWithDishDetails = await Promise.all(
+        orderedDishes.map(async (dish) => {
+          const dishDetails = await Dish.findOne({
+            where: { id: dish.dish_id },
+          });
+
+          return {
+            ...dish.dataValues,
+            metadata: dishDetails,
+          };
+        })
+      );
 
       const updatedOrderWithDishes = {
         ...updatedOrder.dataValues,
-        dishes: _dishes,
+        dishes: orderWithDishDetails,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+        },
       };
 
       return res.status(200).json({
@@ -313,6 +358,8 @@ const updateOrderById = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       success: false,
       message: "Server Error",
