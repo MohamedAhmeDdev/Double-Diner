@@ -3,12 +3,13 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
 import Customers from "./pages/Customers";
-import CustomersOrders from "./Components/CustomersOrders";
 import Inventory from "./pages/Inventory";
 import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
+import Orders from "./pages/Orders";
 import React from "react";
 import Reservation from "./Components/Reservation";
+import SingleOrderView from "./pages/SingleOrderView";
 import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
 
@@ -44,7 +45,11 @@ function App() {
 
           <Route
             path="/orders"
-            element={user ? <CustomersOrders /> : <Navigate to="/" />}
+            element={user ? <Orders /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/orders/:id"
+            element={user ? <SingleOrderView /> : <Navigate to="/" />}
           />
 
           <Route
