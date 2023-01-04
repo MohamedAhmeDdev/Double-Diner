@@ -37,5 +37,6 @@ app.use("/orders", OrdersRouter);
 //Admin api routes
 app.use("/admin/orders", AdminOrdersRouter);
 app.use("/admin/users", AdminUsersRouter);
+app.use("/admin/dishes", AdminOrdersRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
