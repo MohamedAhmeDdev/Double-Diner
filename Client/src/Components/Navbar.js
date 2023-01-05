@@ -1,16 +1,21 @@
-import React, { useState } from "react";
 import "../css/Navbar.css";
-import { Link } from "react-router-dom";
-import { BsCartCheck, BsFillFileArrowDownFill } from "react-icons/bs";
+
+import React, { useState } from "react";
+
+import { BsCartCheck } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { FaSignOutAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
+import { UseCartContext } from "../hook/UseCartContext";
 
-function Navbar({ cartItems }) {
+function Navbar() {
   const [openMenu, setOpenMenu] = useState(true);
   const [bColor, setBColor] = useState(false);
   const { user } = UseAuthContext();
   const { dispatch } = UseAuthContext();
+
+  const { cartItems } = UseCartContext();
 
   const changeBackgroundColor = () => {
     if (window.scrollY >= 80) {
@@ -40,38 +45,58 @@ function Navbar({ cartItems }) {
             <div></div>
           </div>
 
-          <ul className="navbar-list" style={{ left: openMenu ? "-100%" : "0" }} >
+          <ul
+            className="navbar-list"
+            style={{ left: openMenu ? "-100%" : "0" }}
+          >
             <li>
-              <Link onClick={openResponsive} to="/"> Menu</Link>
+              <Link onClick={openResponsive} to="/">
+                {" "}
+                Menu
+              </Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/ListOfOrders"> Orders </Link>
+              <Link onClick={openResponsive} to="/orders">
+                {" "}
+                Orders{" "}
+              </Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/Reservation">Reservation </Link>
+              <Link onClick={openResponsive} to="/Reservation">
+                Reservation{" "}
+              </Link>
             </li>
 
             <li>
-              <Link onClick={openResponsive} to="/Contact">Contact </Link>
+              <Link onClick={openResponsive} to="/Contact">
+                Contact{" "}
+              </Link>
             </li>
           </ul>
 
           {/* ----right menu----- */}
           <div id="nav-form">
-            <Link to="/cart" className="cart"><BsCartCheck size="2em " color="white" /> <div className="counter-div">{cartItems.length}</div>
+            <Link to="/cart" className="cart">
+              <BsCartCheck size="2em " color="white" />{" "}
+              <div className="counter-div">{cartItems.length}</div>
             </Link>
 
             <div className="dropdown">
-              <div className="dropbtn">{user.foundUser.name}</div>
+              <div className="dropbtn">{user?.name}</div>
 
               <div className="dropdown-content">
                 <Link to="/Profile">
-                  <div className="profile"> <CgProfile size="1.4em " color="black" /> Profile </div>
+                  <div className="profile">
+                    {" "}
+                    <CgProfile size="1.4em " color="black" /> Profile{" "}
+                  </div>
                 </Link>
                 <Link to="">
-                  <button className="signOut" onClick={handleClick}><FaSignOutAlt size="1.5em " color="black" /> Sing out</button>
+                  <button className="signOut" onClick={handleClick}>
+                    <FaSignOutAlt size="1.5em " color="black" /> Sing out
+                  </button>
                 </Link>
               </div>
             </div>
@@ -121,12 +146,12 @@ function Navbar({ cartItems }) {
 
             <div id="form">
               <li>
-                <Link to="/Login" className="login">
+                <Link to="/login" className="login">
                   Login
                 </Link>
               </li>
               <li>
-                <Link to="/RegistrationForm" className="login">
+                <Link to="/signup" className="login">
                   Sign up
                 </Link>
               </li>

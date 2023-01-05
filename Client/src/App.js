@@ -1,70 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import './App.css'
-import Menu from './Components/Menu'
-import {BrowserRouter, Routes, Route, Navigate,} from "react-router-dom";
-import Navbar from './Components/Navbar';
-import Reservaton from './Components/Reservaton';
-import Contact from './Components/Contact';
-import Policy from './Components/Policy';
-import Terms from './Components/Terms';
-import RegistrationForm from './Components/RegistrationForm';
-import Login from './Components/Login';
-import Footer from './Components/Footer';
-import Meal from './Components/Meal';
-import Juice from './Components/Juice';
-import Shakes from './Components/Shakes';
-import Cart from './Components/Cart';
-import OrdersInfo from './Components/OrdersInfo';
-import ListOfOrders from './Components/ListOfOrders';
-import { UseAuthContext } from './hook/UseAuthContext';
-import Profile from './Components/Profile';
-import UpdateProfile from './Components/UpdateProfile';
+import "./App.css";
 
-// saving the cart item in localStorage 
-// const storelocalStorage = JSON.parse(localStorage.getItem("cartItems") || "[]")
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
+import Cart from "./Components/Cart";
+import CheckOutPage from "./pages/CheckOutPage";
+import Contact from "./Components/Contact";
+import DishView from "./pages/SingleDishView";
+import Footer from "./Components/Footer";
+import HomePage from "./pages/Home";
+import Login from "./pages/LoginPage";
+import Navbar from "./Components/Navbar";
+import OrdersListPage from "./pages/OrdersListPage";
+import Policy from "./Components/Policy";
+import Profile from "./Components/Profile";
+import React from "react";
+import SignUpPage from "./pages/SignUpPage";
+import SingleOrderView from "./pages/SingleOrderView";
+import Terms from "./Components/Terms";
+import UpdateProfile from "./Components/UpdateProfile";
+import { UseAuthContext } from "./hook/UseAuthContext";
 
 function App() {
-  const [cartItems, setCartItems] = useState('')
-  const [loading, setLoading] = useState(false)
-  const {user} = UseAuthContext()
-
-  useEffect(() => {
-    localStorage.setItem("cartItems", JSON.stringify(cartItems))
-  }, [cartItems])
-  // useEffect(() =>{
-  //   setLoading(true)
-  //   setTimeout(() =>{
-  //     setLoading(false)
-  //   }, 3000)
-  // },[])
+  const { user } = UseAuthContext();
 
   return (
     <div>
-      {loading ? <div className='loading-img'><img className='dd-logo' src='/Images/dd.jpg' width="100%" height="100%" alt="" /></div> :
-        <BrowserRouter>
-          <Navbar cartItems={cartItems} />
-          <Routes>
-            <Route path="/" element={<Menu cartItems={cartItems} setCartItems={setCartItems} />}/>
-            <Route path="/RegistrationForm" element={<RegistrationForm />}/>
-            <Route path="/Login" element={!user? <Login /> :<Navigate to= '/' />}/>
-            <Route path="/cart" element={<Cart cartItems={cartItems} setCartItems={setCartItems} />}/>
-            <Route path="/Meal" element={<Meal />}/>
-            <Route path="/Juice" element={<Juice />}/>
-            <Route path="/Shakes" element={<Shakes />}/>
-            <Route path="/Reservation" element={<Reservaton />}/>
-            <Route path="/Contact" element={ <Contact />}/>
-            <Route path="/Policy" element={ <Policy />}/>
-            <Route path="/Terms" element={ <Terms />}/>
-            <Route path="/OrdersInfo" element={user? <OrdersInfo cartItems={cartItems}/> :<Navigate to= '/' />}/>
-            <Route path="/ListOfOrders" element={<ListOfOrders/> }/>
-            <Route path="/Profile" element={user? <Profile/> :<Navigate to= '/' />}/>
-            <Route path="/UpdateProfile/:id" element={user? <UpdateProfile/> :<Navigate to= '/' />}/>
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      }
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/dishes/:id" element={<DishView />} />
+          <Route
+            path="/Login"
+            element={!user ? <Login /> : <Navigate to="/" />}
+          />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="/Policy" element={<Policy />} />
+          <Route path="/Terms" element={<Terms />} />
+          <Route
+            path="/checkout"
+            element={user ? <CheckOutPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/orders"
+            element={user ? <OrdersListPage /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/orders/:id"
+            element={user ? <SingleOrderView /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/Profile"
+            element={user ? <Profile /> : <Navigate to="/" />}
+          />
+          <Route
+            path="/UpdateProfile/:id"
+            element={user ? <UpdateProfile /> : <Navigate to="/" />}
+          />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
