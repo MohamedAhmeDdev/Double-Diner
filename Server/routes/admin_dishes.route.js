@@ -1,23 +1,28 @@
-const AdminOrdersRouter = require("express").Router();
+const AdminDishesRouter = require("express").Router();
 
 const {
-  createOrder,
-  deleteOrderById,
-  getAllOrders,
-  getOrderById,
-  updateOrderById,
-} = require("../controllers/Orders.controller");
+  createDish,
+  getAllDishes,
+  getDishById,
+  updateDish,
+  deleteDish,
+  getDishesInCategory,
+} = require("../controllers/Dishes.controller");
+const uploadImage = require("../middleware/UploadImage");
 
 const { verifyToken, isAdmin } = require("../middleware/VerifyToken");
 
-AdminOrdersRouter.use(verifyToken);
-AdminOrdersRouter.use(isAdmin);
+AdminDishesRouter.use(verifyToken);
+AdminDishesRouter.use(isAdmin);
 
-AdminOrdersRouter.route("/").get(getAllOrders).post(createOrder);
+AdminDishesRouter.route("/").post(uploadImage, createDish).get(getAllDishes);
 
-AdminOrdersRouter.route("/:id")
-  .get(getOrderById)
-  .patch(updateOrderById)
-  .delete(deleteOrderById);
+// query params localhost:5000/dishes/list?category=veg
+AdminDishesRouter.route("/list").get(getDishesInCategory);
 
-module.exports = AdminOrdersRouter;
+AdminDishesRouter.route("/:id")
+  .get(getDishById)
+  .patch(updateDish)
+  .delete(deleteDish);
+
+module.exports = AdminDishesRouter;
