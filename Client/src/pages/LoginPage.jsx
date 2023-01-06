@@ -71,7 +71,7 @@ const LoginPage = () => {
           </button>
           <p className="LoginLink">
             {" "}
-            Create account if <Link to="/RegistrationForm">SignUp?</Link>
+            Create account if <Link to="/signup">SignUp?</Link>
           </p>
         </form>
       </div>
