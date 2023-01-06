@@ -67,7 +67,7 @@
     height: 40px;
 }
 .loginError{
-    color: white;
+    color: black;
     position: relative;
     bottom: 10px;
     left: 20px;

@@ -78,8 +78,7 @@ body {
 }
 
 .container-feedback {
-  background-color: #444444;
-  height: 350px;
+  height: 450px;
   width: 100%;
 }
 
@@ -192,13 +191,12 @@ body {
   }
 
   .container-feedback {
-    height: 350px;
-    width: 100%;
+      height: 450px;
+      width: 100%;
   }
 
   .feedback-head {
     font-size: 20px;
-    color: black;
     padding: 10px 0;
     text-align: center;
   }

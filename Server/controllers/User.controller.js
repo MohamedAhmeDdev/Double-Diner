@@ -15,6 +15,60 @@ const createToken = (id, name, email) => {
   );
 };
 
+
+
+//signup
+const signup = async (req, res) => {
+  const { name, email, password } = req.body;
+  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
+
+  const encryptPassword = await bcrypt.hash(password, 10);
+
+  //TODO: - This should be done in the frontend
+  if (
+    password.length < 4 ||
+    !regEx.test(email)
+  ) {
+    return res.sendStatus(400).json({
+      success: false,
+      message: "Invalid registration credentials",
+    });
+  }
+
+  const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
+  if (checkingIfEmailExists) {
+    // if the email much send 401
+    return res.status(401).json({
+      success: false,
+      message: "Email already exists",
+    });
+  } else {
+    try {
+      const user = await User.create({
+        name: name,
+        email: email,
+        password: encryptPassword,
+      });
+
+      const token = createToken(user.id, user.name, user.email);
+      return res.status(200).json({
+        success: true,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          token: token,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      return res.json({ message: error.message });
+    }
+  }
+};
+
+
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -61,57 +115,6 @@ const login = async (req, res) => {
 };
 
 
-//signup
-const signup = async (req, res) => {
-  const { name, email, password } = req.body;
-  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
-
-  const encryptPassword = await bcrypt.hash(password, 10);
-
-  //TODO: - This should be done in the frontend
-  if (
-    name.length === 0 ||
-    email.length === 0 ||
-    password.length < 4 ||
-    !regEx.test(email)
-  ) {
-    return res.sendStatus(400).json({
-      success: false,
-      message: "Invalid registration credentials",
-    });
-  }
-
-  const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
-  if (checkingIfEmailExists) {
-    // if the email much send 401
-    return res.status(401).json({
-      success: false,
-      message: "Email already exists",
-    });
-  } else {
-    try {
-      const user = await User.create({
-        name: name,
-        email: email,
-        password: encryptPassword,
-      });
-
-      const token = createToken(user.id, user.name, user.email);
-      return res.status(200).json({
-        success: true,
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          token: token,
-          role: user.role,
-        },
-      });
-    } catch (error) {
-      return res.json({ message: error.message });
-    }
-  }
-};
 
 // for changing role - admin
 const updateRole = async (req, res) => {

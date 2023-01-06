@@ -1,5 +1,3 @@
-import "../css/OrdersInfo.css";
-
 import React, { useState } from "react";
 
 import { SERVER_URL } from "../constants";

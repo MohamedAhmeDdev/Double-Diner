@@ -5,11 +5,12 @@ import React, { useState } from "react";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   let navigate = useNavigate();
 
   const { dispatch } = UseAuthContext();
@@ -32,14 +33,14 @@ const Login = () => {
           dispatch({ type: "LOGIN", payload: user });
           navigate("/");
         } else {
-          setError("Access Denied");
+          return toast.error("Access Denied");
         }
       }
     } catch (error) {
       if (error.response?.status === 400) {
-        setError("Incorrect UserName Or Password");
+        return toast.error("Incorrect UserName Or Password");
       } else if (error.response?.status === 401) {
-        setError("Access Denied");
+        return toast.error("Access Denied");
       }
     }
   };
@@ -48,16 +49,31 @@ const Login = () => {
     <div>
       <div className="container-login">
         <div className="container-Form">
-          <form className="LoginForm" onSubmit={login}>
-            <label htmlFor="name" className="LoginLabel">Email Address</label><br />
-            <input className="LoginInput" type="text" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} /><br />
-            
-            <label htmlFor="password" className="LoginLabel"> Password</label>{" "}<br />
-             <input className="LoginInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-             
-            {error && <p className="loginError">{error}</p>}
-            <button className="submitLogin" type="submit">Login</button>
-          </form>
+          
+            <div className="block p-6 rounded-lg shadow-lg bg-white w-96">
+              <form onSubmit={login}>
+                <div className="form-group mb-6">
+                  <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Email address</label>
+                  <input type="email" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                   id="exampleInputEmail2" aria-describedby="emailHelp" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} placeholder="Example@gmail.com"/>
+                </div>
+
+                <div className="form-group mb-6">
+                  <label htmlFor="exampleInputPassword2" className="form-label inline-block mb-2 text-gray-700">Password</label>
+                  <input type="password" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                   id="exampleInputPassword2" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
+                </div>
+
+                <div className="flex justify-between items-center mb-6">
+                  <div className="form-group form-check">
+                  </div>
+                </div>
+                
+                <button type="submit" className=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                  Login
+                </button>
+              </form>
+            </div>
         </div>
       </div>
     </div>
