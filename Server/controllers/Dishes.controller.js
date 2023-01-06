@@ -38,7 +38,6 @@ const createDish = async (req, res) => {
 const getAllDishes = async (req, res) => {
   try {
     const dishes = await Dishes.findAll();
-
     return res.status(200).json({
       success: true,
       dishes,
@@ -53,7 +52,6 @@ const getAllDishes = async (req, res) => {
 
 const getDishById = async (req, res) => {
   const { id } = req.params;
-
   if (!id) {
     return res.status(400).json({
       success: false,
@@ -63,7 +61,6 @@ const getDishById = async (req, res) => {
 
   try {
     const dish = await Dishes.findOne({ where: { id } });
-
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -85,7 +82,6 @@ const getDishById = async (req, res) => {
 
 const updateDish = async (req, res) => {
   const { id } = req.params;
-
   const { name, description, price, image, category, quantity } = req.body;
 
   if (
@@ -106,7 +102,6 @@ const updateDish = async (req, res) => {
 
   try {
     const dish = await Dishes.findOne({ where: { id } });
-
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -120,7 +115,6 @@ const updateDish = async (req, res) => {
     );
 
     const updatedDish = await Dishes.findOne({ where: { id } });
-
     return res.status(200).json({
       success: true,
       dish: updatedDish,
@@ -135,7 +129,6 @@ const updateDish = async (req, res) => {
 
 const deleteDish = async (req, res) => {
   const { id } = req.params;
-
   if (!id) {
     return res.status(400).json({
       success: false,
@@ -145,7 +138,6 @@ const deleteDish = async (req, res) => {
 
   try {
     const dish = await Dishes.findOne({ where: { id } });
-
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -154,7 +146,6 @@ const deleteDish = async (req, res) => {
     }
 
     await Dishes.destroy({ where: { id } });
-
     return res.status(200).json({
       success: true,
       dishId: id,
@@ -170,7 +161,6 @@ const deleteDish = async (req, res) => {
 // query params category=veg
 const getDishesInCategory = async (req, res) => {
   const { category } = req.query;
-
   if (!category) {
     return res.status(400).json({
       success: false,
@@ -180,7 +170,6 @@ const getDishesInCategory = async (req, res) => {
 
   try {
     const dishes = await Dishes.findAll({ where: { category } });
-
     return res.status(200).json({
       success: true,
       dishes,

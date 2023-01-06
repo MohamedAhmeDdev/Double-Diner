@@ -9,9 +9,9 @@ import { UseCartContext } from "../hook/UseCartContext";
 import axios from "axios";
 
 const DishItem = ({ dish }) => {
-  const { cartItems, addToCart, removeFromCart } = UseCartContext();
+  const { cartItems, addToCart, removeFromCart } = UseCartContext();//from the cart context
 
-  const isAdded = cartItems.find((item) => item.id === dish.id);
+  const isAdded = cartItems.find((item) => item.id === dish.id); //function to see it the cart is added or not
 
   return (
     <div className="flex justify-center m-2">
@@ -27,20 +27,13 @@ const DishItem = ({ dish }) => {
             alt={dish?.name}
           />
         </Link>
+
         <div className="p-6">
-          <h5 className="text-gray-900 text-xl font-medium mb-2">
-            {dish?.name}
-          </h5>
-          <p
-            className="text-gray-700 text-base mb-4 
-            truncate"
-          >
-            {dish?.description}
-          </p>
+          <h5 className="text-gray-900 text-xl font-medium mb-2"> {dish?.name}</h5>
+          <p className="text-gray-700 text-base mb-4 truncate">{dish?.description}</p>
           <div className="flex justify-between  items-center">
-            <p className="text-gray-700 text-base mb-4 text-2xl font-bold">
-              Ksh. {dish?.price}
-            </p>
+            <p className="text-gray-700 text-base mb-4 text-2xl font-bold"> Ksh. {dish?.price} </p>
+
             {isAdded ? (
               <button
                 type="button"
@@ -70,13 +63,10 @@ const DishesMenuList = ({ category }) => {
   const [dishes, setDishes] = useState([]);
 
   useEffect(() => {
-    const URL = `${SERVER_URL}/dishes${
-      category === "all" ? "" : `/list/?category=${category}`
-    }`;
+    const URL = `${SERVER_URL}/dishes${category === "all" ? "" : `/list/?category=${category}`}`;
 
     const fetchDishes = async () => {
       const response = await axios.get(URL);
-
       const allDishes = response.data.dishes;
 
       // filter out the dishes that have quantity less than 1
@@ -97,10 +87,7 @@ const DishesMenuList = ({ category }) => {
   }, [category]);
 
   return (
-    <div
-      className="
-    grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-    >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" >
       {dishes?.map((dish) => (
         <DishItem dish={dish} key={dish.id} />
       ))}

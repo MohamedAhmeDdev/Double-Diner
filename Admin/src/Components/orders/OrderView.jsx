@@ -24,12 +24,7 @@ const OrderedDishItem = ({ dishOrderDetails, dishDetails }) => {
         </div>
 
         <div className="flex-1 min-w-0">
-          <p
-            className="text-sm font-medium text-gray-900 truncate
-          capitalize"
-          >
-            {dishDetails?.name}
-          </p>
+          <p className="text-sm font-medium text-gray-900 truncate capitalize">  {dishDetails?.name}</p>
         </div>
       </div>
 
@@ -102,68 +97,36 @@ const OrderView = ({ order, updateOrder }) => {
           <div className="flex flex-col md:flex-row space-y-4 justify-between items-center">
             {order?.order_status === "PENDING" && (
               <>
-                <button
-                  type="button"
-                  className={btn_class_name}
-                  onClick={acceptOrder}
-                >
-                  Confirm
-                </button>
-                <button
-                  type="button"
-                  className={btn_class_name}
-                  onClick={rejectOrder}
-                >
-                  Reject
-                </button>
+                <button type="button" className={btn_class_name} onClick={acceptOrder}>Confirm</button>
+                <button type="button" className={btn_class_name} onClick={rejectOrder}>Reject</button>
               </>
             )}
 
             {order?.order_status === "ACCEPTED" && (
-              <button
-                type="button"
-                className={btn_class_name}
-                onClick={markReadyForDelivery}
-              >
-                Mark Ready For Delivery
-              </button>
+              <button type="button" className={btn_class_name}onClick={markReadyForDelivery}> Mark Ready For Delivery </button>
             )}
+            
             {order?.order_status === "READY_FOR_DELIVERY" && (
-              <button
-                type="button"
-                className={btn_class_name}
-                onClick={markDelivered}
-              >
-                Mark Delivered
-              </button>
+              <button type="button"className={btn_class_name} onClick={markDelivered}> Mark Delivered </button>
             )}
 
             {order?.order_status === "DELIVERED" && (
-              <button
-                type="button"
-                className={btn_class_name}
-                onClick={completeOrder}
-              >
-                Complete Order
-              </button>
+              <button type="button" className={btn_class_name} onClick={completeOrder}>Complete Order</button>
             )}
           </div>
         </div>
       </div>
+
       {/** dishes  image, name, price and quantiy */}
-      <div
-        className="rounded-lg shadow-lg bg-white w-[32rem]
-      flex flex-col space-y-4 p-6"
-      >
+      <div className="rounded-lg shadow-lg bg-white w-[32rem] flex flex-col space-y-4 p-6">
         {order?.dishes?.map((dish) => (
           <OrderedDishItem
             dishOrderDetails={dish}
-            key={Math.random()}
-            dishDetails={dish?.metadata}
+            key={Math.random()} //?
+            dishDetails={dish?.metadata}//?
           />
         ))}
-
-        <DetailItem label="Total Price" value={`Ksh. ${order?.total_price}`} />
+          <DetailItem label="Total Price" value={`Ksh. ${order?.total_price}`} />
       </div>
     </div>
   );

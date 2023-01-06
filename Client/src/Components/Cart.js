@@ -5,14 +5,10 @@ import React from "react";
 import { UseCartContext } from "../hook/UseCartContext";
 
 const Cart = () => {
-  const { cartItems, removeFromCart, updateItemQuantity, clear } =
-    UseCartContext();
+  const { cartItems, removeFromCart, updateItemQuantity, clear } = UseCartContext(); // it from cart context
 
   // it calculates the total price of each item
-  const totalPrice = cartItems.reduce(
-    (price, item) => price + item.quantity * item.price,
-    0
-  ); // it adds the single price then it times it with the quantity
+  const totalPrice = cartItems.reduce( (price, item) => price + item.quantity * item.price, 0); // it adds the single price then it times it with the quantity
 
   return (
     <div className="cart-container">
@@ -22,9 +18,7 @@ const Cart = () => {
           <p className="error">No item added to the cart</p>
         )}
         {cartItems.length >= 1 && (
-          <button className="clear-button" onClick={clear}>
-            clear
-          </button>
+          <button className="clear-button" onClick={clear}>clear</button>
         )}
         <div className="head-div">
           <p>Item</p>
@@ -75,8 +69,7 @@ const Cart = () => {
                     removeFromCart(item.id);
                   }
                 }}
-              >
-                -
+              > -
               </button>
             </div>
 
@@ -87,9 +80,7 @@ const Cart = () => {
         ))}
         <p className="total">TOTAL : Ksh {totalPrice}</p>
         {cartItems.length >= 1 && (
-          <Link className="orderPage" to="/checkout">
-            Proceed To Checkout
-          </Link>
+          <Link className="orderPage" to="/checkout">Proceed To Checkout</Link>
         )}
       </div>
     </div>

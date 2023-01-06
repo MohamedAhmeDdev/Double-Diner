@@ -8,7 +8,6 @@ import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
 import Orders from "./pages/Orders";
 import React from "react";
-import Reservation from "./Components/Reservation";
 import SingleOrderView from "./pages/SingleOrderView";
 import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
@@ -21,46 +20,21 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route
-            path="/Login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/"
-            element={user ? <AdminDashboard /> : <Navigate to="/Login" />}
-          />
+          <Route  path="/Login"  element={!user ? <Login /> : <Navigate to="/" />} />
+          
+          <Route path="/"  element={user ? <AdminDashboard /> : <Navigate to="/Login" />}  />
 
-          <Route
-            path="/inventory/add"
-            element={user ? <CreateNewItemForm /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/inventory/update/:id"
-            element={user ? <UpdateInventory /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/inventory"
-            element={user ? <Inventory /> : <Navigate to="/" />}
-          />
+          <Route path="/inventory/add"  element={user ? <CreateNewItemForm /> : <Navigate to="/" />} />
 
-          <Route
-            path="/orders"
-            element={user ? <Orders /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/orders/:id"
-            element={user ? <SingleOrderView /> : <Navigate to="/" />}
-          />
+          <Route path="/inventory/update/:id" element={user ? <UpdateInventory /> : <Navigate to="/" />}  />
 
-          <Route
-            path="/reservations"
-            element={user ? <Reservation /> : <Navigate to="/" />}
-          />
+          <Route path="/inventory" element={user ? <Inventory /> : <Navigate to="/" />} />
 
-          <Route
-            path="/customers"
-            element={user ? <Customers /> : <Navigate to="/" />}
-          />
+          <Route path="/orders" element={user ? <Orders /> : <Navigate to="/" />}  />
+
+          <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/" />}/>
+
+          <Route path="/customers" element={user ? <Customers /> : <Navigate to="/" />}  />
 
           {/**
            * TODO:

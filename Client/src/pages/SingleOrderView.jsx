@@ -25,14 +25,11 @@ const SingleOrderView = () => {
 
   return (
     <div className="mt-32">
-      <p className="text-4xl font-bold text-center">
-        Order View Page for{" "}
-        <span className="text-green-500">{order?.order_id}</span>
+      <p 
+      className="text-4xl font-bold text-center"> Order View Page for{" "}<span className="text-green-500">{order?.order_id}</span>
       </p>
       <br />
-      <p className="text-2xl font-bold text-center text-gray-600">
-        You have access to the order here design the UI
-      </p>
+      <p className="text-2xl font-bold text-center text-gray-600"> You have access to the order here design the UI</p>
     </div>
   );
 };

@@ -26,13 +26,9 @@ const DishView = () => {
 
   return (
     <div className="mt-32">
-      <p className="text-4xl font-bold text-center">
-        Dish View Page for <span className="text-green-500">{dish?.name}</span>
-      </p>
+      <p className="text-4xl font-bold text-center">Dish View Page for <span className="text-green-500">{dish?.name}</span> </p>
       <br />
-      <p className="text-2xl font-bold text-center text-gray-600">
-        You have access to the dish here design the UI
-      </p>
+      <p className="text-2xl font-bold text-center text-gray-600">You have access to the dish here design the UI</p>
     </div>
   );
 };

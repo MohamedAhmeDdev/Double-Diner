@@ -31,34 +31,15 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/dishes/:id" element={<DishView />} />
-          <Route
-            path="/Login"
-            element={!user ? <Login /> : <Navigate to="/" />}
-          />
+          <Route path="/Login" element={!user ? <Login /> : <Navigate to="/" />}/>
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Policy" element={<Policy />} />
-          <Route path="/Terms" element={<Terms />} />
-          <Route
-            path="/checkout"
-            element={user ? <CheckOutPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/orders"
-            element={user ? <OrdersListPage /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/orders/:id"
-            element={user ? <SingleOrderView /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/Profile"
-            element={user ? <Profile /> : <Navigate to="/" />}
-          />
-          <Route
-            path="/UpdateProfile/:id"
-            element={user ? <UpdateProfile /> : <Navigate to="/" />}
-          />
+          <Route path="/Terms" element={<Terms />} /><Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
+          <Route path="/orders" element={user ? <OrdersListPage /> : <Navigate to="/login" />} />
+          <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/login" />} />
+          <Route path="/Profile"element={user ? <Profile /> : <Navigate to="/" />}/>
+          <Route path="/UpdateProfile/:id"element={user ? <UpdateProfile /> : <Navigate to="/" />}/>
         </Routes>
         <Footer />
       </BrowserRouter>

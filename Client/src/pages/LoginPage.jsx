@@ -16,8 +16,7 @@ const LoginPage = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      await axios
-        .post(`${SERVER_URL}/auth/login`, {
+      await axios.post(`${SERVER_URL}/auth/login`, {
           email: email,
           password: password,
         })
@@ -40,39 +39,15 @@ const LoginPage = () => {
     <div className="container-login">
       <div className="container-Form">
         <form className="LoginForm" onSubmit={login}>
-          <label htmlFor="Email" className="LoginLabel">
-            Email
-          </label>
-          <br />
-          <input
-            className="LoginInput"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <label htmlFor="password" className="LoginLabel">
-            {" "}
-            Password
-          </label>
-          <br />
+          <label htmlFor="Email" className="LoginLabel"> Email</label> <br />
+          <input className="LoginInput" type="text" value={email} onChange={(e) => setEmail(e.target.value)}/> <br />
 
-          <input
-            className="LoginInput"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label htmlFor="password" className="LoginLabel"> {" "} Password</label><br />
+          <input  className="LoginInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
 
           {error && <p className="loginError">{error}</p>}
-
-          <button className="submitLogin" type="submit">
-            Login
-          </button>
-          <p className="LoginLink">
-            {" "}
-            Create account if <Link to="/signup">SignUp?</Link>
-          </p>
+          <button className="submitLogin" type="submit">Login </button>
+          <p className="LoginLink">{" "}Create account if <Link to="/signup">SignUp?</Link></p>
         </form>
       </div>
     </div>

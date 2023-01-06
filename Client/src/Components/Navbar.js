@@ -46,34 +46,12 @@ function Navbar() {
           </div>
 
           <ul
-            className="navbar-list"
-            style={{ left: openMenu ? "-100%" : "0" }}
-          >
-            <li>
-              <Link onClick={openResponsive} to="/">
-                {" "}
-                Menu
-              </Link>
-            </li>
+            className="navbar-list"style={{ left: openMenu ? "-100%" : "0" }} >
+            <li><Link onClick={openResponsive} to="/">{" "}Menu</Link></li>
 
-            <li>
-              <Link onClick={openResponsive} to="/orders">
-                {" "}
-                Orders{" "}
-              </Link>
-            </li>
+            <li><Link onClick={openResponsive} to="/orders">{" "}Orders{" "}</Link> </li>
 
-            <li>
-              <Link onClick={openResponsive} to="/Reservation">
-                Reservation{" "}
-              </Link>
-            </li>
-
-            <li>
-              <Link onClick={openResponsive} to="/Contact">
-                Contact{" "}
-              </Link>
-            </li>
+            <li><Link onClick={openResponsive} to="/Contact"> Contact{" "} </Link></li>
           </ul>
 
           {/* ----right menu----- */}
@@ -88,11 +66,11 @@ function Navbar() {
 
               <div className="dropdown-content">
                 <Link to="/Profile">
-                  <div className="profile">
-                    {" "}
+                  <div className="profile">{" "}
                     <CgProfile size="1.4em " color="black" /> Profile{" "}
                   </div>
                 </Link>
+                
                 <Link to="">
                   <button className="signOut" onClick={handleClick}>
                     <FaSignOutAlt size="1.5em " color="black" /> Sing out
@@ -105,60 +83,35 @@ function Navbar() {
       )}
 
       {!user && (
-        <div>
-          <div className="open-menu" onClick={openResponsive}>
-            <div></div>
-            <div></div>
-            <div></div>
-          </div>
-
-          <ul
-            className="navbar-list"
-            style={{ left: openMenu ? "-100%" : "0" }}
-          >
-            <li>
-              <Link onClick={openResponsive} to="/">
-                Menu
-              </Link>
-            </li>
-
-            <li>
-              <Link onClick={openResponsive} to="/Reservation">
-                Reservation
-              </Link>
-            </li>
-
-            <li>
-              <Link onClick={openResponsive} to="/Contact">
-                Contact
-              </Link>
-            </li>
-          </ul>
-
-          {/* ----right menu----- */}
-          <div id="nav-form-not-user">
             <div>
-              <Link to="/cart" className="cart">
-                <BsCartCheck size="2em " color="white" />
-                <div className="counter-div">{cartItems.length}</div>
-              </Link>
+            <div className="open-menu" onClick={openResponsive}>
+              <div></div>
+              <div></div>
+              <div></div>
             </div>
-
-            <div id="form">
-              <li>
-                <Link to="/login" className="login">
-                  Login
+  
+            <ul className="navbar-list"  style={{ left: openMenu ? "-100%" : "0" }}>
+              <li><Link onClick={openResponsive} to="/"> Menu </Link> </li>
+  
+              <li> <Link onClick={openResponsive} to="/Contact"> Contact</Link> </li>
+            </ul>
+  
+            {/* ----right menu----- */}
+            <div id="nav-form-not-user">
+              <div>
+                <Link to="/cart" className="cart">
+                  <BsCartCheck size="2em " color="white" />
+                  <div className="counter-div">{cartItems.length}</div>
                 </Link>
-              </li>
-              <li>
-                <Link to="/signup" className="login">
-                  Sign up
-                </Link>
-              </li>
+              </div>
+  
+              <div id="form">
+                <li> <Link to="/login" className="login">Login</Link> </li>
+                <li><Link to="/signup" className="login"> Sign up </Link> </li>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }

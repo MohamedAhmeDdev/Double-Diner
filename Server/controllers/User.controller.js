@@ -11,8 +11,7 @@ const createToken = (id, name, email) => {
       name: name,
       email: email,
     },
-    JWT_SECRET,
-    { expiresIn: "3d" }
+    JWT_SECRET,{ expiresIn: "3d" }
   );
 };
 
@@ -28,7 +27,6 @@ const login = async (req, res) => {
 
   // find email and password in database
   const foundUser = await User.findOne({ where: { email: email } });
-
   // if the email  does not exist
   if (!foundUser) {
     return res.status(401).json({
@@ -39,7 +37,6 @@ const login = async (req, res) => {
 
   // compare password
   const dbPassword = foundUser.password;
-
   bcrypt.compare(password, dbPassword).then((match) => {
     if (!match) {
       return res.status(401).json({
@@ -63,6 +60,7 @@ const login = async (req, res) => {
   });
 };
 
+
 //signup
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -84,7 +82,6 @@ const signup = async (req, res) => {
   }
 
   const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
-
   if (checkingIfEmailExists) {
     // if the email much send 401
     return res.status(401).json({
@@ -119,7 +116,6 @@ const signup = async (req, res) => {
 // for changing role - admin
 const updateRole = async (req, res) => {
   const { id, role } = req.body;
-
   if (!id || !role) {
     return res.status(400).json({
       success: false,
@@ -129,7 +125,6 @@ const updateRole = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { id: id } });
-
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -138,7 +133,6 @@ const updateRole = async (req, res) => {
     }
 
     const updatedUser = await User.update({ role }, { where: { id: id } });
-
     res.status(200).json({
       success: true,
       user: updatedUser,
@@ -148,10 +142,11 @@ const updateRole = async (req, res) => {
   }
 };
 
+
+
 // for changing username or password
 const updateDetails = async (req, res) => {
   const { id, name, email, password } = req.body;
-
   if (!id || !name || !email || !password) {
     return res.status(400).json({
       success: false,
@@ -161,7 +156,6 @@ const updateDetails = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { id: id } });
-
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -173,7 +167,6 @@ const updateDetails = async (req, res) => {
       { name, email },
       { where: { id: id } }
     );
-
     res.status(200).json({
       success: true,
       user: updatedUser,
@@ -182,6 +175,8 @@ const updateDetails = async (req, res) => {
     res.json({ message: error.message });
   }
 };
+
+
 
 //Get all users  except admins - admin
 const getAllUsers = async (req, res) => {
@@ -199,7 +194,6 @@ const getAllUsers = async (req, res) => {
 // get user by id - admin
 const getUserById = async (req, res) => {
   const { id } = req.params;
-
   if (!id) {
     return res.status(400).json({
       success: false,
@@ -209,7 +203,6 @@ const getUserById = async (req, res) => {
 
   try {
     const user = await User.findOne({ where: { id: id } });
-
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -229,7 +222,6 @@ const getUserById = async (req, res) => {
 // delete user by id - admin
 const deleteUserById = async (req, res) => {
   const { id } = req.params;
-
   if (!id) {
     return res.status(400).json({
       success: false,

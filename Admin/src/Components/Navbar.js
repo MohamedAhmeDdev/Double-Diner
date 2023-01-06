@@ -48,11 +48,6 @@ function Navbar() {
                 <span className="links_name">Orders</span>
               </Link>
             </li>
-            <li>
-              <Link to="/reservations" onClick={open}>
-                <span className="links_name">Reservations</span>
-              </Link>
-            </li>
           </ul>
 
           <div className="logOut-div">

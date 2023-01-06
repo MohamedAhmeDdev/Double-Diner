@@ -49,31 +49,14 @@ const Login = () => {
       <div className="container-login">
         <div className="container-Form">
           <form className="LoginForm" onSubmit={login}>
-            <label htmlFor="name" className="LoginLabel">
-              Email Address
-            </label>
-            <br />
-            <input
-              className="LoginInput"
-              type="text"
-              value={emailAddress}
-              onChange={(e) => setEmailAddress(e.target.value)}
-            />
-            <br />
-            <label htmlFor="password" className="LoginLabel">
-              Password
-            </label>{" "}
-            <br />
-            <input
-              className="LoginInput"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <label htmlFor="name" className="LoginLabel">Email Address</label><br />
+            <input className="LoginInput" type="text" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} /><br />
+            
+            <label htmlFor="password" className="LoginLabel"> Password</label>{" "}<br />
+             <input className="LoginInput" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+             
             {error && <p className="loginError">{error}</p>}
-            <button className="submitLogin" type="submit">
-              Login
-            </button>
+            <button className="submitLogin" type="submit">Login</button>
           </form>
         </div>
       </div>

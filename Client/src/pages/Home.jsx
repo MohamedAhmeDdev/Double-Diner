@@ -1,5 +1,4 @@
 import "../css/Menu.css";
-import "../css/Meal.css";
 
 import React, { useState } from "react";
 
