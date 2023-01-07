@@ -12,76 +12,71 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <div className="cart-container-grid">
-        <h3 className="header">Add To Cart</h3>
-        {cartItems.length === 0 && (
-          <p className="error">No item added to the cart</p>
-        )}
-        {cartItems.length >= 1 && (
-          <button className="clear-button" onClick={clear}>clear</button>
-        )}
-        <div className="head-div">
-          <p>Item</p>
-          <p>Quantity</p>
-          <p>Price</p>
-        </div>
-        {cartItems.map((item, id) => (
-          <div className="cart-grid" key={id}>
-            <div className="cart-div">
-              <div className="image">
-                <img
-                  src={`http://localhost:5000/${item.image}`}
-                  width="100%"
-                  height="100%"
-                  alt=""
-                />
-              </div>
-              <div className="cart-info">
-                <p className="item-info">{item.foodName}</p>
-                <p className="item-info">{item.price}</p>
-              </div>
-            </div>
+     <div className="flex flex-col mb-60">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
 
-            <div className="count">
-              <button
-                className="items"
-                onClick={() =>
-                  updateItemQuantity({
-                    id: item.id,
-                    quantity: item.quantity + 1,
-                  })
-                }
-              >
-                +
-              </button>
-              <p className="quantity">{item.quantity}</p>
-              <button
-                className="items"
-                onClick={() => {
-                  //If the quantity is greater than 1, then it will decrease the quantity by 1
-                  if (item.quantity > 1) {
-                    updateItemQuantity({
-                      id: item.id,
-                      quantity: item.quantity - 1,
-                    });
-                  } else {
-                    //if the quantity is 1, then it will remove the item from the cart
-                    removeFromCart(item.id);
-                  }
-                }}
-              > -
-              </button>
-            </div>
+            {cartItems.length >= 1 && (
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex flex-col  mr-10 m-auto " onClick={clear}>Remove</button>
+              )}
 
-            <div className="price">
-              <p className="quantity">{item.price * item.quantity}</p>
+              <table className="min-w-full divide-y divide-gray-200"> 
+                <thead className="bg-gray-50">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dish</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Increment</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >Decrement</th>
+                    <th scope="col"className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                  </tr>
+                </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                  {cartItems.length === 0 && (<td className="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">No item added to the cart</td>)}
+                  {cartItems.map((item, id) => (
+                      <tr  key={id}>
+                          <td className="px-6 py-4 whitespace-nowrap text-left">  <div className="flex-shrink-0">
+                            <img className="w-24 h-24 rounded-md" src={`http://localhost:5000/${item.image}`} alt=""/></div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-nowrap text-left">{item.name}</td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left"> 
+                           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onClick={() => updateItemQuantity({id: item.id, quantity: item.quantity + 1,}) }>+</button>
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{item.quantity}</td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left"> 
+                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => {  //If the quantity is greater than 1, then it will decrease the quantity by 1 
+                               if (item.quantity > 1) {
+                                 updateItemQuantity({ id: item.id, quantity: item.quantity - 1, });
+                               } else {//if the quantity is 1, then it will remove the item from the cart
+                                removeFromCart(item.id); } }} >
+                                 - 
+                              </button>
+                          </td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{item.quantity} x  {item.price}</td>
+                      </tr>
+                      ))}      
+                  </tbody>
+                  <tfoot>
+                  {cartItems.length >= 1 && (
+                  <td className="px-6 ring-black leading-5 py-4 text-lg text-gray-500 text-left">TOTAL : Ksh {totalPrice}</td>
+                  )}
+                  </tfoot>
+              </table>
+
+              {cartItems.length >= 1 && (
+                <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-col mb-5 m-auto">
+                     <Link to="/checkout">Proceed To Checkout</Link>
+               </button>
+               )}
+
             </div>
           </div>
-        ))}
-        <p className="total">TOTAL : Ksh {totalPrice}</p>
-        {cartItems.length >= 1 && (
-          <Link className="orderPage" to="/checkout">Proceed To Checkout</Link>
-        )}
+        </div>
       </div>
     </div>
   );

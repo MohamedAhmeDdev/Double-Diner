@@ -68,12 +68,7 @@ const OrderView = ({ order, updateOrder }) => {
     "inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out";
 
   return (
-    <div
-      className="flex h-full w-full
-    justify-center items-center
-    flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4
-    "
-    >
+    <div className="flex h-full w-full justify-center items-center flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
       <div className="rounded-lg shadow-lg bg-white w-[32rem]">
         <div className="p-6 flex flex-col space-y-4 w-full">
           <div className="flex flex-col space-y-4">

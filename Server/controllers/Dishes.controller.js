@@ -82,21 +82,13 @@ const getDishById = async (req, res) => {
 
 const updateDish = async (req, res) => {
   const { id } = req.params;
-  const { name, description, price, image, category, quantity } = req.body;
+  const { name, description, price, category, quantity } = req.body;
 
-  if (
-    !id ||
-    !name ||
-    !description ||
-    !price ||
-    !image ||
-    !category ||
-    !quantity
-  ) {
+  if ( !id ||!name || !description ||!price  ||!category || !quantity) {
     return res.status(400).json({
       success: false,
       message:
-        "Id or name or description or price or image or category or quantity is missing",
+        "Id or name or description or price  or category or quantity is missing",
     });
   }
 

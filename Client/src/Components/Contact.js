@@ -31,8 +31,10 @@ const Contact = () => {
       setEmail("");
       setName("");
       setFeedback("");
+      return toast.success("Email Send")
+
     }
-    }
+  }
     
 
 
@@ -75,16 +77,16 @@ const Contact = () => {
         <p className="feedback-head">Send Your FeedBacks</p>
         <div className="feedback">
 
-        <div className="block p-6 rounded-lg shadow-lg bg-white 	margin-top: 0.75rem; w-2/5 h-85">
+        <div className="block p-6 rounded-lg shadow-2xl bg-white 	margin-top: 0.75rem; w-2/5 h-85">
             <form onSubmit={sendFeedback}>
               <div className="form-group mb-6">
                 <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                 id="exampleInput7" value={name}  onChange={(e) => setName(e.target.value)} placeholder="Name"/>
+                 id="exampleInput7" name="name"  value={name}  onChange={(e) => setName(e.target.value)} placeholder="Name"/>
               </div>
 
               <div className="form-group mb-6">
                 <input type="email" className="form-control block  w-full  px-3  py-1.5  text-base  font-normal  text-gray-700  bg-white bg-clip-padding  border border-solid border-gray-300  rounded  transition  ease-in-out  m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                 id="exampleInput8" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Email address"/>
+                 id="exampleInput8" name="email" value={email} onChange={(e) => setEmail(e.target.value)}  placeholder="Email address"/>
               </div>
 
               <div className="form-group mb-6">
@@ -92,7 +94,7 @@ const Contact = () => {
                 className=" form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 id="exampleFormControlTextarea13"
                 rows="3"
-                value={feedback}  onChange={(e) => setFeedback(e.target.value)}
+                name="message" value={feedback}  onChange={(e) => setFeedback(e.target.value)}
                 placeholder="Message">
                 </textarea>
               </div>
@@ -102,15 +104,6 @@ const Contact = () => {
               </button>
           </form>
        </div>
-          {/* <form className="feedbackForm" onSubmit={sendFeedback}>
-            <input type="text" className="email-input" placeholder="Enter Your Email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/> <br/><br/>
-
-            <input  type="text" className="text-input" placeholder="Enter Your Name" name="name" value={name}  onChange={(e) => setName(e.target.value)}/> <br/><br/>
-            
-            <input type="text" className="text-input"placeholder="Enter A Massage"  name="message" value={feedback}  onChange={(e) => setFeedback(e.target.value)}/> <br/> <br/>
-
-            <button className="send">Send</button>
-          </form> */}
         </div>
       </div>
     </div>

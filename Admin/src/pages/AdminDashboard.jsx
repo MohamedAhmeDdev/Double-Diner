@@ -1,6 +1,5 @@
 import "../css/Dashboard.css";
 
-import { BsTable } from "react-icons/bs";
 import { GiMeal } from "react-icons/gi";
 import { GrOrderedList } from "react-icons/gr";
 import { Link } from "react-router-dom";
@@ -22,21 +21,13 @@ const AdminDashboard = () => {
             <p className="grid-name">Orders</p>
           </div>
         </Link>
+
         <Link className="Link" to="/customers">
           <div className="container-div">
             <p className="icons">
               <MdAccountCircle color="gold" size="2em" />
             </p>
             <p className="grid-name">Customers</p>
-          </div>
-        </Link>
-
-        <Link className="Link" to="/reservations">
-          <div className="container-div">
-            <p>
-              <BsTable color="gold" size="2em" />
-            </p>
-            <p className="grid-name">Reservations</p>
           </div>
         </Link>
 

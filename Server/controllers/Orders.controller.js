@@ -51,7 +51,7 @@ const createOrder = async (req, res) => {
       };
     });
 
-    //insert the order dishes
+    //insert the order dishes ,bulkCreate() method allows you to insert multiple records to your database table with a single function call.
     await OrderDishes.bulkCreate(order_dishes);
 
     // deduct the quantity of the dishes from the inventory
@@ -72,10 +72,7 @@ const createOrder = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      order: {
-        ...order.dataValues,
-        dishes,
-      },
+      order: {...order.dataValues,  dishes,},
     });
   } catch (error) {
     res.status(500).json({
@@ -95,28 +92,17 @@ const getAllOrdersForUser = async (req, res) => {
 
     //populate the dishes in the order
     const ordersWithDishes = await Promise.all(
-      orders.map(async (order) => {
-        const order_id = order.order_id;
+      orders.map(async (order) => {const order_id = order.order_id;
         const dishes = await OrderDishes.findAll({ where: { order_id } });
 
         // populate the dish details in the order
         const dishDetails = await Promise.all(
-          dishes.map(async (dish) => {
-            const _dish = await Dish.findOne({
-              where: { id: dish.dish_id },
-            });
-
-            return {
-              ...dish.dataValues,
-              metadata: _dish,
-            };
+          dishes.map(async (dish) => { const _dish = await Dish.findOne({ where: { id: dish.dish_id }, });
+            return { ...dish.dataValues,  metadata: _dish,};
           })
         );
 
-        return {
-          ...order.dataValues,
-          dishes: dishDetails,
-        };
+        return {...order.dataValues,dishes: dishDetails,};
       })
     );
 
@@ -155,22 +141,14 @@ const getOrderForUserById = async (req, res) => {
 
       // populate the dish details in the order
       const dishDetails = await Promise.all(
-        dishes.map(async (dish) => {
-          const _dish = await Dish.findOne({
-            where: { id: dish.dish_id },
-          });
+        dishes.map(async (dish) => { const _dish = await Dish.findOne({where: { id: dish.dish_id },});
 
-          return {
-            ...dish.dataValues,
-            metadata: _dish,
+          return {  ...dish.dataValues, metadata: _dish,
           };
         })
       );
 
-      const orderWithDishes = {
-        ...order.dataValues,
-        dishes: dishDetails,
-      };
+      const orderWithDishes = {...order.dataValues,dishes: dishDetails, };
 
       return res.status(200).json({
         success: true,
@@ -191,8 +169,7 @@ const updateOrderForUserById = async (req, res) => {
   const { id } = req.params;
   try {
     const user_id = req.user.id;
-    const order = await Order.findOne({
-      where: { order_id: id, user_id: user_id },
+    const order = await Order.findOne({ where: { order_id: id, user_id: user_id },
     });
     if (!order) {
       return res.status(404).json({
@@ -201,13 +178,10 @@ const updateOrderForUserById = async (req, res) => {
       });
     } else {
       const { order_status } = req.body;
-      await Order.update(
-        { order_status },
-        { where: { order_id: id, user_id } }
+      await Order.update({ order_status },{ where: { order_id: id, user_id } }
       );
 
-      const updatedOrder = await Order.findOne({
-        where: { order_id: id, user_id },
+      const updatedOrder = await Order.findOne({ where: { order_id: id, user_id },
       });
 
       //populate the dishes in the order
@@ -219,17 +193,11 @@ const updateOrderForUserById = async (req, res) => {
         dishes.map(async (dish) => {
           const _dish = await Dish.findOne({ where: { id: dish.dish_id } });
 
-          return {
-            ...dish.dataValues,
-            metadata: _dish,
-          };
+          return {  ...dish.dataValues, metadata: _dish,};
         })
       );
 
-      const updatedOrderWithDishes = {
-        ...updatedOrder.dataValues,
-        dishes: dishesWithDetails,
-      };
+      const updatedOrderWithDishes = { ...updatedOrder.dataValues, dishes: dishesWithDetails,};
 
       return res.status(200).json({
         success: true,
@@ -260,14 +228,10 @@ const deleteOrderForUserById = async (req, res) => {
         message: "Order not found",
       });
     } else {
-      await Order.destroy({
-        where: { id: id, user_id: user_id },
-      });
+      await Order.destroy({ where: { id: id, user_id: user_id },});
 
       //cascade delete the order dishes
-      await OrderDishes.destroy({
-        where: { order_id: id },
-      });
+      await OrderDishes.destroy({ where: { order_id: id },});
 
       return res.status(200).json({
         success: true,
@@ -289,12 +253,9 @@ const getAllOrders = async (req, res) => {
 
     //populate the users  - this is not efficient, but it works for now
     const ordersWithUser = await Promise.all(
-      orders.map(async (order) => {
-        const user = await User.findOne({ where: { id: order.user_id } });
+      orders.map(async (order) => { const user = await User.findOne({ where: { id: order.user_id } });
 
-        return {
-          ...order.dataValues,
-
+        return { ...order.dataValues,
           user: {
             id: user.id,
             name: user.name,
@@ -332,21 +293,13 @@ const getOrderById = async (req, res) => {
       const user = await User.findOne({ where: { id: order.user_id } });
 
       const orderWithDishDetails = await Promise.all(
-        orderedDishes.map(async (dish) => {
-          const dishDetails = await Dish.findOne({
-            where: { id: dish.dish_id },
-          });
+        orderedDishes.map(async (dish) => { const dishDetails = await Dish.findOne({ where: { id: dish.dish_id }, });
 
-          return {
-            ...dish.dataValues,
-            metadata: dishDetails,
-          };
+          return { ...dish.dataValues, metadata: dishDetails,};
         })
       );
 
-      const orderWithDishes = {
-        ...order.dataValues,
-        dishes: orderWithDishDetails,
+      const orderWithDishes = {...order.dataValues, dishes: orderWithDishDetails,
         user: {
           id: user.id,
           name: user.name,
@@ -380,9 +333,7 @@ const updateOrderById = async (req, res) => {
       const { order_status } = req.body;
       await Order.update({ order_status }, { where: { order_id: id } });
 
-      const updatedOrder = await Order.findOne({
-        where: { order_id: id },
-      });
+      const updatedOrder = await Order.findOne({where: { order_id: id },});
 
       //populate the dishes in the order
       const order_id = updatedOrder.order_id;
@@ -392,20 +343,13 @@ const updateOrderById = async (req, res) => {
 
       const orderWithDishDetails = await Promise.all(
         orderedDishes.map(async (dish) => {
-          const dishDetails = await Dish.findOne({
-            where: { id: dish.dish_id },
-          });
+          const dishDetails = await Dish.findOne({ where: { id: dish.dish_id },});
 
-          return {
-            ...dish.dataValues,
-            metadata: dishDetails,
-          };
+          return {...dish.dataValues,metadata: dishDetails,};
         })
       );
 
-      const updatedOrderWithDishes = {
-        ...updatedOrder.dataValues,
-        dishes: orderWithDishDetails,
+      const updatedOrderWithDishes = {...updatedOrder.dataValues, dishes: orderWithDishDetails,
         user: {
           id: user.id,
           name: user.name,
@@ -443,9 +387,7 @@ const deleteOrderById = async (req, res) => {
       });
 
       //cascade delete the order dishes
-      await OrderDishes.destroy({
-        where: { order_id: id },
-      });
+      await OrderDishes.destroy({ where: { order_id: id },});
 
       return res.status(200).json({
         success: true,

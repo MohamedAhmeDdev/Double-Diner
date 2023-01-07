@@ -15,17 +15,9 @@ const DishItem = ({ dish }) => {
 
   return (
     <div className="flex justify-center m-2">
-      <div className="rounded-lg shadow-lg bg-white max-w-sm">
-        <Link
-          to={`/dishes/${dish.id}`}
-          data-mdb-ripple="true"
-          data-mdb-ripple-color="light"
-        >
-          <img
-            className="rounded-t-lg"
-            src={`${SERVER_URL}/${dish?.image}`}
-            alt={dish?.name}
-          />
+      <div className="rounded-lg shadow-lg bg-white max-w-sm h-96">
+        <Link to={`/dishes/${dish.id}`}data-mdb-ripple="true" data-mdb-ripple-color="light">
+          <img className="rounded-t-lg object-cover h-48 w-96"  src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name} />
         </Link>
 
         <div className="p-6">

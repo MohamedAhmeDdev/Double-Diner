@@ -65,16 +65,12 @@ function Navbar() {
               <div className="dropbtn">{user?.name}</div>
 
               <div className="dropdown-content">
-                <Link to="/Profile">
-                  <div className="profile">{" "}
-                    <CgProfile size="1.4em " color="black" /> Profile{" "}
-                  </div>
+                <Link to="/Profile"  className="text-center hover:bg-slate-400 text-white font-bold py-2 px-4 rounded flex flex-col">
+                  <div >{" "} Profile{" "}</div>
                 </Link>
                 
-                <Link to="">
-                  <button className="signOut" onClick={handleClick}>
-                    <FaSignOutAlt size="1.5em " color="black" /> Sing out
-                  </button>
+                <Link to=""  className="text-center bg-slate-400 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded flex flex-col">
+                  <button  onClick={handleClick}>Sing out</button>
                 </Link>
               </div>
             </div>

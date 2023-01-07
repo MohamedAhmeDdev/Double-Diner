@@ -1,6 +1,6 @@
 import "../css/RigistrationForm.css";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,24 +11,30 @@ const SignUpPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
   let navigate = useNavigate();
   let enabled = name.length > 0 && email.length > 0 && password.length > 0;
 
   const createUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${SERVER_URL}/auth/signup`, {
+      if (password.length < 4){
+    return toast.error("Password Must Be More Than 4")
+  }
+    else if (!regEx.test(email)){
+    return toast.error("Incorrect Email (example@gmail.com)")
+  }
+    else if(
+       await axios.post(`${SERVER_URL}/auth/signup`, {
         name: name,
         email: email,
         password: password,
-      });
+      })
+      )
       navigate("/Login");
     } catch (error) {
       if (error.response?.status === 401) {
         return toast.error("Email already exists"); //send errors if email exist in database
-      }
-      if (error.response?.status === 400) {
-        return toast.error("Password Must Be More Than 4"); //send errors
       }
     }
   };

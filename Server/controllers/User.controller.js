@@ -20,20 +20,8 @@ const createToken = (id, name, email) => {
 //signup
 const signup = async (req, res) => {
   const { name, email, password } = req.body;
-  const regEx = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,8}(.[a-z{2,8}])?/g;
 
   const encryptPassword = await bcrypt.hash(password, 10);
-
-  //TODO: - This should be done in the frontend
-  if (
-    password.length < 4 ||
-    !regEx.test(email)
-  ) {
-    return res.sendStatus(400).json({
-      success: false,
-      message: "Invalid registration credentials",
-    });
-  }
 
   const checkingIfEmailExists = await User.findOne({ where: { email: email } }); // find email in database
   if (checkingIfEmailExists) {
@@ -149,8 +137,8 @@ const updateRole = async (req, res) => {
 
 // for changing username or password
 const updateDetails = async (req, res) => {
-  const { id, name, email, password } = req.body;
-  if (!id || !name || !email || !password) {
+  const { name, email, } = req.body;
+  if ( !name || !email) {
     return res.status(400).json({
       success: false,
       message: "Id or name or email or password is missing",
