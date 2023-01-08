@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CustomerListItem = ({ customer: { name, email ,id} }) => {
+const CustomerListItem = ({ customer: { name, email ,id} , onDelete }) => {
   return (
     <li className="py-3 sm:py-4">
       <div className="flex items-center space-x-4">
@@ -20,6 +20,8 @@ const CustomerListItem = ({ customer: { name, email ,id} }) => {
           <Link to={`/customer/${id}`}className="text-indigo-600 hover:text-indigo-900" >
              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View</button>
           </Link>
+
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded ml-2" onClick={() => onDelete(id)}>Delete</button>
         </div>
       </div>
     </li>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import OrderView from "../Components/orders/OrderView";
-import { apiCall } from "../utils/apiCall";
+import OrderView from "./OrderView";
+import { apiCall } from "../../utils/apiCall";
 import { useParams } from "react-router-dom";
 
 const SingleOrderView = () => {

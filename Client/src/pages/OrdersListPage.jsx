@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import OrderList from "../Components/OrderList";
+import Footer from "../Components/Footer";
 import { apiCall } from "../utils/apiCall";
 
 const OrdersListPage = () => {
@@ -40,6 +41,8 @@ const OrdersListPage = () => {
   return (
     <div className="mt-32">
       <OrderList orders={orders} onCancelOrder={cancelOrder} />
+      
+      <Footer/>
     </div>
   );
 };

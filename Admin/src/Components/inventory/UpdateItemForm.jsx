@@ -33,24 +33,20 @@ const getInventoryById = async () => {
     }, []);
 
 
-    const updateDishes = (e) => {
-      e.preventDefault();
-      try {
-        apiCall(`http://localhost:5000/admin/dishes/${id}`, "PATCH", { 
-          name: name,
+  const updateDishes = (e) => {
+    e.preventDefault();
+    apiCall(`dishes/${id}`, "PATCH", { 
+          name:  name,
           description: description,
           price: price,
           category: category,
-          quantity: quantity,
-        })
-        // console.log(name);
-  } catch (error) {
-      if (error.response?.status === 500) {
-        return toast.error("Server error");
-      }
-    }
-  }
+          quantity: quantity
+    })
     
+    toast.success("Dish Updated successfully");
+    navigate("/inventory");
+      
+  };
   
 
   return (     

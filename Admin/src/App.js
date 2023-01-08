@@ -8,10 +8,10 @@ import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
 import Orders from "./pages/Orders";
 import React from "react";
-import SingleOrderView from "./pages/SingleOrderView";
+import SingleOrderView from "./Components/orders/SingleOrderView";
 import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
-import SingleCustomerId from "./pages/SingleCustomerId";
+import SingleCustomerId from "./Components/Customers/SingleCustomerId";
 
 function App() {
   const { user } = UseAuthContext();
@@ -42,8 +42,6 @@ function App() {
           {/**
            * TODO:
            * 1. update reservation page
-       
-           * 3. customers profile view page
            * 4. admin profile view page
            * 5. reports page
            */}

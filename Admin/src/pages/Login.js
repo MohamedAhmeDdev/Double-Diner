@@ -1,7 +1,5 @@
 import "../css/Login.css";
-
 import React, { useState } from "react";
-
 import { UseAuthContext } from "../hook/UseAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -27,9 +25,9 @@ const Login = () => {
 
       const user = json.user;
 
-      if (response?.data?.success) {
-        if (user.role === "admin") {
-          localStorage.setItem("user", JSON.stringify(user));
+      if (response?.data?.success) { 
+        if (user.role === "admin") { //if user Role equals to admin
+          localStorage.setItem("user", JSON.stringify(user)); //store the info in local storage
           dispatch({ type: "LOGIN", payload: user });
           navigate("/");
         } else {

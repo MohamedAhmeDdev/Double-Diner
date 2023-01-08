@@ -14,14 +14,7 @@ const createDish = async (req, res) => {
   }
 
   try {
-    const dish = await Dishes.create({
-      name,
-      description,
-      price,
-      image: image.replace(/\\/g, "/"),
-      category,
-      quantity,
-    });
+    const dish = await Dishes.create({ name, description, price, image: image.replace(/\\/g, "/"),category, quantity, });
 
     return res.status(201).json({
       success: true,
@@ -34,6 +27,9 @@ const createDish = async (req, res) => {
     });
   }
 };
+
+
+
 
 const getAllDishes = async (req, res) => {
   try {
@@ -49,6 +45,9 @@ const getAllDishes = async (req, res) => {
     });
   }
 };
+
+
+
 
 const getDishById = async (req, res) => {
   const { id } = req.params;
@@ -80,6 +79,9 @@ const getDishById = async (req, res) => {
   }
 };
 
+
+
+
 const updateDish = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, category, quantity } = req.body;
@@ -101,12 +103,7 @@ const updateDish = async (req, res) => {
       });
     }
 
-    await Dishes.update(
-      { name, description, price, image, category, quantity },
-      { where: { id: id } }
-    );
-
-    const updatedDish = await Dishes.findOne({ where: { id } });
+     await Dishes.update(req.body, {where: {  id: req.params.id} });
     return res.status(200).json({
       success: true,
       dish: updatedDish,
@@ -118,6 +115,10 @@ const updateDish = async (req, res) => {
     });
   }
 };
+
+
+
+
 
 const deleteDish = async (req, res) => {
   const { id } = req.params;
@@ -149,6 +150,9 @@ const deleteDish = async (req, res) => {
     });
   }
 };
+
+
+
 
 // query params category=veg
 const getDishesInCategory = async (req, res) => {

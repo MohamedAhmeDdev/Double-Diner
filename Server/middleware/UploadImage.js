@@ -17,7 +17,7 @@ const uploadImage = multer({
   storage: storage,
   limits: { fileSize: maxSize },
   fileFilter: (req, file, cb) => {
-    const fileTypes = /jpeg|jpg|png|gif/;
+    const fileTypes = /jpeg|jpg|png|gif|webp/;
     const extName = fileTypes.test(
       path.extname(file.originalname).toLowerCase()
     );

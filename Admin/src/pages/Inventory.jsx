@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import InventoryList from "../Components/inventory/InventoryList";
 import { apiCall } from "../utils/apiCall";
 

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { DISH_CATEGORIES } from "../../constants";
 import { apiCall } from "../../utils/apiCall";
 import { toast } from "react-toastify";

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { SERVER_URL } from "../constants";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { UseCartContext } from "../hook/UseCartContext";
@@ -113,7 +112,7 @@ const CheckOutPage = () => {
         </p>
       </div>
 
-      <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md">
+      <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md my-10">
         <p className="text-2xl font-bold text-gray-900">Please fill in Shipping Details </p>
 
         <form className="mt-4" onSubmit={placeOrder}>

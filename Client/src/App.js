@@ -6,7 +6,7 @@ import Cart from "./Components/Cart";
 import CheckOutPage from "./pages/CheckOutPage";
 import Contact from "./Components/Contact";
 import DishView from "./pages/SingleDishView";
-import Footer from "./Components/Footer";
+// import Footer from "./Components/Footer";
 import HomePage from "./pages/Home";
 import Login from "./pages/LoginPage";
 import Navbar from "./Components/Navbar";
@@ -41,7 +41,7 @@ function App() {
           <Route path="/Profile"element={user ? <Profile /> : <Navigate to="/" />}/>
           <Route path="/UpdateProfile/:id"element={user ? <UpdateProfile /> : <Navigate to="/" />}/>
         </Routes>
-        <Footer />
+        {/* <Footer />/ */}
       </BrowserRouter>
     </div>
   );

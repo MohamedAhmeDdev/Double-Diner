@@ -1,5 +1,3 @@
-import "../css/Cart.css";
-
 import { Link } from "react-router-dom";
 import React from "react";
 import { UseCartContext } from "../hook/UseCartContext";
@@ -12,7 +10,7 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-     <div className="flex flex-col mb-60">
+     <div className="flex flex-col mb-60 my-20">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -33,7 +31,6 @@ const Cart = () => {
                   </tr>
                 </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                  {cartItems.length === 0 && (<td className="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">No item added to the cart</td>)}
                   {cartItems.map((item, id) => (
                       <tr  key={id}>
                           <td className="px-6 py-4 whitespace-nowrap text-left">  <div className="flex-shrink-0">
@@ -66,6 +63,14 @@ const Cart = () => {
                   <td className="px-6 ring-black leading-5 py-4 text-lg text-gray-500 text-left">TOTAL : Ksh {totalPrice}</td>
                   )}
                   </tfoot>
+              </table>
+              
+              <table className="min-w-full divide-y divide-gray-200"> 
+                  <tbody className="bg-white divide-y divide-gray-200">
+                     {cartItems.length === 0 && (
+                       <td className="px-6 py-4 text-center whitespace-nowrap text-sm text-gray-500">No item added to the cart</td>
+                     )}      
+                  </tbody>
               </table>
 
               {cartItems.length >= 1 && (

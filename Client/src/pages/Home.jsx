@@ -1,8 +1,6 @@
-import "../css/Menu.css";
-
 import React, { useState } from "react";
-
 import DishesMenuList from "../Components/DishesMenuList";
+import Footer from "../Components/Footer";
 
 export const DISH_CATEGORIES = [
   { id: 0, name: "Full Menu", value: "all" },
@@ -59,6 +57,7 @@ const HomePage = () => {
       </ul>
 
       <DishesMenuList category={activeTab} />
+      <Footer/>
     </div>
   );
 };

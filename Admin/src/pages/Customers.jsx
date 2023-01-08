@@ -15,9 +15,15 @@ const Customers = () => {
     getCustomers();
   }, []);
 
+  const handleDelete = (id) => {
+    apiCall(`/users/${id}`, "DELETE").then((response) => {
+      setCustomers((items) => items.filter((item) => item.id !== id));
+    });
+  };
+
   return (
     <div>
-      <CustomersList listItems={customers} />
+      <CustomersList listItems={customers} onDelete={handleDelete}/>
     </div>
   );
 };

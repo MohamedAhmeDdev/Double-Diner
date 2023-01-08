@@ -4,6 +4,8 @@ import {useNavigate,useParams } from 'react-router-dom';
 import axios from "axios"
 import { SERVER_URL } from "../constants";
 import { apiCall } from "../utils/apiCall";
+import { toast } from "react-toastify";
+import Footer from "../Components/Footer";
 
 function UpdateProfile() {
   const [name, setName] = useState(''); 
@@ -24,29 +26,28 @@ function UpdateProfile() {
 
       } catch (error) {
           if (error.response?.status === 400) {
-              setErrors("Fields Must Not Be Empty"); //send errors 
+            return toast.error("Fields Must Not Be Empty"); //send errors 
           }
       }
   }
 
   return (
     <div> <div className="container-profile">
-        
+        <div className="profile-div">
+            <form className='profile-form' onSubmit={update}>
+                <label className='lable-profile'>Name</label>
+                <input className='input-profile' type="text"  value={name} onChange={(e) => setName(e.target.value)}></input><br/><br/><br/>
 
-    <div className="profile-div">
-    {errors && <div className="ProfileError"><p>{errors}</p></div>}
-        <form className='profile-form' onSubmit={update}>
-            <label className='lable-profile'>Name</label>
-            <input className='input-profile' type="text"  value={name} onChange={(e) => setName(e.target.value)}></input><br/><br/><br/>
+                <label className='lable-profile'>Name</label>
+                <input className='input-profile' type="text"  value={email} onChange={(e) => setEmail(e.target.value)}></input><br/><br/><br/>
 
-            <label className='lable-profile'>Name</label>
-            <input className='input-profile' type="text"  value={email} onChange={(e) => setEmail(e.target.value)}></input><br/><br/><br/>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
+            </form>
+        </div>
+      </div>
 
-        </form>
-    </div>
-   </div>
+      <Footer/>
   </div>
   )
 }

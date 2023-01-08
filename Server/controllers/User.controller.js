@@ -105,25 +105,10 @@ const login = async (req, res) => {
 
 
 // for changing role - admin
-const updateRole = async (req, res) => {
-  const { id, role } = req.body;
-  if (!id || !role) {
-    return res.status(400).json({
-      success: false,
-      message: "Id or role is missing",
-    });
-  }
-
+const updateRole = async (req, res) => { 
+  
   try {
-    const user = await User.findOne({ where: { id: id } });
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    const updatedUser = await User.update({ role }, { where: { id: id } });
+ const updatedUser =  await User.update(req.body, { where: {  id: req.params.id} });
     res.status(200).json({
       success: true,
       user: updatedUser,
@@ -137,27 +122,9 @@ const updateRole = async (req, res) => {
 
 // for changing username or password
 const updateDetails = async (req, res) => {
-  const { name, email, } = req.body;
-  if ( !name || !email) {
-    return res.status(400).json({
-      success: false,
-      message: "Id or name or email or password is missing",
-    });
-  }
 
   try {
-    const user = await User.findOne({ where: { id: id } });
-    if (!user) {
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-    }
-
-    const updatedUser = await User.update(
-      { name, email },
-      { where: { id: id } }
-    );
+    const updatedUser = await User.update(req.body, { where: { id: req.params.id}})
     res.status(200).json({
       success: true,
       user: updatedUser,
@@ -169,7 +136,7 @@ const updateDetails = async (req, res) => {
 
 
 
-//Get all users  except admins - admin
+//Get all users  except admins 
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.findAll();
@@ -183,7 +150,7 @@ const getAllUsers = async (req, res) => {
 };
 
 
-// get user by id - admin
+// get user by  
 const getUserById = async (req, res) => {
   const { id } = req.params;
   if (!id) {

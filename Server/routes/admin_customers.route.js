@@ -2,6 +2,7 @@ const AdminUsersRouter = require("express").Router();
 const {
   getUserById,
   deleteUserById,
+  updateRole,
   getAllUsers,
 } = require("../controllers/User.controller");
 
@@ -11,6 +12,9 @@ AdminUsersRouter.use(verifyToken);
 AdminUsersRouter.use(isAdmin);
 
 AdminUsersRouter.route("/").get(getAllUsers);
-AdminUsersRouter.route("/:id").get(getUserById).delete(deleteUserById);
+AdminUsersRouter.route("/:id")
+.get(getUserById)
+.patch(updateRole)
+.delete(deleteUserById);
 
 module.exports = AdminUsersRouter;

@@ -18,13 +18,7 @@ export const apiCall = async (url, method, data = {}, headers = {}) => {
   };
 
   try {
-    const res = await axios({
-      method,
-      url,
-      data,
-      baseURL: BASE_URL,
-      ...config,
-    });
+    const res = await axios({ method, url, data, baseURL: BASE_URL,...config, });
     return res.data;
   } catch (err) {
     return Promise.reject(err.response.data);
