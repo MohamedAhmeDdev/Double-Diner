@@ -182,6 +182,7 @@ const getAllUsers = async (req, res) => {
   }
 };
 
+
 // get user by id - admin
 const getUserById = async (req, res) => {
   const { id } = req.params;
@@ -209,6 +210,9 @@ const getUserById = async (req, res) => {
     return res.json({ message: error.message, success: false });
   }
 };
+
+
+
 
 // delete user by id - admin
 const deleteUserById = async (req, res) => {

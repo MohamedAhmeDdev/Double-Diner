@@ -11,6 +11,7 @@ import React from "react";
 import SingleOrderView from "./pages/SingleOrderView";
 import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
+import SingleCustomerId from "./pages/SingleCustomerId";
 
 function App() {
   const { user } = UseAuthContext();
@@ -35,6 +36,8 @@ function App() {
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/" />}/>
 
           <Route path="/customers" element={user ? <Customers /> : <Navigate to="/" />}  />
+
+          <Route path="/customer/:id" element={user ? <SingleCustomerId/> : <Navigate to="/" />}  />
 
           {/**
            * TODO:

@@ -19,15 +19,13 @@ const UpdateItemForm = ({ item }) => {
 
 
 const getInventoryById = async () => {
- 
     const response = await axios.get(`${SERVER_URL}/dishes/${id}`);
-    // console.log(response);
-    setName(response.data.name);
-    console.log(name);
-    setDescription(response.data.description);
-    setPrice(response.data.price);
-    setCategory(response.data.category);
-    setQuantity(response.data.quantity);
+    console.log(response);
+    setName(response.data.dish.name);
+    setDescription(response.data.dish.description);
+    setPrice(response.data.dish.price);
+    setCategory(response.data.dish.category);
+    setQuantity(response.data.dish.quantity);
 }
 
     useEffect(() => {
@@ -38,21 +36,17 @@ const getInventoryById = async () => {
     const updateDishes = (e) => {
       e.preventDefault();
       try {
-        apiCall(`dishes/${id}`, "PATCH", { 
+        apiCall(`http://localhost:5000/admin/dishes/${id}`, "PATCH", { 
           name: name,
           description: description,
           price: price,
           category: category,
           quantity: quantity,
         })
-       
-        .catch((err) => {
-          toast.error(err);
-        });
+        // console.log(name);
   } catch (error) {
-      if (error.response?.status === 400) {
-        console.log(error);
-        return toast.error("Id or name or description or price  or category or quantity is missing"); //send errors if email exist in database
+      if (error.response?.status === 500) {
+        return toast.error("Server error");
       }
     }
   }
