@@ -27,9 +27,9 @@ const LoginPage = () => {
         });
     } catch (error) {
       if (error.response?.status === 400) {
-        return toast.error("not yet sign in"); //send errors if you have not sing in
+        return toast.error("Username or password is missing"); //send errors if you have not sing in
       } else if (error.response?.status === 401) {
-        return toast.error("email and password doesn't much"); // /send errors if password and email does not much
+        return toast.error("Invalid login credentials"); // /send errors if password and email does not much
       }
     }
   };

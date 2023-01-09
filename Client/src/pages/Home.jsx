@@ -28,7 +28,7 @@ const TabItem = ({ dishCategory, activeTab, setActiveTab }) => {
         role="tab"
         aria-controls="tabs-home"
         aria-selected="true"
-        onClick={() => setActiveTab(dishCategory.value)}
+        onClick={() => setActiveTab(dishCategory.value)} //changes the category
       >
         {dishCategory.name}
       </span>
@@ -37,7 +37,7 @@ const TabItem = ({ dishCategory, activeTab, setActiveTab }) => {
 };
 
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);
+  const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);  //set to all categories
 
   return (
     <div className="home-container  h-screen w-screen flex flex-col  items-center">
@@ -47,12 +47,7 @@ const HomePage = () => {
         role="tablist"
       >
         {DISH_CATEGORIES.map((dishCategory) => (
-          <TabItem
-            key={dishCategory.id}
-            dishCategory={dishCategory}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
+          <TabItem key={dishCategory.id} dishCategory={dishCategory} activeTab={activeTab}  setActiveTab={setActiveTab} />
         ))}
       </ul>
 

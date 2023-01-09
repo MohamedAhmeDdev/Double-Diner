@@ -1,10 +1,6 @@
 import "../css/Navbar.css";
-
 import React, { useState } from "react";
-
 import { BsCartCheck } from "react-icons/bs";
-import { CgProfile } from "react-icons/cg";
-import { FaSignOutAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { UseCartContext } from "../hook/UseCartContext";
@@ -13,7 +9,6 @@ function Navbar() {
   const [openMenu, setOpenMenu] = useState(true);
   const [bColor, setBColor] = useState(false);
   const { user } = UseAuthContext();
-  const { dispatch } = UseAuthContext();
 
   const { cartItems } = UseCartContext();
 
@@ -26,11 +21,6 @@ function Navbar() {
   };
   window.addEventListener("scroll", changeBackgroundColor);
 
-  // ---remove user /signOut----
-  const handleClick = () => {
-    localStorage.removeItem("user"); // remove use from localStorage
-    dispatch({ type: "LOGOUT" }); //  dispatch log out action
-  };
 
   //  ----responsive navbar-----
   const openResponsive = () => setOpenMenu(!openMenu);
@@ -55,26 +45,16 @@ function Navbar() {
           </ul>
 
           {/* ----right menu----- */}
-          <div id="nav-form">
-            <Link to="/cart" className="cart">
-              <BsCartCheck size="2em " color="white" />{" "}
-              <div className="counter-div">{cartItems.length}</div>
-            </Link>
+            <div id="nav-form">
+              <Link to="/cart" className="cart">
+                <BsCartCheck size="2em " color="white" />{" "}
+                <div className="counter-div">{cartItems.length}</div>
+              </Link>
 
-            <div className="dropdown">
-              <div className="dropbtn">{user?.name}</div>
-
-              <div className="dropdown-content">
-                <Link to="/Profile"  className="text-center hover:bg-slate-400 text-white font-bold py-2 px-4 rounded flex flex-col">
-                  <div >{" "} Profile{" "}</div>
+              <Link to={`/UpdateProfile/${user.id}`}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded  my-4 mr-4 ">
+                  <span>Profile</span>
                 </Link>
-                
-                <Link to=""  className="text-center bg-slate-400 hover:bg-slate-400 text-white font-bold py-2 px-4 rounded flex flex-col">
-                  <button  onClick={handleClick}>Sing out</button>
-                </Link>
-              </div>
             </div>
-          </div>
         </div>
       )}
 

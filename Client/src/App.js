@@ -1,7 +1,5 @@
 import "./App.css";
-
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
 import Cart from "./Components/Cart";
 import CheckOutPage from "./pages/CheckOutPage";
 import Contact from "./Components/Contact";
@@ -12,7 +10,6 @@ import Login from "./pages/LoginPage";
 import Navbar from "./Components/Navbar";
 import OrdersListPage from "./pages/OrdersListPage";
 import Policy from "./Components/Policy";
-import Profile from "./Components/Profile";
 import React from "react";
 import SignUpPage from "./pages/SignUpPage";
 import SingleOrderView from "./pages/SingleOrderView";
@@ -38,7 +35,6 @@ function App() {
           <Route path="/Terms" element={<Terms />} /><Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
           <Route path="/orders" element={user ? <OrdersListPage /> : <Navigate to="/login" />} />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/login" />} />
-          <Route path="/Profile"element={user ? <Profile /> : <Navigate to="/" />}/>
           <Route path="/UpdateProfile/:id"element={user ? <UpdateProfile /> : <Navigate to="/" />}/>
         </Routes>
         {/* <Footer />/ */}

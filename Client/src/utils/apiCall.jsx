@@ -28,7 +28,7 @@ export const apiCall = async (url, method, data = {}, headers = {}) => {
     return res.data;
   } catch (err) {
     const errMessage = err.response?.data?.message || "Something went wrong";
-    toast.error(errMessage);
+    toast.error(errMessage); //this where the error displays
     throw err;
   }
 };
