@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { formatDateTime } from "../utils/functions";
 
-const OrderItem = ({ order, onCancelOrder }) => {
+const OrderItem = ({ order, onCancelOrder, handleDelete  }) => {
   
   const formatItemsListToSting = (items = []) => {
     const itemsList = items.map((item) => item.name);
@@ -41,13 +41,22 @@ const OrderItem = ({ order, onCancelOrder }) => {
               Cancel
             </button>
           )}
+
+          {order.order_status === "CANCELLED" && (
+            <button
+              className="bg-red-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => handleDelete(order.order_id)}
+            >
+              Confirm Delete
+            </button>
+          )}
         </div>
       </td>
     </tr>
   );
 };
 
-const OrderList = ({ orders, onCancelOrder }) => {
+const OrderList = ({ orders, onCancelOrder , handleDelete  }) => {
   return (
     <div className="flex flex-col">
       <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 mb-40">
@@ -68,11 +77,7 @@ const OrderList = ({ orders, onCancelOrder }) => {
                 {orders?.length > 0 ? (
                   <>
                     {orders.map((order) => (
-                      <OrderItem
-                        key={order.order_id}
-                        order={order}
-                        onCancelOrder={onCancelOrder}
-                      />
+                      <OrderItem  key={order.order_id} order={order} onCancelOrder={onCancelOrder} handleDelete ={handleDelete } />
                     ))}
                   </>
                 ) : (

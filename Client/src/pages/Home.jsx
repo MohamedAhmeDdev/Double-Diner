@@ -51,7 +51,9 @@ const HomePage = () => {
         ))}
       </ul>
 
-      <DishesMenuList category={activeTab} />
+      <div className="mb-10">
+        <DishesMenuList category={activeTab} />
+      </div>
       <Footer/>
     </div>
   );

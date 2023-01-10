@@ -375,16 +375,14 @@ const updateOrderById = async (req, res) => {
 const deleteOrderById = async (req, res) => {
   const { id } = req.params;
   try {
-    const order = await Order.findOne({ where: { id } });
+    const order = await Order.findOne({ where: {	order_id: id } });
     if (!order) {
       return res.status(404).json({
         success: false,
         message: "Order not found",
       });
     } else {
-      await Order.destroy({
-        where: { id },
-      });
+      await Order.destroy({ where: {	order_id: id }, });
 
       //cascade delete the order dishes
       await OrderDishes.destroy({ where: { order_id: id },});
@@ -397,7 +395,7 @@ const deleteOrderById = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "Server Error",
+       message: error.message,
     });
   }
 };

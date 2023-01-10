@@ -59,9 +59,11 @@ const Cart = () => {
                       ))}      
                   </tbody>
                   <tfoot>
+                    <tr>
                   {cartItems.length >= 1 && (
                   <td className="px-6 ring-black leading-5 py-4 text-lg text-gray-500 text-left">TOTAL : Ksh {totalPrice}</td>
                   )}
+                   </tr>
                   </tfoot>
               </table>
               
