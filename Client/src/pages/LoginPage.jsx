@@ -56,11 +56,11 @@ const LoginPage = () => {
                         </div>
                       </div>
                         
+                      <Link class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to="/ForgotPassword">Forgot Password?</Link>
                         <button type="submit" className=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                           Login
                         </button>
                         <p className="text-gray-800 mt-6 text-center">Create account if {" "}<Link className="text-sky-600" to="/signup">SignUp?</Link></p>
-                        <p > </p>
                 </form>
               </div>
           </div>

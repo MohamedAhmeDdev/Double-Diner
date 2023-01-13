@@ -1,8 +1,9 @@
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../constants");
-
 const User = require("../models/User.model");
+const nodemailer =require('nodemailer')
+
 
 const createToken = (id, name, email) => {
   return JWT.sign(
@@ -180,6 +181,78 @@ const getUserById = async (req, res) => {
 
 
 
+const forgotPassword = async(req,res)=>{
+  const { email} = req.body;
+  
+  try {
+    if (!email ) {
+      return res.status(40).json({
+        success: false,
+        message: "Email Does Not Exist",
+      });
+    }
+      
+    const user = await User.findOne({ where: { email: email } });
+    if(!user){
+      res.status(404).json({msg:'email does not  exists'})
+      
+    }else{
+    //create a nodeMailer Transport
+    const transporter = nodemailer.createTransport({
+      service:'gmail',
+      auth:{
+        user:'ma07041705@gmail.com',
+        pass:"uagrmlhtgykwbrrr"
+
+      }
+    })
+    //email option 
+    const mailOption={
+      // from:'brian@gmail.com',
+      to:`${user.email}`,
+      subject:"Forgot password link",
+      html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="http://localhost:3000/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
+    }
+    
+    transporter.sendMail(mailOption,(err ,response)=>{
+      if(err){
+        console.log('There was an error',err);
+      }else{
+        console.log('There was a response ',response);
+        res.status(200).json('recovery email sent ')
+      }
+     })
+    }
+  } catch (error) {
+    return res.json({ message: error.message, success: false });
+  }
+
+}
+
+const resetPassword =async(req,res)=>{
+  const { password ,confirm_password} = req.body;
+  const encryptPassword = await bcrypt.hash(password, 10);
+
+  if(password === confirm_password){
+    console.log("Password Muches")
+  }else{
+    return res.status(400).json({
+      success: false,
+      message: "Password Does Not Much",
+    });
+  }
+
+  try {
+    const updatedUser = await User.update({password: encryptPassword}, { where: { id: req.params.id}})
+    res.status(200).json({
+      success: true,
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.json({ message: error.message });
+  }
+}
+
 
 // delete user by id - admin
 const deleteUserById = async (req, res) => {
@@ -217,6 +290,8 @@ const deleteUserById = async (req, res) => {
 module.exports = {
   login,
   signup,
+  forgotPassword,
+  resetPassword,
   updateRole,
   updateDetails,
   getAllUsers,

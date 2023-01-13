@@ -16,6 +16,8 @@ import SingleOrderView from "./pages/SingleOrderView";
 import Terms from "./Components/Terms";
 import UpdateProfile from "./Components/UpdateProfile";
 import { UseAuthContext } from "./hook/UseAuthContext";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const { user } = UseAuthContext();
@@ -32,10 +34,13 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Policy" element={<Policy />} />
-          <Route path="/Terms" element={<Terms />} /><Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
+          <Route path="/Terms" element={<Terms />} />
+          <Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
           <Route path="/orders" element={user ? <OrdersListPage /> : <Navigate to="/login" />} />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/login" />} />
           <Route path="/UpdateProfile/:id"element={user ? <UpdateProfile /> : <Navigate to="/" />}/>
+          <Route path="/ForgotPassword" element={<ForgotPassword />}/>
+          <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
         </Routes>
         {/* <Footer />/ */}
       </BrowserRouter>
