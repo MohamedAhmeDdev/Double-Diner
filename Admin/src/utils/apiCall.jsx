@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const BASE_URL = "http://localhost:5000/admin";
 
@@ -21,6 +22,8 @@ export const apiCall = async (url, method, data = {}, headers = {}) => {
     const res = await axios({ method, url, data, baseURL: BASE_URL,...config, });
     return res.data;
   } catch (err) {
-    return Promise.reject(err.response.data);
+    const errMessage = err.response?.data?.message || "You are not authorized to access this resource";
+    toast.error(errMessage); //this where the error displays
+    throw err;
   }
 };

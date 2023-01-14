@@ -1,8 +1,10 @@
 import OrderItem from "./OrderItem";
 import React from "react";
+import Pagination from "../Pagination";
 
-const OrderList = ({ orders }) => {
+const OrderList = ({ orders, postsPerPage, totalPosts, paginate }) => {
   //tailwindcss classes
+
 
   return (
     <div className="flex flex-col">
@@ -31,6 +33,12 @@ const OrderList = ({ orders }) => {
           </div>
         </div>
       </div>
+
+      <Pagination
+       postsPerPage={postsPerPage}
+       totalPosts={totalPosts}
+       paginate={paginate}
+      />
     </div>
   );
 };

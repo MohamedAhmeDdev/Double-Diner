@@ -26,9 +26,9 @@ function ForgotPassword() {
         <div className="flex flex-col justify-center items-center m-auto my-40 w-3/5 shadow-xl">
              <p className='font-black text-2xl'>Account Recovery</p>
             <form className="w-full max-w-lg py-5"  onSubmit={forgotPassword}>
-                <div class="flex flex-wrap -mx-3 mb-6">
+                <div className="flex flex-wrap -mx-3 mb-6">
                     <div className="w-full px-3">
-                    <label htmlFor="email" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
+                    <label htmlFor="email" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
                     <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     placeholder="example@gmail.com" id="grid-first-name" type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                     </div>
