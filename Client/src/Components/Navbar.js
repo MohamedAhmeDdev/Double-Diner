@@ -38,9 +38,8 @@ function Navbar() {
           <ul
             className="navbar-list"style={{ left: openMenu ? "-100%" : "0" }} >
             <li><Link onClick={openResponsive} to="/">{" "}Menu</Link></li>
-
             <li><Link onClick={openResponsive} to="/orders">{" "}Orders{" "}</Link> </li>
-
+            <li><Link onClick={openResponsive} to="/Reservation">{" "}Reservation{" "}</Link> </li>
             <li><Link onClick={openResponsive} to="/Contact"> Contact{" "} </Link></li>
           </ul>
 

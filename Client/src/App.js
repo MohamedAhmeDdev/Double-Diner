@@ -18,6 +18,7 @@ import UpdateProfile from "./Components/UpdateProfile";
 import { UseAuthContext } from "./hook/UseAuthContext";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Reservation from "./pages/Reservation";
 
 function App() {
   const { user } = UseAuthContext();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
           <Route path="/orders" element={user ? <OrdersListPage /> : <Navigate to="/login" />} />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/login" />} />
+          <Route path="/Reservation" element={user ? <Reservation/> : <Navigate to="/login" />} />
           <Route path="/UpdateProfile/:id"element={user ? <UpdateProfile /> : <Navigate to="/" />}/>
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
           <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
