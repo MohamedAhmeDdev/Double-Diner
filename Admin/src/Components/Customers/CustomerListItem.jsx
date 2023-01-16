@@ -6,11 +6,11 @@ const CustomerListItem = ({ customer: { name, email ,id} , onDelete }) => {
     <li className="py-3 sm:py-4">
       <div className="flex items-center space-x-4">
         <div className="flex-shrink-0">
-          <img
+          {/* <img
             className="w-8 h-8 rounded-full"
             src="https://cdn.pixabay.com/photo/2018/12/20/23/55/tiger-3887020_960_720.jpg"
             alt=""
-          />
+          /> */}
         </div>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-gray-900 truncate capitalize">{name}</p>

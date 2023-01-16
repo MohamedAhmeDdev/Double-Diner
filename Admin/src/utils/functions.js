@@ -12,3 +12,17 @@ export const formatDateTime = (date) => {
 
   return `${_date} ${time}`;
 };
+
+
+
+export const formatDate = (date) => {
+  const _date = new Date(date).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  return `${_date}`;
+};
+
+

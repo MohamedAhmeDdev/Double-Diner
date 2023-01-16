@@ -6,7 +6,7 @@ import { apiCall } from "../utils/apiCall";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(2);
+  const [postsPerPage] = useState(10);
 
 
   // Get current posts

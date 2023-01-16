@@ -13,6 +13,7 @@ import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
 import SingleCustomerId from "./Components/Customers/SingleCustomerId";
 import UpdateProfile from "./Components/UpdateProfile";
+import Reservation from "./pages/Reservation";
 
 function App() {
   const { user } = UseAuthContext();
@@ -28,6 +29,7 @@ function App() {
           <Route path="/inventory/update/:id" element={user ? <UpdateInventory /> : <Navigate to="/" />}  />
           <Route path="/inventory" element={user ? <Inventory /> : <Navigate to="/" />} />
           <Route path="/orders" element={user ? <Orders /> : <Navigate to="/" />}  />
+          <Route path="/Reservation" element={user ? <Reservation/> : <Navigate to="/" />}  />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/" />}/>
           <Route path="/customers" element={user ? <Customers /> : <Navigate to="/" />}  />
           <Route path="/customer/:id" element={user ? <SingleCustomerId/> : <Navigate to="/" />}  />
@@ -35,7 +37,6 @@ function App() {
 
           {/**
            * TODO:
-           * 1. update reservation page
            * 5. reports page
            */}
         </Routes>

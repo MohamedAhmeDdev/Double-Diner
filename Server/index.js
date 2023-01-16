@@ -11,11 +11,13 @@ const database = require("./config/dbConfig");
 const AuthRouter = require("./routes/Auth.route");
 const DishesRouter = require("./routes/Dishes.route");
 const OrdersRouter = require("./routes/Orders.route");
+const ReservationRouter = require("./routes/ReservationRoute");
 
 //Admin
 const AdminOrdersRouter = require("./routes/admin_orders.route");
 const AdminUsersRouter = require("./routes/admin_customers.route");
 const AdminDishesRouter = require("./routes/admin_dishes.route");
+const AdminReservationRouter = require("./routes/admin_reservation.route");
 
 try {
   database.authenticate();
@@ -34,10 +36,13 @@ app.use("/auth", AuthRouter);
 //user api routes
 app.use("/dishes", DishesRouter);
 app.use("/orders", OrdersRouter);
+app.use("/reservation", ReservationRouter);
+
 
 //Admin api routes
 app.use("/admin/orders", AdminOrdersRouter);
 app.use("/admin/users", AdminUsersRouter);
 app.use("/admin/dishes", AdminDishesRouter);
+app.use("/admin/reservation", AdminReservationRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
