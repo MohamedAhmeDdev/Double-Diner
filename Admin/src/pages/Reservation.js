@@ -10,7 +10,6 @@ function Reservation({}) {
     const getReservation = async () => {
       const response = await apiCall("/reservation", "get");
       setReservation(response.reservation);
-      console.log(response);
     };
   
     useEffect(() => {

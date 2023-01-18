@@ -4,6 +4,7 @@ import { GrOrderedList } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import { MdAccountCircle } from "react-icons/md";
 import { BiTable } from "react-icons/bi";
+import { FcSalesPerformance } from "react-icons/fc";
 import React from "react";
 
 const AdminDashboard = () => {
@@ -48,6 +49,16 @@ const AdminDashboard = () => {
             <p className="grid-name">Manage Inventory</p>
           </div>
         </Link>
+
+        <Link className="Link" to="/dishReport">
+          <div className="container-div">
+            <p className="icons">
+              <FcSalesPerformance color="gold" size="2em" />
+            </p>
+            <p className="grid-name">Sales Report</p>
+          </div>
+        </Link>
+
       </div>
     </div>
   );

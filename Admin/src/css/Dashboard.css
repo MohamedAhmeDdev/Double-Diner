@@ -31,6 +31,7 @@ body{
   align-content: center;     
   grid-gap: 4px;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-left: 20px;
 }
 
 .container-div{

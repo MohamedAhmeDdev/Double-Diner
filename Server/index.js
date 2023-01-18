@@ -18,6 +18,7 @@ const AdminOrdersRouter = require("./routes/admin_orders.route");
 const AdminUsersRouter = require("./routes/admin_customers.route");
 const AdminDishesRouter = require("./routes/admin_dishes.route");
 const AdminReservationRouter = require("./routes/admin_reservation.route");
+const AdminReportDishRouter = require("./routes/report/inventory.route");
 
 try {
   database.authenticate();
@@ -44,5 +45,6 @@ app.use("/admin/orders", AdminOrdersRouter);
 app.use("/admin/users", AdminUsersRouter);
 app.use("/admin/dishes", AdminDishesRouter);
 app.use("/admin/reservation", AdminReservationRouter);
+app.use("/admin/report/dish", AdminReportDishRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));
