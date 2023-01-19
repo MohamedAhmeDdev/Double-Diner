@@ -50,27 +50,27 @@ function UpdateProfile() {
 
   return (
     <div>
-        <div class="flex flex-col justify-center items-center my-40">
-            <form class="w-full max-w-lg" onSubmit={update}>
-                <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full px-3">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Name</label>
-                      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+        <div className="flex flex-col justify-center items-center my-40">
+            <form className="w-full max-w-lg" onSubmit={update}>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Name</label>
+                      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-first-name" type="text" value={name} onChange={(e) => setName(e.target.value)}/>
                     </div>
               </div>
-              <div class="flex flex-wrap -mx-3 mb-6">
-                    <div class="w-full px-3">
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
-                      <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+              <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
+                      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-password" type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     </div>
               </div>
             </form>
             
             <div className="inline-flex items-center text-base font-semibold text-gray-900">
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-col m-auto mr-20">Edit Profile</button>
-              <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex flex-col m-auto" onClick={handleClick}>LogOut</button>
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-col m-auto mr-20">Edit Profile</button>
+              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex flex-col m-auto" onClick={handleClick}>LogOut</button>
             </div>
       </div>
       <Footer/>
