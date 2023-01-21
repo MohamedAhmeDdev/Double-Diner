@@ -42,11 +42,11 @@ const HomePage = () => {
   return (
     <div className="home-container  h-screen w-screen flex flex-col  items-center">
       <ul
-        className="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4"
+        className="nav nav-tabs flex flex-row md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 nav-tabs"
         id="tabs-tab"
         role="tablist"
       >
-        {DISH_CATEGORIES.map((dishCategory) => (
+        {DISH_CATEGORIES.map((dishCategory) => ( //mapping the DISH_CATEGORIES array
           <TabItem key={dishCategory.id} dishCategory={dishCategory} activeTab={activeTab}  setActiveTab={setActiveTab} />
         ))}
       </ul>

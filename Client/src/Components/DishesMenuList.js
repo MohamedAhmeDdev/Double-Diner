@@ -53,7 +53,8 @@ const DishesMenuList = ({ category }) => {
   const [dishes, setDishes] = useState([]);
 
   useEffect(() => {
-    const URL = `${SERVER_URL}/dishes${category === "all" ? "" : `/list/?category=${category}`}`;
+    //if the category is "all", it will return the URL as ${SERVER_URL}/dishes and if the category is not "all" then it will return the URL as ${SERVER_URL}/dishes/list/?category=${category}
+    const URL = `${SERVER_URL}/dishes${category === "all" ? "" : `/list/?category=${category}`}`; 
 
     const fetchDishes = async () => {
       const response = await axios.get(URL);

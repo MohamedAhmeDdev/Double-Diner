@@ -77,7 +77,7 @@ const Contact = () => {
         <p className="feedback-head">Send Your FeedBacks</p>
         <div className="feedback">
 
-        <div className="block p-6 rounded-lg shadow-2xl bg-white 	margin-top: 0.75rem; w-2/5 h-85">
+        <div className="block p-6 rounded-lg shadow-2xl bg-white 	margin-top: 0.75rem; w-96 h-85">
             <form onSubmit={sendFeedback}>
               <div className="form-group mb-6">
                 <input type="text" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
