@@ -18,13 +18,7 @@ body {
 }
 
 
-@media screen and (max-width: 767px) {
-    .nav-tabs {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      width: 100%;
-    }
-  }
+
 
 
 .navbar {

@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 
 
 function ResetPassword() {
-    const [password, setPassword] =useState('')
-    const [confirm_password, setConfirm_password] =useState('')
+    const [password, setPassword] =useState("")
+    const [confirm_password, setConfirm_password] =useState("")
     const { id } = useParams();
 
     const resetPassword = async (e) => {
@@ -26,7 +26,7 @@ function ResetPassword() {
          setConfirm_password('');
           toast.success("Password updated")
         }
-       } 
+       }
        } catch (error) {
         if (error.response?.status === 400) {
           return toast.error("Password Does Not Much"); //send errors 

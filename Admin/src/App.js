@@ -15,6 +15,8 @@ import SingleCustomerId from "./Components/Customers/SingleCustomerId";
 import UpdateProfile from "./Components/UpdateProfile";
 import Reservation from "./pages/Reservation";
 import SalesDish from "./pages/SalesDish";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   const { user } = UseAuthContext();
@@ -36,6 +38,8 @@ function App() {
           <Route path="/customer/:id" element={user ? <SingleCustomerId/> : <Navigate to="/" />}  />
           <Route path="/UpdateProfile/:id" element={user ? <UpdateProfile/> : <Navigate to="/" />}  />
           <Route path="/dishReport" element={user ? <SalesDish/> : <Navigate to="/" />}  />
+          <Route path="/ForgotPassword" element={<ForgotPassword />}/>
+          <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
 
           {/**
            * TODO:

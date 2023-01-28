@@ -86,7 +86,9 @@ const updateDish = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, category, quantity } = req.body;
 
-  if ( !id ||!name || !description ||!price  ||!category || !quantity) {
+  const image = req.file ? req.file.path : "";
+
+  if ( !id ||!name || !description ||!image  ||!price   ||!category || !quantity) {
     return res.status(400).json({
       success: false,
       message:
@@ -103,10 +105,10 @@ const updateDish = async (req, res) => {
       });
     }
 
-     await Dishes.update(req.body, {where: {  id: req.params.id} });
+     await Dishes.update({ name, description, price, image: image.replace(/\\/g, "/"),category, quantity, }, {where: {  id: req.params.id} });
     return res.status(200).json({
       success: true,
-      dish: updatedDish,
+      dish: Dishes,
     });
   } catch (error) {
     return res.status(500).json({

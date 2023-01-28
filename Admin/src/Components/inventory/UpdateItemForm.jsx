@@ -8,6 +8,7 @@ import { apiCall } from "../../utils/apiCall";
 
 const UpdateItemForm = ({ item }) => {
   // const { id, name, price, category, quantity, image } = item;
+  const [image, setImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -34,19 +35,33 @@ const getInventoryById = async () => {
 
 
   const updateDishes = (e) => {
-    e.preventDefault();
-    apiCall(`dishes/${id}`, "PATCH", { 
-          name:  name,
-          description: description,
-          price: price,
-          category: category,
-          quantity: quantity
-    })
-    
-    toast.success("Dish Updated successfully");
-    navigate("/inventory");
-      
-  };
+      e.preventDefault();
+  
+      if (!name || !description || !price || !category || !image || !quantity) {
+        return toast.error("Please fill all the fields");
+      }
+  
+      const formData = new FormData();
+  
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("image", image);
+      formData.append("quantity", quantity);
+  
+      apiCall(`/dishes/${id}`, "patch", formData, {
+        "Content-Type": "multipart/form-data",
+      })
+        .then((res) => {
+          toast.success("Dish Updated successfully");
+          navigate("/inventory");
+        })
+  
+        .catch((error) => {
+          toast.error("Failed to create dish");
+        });
+    };
   
 
   return (     
@@ -97,6 +112,29 @@ const getInventoryById = async () => {
               </option>
             ))}
           </select>
+
+            {/* image input  with preview */}
+            <div>
+            {/* small image preview */}
+            <div className="flex flex-col items-center justify-center w-full h-full">
+              <img
+                className="w-8 h-8 mt-4"
+                src={image ? URL.createObjectURL(image) : ""}
+                alt="preview"
+              />
+
+
+              {/* image input*/}
+              <label className="text-2xl font-bold text-gray-700">Image</label>
+              <input
+                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                type="file"
+                onChange={(e) => setImage(e.target.files[0])}
+                accept="image/*"
+              />
+            </div> 
+          </div>
+
 
 
           {/* quantity input*/}

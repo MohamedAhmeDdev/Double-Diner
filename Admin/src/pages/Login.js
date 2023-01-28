@@ -1,5 +1,6 @@
 import "../css/Login.css";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -62,10 +63,7 @@ const Login = () => {
                    id="exampleInputPassword2" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password"/>
                 </div>
 
-                <div className="flex justify-between items-center mb-6">
-                  <div className="form-group form-check">
-                  </div>
-                </div>
+                <Link className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" to="/ForgotPassword">Forgot Password?</Link>
                 
                 <button type="submit" className=" w-full px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                   Login

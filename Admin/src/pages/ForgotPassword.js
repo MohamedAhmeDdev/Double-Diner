@@ -12,7 +12,7 @@ function ForgotPassword() {
         await axios.post(`${SERVER_URL}/auth/forgotPassword`, {
         email: email,
       })
-      setEmail('');
+      setEmail('')
      return toast.success("Reset Email Recovery Sent To Your Email"); 
      } catch (error) {
       if (error.response?.status === 404) {

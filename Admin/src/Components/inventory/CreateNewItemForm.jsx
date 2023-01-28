@@ -93,6 +93,7 @@ const CreateNewItemForm = () => {
             ))}
           </select>
 
+
           {/* image input  with preview */}
           <div>
             {/* small image preview */}
@@ -103,8 +104,6 @@ const CreateNewItemForm = () => {
                 alt="preview"
               />
 
-              <div></div>
-
               {/* image input*/}
               <label className="text-2xl font-bold text-gray-700">Image</label>
               <input
@@ -113,8 +112,9 @@ const CreateNewItemForm = () => {
                 onChange={(e) => setImage(e.target.files[0])}
                 accept="image/*"
               />
-            </div>
+            </div> 
           </div>
+          
 
           {/* quantity input*/}
           <label className="text-2xl font-bold text-gray-700">Quantity</label>

@@ -22,7 +22,7 @@ AdminDishesRouter.route("/list").get(getDishesInCategory);
 
 AdminDishesRouter.route("/:id")
   .get(getDishById)
-  .patch(updateDish)
+  .patch(uploadImage ,updateDish)
   .delete(deleteDish);
 
 module.exports = AdminDishesRouter;
