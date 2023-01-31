@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { SERVER_URL } from "../../constants";
 import { apiCall } from "../../utils/apiCall";
 
+
 const UpdateItemForm = ({ item }) => {
   // const { id, name, price, category, quantity, image } = item;
   const [image, setImage] = useState("");
@@ -27,6 +28,7 @@ const getInventoryById = async () => {
     setPrice(response.data.dish.price);
     setCategory(response.data.dish.category);
     setQuantity(response.data.dish.quantity);
+    setImage(response.data.dish.image);
 }
 
     useEffect(() => {
@@ -37,7 +39,7 @@ const getInventoryById = async () => {
   const updateDishes = (e) => {
       e.preventDefault();
   
-      if (!name || !description || !price || !category || !image || !quantity) {
+      if (!name || !description || !price || !category || !quantity) {
         return toast.error("Please fill all the fields");
       }
   
@@ -119,7 +121,7 @@ const getInventoryById = async () => {
             <div className="flex flex-col items-center justify-center w-full h-full">
               <img
                 className="w-8 h-8 mt-4"
-                src={image ? URL.createObjectURL(image) : ""}
+                src={`${SERVER_URL}/${image}`}
                 alt="preview"
               />
 
