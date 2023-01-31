@@ -3,6 +3,8 @@ import OrderList from "../Components/OrderList";
 import Footer from "../Components/Footer";
 import { apiCall } from "../utils/apiCall";
 import { SERVER_URL } from "../constants";
+import { toast } from "react-toastify";
+
 
 const OrdersListPage = () => {
   const [orders, setOrders] = useState([]);
@@ -21,7 +23,9 @@ const OrdersListPage = () => {
   const handleDelete = (id) => {
     apiCall(`${SERVER_URL}/orders/${id}`, "DELETE").then((response) => {
       setOrders((items) => items.filter((item) => item.id !== id));
-    });
+    })(
+       toast.success("Order Deleted")
+    )
   };
 
   const cancelOrder = async (order_id) => {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ReservationList from "../Components/Reservation/ReservationList";
 import { apiCall } from "../utils/apiCall";
+import { toast } from "react-toastify";
 
 
 function Reservation({}) {
@@ -19,7 +20,9 @@ function Reservation({}) {
     const handleDelete = (id) => {
       apiCall(`/reservation/${id}`, "DELETE").then((response) => {
         setReservation((items) => items.filter((item) => item.id !== id));
-      });
+      })(
+        toast.success("Reservation Deleted successfully")
+      )
     };
   
     

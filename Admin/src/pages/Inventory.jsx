@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import InventoryList from "../Components/inventory/InventoryList";
 import { apiCall } from "../utils/apiCall";
+import { toast } from "react-toastify";
 
 const Inventory = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -14,7 +15,9 @@ const Inventory = () => {
   const handleDelete = (id) => {
     apiCall(`/dishes/${id}`, "DELETE").then((response) => {
       setInventoryItems((items) => items.filter((item) => item.id !== id));
-    });
+    })(
+      toast.success("Dish Deleted successfully")
+    )
   };
 
   return (
