@@ -123,6 +123,14 @@ const updateRole = async (req, res) => {
 
 // for changing username or password
 const updateDetails = async (req, res) => {
+  const { email, name } = req.body;
+
+  if (!email || !name) {
+    return res.status(400).json({
+      success: false,
+      message: "Username or password is missing",
+    });
+  }
 
   try {
     const updatedUser = await User.update(req.body, { where: { id: req.params.id}})
