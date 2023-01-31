@@ -2,7 +2,14 @@ import OrderItem from "./OrderItem";
 import React from "react";
 import Pagination from "../Pagination";
 
-const OrderList = ({ orders, postsPerPage, totalPosts, paginate }) => {
+const OrderList = ({ 
+   orders ,
+   postsPerPage, 
+   totalPosts,
+   paginate,
+   currentPage,
+   setCurrentPage  
+  }) => {
   //tailwindcss classes
 
 
@@ -38,6 +45,8 @@ const OrderList = ({ orders, postsPerPage, totalPosts, paginate }) => {
        postsPerPage={postsPerPage}
        totalPosts={totalPosts}
        paginate={paginate}
+       currentPage={currentPage}
+       setCurrentPage={setCurrentPage}
       />
     </div>
   );

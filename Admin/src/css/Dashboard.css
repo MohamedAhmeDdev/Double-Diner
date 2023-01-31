@@ -73,6 +73,12 @@ body{
 }
 
 
+.btn{
+    margin: -7px 0;
+    height: 38px;
+}
+
+
 @media only screen and (max-width: 800px)
  {
 

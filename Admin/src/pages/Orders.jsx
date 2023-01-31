@@ -8,6 +8,7 @@ const Orders = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
+  
 
   // Get current posts
 const indexOfLastPost = currentPage * postsPerPage;
@@ -26,7 +27,14 @@ const currentPosts = orders.slice(indexOfFirstPost, indexOfLastPost);
     fetchOrders();
   }, []);
 
-  return <OrderList orders={currentPosts} postsPerPage={postsPerPage} totalPosts={orders.length} paginate={paginate} currentPage={currentPage}/>;
+  return <OrderList orders={currentPosts}
+   postsPerPage={postsPerPage}
+   totalPosts={orders.length}
+   paginate={paginate}
+   currentPage={currentPage}
+   setCurrentPage={setCurrentPage}
+ 
+    />;
 };
 
 export default Orders;
