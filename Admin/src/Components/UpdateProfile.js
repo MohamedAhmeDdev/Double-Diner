@@ -26,6 +26,9 @@ function UpdateProfile() {
       const update = async (e) => {
         try {
           e.preventDefault();
+          if (!email || !name) {
+            return toast.error("Fields Must Not Be Empty"); //send errors 
+          }else{
           await axios.patch(`${SERVER_URL}/auth/${id}`,{
                 name: name,
                 email: email
@@ -37,11 +40,8 @@ function UpdateProfile() {
             localStorage.setItem("user", JSON.stringify(user));
             return toast.success("Updated Profile");
           });
-   
+        }
         } catch (error) {
-            if (error.response?.status === 400) {
-              return toast.error("Fields Must Not Be Empty"); //send errors 
-            }
         }
     }
 
