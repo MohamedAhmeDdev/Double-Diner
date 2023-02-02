@@ -28,10 +28,10 @@ const OrderedItem = ({ item }) => (
 );
 
 const CheckOutPage = () => {
-  const { cartItems } = UseCartContext();
+  const { cartItems, clear } = UseCartContext();
   const { user } = UseAuthContext();
 
-  const [phoneNo, setPhoneNo] = useState("");
+  const [phoneNo, setPhoneNo] = useState("254");
   const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
@@ -68,6 +68,7 @@ const CheckOutPage = () => {
       .then((res) => {
         toast.success("Order placed successfully");
         navigate("/orders");
+        clear()//its clears the cart
       })
       .catch((err) => {
         toast.error("Something went wrong, please try again Later");

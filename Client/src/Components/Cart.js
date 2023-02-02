@@ -39,13 +39,7 @@ const Cart = () => {
                           <td className="px-6 py-4 whitespace-nowrap text-left">{item.name}</td>
 
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left"> 
-                           <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onClick={() => updateItemQuantity({id: item.id, quantity: item.quantity + 1,}) }>+</button>
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{item.quantity}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left"> 
-                             <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => {  //If the quantity is greater than 1, then it will decrease the quantity by 1 
+                              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => {  //If the quantity is greater than 1, then it will decrease the quantity by 1 
                                if (item.quantity > 1) {
                                  updateItemQuantity({ id: item.id, quantity: item.quantity - 1, });
                                } else {//if the quantity is 1, then it will remove the item from the cart
@@ -54,15 +48,21 @@ const Cart = () => {
                               </button>
                           </td>
 
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{item.quantity}</td>
+
+                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left"> 
+                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  onClick={() => updateItemQuantity({id: item.id, quantity: item.quantity + 1,}) }>+</button>
+                          </td>
+
                           <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{item.quantity} x  {item.price}</td>
                       </tr>
                       ))}      
                   </tbody>
                   <tfoot>
                     <tr>
-                  {cartItems.length >= 1 && (
-                  <td className="px-6 ring-black leading-5 py-4 text-lg text-gray-500 text-left">TOTAL : Ksh {totalPrice}</td>
-                  )}
+                        {cartItems.length >= 1 && (
+                        <td className="px-6 ring-black leading-5 py-4 text-lg text-gray-500 text-left">TOTAL : Ksh {totalPrice}</td>
+                        )}
                    </tr>
                   </tfoot>
               </table>
@@ -76,7 +76,7 @@ const Cart = () => {
               </table>
 
               {cartItems.length >= 1 && (
-                <button class="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-col mb-5 m-auto">
+                <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex flex-col mb-5 m-auto">
                      <Link to="/checkout">Proceed To Checkout</Link>
                </button>
                )}
