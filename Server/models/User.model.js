@@ -17,10 +17,6 @@ const Users = db.define(
       type: DataTypes.STRING,
       defaultValue: "user",
     },
-    userStatus: {
-      type: DataTypes.STRING,
-      defaultValue: "active",
-    },
   },
   {
     freezeTableName: true,

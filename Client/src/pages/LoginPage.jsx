@@ -15,23 +15,17 @@ const LoginPage = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${SERVER_URL}/auth/login`, {
+        await axios.post(`${SERVER_URL}/auth/login`, {
           email: email,
           password: password,
         })
-      
-          const json = await response.data;
-          const user = json.user;
-          console.log(user.userStatus);
+        .then((response) => {
+          const user = response.data.user;
 
-          if (response?.data?.success) { 
-            if (user.userStatus === "active") { //if user Role equals to admin
-              localStorage.setItem("user", JSON.stringify(user)); //store the info in local storage
-              dispatch({ type: "LOGIN", payload: user });
-            } else {
-              return toast.error("Access Denied");
-            }
-          } 
+          localStorage.setItem("user", JSON.stringify(user));
+          dispatch({ type: "LOGIN", payload: user });
+        });
+          
     } catch (error) {
       if (error.response?.status === 400) {
         return toast.error("Username or password is missing"); //send errors if you have not sing in
