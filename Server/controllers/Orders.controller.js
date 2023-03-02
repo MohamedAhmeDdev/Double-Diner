@@ -2,12 +2,36 @@ const Order = require("../models/Orders.model");
 const OrderDishes = require("../models/OrderDishes.model");
 const User = require("../models/User.model");
 const Dish = require("../models/Dishes.model");
+const axios = require('axios')
+
+
+
+
+const createToken = async (req, res, next) => {
+  const secret = "VGIYrK0EmMkFRqrv";
+  const consumer = "pP2pFpN8PHP1q2FlHqJvzTpMnOumbKnE";
+  const auth = new Buffer.from(`${consumer}:${secret}`).toString("base64");
+
+  await axios.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",{
+      headers: {
+        authorization: `Basic ${auth}`,
+      },
+    }
+  )
+  .then((data) => {
+    req.token = data.data.access_token; // Save token in req object
+    console.log(data.data);
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(400).json(err.message);
+  });
+};
 
 const createOrder = async (req, res) => {
   try {
-    //get the user id from the token
     const user_id = req.user.id;
-
     const { dishes, delivery_address, delivery_phone } = req.body;
 
     if (!dishes || dishes.length === 0) {
@@ -16,7 +40,6 @@ const createOrder = async (req, res) => {
         message: "No dishes selected",
       });
     }
-
     if (!delivery_address || !delivery_phone) {
       return res.status(400).json({
         success: false,
@@ -24,52 +47,86 @@ const createOrder = async (req, res) => {
       });
     }
 
-    //calculate the total price of the order from the backend to avoid tampering
     const total_price = dishes.reduce((acc, dish) => {
       return acc + dish.quantity * dish.unit_price;
     }, 0);
 
-    //create the order
-    const order = await Order.create({
-      user_id,
-      order_status: "PENDING",
-      order_date: new Date(),
-      total_price,
-      delivery_address,
-      delivery_phone,
-    });
+    const shortCode = 174379;
+    const phone = req.body.delivery_phone.substring(1);
+    const amount = total_price;
+    const passkey ="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+    const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+  
+    const date = new Date();
+    const timestamp =
+      date.getFullYear() +
+      ("0" + (date.getMonth() + 1)).slice(-2) +
+      ("0" + date.getDate()).slice(-2) +
+      ("0" + date.getHours()).slice(-2) +
+      ("0" + date.getMinutes()).slice(-2) +
+      ("0" + date.getSeconds()).slice(-2);
+    const password = new Buffer.from(shortCode + passkey + timestamp).toString( "base64");
+  
+    const data = {
+      BusinessShortCode: shortCode,
+      Password: password,
+      Timestamp: timestamp,
+      TransactionType: "CustomerPayBillOnline",
+      Amount: amount,
+      PartyA: `254${phone}`,
+      PartyB: 174379,
+      PhoneNumber: `254${phone}`,
+      CallBackURL: "https://mydomain.com/path",
+      AccountReference: "Double Diner",
+      TransactionDesc: "Testing stk push",
+    };
 
-    const order_id = order.order_id;
-
-    //map the dishes to the order created
-    const order_dishes = dishes.map((dish) => {
-      return {
-        order_id,
-        dish_id: dish.dish_id,
-        quantity: dish.quantity,
-        unit_price: dish.unit_price,
-      };
-    });
-
-    //insert the order dishes ,bulkCreate() method allows you to insert multiple records to your database table with a single function call.
-    await OrderDishes.bulkCreate(order_dishes);
-
-    // deduct the quantity of the dishes from the inventory
-    const dishPromises = dishes.map(async (dish) => {
-      const dish_id = dish.dish_id;
-      const quantity = dish.quantity;
-
-      const dishInDb = await Dish.findOne({ where: { id: dish_id } });
-
-      const newQuantity = dishInDb.quantity - quantity;
-
-      await Dish.update({ quantity: newQuantity }, { where: { id: dish_id } });
-
-      return dishInDb;
-    });
-
-    await Promise.all(dishPromises);
-
+      //create the order
+      const order = await Order.create({
+        user_id,
+        order_status: "PENDING",
+        order_date: new Date(),
+        total_price,
+        delivery_address,
+        delivery_phone,
+      });
+  
+      const order_id = order.order_id;
+  
+      //map the dishes to the order created
+      const order_dishes = dishes.map((dish) => {
+        return {
+          order_id,
+          dish_id: dish.dish_id,
+          quantity: dish.quantity,
+          unit_price: dish.unit_price,
+        };
+      });
+  
+      //insert the order dishes ,bulkCreate() method allows you to insert multiple records to your database table with a single function call.
+      await OrderDishes.bulkCreate(order_dishes);
+  
+      // deduct the quantity of the dishes from the inventory
+      const dishPromises = dishes.map(async (dish) => {
+        const dish_id = dish.dish_id;
+        const quantity = dish.quantity;
+  
+        const dishInDb = await Dish.findOne({ where: { id: dish_id } });
+  
+        const newQuantity = dishInDb.quantity - quantity;
+  
+        await Dish.update({ quantity: newQuantity }, { where: { id: dish_id } });
+  
+        return dishInDb;
+      });
+  
+      await Promise.all(dishPromises);
+  
+    await axios.post(url, data, {
+      headers: {
+        authorization: `Bearer ${req.token}`,
+      },
+    })
     res.status(201).json({
       success: true,
       order: {...order.dataValues,  dishes,},
@@ -81,6 +138,8 @@ const createOrder = async (req, res) => {
     });
   }
 };
+
+
 
 const getAllOrdersForUser = async (req, res) => {
   try {
@@ -401,6 +460,7 @@ const deleteOrderById = async (req, res) => {
 };
 
 module.exports = {
+  createToken,
   createOrder,
   getAllOrdersForUser,
   getOrderForUserById,

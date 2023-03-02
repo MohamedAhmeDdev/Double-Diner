@@ -31,7 +31,7 @@ const CheckOutPage = () => {
   const { cartItems, clear } = UseCartContext();
   const { user } = UseAuthContext();
 
-  const [phoneNo, setPhoneNo] = useState("254");
+  const [phoneNo, setPhoneNo] = useState("");
   const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
@@ -45,10 +45,6 @@ const CheckOutPage = () => {
     }
     if (!address) {
       toast.error("Please fill in your address");
-      return;
-    }
-    if (!validator.isMobilePhone(phoneNo, "en-KE")) {
-      toast.error("Please enter a valid phone number");
       return;
     }
 
