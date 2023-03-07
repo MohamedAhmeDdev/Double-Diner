@@ -42,14 +42,14 @@ const OrderItem = ({ order, onCancelOrder, handleDelete  }) => {
             </button>
           )}
 
-          {/* {order.order_status === "CANCELLED" && (
+          {order.order_status === "CANCELLED" && (
             <button
               className="bg-red-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => handleDelete(order.order_id)}
             >
               Confirm Delete
             </button>
-          )} */}
+          )}
         </div>
       </td>
     </tr>

@@ -22,7 +22,7 @@ const OrdersListPage = () => {
 
   const handleDelete = (id) => {
     apiCall(`${SERVER_URL}/orders/${id}`, "DELETE").then((response) => {
-      setOrders((items) => items.filter((item) => item.id !== id));
+      setOrders((items) => items.filter((item) => item.order_id !== id));
     })(
        toast.success("Order Deleted")
     )

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { apiCall } from "../utils/apiCall";
 import { useParams } from "react-router-dom";
 
