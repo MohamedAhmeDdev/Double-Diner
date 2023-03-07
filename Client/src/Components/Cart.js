@@ -35,7 +35,7 @@ const Cart = () => {
                   {cartItems.map((item, id) => (
                       <tr  key={id}>
                           <td className="px-6 py-4 whitespace-nowrap text-left">  <div className="flex-shrink-0">
-                            <img className="w-24 h-24 rounded-md" src={`{SERVER_URL}/${item.image}`} alt=""/></div>
+                            <img className="w-24 h-24 rounded-md" src={`${SERVER_URL}/${item.image}`} alt=""/></div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-left">{item.name}</td>
 
