@@ -8,8 +8,8 @@ const axios = require('axios')
 
 
 const createToken = async (req, res, next) => {
-  const secret = "VGIYrK0EmMkFRqrv";
-  const consumer = "pP2pFpN8PHP1q2FlHqJvzTpMnOumbKnE";
+  const secret = "Wjgif1owqPvnE8ZJ";
+  const consumer = "gA93UMRglA19Ism2qEIGhBMdSHRAzZNz";
   const auth = new Buffer.from(`${consumer}:${secret}`).toString("base64");
 
   await axios.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",{
