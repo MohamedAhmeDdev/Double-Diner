@@ -3,6 +3,7 @@ import { useParams , useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { apiCall } from "../../utils/apiCall";
 import axios from "axios";
+import { SERVER_URL } from "../constants";
 
 
 function SingleCustomerId() {
@@ -13,7 +14,7 @@ function SingleCustomerId() {
   const navigate = useNavigate();
 
     const getCustomerById = async () => {
-      const response = await axios.get(`http://localhost:5000/auth/${id}`,)
+      const response = await axios.get(`http://${SERVER_URL}/auth/${id}`,)
         setName(response.data.user.name);
         setEmail(response.data.user.email);
         setRole(response.data.user.role);
