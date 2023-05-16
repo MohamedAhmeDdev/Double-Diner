@@ -3,7 +3,7 @@ import { useParams , useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { apiCall } from "../../utils/apiCall";
 import axios from "axios";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../../constants";
 
 
 function SingleCustomerId() {
