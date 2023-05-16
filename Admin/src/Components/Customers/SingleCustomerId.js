@@ -14,7 +14,7 @@ function SingleCustomerId() {
   const navigate = useNavigate();
 
     const getCustomerById = async () => {
-      const response = await axios.get(`http://${SERVER_URL}/auth/${id}`,)
+      const response = await axios.get(`${SERVER_URL}/auth/${id}`,)
         setName(response.data.user.name);
         setEmail(response.data.user.email);
         setRole(response.data.user.role);
