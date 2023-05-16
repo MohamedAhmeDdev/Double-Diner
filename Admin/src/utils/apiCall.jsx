@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const BASE_URL = "http://localhost:5000/admin";
+const BASE_URL = "https://doublediner-4zwd.onrender.com/admin";
 
 /**
  * Because we need to send the token with every request, we will create a function that will be called every time we need to make a request

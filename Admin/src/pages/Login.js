@@ -5,6 +5,7 @@ import { UseAuthContext } from "../hook/UseAuthContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { SERVER_URL } from "../constants";
 
 
 const Login = () => {
@@ -17,7 +18,7 @@ const Login = () => {
   const login = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/auth/login", {
+      const response = await axios.post(`${SERVER_URL}/auth/login`, {
         email: emailAddress,
         password: password,
       });

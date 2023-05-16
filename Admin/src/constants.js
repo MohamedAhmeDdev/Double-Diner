@@ -8,4 +8,4 @@ export const DISH_CATEGORIES = [
   { id: 7, name: "Drinks", value: "drinks" },
 ];
 
-export const SERVER_URL = "http://localhost:5000";
+export const SERVER_URL = "https://doublediner-4zwd.onrender.com";
