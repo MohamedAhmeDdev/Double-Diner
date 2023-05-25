@@ -3,7 +3,8 @@ const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../constants");
 const User = require("../models/User.model");
 const nodemailer =require('nodemailer')
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 const createToken = (id, name, email) => {
   return JWT.sign(
@@ -201,17 +202,16 @@ const forgotPassword = async(req,res)=>{
     const transporter = nodemailer.createTransport({
       service:'gmail',
       auth:{
-        user:'ma07041705@gmail.com',
-        pass:"uagrmlhtgykwbrrr"
+        user: process.env.USER,
+        pass: process.env.PASS ,
 
       }
     })
     //email option 
     const mailOption={
-      // from:'brian@gmail.com',
       to:`${user.email}`,
       subject:"Forgot password link",
-      html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="http://localhost:3000/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
+      html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="https://double-diner-user.vercel.app/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
     }
     
     transporter.sendMail(mailOption,(err ,response)=>{

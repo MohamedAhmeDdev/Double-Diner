@@ -1,5 +1,7 @@
 const Reservation = require("../models/ReservationModel");
 const nodemailer =require('nodemailer')
+const dotenv = require("dotenv");
+dotenv.config();
 
 const createReservation = async (req, res) => {
   const {fullName, phone, tableFor, time, dateReserve } = req.body;
@@ -27,8 +29,8 @@ const createReservation = async (req, res) => {
         const transporter = nodemailer.createTransport({
           service:'gmail',
           auth:{
-            user:'ma07041705@gmail.com',
-            pass:"uagrmlhtgykwbrrr"
+            user: process.env.USER,
+            pass: process.env.PASS ,
           }
         })
     

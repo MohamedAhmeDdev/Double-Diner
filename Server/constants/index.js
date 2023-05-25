@@ -5,4 +5,5 @@ const JWT_SECRET = process.env.SECRET || "secret";
 
 module.exports = {
   JWT_SECRET,
+
 };

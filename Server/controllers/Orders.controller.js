@@ -1,15 +1,15 @@
 const Order = require("../models/Orders.model");
 const OrderDishes = require("../models/OrderDishes.model");
 const User = require("../models/User.model");
-const Dish = require("../models/Dishes.model");
+const Dish = require("../models/Dishes.Model");
 const axios = require('axios')
-
-
+const dotenv = require("dotenv");
+dotenv.config();
 
 
 const createToken = async (req, res, next) => {
-  const secret = "7jEp2kdSIGE5RxVa";
-  const consumer = "d1oxAQayA5KR8x7I0gnDDniO9NYVh76u";
+  const secret = process.env.SECRET ;
+  const consumer =process.env.CONSUMER ;
   const auth = new Buffer.from(`${consumer}:${secret}`).toString("base64");
 
   await axios.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",{
