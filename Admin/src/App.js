@@ -1,5 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
+import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
 import Customers from "./pages/Customers";
@@ -17,10 +16,48 @@ import Reservation from "./pages/Reservation";
 import SalesDish from "./pages/SalesDish";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import jwt_decode from 'jwt-decode';
+import { useEffect } from 'react';
 
 function App() {
   const { user } = UseAuthContext();
+  const { dispatch } = UseAuthContext();
 
+
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (!user || !user.token) {
+        console.log('Token not found');
+        return;
+      }
+      const decodedToken = jwt_decode(user.token);
+      if (!decodedToken.exp) {
+        console.error('Token does not have an expiration time:', user.token);
+        return;
+      }
+      const expirationDate = new Date(decodedToken.exp * 1000);
+      const currentTime = new Date();
+      const timeDifference = expirationDate.getTime() - currentTime.getTime();
+      if (timeDifference <= 0) {
+        localStorage.removeItem("user");
+        dispatch({ type: "LOGOUT" });
+      } else {
+        setTimeout(() => {
+          dispatch({ type: "LOGOUT" });
+        }, timeDifference);
+      }
+    };
+
+    checkTokenExpiration();
+    const intervalId = setInterval(checkTokenExpiration, 60000);
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [dispatch]);
+  
+ 
+  
   return (
     <div>
       <BrowserRouter>
@@ -40,11 +77,6 @@ function App() {
           <Route path="/dishReport" element={user ? <SalesDish/> : <Navigate to="/" />}  />
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
           <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
-
-          {/**
-           * TODO:
-           * 5. reports page
-           */}
         </Routes>
       </BrowserRouter>
     </div>

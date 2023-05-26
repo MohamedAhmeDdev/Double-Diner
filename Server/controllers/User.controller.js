@@ -13,7 +13,7 @@ const createToken = (id, name, email) => {
       name: name,
       email: email,
     },
-    JWT_SECRET,{ expiresIn: "3d" }
+    JWT_SECRET,{ expiresIn: "1d" }
   );
 };
 
