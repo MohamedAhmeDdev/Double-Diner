@@ -8,26 +8,26 @@ dotenv.config();
 
 
 const createToken = async (req, res, next) => {
-  const secret = process.env.SECRET ;
-  const consumer =process.env.CONSUMER ;
-  const auth = new Buffer.from(`${consumer}:${secret}`).toString("base64");
+  try {
+    const secret = process.env.SECRET;
+    const consumer = process.env.CONSUMER;
+    const auth = Buffer.from(`${consumer}:${secret}`).toString("base64");
 
-  await axios.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",{
+    const response = await axios.get("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", {
       headers: {
-        authorization: `Basic ${auth}`,
+        Authorization: `Basic ${auth}`,
       },
-    }
-  )
-  .then((data) => {
-    req.token = data.data.access_token; // Save token in req object
-    console.log(data.data);
+    });
+
+    req.token = response.data.access_token; // Save token in req object
+    console.log(response.data);
     next();
-  })
-  .catch((err) => {
-    console.log(err);
-    res.status(400).json(err.message);
-  });
+  } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
+    res.status(400).json({ error: "Failed to obtain token" });
+  }
 };
+
 
 const createOrder = async (req, res) => {
   try {
