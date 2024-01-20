@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { apiCall } from "../utils/apiCall";
+import { apiCall } from "../utils/apiCall"; 
+import { formatDate } from "../constants/index"; 
+import { formatTime } from "../constants/index"; 
 import { useParams } from "react-router-dom";
-
+import { SERVER_URL } from "../constants";
 
 const SingleOrderView = () => {
   const [order, setOrder] = useState({});
@@ -25,48 +27,58 @@ const SingleOrderView = () => {
 
   return (
     <div className="mt-32">
-      <p 
-      className="text-4xl font-bold text-center"> Order View Page for{" "}<span className="text-green-500">{order.order_id}</span>
-      </p>
-     
-      <div className="flex flex-col mb-60 my-10">
-        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-200"> 
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User_Id</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order_Id</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Order_Date</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone_No</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >delivery_address</th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" >status</th>
-                    <th scope="col"className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">total Price</th>
-                  </tr>
-                </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                      <tr  key={id}>
-                          <td className="px-6 py-4 whitespace-nowrap text-left">{order.user_id}</td>
-                          <td className="px-6 py-4 whitespace-nowrap text-left">{order.order_id}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{order.order_date}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{order.delivery_phone}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{order.delivery_address}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{order.order_status}</td>
-
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-left">{order.total_price}</td>
-                      </tr>   
-                  </tbody>
-              </table>
-            </div>
-          </div>
+       <div class="bg-white p-6 rounded-lg">
+        <div class="flex justify-between items-center mb-4 w-full lg:w-8/12 mx-auto">
+           <h3 class="text-lg lg:text-3xl font-bold text-black mb-1">Order Information</h3>
+           <p><span class="text-gray-400 text-md lg:text-xl">ID:</span><span className="font-bold text-black text-md lg:text-lg"> {""}{order.order_id}</span></p>
         </div>
-      </div>
-    </div>
+
+        <div class="mb-4 w-full lg:w-8/12 mx-auto">
+            <div class="flex justify-between mb-4">
+                <div className="">
+                    <p class="text-xl text-gray-600 font-bold">Delivery to</p>
+                    <p class="text-sm">{order.delivery_address}</p>
+                    <p class="text-sm  text-gray-600">{order.delivery_phone}</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <p class="text-xl pb-2 font-bold text-gray-600">Delivery Time</p>
+                    <p class="text-sm">{formatDate(order.order_date)}</p>
+                    <p class="text-sm">{formatTime(order.order_date)}</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="border-t border-gray-300 pt-4 mb-4">
+          <div className=" p-5 w-full lg:w-7/12 mx-auto">
+        {order && order.dishes && order.dishes.map((dish, index) => (
+        <div class="flex justify-between items-center mb-2" key={index}>
+          <div class="flex items-center">
+            <img class=" w-20 h-20 mr-2" src={`${SERVER_URL}/${dish.metadata.image}`} alt={dish.metadata.name} />
+            <div class="text-sm font-bold">{dish.metadata.name}</div>
+          </div>
+          <div class="text-md text-gray-600">{dish.metadata.name}</div>
+        </div>
+        ))}
+
+
+
+            <div class="flex justify-between text-xs text-gray-600 mb-2">
+                {/* <div><p className="font-semibold text-md text-black">{order.dishes.length}  item/s</p></div> */}
+            </div>
+      
+
+        <div class="flex justify-between items-center font-bold">
+            <div class="text-lg lg:text-2xl">Total</div>
+            <div class="text-lg lg:text-2xl">ksh {order.total_price}</div>
+        </div>
+        </div>
+        </div>
+     </div>     
+  </div>
   );
 };
 
