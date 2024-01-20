@@ -49,9 +49,9 @@ body {
 
 
 .navbar-list {
-    margin: 0 60px;
+    /* margin: 0 60px;
     width: 500px;
-    display: flex;
+    display: flex; */
 }
 
 .navbar-list li {
