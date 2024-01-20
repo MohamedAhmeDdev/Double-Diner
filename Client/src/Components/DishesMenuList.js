@@ -13,16 +13,16 @@ const DishItem = ({ dish }) => {
 
   return (
     <div className="mb-10">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg relative">
+    <div class="max-w-sm rounded overflow-hidden shadow-md relative">
     {/* <div class="absolute top-0 left-0 m-3 bg-white text-black px-3 py-1 rounded-sm  text-xs capitalize font-bold">Breakfast</div> */}
       <img class="w-full h-48" src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name}/>
       <div class="px-3 py-2">
       {/* <span class="inline-block rounded-full  text-sm text-gray-700"> 4.7  ⭐ ⭐ ⭐ ⭐ ⭐</span> */}
 
-          <div class="font-bold text-xl">{dish?.name}</div>
+          <div class="font-bold text-xl pt-2">{dish?.name}</div>
           <p class="text-gray-700 text-sm"> {dish?.description}</p>
       </div>
-      <div class="px-3">
+      <div class="px-3 pt-2">
             <span class="inline-block bg-blue-100 rounded-sm px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Ksh. {dish?.price}</span>
 
             {isAdded ? (
@@ -80,7 +80,7 @@ const DishesMenuList = ({ category }) => {
   }, [category]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" >
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-5 pr-10" >
       {dishes?.map((dish) => (
         <DishItem dish={dish} key={dish.id} />
       ))}
