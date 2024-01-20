@@ -12,22 +12,23 @@ const DishItem = ({ dish }) => {
   const isAdded = cartItems.find((item) => item.id === dish.id); //function to see it the cart is added or not
 
   return (
-    <div className="">
-      <div className="rounded-lg shadow-lg bg-white max-w-sm h-96">
-        <Link to={`/dishes/${dish.id}`}data-mdb-ripple="true" data-mdb-ripple-color="light">
-          <img className="rounded-t-lg object-cover h-48 w-96"  src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name} />
-        </Link>
+    <div className="mb-10">
+    <div class="max-w-sm rounded overflow-hidden shadow-lg relative">
+    {/* <div class="absolute top-0 left-0 m-3 bg-white text-black px-3 py-1 rounded-sm  text-xs capitalize font-bold">Breakfast</div> */}
+      <img class="w-full h-48" src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name}/>
+      <div class="px-3 py-2">
+      {/* <span class="inline-block rounded-full  text-sm text-gray-700"> 4.7  ⭐ ⭐ ⭐ ⭐ ⭐</span> */}
 
-        <div className="p-6">
-          <h5 className="text-gray-900 text-xl font-medium mb-2"> {dish?.name}</h5>
-          <p className="text-gray-700 text-base mb-4 truncate">{dish?.description}</p>
-          <div className="flex justify-between  items-center">
-            <p className="text-gray-700 text-base mb-4 text-2xl font-bold"> Ksh. {dish?.price} </p>
+          <div class="font-bold text-xl">{dish?.name}</div>
+          <p class="text-gray-700 text-sm"> {dish?.description}</p>
+      </div>
+      <div class="px-3">
+            <span class="inline-block bg-blue-100 rounded-sm px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Ksh. {dish?.price}</span>
 
             {isAdded ? (
               <button
                 type="button"
-                className="inline-block px-6 py-2.5 bg-red-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out flex items-center justify-center gap-2"
+                className="inline-block bg-red-500 rounded-sm px-5 py-1 text-sm font-semibold text-white mr-2 mb-2 capitalize"
                 onClick={() => removeFromCart(dish?.id)}
               >
                 Remove{" "}
@@ -36,16 +37,17 @@ const DishItem = ({ dish }) => {
             ) : (
               <button
                 type="button"
-                className="inline-block px-6 py-2.5  bg-blue-600  text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out flex items-center justify-center gap-2"
+                className="inline-block bg-blue-500 rounded-sm px-5 py-1 text-sm font-semibold text-white mr-2 mb-2 capitalize"
                 onClick={() => addToCart(dish)}
               >
                 Add <MdAddShoppingCart className="inline-block" size={20} />
               </button>
             )}
-          </div>
+            {/* <span class="inline-block bg-green-400 rounded-sm px-5 py-1 text-sm font-semibold text-white mr-2 mb-2 capitalize">rate</span> */}
         </div>
-      </div>
+  </div>
     </div>
+    
   );
 };
 
