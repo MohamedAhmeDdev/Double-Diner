@@ -43,6 +43,11 @@ const getInventoryById = async () => {
         return toast.error("Please fill all the fields");
       }
   
+      if (description.length >= 65) {
+        return toast.error("Description should be less than 65 characters");
+      }
+      
+
       const formData = new FormData();
   
       formData.append("name", name);
