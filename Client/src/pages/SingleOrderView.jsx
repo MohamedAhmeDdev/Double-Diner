@@ -13,7 +13,7 @@ const SingleOrderView = () => {
   useEffect(() => {
     const getOrder = async () => {
       const data = await apiCall(`/orders/${id}`, "GET");
-
+console.log(data);
       if (data) {
         setOrder(data.order);
       }
@@ -60,21 +60,23 @@ const SingleOrderView = () => {
             <img class=" w-20 h-20 mr-2" src={`${SERVER_URL}/${dish.metadata.image}`} alt={dish.metadata.name} />
             <div class="text-sm font-bold">{dish.metadata.name}</div>
           </div>
-          <div class="text-md text-gray-600">{dish.metadata.name}</div>
+          <div class="text-md text-gray-600"> ksh = {dish.metadata.price}</div>
         </div>
         ))}
 
-
-
-            <div class="flex justify-between text-xs text-gray-600 mb-2">
-                {/* <div><p className="font-semibold text-md text-black">{order.dishes.length}  item/s</p></div> */}
-            </div>
       
+          <div className="border-t border-gray-300">
+            <div class="pt-10 flex justify-between items-center font-bold">
+                <p className="font-semibold text-md text-black">item/s</p>
+                <p className="font-semibold text-md text-black"> {order.dishes ? order.dishes.length : 0} item/s</p>
+            </div>
 
-        <div class="flex justify-between items-center font-bold">
-            <div class="text-lg lg:text-2xl">Total</div>
-            <div class="text-lg lg:text-2xl">ksh {order.total_price}</div>
-        </div>
+            <div class="pt-10 flex justify-between items-center font-bold">
+                <div class="text-lg lg:text-xl">Total</div>
+                <div class="text-lg lg:text-xl">ksh = {order.total_price}</div>
+            </div>
+
+          </div>
         </div>
         </div>
      </div>     
