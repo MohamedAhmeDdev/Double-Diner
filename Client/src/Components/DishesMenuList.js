@@ -8,11 +8,37 @@ import axios from "axios";
 
 const DishItem = ({ dish }) => {
   const { cartItems, addToCart, removeFromCart } = UseCartContext();//from the cart context
-
+  const [isLoading, setIsLoading] = useState(true);
   const isAdded = cartItems.find((item) => item.id === dish.id); //function to see it the cart is added or not
+
+  useEffect(() => {
+    // Simulate an API request delay (you can remove this in a real application)
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="mb-10">
+
+       {isLoading ? (
+     <div class=" p-2 sm:p-4 sm:h-64 rounded-2xl shadow-lg  gap-5 h-96  w-80 ">
+       <div class="bg-gray-200 w-full animate-pulse  h-28 rounded-2xl" ></div>
+        <div class="flex flex-col flex-1 gap-5 sm:p-2 py-20">
+          <div class="flex flex-1 flex-col gap-3">
+          <div class="bg-gray-200 w-48 animate-pulse h-3 rounded-2xl" ></div>
+            <div class="bg-gray-200 w-full animate-pulse h-3 rounded-2xl" ></div>
+            <div class="bg-gray-200 w-full animate-pulse h-3 rounded-2xl" ></div>
+          </div>
+          <div class="mt-auto flex gap-3 ">
+            <div class="bg-gray-200 w-16 h-8 animate-pulse rounded-sm" ></div>
+            <div class="bg-gray-200 w-16 h-8 animate-pulse rounded-sm" ></div>
+          </div>
+        </div>
+     </div>
+    ) : (
     <div class="max-w-sm rounded overflow-hidden shadow-md relative">
     {/* <div class="absolute top-0 left-0 m-3 bg-white text-black px-3 py-1 rounded-sm  text-xs capitalize font-bold">Breakfast</div> */}
       <img class="w-full h-48" src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name}/>
@@ -45,7 +71,9 @@ const DishItem = ({ dish }) => {
             )}
             {/* <span class="inline-block bg-green-400 rounded-sm px-5 py-1 text-sm font-semibold text-white mr-2 mb-2 capitalize">rate</span> */}
         </div>
-  </div>
+    </div>
+     )}
+
     </div>
     
   );
