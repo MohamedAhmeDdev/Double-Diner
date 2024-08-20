@@ -52,7 +52,7 @@ const createOrder = async (req, res) => {
     }, 0);
 
     const shortCode = 174379;
-    const phone = req.body.delivery_phone.substring(1);
+    const phone = `254${req.body.delivery_phone.substring(1)}`;
     const amount = total_price;
     const passkey ="bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
     const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
@@ -65,9 +65,9 @@ const createOrder = async (req, res) => {
       ("0" + date.getHours()).slice(-2) +
       ("0" + date.getMinutes()).slice(-2) +
       ("0" + date.getSeconds()).slice(-2);
-    const password = new Buffer.from(shortCode + passkey + timestamp).toString( "base64");
+    const password = new Buffer.from(shortCode + passkey + timestamp).toString("base64");
   
-    const data = {
+    const paymentRequest = {
       BusinessShortCode: shortCode,
       Password: password,
       Timestamp: timestamp,
@@ -81,7 +81,16 @@ const createOrder = async (req, res) => {
       TransactionDesc: "Testing stk push",
     };
 
-      //create the order
+    // Process payment first
+    const paymentResponse = await axios.post(url, paymentRequest, {
+      headers: {
+        authorization: `Bearer ${req.token}`,
+      },
+    });
+
+    // Check payment status, assuming successful payment returns a status code 200
+    if (paymentResponse.status === 200) {
+      // Create the order
       const order = await Order.create({
         user_id,
         order_status: "PENDING",
@@ -93,7 +102,7 @@ const createOrder = async (req, res) => {
   
       const order_id = order.order_id;
   
-      //map the dishes to the order created
+      // Map the dishes to the order created
       const order_dishes = dishes.map((dish) => {
         return {
           order_id,
@@ -103,10 +112,10 @@ const createOrder = async (req, res) => {
         };
       });
   
-      //insert the order dishes ,bulkCreate() method allows you to insert multiple records to your database table with a single function call.
+      // Insert the order dishes, bulkCreate() method allows you to insert multiple records to your database table with a single function call.
       await OrderDishes.bulkCreate(order_dishes);
   
-      // deduct the quantity of the dishes from the inventory
+      // Deduct the quantity of the dishes from the inventory
       const dishPromises = dishes.map(async (dish) => {
         const dish_id = dish.dish_id;
         const quantity = dish.quantity;
@@ -122,22 +131,26 @@ const createOrder = async (req, res) => {
   
       await Promise.all(dishPromises);
   
-    await axios.post(url, data, {
-      headers: {
-        authorization: `Bearer ${req.token}`,
-      },
-    })
-    res.status(201).json({
-      success: true,
-      order: {...order.dataValues,  dishes,},
-    });
+      res.status(201).json({
+        success: true,
+        order: {...order.dataValues, dishes},
+      });
+    } else {
+      // Handle payment failure
+      res.status(400).json({
+        success: false,
+        message: "Payment failed. Order not created.",
+      });
+    }
   } catch (error) {
+    console.error(error.response ? error.response.data : error.message);
     res.status(500).json({
       success: false,
       message: "Server Error",
     });
   }
 };
+
 
 
 
