@@ -15,6 +15,7 @@
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.14.1",
     "react-to-print": "^2.14.10",
     "react-toastify": "^9.1.1",
     "validator": "^13.7.0",
