@@ -10,6 +10,8 @@ import { SERVER_URL } from "../constants";
 
 function UpdateProfile() {
   const [name, setName] = useState(''); 
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [address, setAddress] = useState("");
   const [email, setEmail] = useState(''); 
   const { id } = useParams();
   const { dispatch } = UseAuthContext();
@@ -25,6 +27,8 @@ function UpdateProfile() {
     console.log(response);
       setName(response.data.user.name);
       setEmail(response.data.user.email);
+      setAddress(response.data.user.address);
+      setPhoneNumber(response.data.user.phoneNumber);
   }
   
       useEffect(() => {
@@ -40,7 +44,9 @@ function UpdateProfile() {
           }else{
           await axios.patch(`${SERVER_URL}/auth/${id}`,{
                 name: name,
-                email: email
+                email: email,
+                phoneNumber:phoneNumber,
+                address: address,
             })
             .then((response) => {
             let user = JSON.parse(localStorage.getItem("user"));
@@ -70,6 +76,22 @@ function UpdateProfile() {
                       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Email</label>
                       <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                       id="grid-password" type="text" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Phone Number</label>
+                      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="grid-password" type="text" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}/>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="w-full px-3">
+                      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">Address</label>
+                      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                      id="grid-password" type="text" value={address} onChange={(e) => setAddress(e.target.value)}/>
                     </div>
                   </div>
 
