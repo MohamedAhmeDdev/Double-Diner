@@ -104,7 +104,7 @@ console.log(order);
               <form onSubmit={placeOrder} class="mt-10 flex flex-col space-y-4">
                 <div>
                   <label for="email" class="text-xs font-semibold text-gray-500">Phone Number</label>
-                  <input type="text" value={phoneNo}onChange={(e) => setPhoneNo(e.target.value)} placeholder="+254-07-XXXX-XXXX" class="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
+                  <input type="text" value={phoneNo}onChange={(e) => setPhoneNo(e.target.value)} placeholder="07-XXXX-XXXX" class="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
                 </div>
                 <div class="relative">
                   <label for="card-number" class="text-xs font-semibold text-gray-500">Address</label>
