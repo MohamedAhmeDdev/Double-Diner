@@ -36,8 +36,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container-login">
-          <div className="container-Form">
+    <div style={{backgroundColor: "#232323"}} className="">
+        <div className="">
+           <div className=" flex justify-center items-center min-h-screen">
               <div className="block p-6 rounded-lg shadow-lg bg-white w-96">
                   <form onSubmit={login}>
                     <div className="form-group mb-6">
@@ -65,6 +66,7 @@ const LoginPage = () => {
                 </form>
               </div>
           </div>
+        </div>
 
           <Footer/>
     </div>
