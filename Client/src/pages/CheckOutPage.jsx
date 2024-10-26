@@ -6,12 +6,12 @@ import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
+import ClipLoader from "react-spinners/ClipLoader";
 
 
 const CheckOutPage = () => {
   const { cartItems, clear } = UseCartContext();
   const { user } = UseAuthContext();
-
   const [phoneNo, setPhoneNo] = useState("");
   const [address, setAddress] = useState("");
 
@@ -42,19 +42,18 @@ const CheckOutPage = () => {
       delivery_address: address,
       delivery_phone: phoneNo,
     };
+console.log(order);
 
-    //Note - we do not send the total price to the server because the server will calculate it
-
-    apiCall("/orders", "POST", order)
-      .then((res) => {
-        toast.success("Order placed successfully");
-        navigate("/orders");
-        clear()//its clears the cart
-      })
-      .catch((err) => {
-        toast.error("Something went wrong, please try again Later");
-      });
-  };
+    apiCall("/orders/stkPush", "POST", order)
+    .then((res) => {
+      navigate("/confirmPayment");
+      setPhoneNo("")
+      setAddress("")
+    })
+    .catch((err) => {
+      toast.error("Something went wrong, please try again Later");
+    });
+};
 
   const total = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
