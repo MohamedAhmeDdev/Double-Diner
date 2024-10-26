@@ -98,7 +98,7 @@ function ConfirmPayment() {
           </div>
 
           <div>
-            <Link to='/'>
+            <Link to='/checkout'>
              <button class="mt-4  inline-flex w-full items-center justify-center rounded bg-gray-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-gray-300 sm:text-lg">
                 Retry 
             </button>
