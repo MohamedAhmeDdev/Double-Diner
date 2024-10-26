@@ -46,11 +46,10 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="container-login">
-        <div className="container-Form">
-          
-            <div className="block p-6 rounded-lg shadow-lg bg-white w-96">
+    <div style={{backgroundColor: "#232323"}} className="">
+      <div className="">
+      <div className=" flex justify-center items-center min-h-screen">
+        <div className="block p-6 rounded-lg shadow-lg bg-white w-96">
               <form onSubmit={login}>
                 <div className="form-group mb-6">
                   <label htmlFor="exampleInputEmail2" className="form-label inline-block mb-2 text-gray-700">Email address</label>
