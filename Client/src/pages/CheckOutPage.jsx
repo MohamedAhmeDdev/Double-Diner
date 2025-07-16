@@ -128,7 +128,7 @@ const CheckOutPage = () => {
               
               <form onSubmit={placeOrder} className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1  items-center">
                     <FiSmartphone className="mr-2 text-gray-500" />
                     M-Pesa Phone Number
                   </label>
@@ -148,7 +148,7 @@ const CheckOutPage = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                  <label className="block text-sm font-medium text-gray-700 mb-1 items-center">
                     <FiMapPin className="mr-2 text-gray-500" />
                     Delivery Address
                   </label>
