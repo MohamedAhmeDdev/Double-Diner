@@ -49,7 +49,7 @@ const DishItem = ({ dish }) => {
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
               <span className="text-white font-semibold text-lg">Ksh. {dish?.price}</span>
         </div>
-     </div>
+          </div>
 
           <div className="p-4">
             <div className="flex justify-between items-start">
@@ -66,7 +66,7 @@ const DishItem = ({ dish }) => {
             
             <div className="flex justify-between items-center">
               <Link 
-                to={`/dish/${dish.id}`} 
+                to={`/dishes/${dish.id}`} 
                 className="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
               >
                 View Details
