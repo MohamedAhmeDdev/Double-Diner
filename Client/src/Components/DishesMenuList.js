@@ -39,7 +39,7 @@ const DishItem = ({ dish }) => {
         </div>
      </div>
     ) : (
-    <div class="max-w-sm rounded overflow-hidden shadow-md relative">
+    <div class="max-w-sm rounded overflow-hidden shadow-md relative mt-10">
     {/* <div class="absolute top-0 left-0 m-3 bg-white text-black px-3 py-1 rounded-sm  text-xs capitalize font-bold">Breakfast</div> */}
       <img class="w-full h-48" src={`${SERVER_URL}/${dish?.image}`} alt={dish?.name}/>
       <div class="px-3 py-2">
