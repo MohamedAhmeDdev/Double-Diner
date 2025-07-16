@@ -83,7 +83,7 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
           <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
         </Routes>
-        {/* <Footer />/ */}
+        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );
