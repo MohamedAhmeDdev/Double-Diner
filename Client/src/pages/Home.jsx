@@ -40,7 +40,7 @@ const HomePage = () => {
   const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);  //set to all categories
 
   return (
-    <div className="home-container  h-screen w-screen flex flex-col  items-center">
+    <div className="mt-16  h-screen w-screen flex flex-col  items-center">
       <ul
         className="nav nav-tabs flex flex-row md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4 nav-tabs"
         id="tabs-tab"
