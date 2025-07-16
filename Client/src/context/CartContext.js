@@ -1,6 +1,5 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 
-// initial state is an empty array, and two functions to add and remove items from the cart
 export const CartContext = createContext({
   cartItems: [],
   addToCart: (item) => {},
@@ -11,30 +10,33 @@ export const CartContext = createContext({
 
 export const cartReducer = (state, action) => {
   switch (action.type) {
-    // TODO: add case for "INITIALIZE_CART" to set the cartItems to the payload (the cartItems from localStorage)
     case "INITIALIZE_CART":
       return {
         cartItems: action.payload,
       };
 
     case "ADD_TO_CART":
-      // push the item to the cart
-      return {
+      const newStateAdd = {
         cartItems: [action.payload, ...state.cartItems],
       };
+      localStorage.setItem("cart", JSON.stringify(newStateAdd.cartItems));
+      return newStateAdd;
 
     case "REMOVE_FROM_CART":
-      return {
+      const newStateRemove = {
         cartItems: state.cartItems.filter((item) => item.id !== action.payload),
-      }; //remove the user from localStorage
+      };
+      localStorage.setItem("cart", JSON.stringify(newStateRemove.cartItems));
+      return newStateRemove;
 
     case "CLEAR_CART":
+      localStorage.removeItem("cart");
       return {
         cartItems: [],
       };
 
     case "UPDATE_ITEM_QUANTITY":
-      return {
+      const newStateUpdate = {
         cartItems: state.cartItems.map((item) => {
           if (item.id === action.payload.id) {
             return {
@@ -45,9 +47,11 @@ export const cartReducer = (state, action) => {
           return item;
         }),
       };
+      localStorage.setItem("cart", JSON.stringify(newStateUpdate.cartItems));
+      return newStateUpdate;
 
     default:
-      return state; //what is this state?
+      return state;
   }
 };
 
@@ -55,6 +59,14 @@ export const CartContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, {
     cartItems: [],
   });
+
+  // Load cart from localStorage on initial render
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      dispatch({ type: "INITIALIZE_CART", payload: JSON.parse(storedCart) });
+    }
+  }, []);
 
   const addToCart = (item) => {
     dispatch({ type: "ADD_TO_CART", payload: item });
@@ -72,7 +84,7 @@ export const CartContextProvider = ({ children }) => {
     dispatch({ type: "UPDATE_ITEM_QUANTITY", payload: item });
   };
 
-  console.log("CartContext state :", state);
+  console.log("CartContext state:", state);
 
   return (
     <CartContext.Provider
@@ -84,7 +96,7 @@ export const CartContextProvider = ({ children }) => {
         updateItemQuantity,
       }}
     >
-      {children} {/*children is the where we are passing to */}
+      {children}
     </CartContext.Provider>
   );
 };
