@@ -6,30 +6,34 @@ import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import validator from "validator";
-import ClipLoader from "react-spinners/ClipLoader";
-
+import { FiArrowLeft, FiSmartphone, FiMapPin, FiShield } from "react-icons/fi";
 
 const CheckOutPage = () => {
   const { cartItems, clear } = UseCartContext();
   const { user } = UseAuthContext();
   const [phoneNo, setPhoneNo] = useState("");
   const [address, setAddress] = useState("");
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const placeOrder = (e) => {
     e.preventDefault();
-    if (!phoneNo ) {
+    setIsSubmitting(true);
+    
+    if (!phoneNo) {
       toast.error("Please fill in your phone number");
+      setIsSubmitting(false);
       return;
     }
     if (!validator.isMobilePhone(phoneNo, "en-KE")) {
-      toast.error("Please enter a valid phone number");
+      toast.error("Please enter a valid Kenyan phone number (e.g. 07XXXXXXXX)");
+      setIsSubmitting(false);
       return;
     }
     
     if (!address) {
-      toast.error("Please fill in your address");
+      toast.error("Please fill in your delivery address");
+      setIsSubmitting(false);
       return;
     }
 
@@ -42,18 +46,19 @@ const CheckOutPage = () => {
       delivery_address: address,
       delivery_phone: phoneNo,
     };
-console.log(order);
 
     apiCall("/orders/stkPush", "POST", order)
-    .then((res) => {
-      navigate("/confirmPayment");
-      setPhoneNo("")
-      setAddress("")
-    })
-    .catch((err) => {
-      toast.error("Something went wrong, please try again Later");
-    });
-};
+      .then((res) => {
+        navigate("/confirmPayment");
+        clear();
+      })
+      .catch((err) => {
+        toast.error("Payment request failed. Please try again");
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
+  };
 
   const total = cartItems.reduce(
     (acc, item) => acc + item.quantity * item.price,
@@ -61,65 +66,153 @@ console.log(order);
   );
 
   return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Link 
+          to="/cart" 
+          className="flex items-center text-gray-600 hover:text-gray-900 mb-8 transition-colors"
+        >
+          <FiArrowLeft className="mr-2" />
+          Back to Cart
+        </Link>
 
-      <div class="relative mx-auto w-full mt-16">
-        <div class="grid min-h-screen grid-cols-10">
-       
-          <div class="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-6 lg:py-24 bg-gray-50">
-            <h2 class="sr-only text-black">Order summary</h2>
-          
-            <div class="relative">
-              <ul class="space-y-5">
-              {cartItems.map((item, id) => (
-                <li key={id} class="flex justify-between border-b pb-5">
-                  <div class="inline-flex">
-                    <img src={`${SERVER_URL}/${item?.image}`} alt="" class="max-h-16" />
-                    <div class="ml-3">
-                      <p class="text-base font-semibold text-black">{item?.name}</p>
-                      <p class="text-sm font-light  text-gray-500 text-opacity-80">{item?.description}</p>
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Order Summary */}
+          <div className="lg:w-2/3 bg-white rounded-xl shadow-sm p-6">
+            <div className="flex items-center mb-6">
+              <h2 className="text-xl font-bold text-gray-900">Complete Your M-Pesa Payment</h2>
+            </div>
+
+            <div className="mb-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
+              <div className="space-y-4">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex items-start border-b pb-4">
+                    <img 
+                      src={`${SERVER_URL}/${item?.image}`} 
+                      alt={item.name} 
+                      className="w-16 h-16 rounded-lg object-cover mr-4"
+                    />
+                    <div className="flex-1">
+                      <h4 className="font-medium text-gray-900">{item.name}</h4>
+                      <p className="text-sm text-gray-500 mt-1">Qty: {item.quantity}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-medium">Ksh {item.price * item.quantity}</p>
                     </div>
                   </div>
-                  <p class="text-sm font-semibold text-black">ksh {item?.price}</p>
-                </li>
-               ))}
-              </ul>
-
-              <div class="space-y-2 border-t">
-                <p class="flex justify-between text-lg text-black"><span>Total price:</span><span>ksh. {total} {"/="}</span></p>
+                ))}
               </div>
             </div>
 
-            <div class="relative mt-10 text-black">
-              <h3 class="mb-5 text-lg font-bold capitalize">user information</h3>
-              <p class="text-sm  text-gray-500 capitalize">{user?.name}</p>
-              <p class="mt-1 text-sm  text-gray-500">{user?.email}</p>
-              <p class="mt-2 text-xs text-gray-500">Contact us now for payment related issues</p>
+            <div className="border-t pt-4">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-600">Subtotal</span>
+                <span className="font-medium">Ksh {total}</span>
+              </div>
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-gray-600">Delivery Fee</span>
+                <span className="font-medium">Ksh 0</span>
+              </div>
+              <div className="flex justify-between items-center pt-4 border-t mt-4">
+                <span className="text-lg font-bold">Total</span>
+                <span className="text-lg font-bold">Ksh {total}</span>
+              </div>
             </div>
-          
           </div>
 
-          <div class="col-span-full py-6 px-4 sm:py-12 lg:col-span-4 lg:py-24">
-            <div class="mx-auto w-full max-w-lg">
-              <h1 class="relative text-2xl font-medium text-gray-700 sm:text-3xl">Checkout<span class="mt-2 block h-1 w-10 bg-teal-600 sm:w-20"></span></h1>
-              <form onSubmit={placeOrder} class="mt-10 flex flex-col space-y-4">
+          {/* Payment Form */}
+          <div className="lg:w-1/3">
+            <div className="bg-white rounded-xl shadow-sm p-6 sticky top-8">
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">Payment Details</h3>
+              
+              <form onSubmit={placeOrder} className="space-y-4">
                 <div>
-                  <label for="email" class="text-xs font-semibold text-gray-500">Phone Number</label>
-                  <input type="text" value={phoneNo}onChange={(e) => setPhoneNo(e.target.value)} placeholder="07-XXXX-XXXX" class="mt-1 block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
-                </div>
-                <div class="relative">
-                  <label for="card-number" class="text-xs font-semibold text-gray-500">Address</label>
-                  <input type="text"  value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Bronx, NY 10461" class="block w-full rounded border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-sm placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <FiSmartphone className="mr-2 text-gray-500" />
+                    M-Pesa Phone Number
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      value={phoneNo}
+                      onChange={(e) => setPhoneNo(e.target.value)}
+                      placeholder="e.g. 0712345678"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                    />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                      <span className="text-gray-500">+254</span>
+                    </div>
                   </div>
-          
-              <p class="mt-10 text-center text-sm font-semibold text-gray-500">By placing this order you agree to the 
-               <Link to="/Terms" class="whitespace-nowrap text-teal-400 underline hover:text-teal-600">Terms and Conditions</Link>
-              </p>
-              <button type="submit" class="mt-4 inline-flex w-full items-center justify-center rounded bg-gray-600 py-2.5 px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-gray-300 sm:text-lg">Place Order</button>
+                  <p className="mt-1 text-xs text-gray-500">Enter the phone number registered with M-Pesa</p>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1 flex items-center">
+                    <FiMapPin className="mr-2 text-gray-500" />
+                    Delivery Address
+                  </label>
+                  <input
+                    type="text"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Enter your full delivery address"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                  />
+                </div>
+
+                <div className="flex items-start mt-6">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="terms"
+                      name="terms"
+                      type="checkbox"
+                      required
+                      className="focus:ring-green-500 h-4 w-4 text-green-600 border-gray-300 rounded"
+                    />
+                  </div>
+                  <div className="ml-3 text-sm">
+                    <label htmlFor="terms" className="font-medium text-gray-700">
+                      I agree to the{' '}
+                      <Link to="/terms" className="text-green-600 hover:text-green-800">
+                        terms and conditions
+                      </Link>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="pt-4">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition ${isSubmitting ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'}`}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Processing...
+                      </>
+                    ) : (
+                      <>
+                        Pay with M-Pesa
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                <div className="flex items-center text-xs text-gray-500 mt-4">
+                  <FiShield className="mr-2 text-green-500" />
+                  <span>Your payment is secured with M-Pesa</span>
+                </div>
               </form>
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
