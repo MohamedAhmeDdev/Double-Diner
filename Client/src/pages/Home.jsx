@@ -19,7 +19,7 @@ const TabItem = ({ dishCategory, activeTab, setActiveTab }) => {
       <span
         className={`flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f4f0f0] pl-4 pr-4 text-[#181111] text-sm font-medium leading-normal ${
           activeTab === dishCategory.value
-            ? "border-blue-500 text-blue-500"
+            ? "text-green-500"
             : ""
         }`}
         id="tabs-home-tab"
