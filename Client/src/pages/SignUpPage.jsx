@@ -1,6 +1,5 @@
 import "../css/RigistrationForm.css";
 import { useNavigate } from "react-router-dom";
-import Footer from "../Components/Footer";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { SERVER_URL } from "../constants";
@@ -89,8 +88,6 @@ const SignUpPage = () => {
               </div>
             </div>
         </div>
-
-        <Footer/>
     </div>
   );
 };

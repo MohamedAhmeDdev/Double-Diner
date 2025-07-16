@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { SERVER_URL } from "../constants";
 import { UseAuthContext } from "../hook/UseAuthContext";
-import Footer from "../Components/Footer";
 import axios from "axios";
 
 const LoginPage = () => {
@@ -68,7 +67,6 @@ const LoginPage = () => {
           </div>
         </div>
 
-          <Footer/>
     </div>
   );
 };

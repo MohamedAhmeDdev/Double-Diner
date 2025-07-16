@@ -3,7 +3,6 @@ import '../css/Profile.css'
 import { useParams } from 'react-router-dom';
 import axios from "axios"
 import { toast } from "react-toastify";
-import Footer from "../Components/Footer";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { SERVER_URL } from "../constants";
 
@@ -101,7 +100,6 @@ function UpdateProfile() {
                 </div>
             </form>
       </div>
-      <Footer/>
     </div>
   )
 }

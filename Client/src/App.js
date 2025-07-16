@@ -4,7 +4,6 @@ import Cart from "./Components/Cart";
 import CheckOutPage from "./pages/CheckOutPage";
 import Contact from "./Components/Contact";
 import DishView from "./pages/SingleDishView";
-// import Footer from "./Components/Footer";
 import HomePage from "./pages/Home";
 import Login from "./pages/LoginPage";
 import Navbar from "./Components/Navbar";
@@ -83,7 +82,6 @@ function App() {
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
           <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
         </Routes>
-        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );
