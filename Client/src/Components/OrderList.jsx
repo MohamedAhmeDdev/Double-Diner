@@ -1,53 +1,105 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { formatDateTime } from "../utils/functions";
+import { FiEye, FiX, FiTrash2, FiClock, FiCheckCircle, FiTruck } from "react-icons/fi";
 
-const OrderItem = ({ order, onCancelOrder, handleDelete  }) => {
-  
+const OrderItem = ({ order, onCancelOrder, handleDelete }) => {
   const formatItemsListToSting = (items = []) => {
     const itemsList = items.map((item) => item.name);
     if (itemsList.length > 3) {
-      return (
-        itemsList.slice(0, 3).join(", ") + ` + ${itemsList.length - 3}  more`
-      );
+      return itemsList.slice(0, 3).join(", ") + ` +${itemsList.length - 3}`;
     }
     return itemsList.join(", ");
   };
 
   const orderedItems = order?.dishes?.map((item) => item?.metadata);
 
+  const getStatusBadge = (status) => {
+    switch(status) {
+      case 'PENDING':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
+            <FiClock className="mr-1" /> Pending
+          </span>
+        );
+      case 'COMPLETED':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+            <FiCheckCircle className="mr-1" /> Completed
+          </span>
+        );
+      case 'CANCELLED':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+            <FiX className="mr-1" /> Cancelled
+          </span>
+        );
+      case 'DELIVERED':
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+            <FiTruck className="mr-1" /> Delivered
+          </span>
+        );
+      default:
+        return (
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+            {status}
+          </span>
+        );
+    }
+  };
+
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-100">
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.order_id} </td>
+    <tr className="border-b border-gray-200 hover:bg-gray-50 transition-colors">
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm font-medium text-gray-900">#{order.order_id}</div>
+      </td>
 
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"> {formatDateTime(order.order_date)}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm text-gray-500">{formatDateTime(order.order_date)}</div>
+      </td>
 
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">  Ksh. {order.total_price}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="text-sm font-semibold text-gray-900">Ksh {order.total_price}</div>
+      </td>
 
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{order.order_status}</td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        {getStatusBadge(order.order_status)}
+      </td>
 
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500  max-w-2xl overflow-hidden overflow-ellipsis truncate ">{formatItemsListToSting(orderedItems)}</td>
+      <td className="px-6 py-4">
+        <div className="text-sm text-gray-500 max-w-xs truncate">
+          {formatItemsListToSting(orderedItems)}
+        </div>
+      </td>
 
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-        <div className="flex justify-center gap-2">
-          <Link to={`/orders/${order.order_id}`}>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View </button>
+      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+        <div className="flex items-center space-x-2">
+          <Link 
+            to={`/orders/${order.order_id}`}
+            className="text-gray-600 hover:text-blue-600 transition-colors p-2 rounded-full hover:bg-blue-50"
+            title="View Details"
+          >
+            <FiEye size={18} />
           </Link>
+          
           {order.order_status === "PENDING" && (
             <button
-              className="bg-red-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => onCancelOrder(order.order_id)}
+              className="text-gray-600 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+              title="Cancel Order"
             >
-              Cancel
+              <FiX size={18} />
             </button>
           )}
 
           {order.order_status === "CANCELLED" && (
             <button
-              className="bg-red-800 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => handleDelete(order.order_id)}
+              className="text-gray-600 hover:text-red-600 transition-colors p-2 rounded-full hover:bg-red-50"
+              title="Delete Order"
             >
-              Confirm Delete
+              <FiTrash2 size={18} />
             </button>
           )}
         </div>
@@ -56,44 +108,64 @@ const OrderItem = ({ order, onCancelOrder, handleDelete  }) => {
   );
 };
 
-const OrderList = ({ orders, onCancelOrder , handleDelete  }) => {
+const OrderList = ({ orders, onCancelOrder, handleDelete }) => {
   return (
-    <div className="flex flex-col">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8 mb-40">
-        <div className="py-4 inline-block min-w-full sm:px-6 lg:px-8">
-          <div className="overflow-hidden">
-            <table className="min-w-full text-center">
-              <thead className="border-b bg-gray-800">
-                <tr>
-                  <th scope="col" className="text-sm font-medium text-white px-6 py-4">OrderId</th>
-                  <th scope="col" className="text-sm font-medium text-white px-6 py-4" >Date</th>
-                  <th scope="col" className="text-sm font-medium text-white px-6 py-4">Total Amount</th>
-                  <th scope="col"  className="text-sm font-medium text-white px-6 py-4">Status</th>
-                  <th  scope="col" className="text-sm font-medium text-white px-6 py-4">Items Ordered</th>
-                  <th scope="col" className="text-sm font-medium text-white px-6 py-4">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders?.length > 0 ? (
-                  <>
-                    {orders.map((order) => (
-                      <OrderItem  key={order.order_id} order={order} onCancelOrder={onCancelOrder} handleDelete ={handleDelete } />
-                    ))}
-                  </>
-                ) : (
-                  <tr>
-                    <td
-                      colSpan={6}
-                      className="text-center text-2xl font-bold text-gray-600"
-                    >
-                      No Orders Found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div className="bg-white shadow rounded-lg overflow-hidden">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Order ID
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Date
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Amount
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Items
+              </th>
+              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {orders?.length > 0 ? (
+              orders.map((order) => (
+                <OrderItem 
+                  key={order.order_id} 
+                  order={order} 
+                  onCancelOrder={onCancelOrder} 
+                  handleDelete={handleDelete} 
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={6} className="px-6 py-12 text-center">
+                  <div className="flex flex-col items-center justify-center">
+                    {/* <FiPackage className="mx-auto h-12 w-12 text-gray-400" /> */}
+                    <h3 className="mt-2 text-lg font-medium text-gray-900">No orders found</h3>
+                    <p className="mt-1 text-sm text-gray-500">Get started by placing a new order.</p>
+                    <div className="mt-6">
+                      <Link
+                        to="/menu"
+                        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      >
+                        Browse Menu
+                      </Link>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
