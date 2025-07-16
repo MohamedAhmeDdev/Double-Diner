@@ -19,13 +19,16 @@ const OrdersListPage = () => {
     getOrders();
   }, []);
 
-  const handleDelete = (id) => {
-    apiCall(`${SERVER_URL}/orders/${id}`, "DELETE").then((response) => {
+const handleDelete = (id) => {
+  apiCall(`${SERVER_URL}/orders/${id}`, "DELETE")
+    .then((response) => {
       setOrders((items) => items.filter((item) => item.order_id !== id));
-    })(
-       toast.success("Order Deleted")
-    )
-  };
+      toast.success("Order Deleted");
+    })
+    .catch((error) => {
+      toast.error("Failed to delete order");
+    });
+};
 
   const cancelOrder = async (order_id) => {
     const data = await apiCall(`/orders/${order_id}`, "PATCH", {
