@@ -41,7 +41,7 @@ const HomePage = () => {
 
   return (
   <>
-      <div class="mt-16 lg:px-40 flex-row flex-1 justify-center py-5">
+      <div class="mt-1 lg:px-40 flex-row flex-1 justify-center py-5">
         <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
           <h2 class="text-[#181111] tracking-light text-[28px] font-bold leading-tight px-4 text-left pb-3 pt-5">Menu</h2>
           <ul  className="flex gap-3 p-3 flex-wrap pr-4" id="tabs-tab" role="tablist">
