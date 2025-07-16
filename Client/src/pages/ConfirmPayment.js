@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { SERVER_URL } from "../constants";
 import { apiCall } from "../utils/apiCall";
-import ClipLoader from "react-spinners/ClipLoader";
-import { Link } from 'react-router-dom';
 import { UseCartContext } from "../hook/UseCartContext";
-
+import { Link } from 'react-router-dom';
+import { FiCheckCircle, FiXCircle, FiRotateCw } from 'react-icons/fi';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function ConfirmPayment() {
   const { cartItems, clear } = UseCartContext();
-  const [RequestID, setRequestID] = useState("");
-  const [Message, setMessage] = useState("");
-  const [ResponseDescription, setResponseDescription] = useState("");
-  const [ResultDesc, setResultDesc] = useState("");
-  const [ResultCode, setResultCode] = useState("");
+  const [requestId, setRequestId] = useState("");
+  const [message, setMessage] = useState("Verifying payment with M-Pesa...");
+  const [responseDescription, setResponseDescription] = useState("");
+  const [resultDesc, setResultDesc] = useState("");
+  const [resultCode, setResultCode] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const getRequestID = async () => {
+  const getRequestId = async () => {
     try {
       const res = await apiCall(`${SERVER_URL}/orders/RequestID`, "GET");
-      setRequestID(res.user.CheckoutRequestID);
+      setRequestId(res.user.CheckoutRequestID);
     } catch (err) {
       setIsLoading(false);
     }
@@ -37,11 +37,9 @@ function ConfirmPayment() {
       const res = await apiCall(`${SERVER_URL}/orders/confirmPayment/${id}`, "POST", order);
   
       if (res.errorMessage === "The transaction is being processed") {
-        console.log(res);
         setMessage(res.errorMessage);
         setTimeout(() => verifyPayment(id), 3000); 
       } else {
-        console.log(res);
         setResponseDescription(res.ResponseDescription);
         setResultDesc(res.ResultDesc);
         setResultCode(res.ResultCode);
@@ -55,30 +53,28 @@ function ConfirmPayment() {
       setIsLoading(false);
     }
   };
-  
 
   useEffect(() => {
-    getRequestID();
+    getRequestId();
   }, []);
 
-
   useEffect(() => {
-    if (RequestID) {
-      verifyPayment(RequestID);
+    if (requestId) {
+      verifyPayment(requestId);
     }
-  }, [RequestID]);
-
+  }, [requestId]);
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-         <div class="absolute inset-0 flex items-center justify-center  bg-opacity-50 p-6">
-          <div class=" w-4/6 p-6   md:mx-auto">
-            <div class="flex justify-center items-center py-10 pb-10">
-              <ClipLoader size={70} color={"#333333"} />
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md">
+          <div className="flex flex-col items-center space-y-6">
+            <div className="relative">
+              <ClipLoader size={60} color={"#4F46E5"} />
             </div>
-            <div class="text-center">
-              <h3 class="md:text-2xl text-base text-gray-900 font-semibold capitalize">{Message}</h3>
+            <div className="text-center space-y-2">
+              <h3 className="text-lg font-medium text-gray-900">{message}</h3>
+              <p className="text-sm text-gray-500">Please wait while we process your payment</p>
             </div>
           </div>
         </div>
@@ -87,42 +83,42 @@ function ConfirmPayment() {
   }
 
   return (
-    <div className="mt-40 flex items-center justify-center">
-      {ResultCode !== "0" ? (
-         <div className="w-4/6 p-6 md:mx-auto">
-          <svg viewBox="0 0 24 24" className="text-red-500 h-20 w-20 mx-auto my-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
-            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z" />
-          </svg>
-          <div className="text-center">
-            <h3 className="text-gray-600 my-2 text-md lg:text-2xl font-bold">{ResultDesc}</h3>
-            <p className="text-md text-gray-900 text-center">{ResponseDescription}</p>
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 p-4">
+      {resultCode !== "0" ? (
+        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md space-y-6">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="p-3 bg-red-100 rounded-full">
+              <FiXCircle className="text-red-500" size={48} />
+            </div>
+            <div className="text-center space-y-2">
+              <h3 className="text-xl font-semibold text-gray-900">{resultDesc}</h3>
+              <p className="text-gray-600">{responseDescription}</p>
+            </div>
           </div>
-
-          <div>
-            <Link to='/checkout'>
-               <button class="mt-4  inline-flex w-full items-center justify-center rounded bg-gray-600 py-1 lg:py-2.5 px-2 lg:px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-gray-300 sm:text-lg">
-                Retry 
-            </button>
+          <Link 
+            to='/'
+            className="block w-full py-3 px-4 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition duration-200"
+          >
+            Try Again
           </Link>
-          </div>
         </div>
       ) : (
-         <div className="w-4/6 p-6 md:mx-auto">
-          <svg viewBox="0 0 24 24" className="text-green-600 w-16 h-16 mx-auto my-6">
-            <path fill="currentColor" d="M12,0A12,12,0,1,0,24,12,12.014,12.014,0,0,0,12,0Zm6.927,8.2-6.845,9.289a1.011,1.011,0,0,1-1.43.188L5.764,13.769a1,1,0,1,1,1.25-1.562l4.076,3.261,6.227-8.451A1,1,0,1,1,18.927,8.2Z" />
-          </svg>
-          <div className="text-center">
-            <h3 className="text-gray-600 my-2 text-md lg:text-2xl font-bold">{ResultDesc}</h3>
-            <p className="text-md text-gray-900 text-center">{ResponseDescription}</p>
+        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-md space-y-6">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="p-3 bg-green-100 rounded-full">
+              <FiCheckCircle className="text-green-500" size={48} />
+            </div>
+            <div className="text-center space-y-2">
+              <h3 className="text-xl font-semibold text-gray-900">{resultDesc}</h3>
+              <p className="text-gray-600">{responseDescription}</p>
+            </div>
           </div>
-
-          <div>
-          <Link to='/orders'>
-               <button class="mt-4  inline-flex w-full items-center justify-center rounded bg-gray-600 py-1 lg:py-2.5 px-2 lg:px-4 text-base font-semibold tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-gray-300 sm:text-lg">
-                Order Page
-            </button>
+          <Link 
+            to='/orders'
+            className="block w-full py-3 px-4 text-center bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition duration-200"
+          >
+            View Your Orders
           </Link>
-          </div>
         </div>
       )}
     </div>
