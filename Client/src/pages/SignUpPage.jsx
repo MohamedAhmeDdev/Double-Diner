@@ -80,7 +80,7 @@ const SignUpPage = () => {
                 <input
                   type="text"
                   id="name"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500  outline-none focus:border-blue-500"
                   placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -101,7 +101,7 @@ const SignUpPage = () => {
                 <input
                   type="email"
                   id="email"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500  outline-none focus:border-blue-500"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -122,7 +122,7 @@ const SignUpPage = () => {
                 <input
                   type="tel"
                   id="phone"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500  outline-none focus:border-blue-500"
                   placeholder="0712345678"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
@@ -142,7 +142,7 @@ const SignUpPage = () => {
                 <input
                   type="text"
                   id="address"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500  outline-none focus:border-blue-500"
                   placeholder="Your address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
@@ -162,7 +162,7 @@ const SignUpPage = () => {
                 <input
                   type="password"
                   id="password"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
