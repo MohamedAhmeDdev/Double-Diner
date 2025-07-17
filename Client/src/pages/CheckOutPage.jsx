@@ -138,7 +138,7 @@ const CheckOutPage = () => {
                       value={phoneNo}
                       onChange={(e) => setPhoneNo(e.target.value)}
                       placeholder="e.g. 0712345678"
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition outline-none"
                     />
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                       <span className="text-gray-500">+254</span>
@@ -157,7 +157,7 @@ const CheckOutPage = () => {
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter your full delivery address"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 transition outline-none"
                   />
                 </div>
 
