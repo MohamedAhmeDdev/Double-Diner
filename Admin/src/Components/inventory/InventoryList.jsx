@@ -7,7 +7,7 @@ const InventoryList = ({ listItems, onDelete, isLoading }) => {
     <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col space-y-6">
         {/* Header with add button */}
-        <div className="flex justify-between items-center pt-8 pb-4 border-b border-gray-100">
+        <div className="flex justify-between items-center pb-4 border-b border-gray-100">
           <h1 className="text-2xl font-semibold text-gray-900">Inventory Management</h1>
           <Link
             to="/inventory/add"
