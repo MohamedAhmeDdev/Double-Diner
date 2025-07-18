@@ -143,7 +143,7 @@ function ResetPassword() {
                   </>
                 ) : (
                   <>
-                    Reset Passworffdd <FiArrowRight className="ml-2" />
+                    Reset Password <FiArrowRight className="ml-2" />
                   </>
                 )}
               </button>
