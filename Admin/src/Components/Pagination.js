@@ -1,43 +1,45 @@
 import React, { useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 function Pagination({
   postsPerPage,
-   totalPosts,
-   paginate ,
-   currentPage,
-   setCurrentPage
-  }){
-
-    const [pageNumberLimit] = useState(5); //it limits the number of page to show
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);//maximum number of pages 
-    const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);//minimum number of pages 
-    const pageNumbers = [];
-
+  totalPosts,
+  paginate,
+  currentPage,
+  setCurrentPage
+}) {
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
+  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+  const pageNumbers = [];
 
   for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
     pageNumbers.push(i);
   }
 
-  let paginationTemp = pageNumbers.map(number => {
-  if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-    return (
-    <li key={number}>
-      <a onClick={() => paginate(number)} 
-          className={currentPage === number ? 'li mt-5 px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white bg-blue-400' : 
-          'mt-5 px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'}>
-        {number}
-        </a>
-    </li>
+  const renderPageNumbers = pageNumbers.map(number => {
+    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
+      return (
+        <button
+          key={number}
+          onClick={() => paginate(number)}
+          className={`flex items-center justify-center w-10 h-10 mx-1 rounded-full transition-colors duration-200 ${
+            currentPage === number 
+              ? 'bg-indigo-600 text-white shadow-md'
+              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+          }`}
+        >
+          {number}
+        </button>
       );
-    } else {
-      return null;
     }
-    })
+    return null;
+  });
 
   const handlePrev = () => {
     setCurrentPage(currentPage - 1);
 
-    if ((currentPage - 1) % pageNumberLimit == 0) {
+    if ((currentPage - 1) % pageNumberLimit === 0) {
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
@@ -52,46 +54,63 @@ function Pagination({
     }
   };
 
-
   let pageDecrementBtn = null;
   if (minPageNumberLimit >= 1) {
-     pageDecrementBtn = <li onClick={handlePrev}> &hellip; </li>;
+    pageDecrementBtn = (
+      <button 
+        className="flex items-center justify-center w-10 h-10 mx-1 text-gray-500"
+        onClick={handlePrev}
+      >
+        &hellip;
+      </button>
+    );
   }
 
-
-   let pageIncrementBtn = null;
+  let pageIncrementBtn = null;
   if (pageNumbers.length > maxPageNumberLimit) {
-     pageIncrementBtn = <li onClick={handleNext}> &hellip; </li>;
+    pageIncrementBtn = (
+      <button 
+        className="flex items-center justify-center w-10 h-10 mx-1 text-gray-500"
+        onClick={handleNext}
+      >
+        &hellip;
+      </button>
+    );
   }
 
-
-
-  
   return (
-   <div className='m-auto my-10'>
-       <nav className='' aria-label="Page navigation example">
-        <ul className="inline-flex">
-           
-              <button onClick={handlePrev}  
-                disabled={currentPage == pageNumbers[0] ? true : false} 
-                className="btn  px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                Previous
-              </button>
-            
-              {pageDecrementBtn}
-              {paginationTemp}
-              {pageIncrementBtn}
-          
-              <button onClick={handleNext}
-                disabled={currentPage == pageNumbers[pageNumbers.length - 1] ? true : false}
-                className="btn px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                Next
-              </button>
-        </ul>
-     </nav>
-   </div>
+    <div className="flex items-center justify-center my-8">
+      <nav className="flex items-center space-x-1">
+        <button
+          onClick={handlePrev}
+          disabled={currentPage === pageNumbers[0]}
+          className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
+            currentPage === pageNumbers[0]
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+          }`}
+        >
+          <FiChevronLeft className="w-5 h-5" />
+        </button>
 
-  )
+        {pageDecrementBtn}
+        {renderPageNumbers}
+        {pageIncrementBtn}
+
+        <button
+          onClick={handleNext}
+          disabled={currentPage === pageNumbers[pageNumbers.length - 1]}
+          className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
+            currentPage === pageNumbers[pageNumbers.length - 1]
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+          }`}
+        >
+          <FiChevronRight className="w-5 h-5" />
+        </button>
+      </nav>
+    </div>
+  );
 }
 
-export default Pagination
+export default Pagination;
