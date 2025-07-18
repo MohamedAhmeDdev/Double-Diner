@@ -4,28 +4,60 @@ import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 
 const Customers = () => {
-  const [customers, setCustomers] = useState([]);
+  const [activeRole, setActiveRole] = useState("user");
+ const [users, setUsers] = useState([]);
+   const [isLoading, setIsLoading] = useState(true);
 
-  const getCustomers = async () => {
-    const response = await apiCall("/users", "get");
-    setCustomers(response.users);
+  const getUser = async () => {
+    try {
+       const response = await apiCall(`/users?role=${activeRole}`, "GET");
+     setUsers(response.users);
+    } catch (error) {
+      toast.error("Failed to fetch customers");
+      console.error("Fetch customers error:", error);
+    } finally {
+        setIsLoading(false);
+      }
   };
 
   useEffect(() => {
-    getCustomers();
-  }, []);
+    getUser();
+ }, [activeRole]);
 
-  const handleDelete = (id) => {
-    apiCall(`/users/${id}`, "DELETE").then((response) => {
-      setCustomers((items) => items.filter((item) => item.id !== id));
-    })(
-      toast.success("User Deleted successfully")
-    )
+  const updateUser = async (id, newRole) => {
+    try {
+      await apiCall(`/users/${id}`, "PATCH", { role: newRole });
+      setUsers(users.map(user => 
+        user.id === id ? { ...user, role: newRole } : user
+      ));
+      toast.success("User updated successfully");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update user");
+      console.error("Update user error:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await apiCall(`/users/${id}`, "DELETE");
+      setUsers(users.filter(user => user.id !== id));
+      toast.success("User deleted successfully");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete user");
+      console.error("Delete user error:", error);
+    }
   };
 
   return (
     <div>
-      <CustomersList listItems={customers} onDelete={handleDelete}/>
+      <CustomersList 
+        listItems={users} 
+        onDelete={handleDelete} 
+        onUpdate={updateUser} 
+        activeRole={activeRole}
+        setActiveRole={setActiveRole}
+        isLoading={isLoading}
+      />
     </div>
   );
 };
