@@ -14,9 +14,9 @@ const AdminDashboard = () => {
       hoverColor: "hover:shadow-lg hover:scale-[1.02]"
     },
     {
-      title: "Customers",
+      title: "Users",
       icon: <FiUsers className="text-white" size={24} />,
-      path: "/customers",
+      path: "/users",
       bgColor: "bg-gradient-to-br from-purple-300 to-purple-600",
       hoverColor: "hover:shadow-lg hover:scale-[1.02]"
     },
