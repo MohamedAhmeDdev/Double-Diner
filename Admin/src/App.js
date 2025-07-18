@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import AdminDashboard from "./pages/AdminDashboard";
 import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
-import Customers from "./pages/Customers";
+import Users from "./pages/Users";
 import Inventory from "./pages/Inventory";
 import Login from "./pages/Login";
 import Navbar from "./Components/Navbar";
@@ -10,7 +10,6 @@ import React from "react";
 import SingleOrderView from "./Components/orders/SingleOrderView";
 import UpdateInventory from "./pages/UpdateInventory";
 import { UseAuthContext } from "./hook/UseAuthContext";
-import SingleCustomerId from "./Components/Customers/SingleCustomerId";
 import UpdateProfile from "./Components/UpdateProfile";
 import Reservation from "./pages/Reservation";
 import SalesDish from "./pages/SalesDish";
@@ -61,7 +60,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
           <Route  path="/Login"  element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/"  element={user ? <AdminDashboard /> : <Navigate to="/Login" />}  />
@@ -71,8 +70,7 @@ function App() {
           <Route path="/orders" element={user ? <Orders /> : <Navigate to="/" />}  />
           <Route path="/Reservation" element={user ? <Reservation/> : <Navigate to="/" />}  />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/" />}/>
-          <Route path="/customers" element={user ? <Customers /> : <Navigate to="/" />}  />
-          <Route path="/customer/:id" element={user ? <SingleCustomerId/> : <Navigate to="/" />}  />
+          <Route path="/users" element={user ? <Users /> : <Navigate to="/" />}  />
           <Route path="/UpdateProfile/:id" element={user ? <UpdateProfile/> : <Navigate to="/" />}  />
           <Route path="/dishReport" element={user ? <SalesDish/> : <Navigate to="/" />}  />
           <Route path="/ForgotPassword" element={<ForgotPassword />}/>
