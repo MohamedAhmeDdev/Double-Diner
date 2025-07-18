@@ -1,127 +1,192 @@
 import React from "react";
 import { SERVER_URL } from "../../constants";
 import { formatDateTime } from "../../utils/functions";
+import { FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, FiDollarSign, FiMapPin, FiPhone, FiUser, FiMail } from "react-icons/fi";
 
-const DetailItem = ({ label, value }) => (
-  <div className="flex items-center">
-    <div className="flex flex-col">
-      <span className="text-gray-600 text-sm">{label}</span>
-      <span className="text-gray-900 text-lg font-medium">{value}</span>
+const StatusBadge = ({ status }) => {
+  const statusConfig = {
+    PENDING: { color: "bg-yellow-100 text-yellow-800", icon: <FiClock className="mr-1" /> },
+    ACCEPTED: { color: "bg-blue-100 text-blue-800", icon: <FiCheckCircle className="mr-1" /> },
+    REJECTED: { color: "bg-red-100 text-red-800", icon: <FiXCircle className="mr-1" /> },
+    READY_FOR_DELIVERY: { color: "bg-purple-100 text-purple-800", icon: <FiPackage className="mr-1" /> },
+    DELIVERED: { color: "bg-green-100 text-green-800", icon: <FiTruck className="mr-1" /> },
+    COMPLETED: { color: "bg-indigo-100 text-indigo-800", icon: <FiCheckCircle className="mr-1" /> }
+  };
+
+  return (
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${statusConfig[status]?.color || 'bg-gray-100 text-gray-800'}`}>
+      {statusConfig[status]?.icon}
+      {status}
+    </span>
+  );
+};
+
+const DetailCard = ({ title, value, icon }) => (
+  <div className="flex items-start space-x-3 py-3 border-b border-gray-100">
+    <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-500">
+      {icon}
+    </div>
+    <div>
+      <p className="text-sm font-medium text-gray-500">{title}</p>
+      <p className="text-base font-medium text-gray-900">{value || '-'}</p>
     </div>
   </div>
 );
 
 const OrderedDishItem = ({ dishOrderDetails, dishDetails }) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between py-4 border-b border-gray-200 last:border-0">
       <div className="flex items-center space-x-4">
-        <div className="flex-shrink-0">
+        <div className="flex-shrink-0 h-20 w-20 rounded-md overflow-hidden">
           <img
-            className="w-24 h-24 rounded-md"
+            className="w-full h-full object-cover"
             src={`${SERVER_URL}/${dishDetails?.image}`}
-            alt=""
+            alt={dishDetails?.name}
           />
         </div>
-
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-gray-900 truncate capitalize">  {dishDetails?.name}</p>
+        <div>
+          <h4 className="text-sm font-medium text-gray-900 capitalize">{dishDetails?.name}</h4>
+          <p className="text-sm text-gray-500">{dishOrderDetails?.dish_name}</p>
         </div>
       </div>
-
-      <div className="flex flex-col">
-        <span className="text-gray-600 text-sm">
-          {dishOrderDetails?.dish_name}
-        </span>
-        <span className="text-gray-900 text-lg font-medium">
-          {dishOrderDetails?.quantity} x {dishOrderDetails?.unit_price}
-        </span>
+      <div className="text-right">
+        <div className="text-sm text-gray-500">{dishOrderDetails?.quantity} × Ksh {dishOrderDetails?.unit_price}</div>
+        <div className="text-base font-medium text-gray-900">Ksh {dishOrderDetails?.quantity * dishOrderDetails?.unit_price}</div>
       </div>
-      <span className="text-gray-900 text-lg font-medium">
-        Ksh. {dishOrderDetails?.quantity * dishOrderDetails?.unit_price}
-      </span>
     </div>
   );
 };
 
-const OrderView = ({ order, updateOrder }) => {
-  const rejectOrder = () => {
-    updateOrder(order.order_id, "REJECTED");
+const ActionButton = ({ onClick, children, variant = "primary" }) => {
+  const variants = {
+    primary: "bg-blue-600 hover:bg-blue-700 text-white",
+    danger: "bg-red-600 hover:bg-red-700 text-white",
+    success: "bg-green-600 hover:bg-green-700 text-white",
+    secondary: "bg-purple-600 hover:bg-purple-700 text-white"
   };
-
-  const acceptOrder = () => {
-    updateOrder(order.order_id, "ACCEPTED");
-  };
-
-  const markReadyForDelivery = () => {
-    updateOrder(order.order_id, "READY_FOR_DELIVERY");
-  };
-
-  const markDelivered = () => {
-    updateOrder(order.order_id, "DELIVERED");
-  };
-
-  const completeOrder = () => {
-    updateOrder(order.order_id, "COMPLETED");
-  };
-
-  const btn_class_name =
-    "inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out";
 
   return (
-    <div className="flex h-full w-full justify-center items-center flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
-      <div className="rounded-lg shadow-lg bg-white w-[32rem]">
-        <div className="p-6 flex flex-col space-y-4 w-full">
-          <div className="flex flex-col space-y-4">
-            <DetailItem label="Order ID" value={order.order_id} />
-            <DetailItem
-              label="Order Date"
-              value={formatDateTime(order?.order_date)}
-            />
-            <DetailItem label="Order Status" value={order?.order_status} />
+    <button
+      onClick={onClick}
+      className={`px-4 py-2 rounded-md font-medium transition-colors ${variants[variant]}`}
+    >
+      {children}
+    </button>
+  );
+};
 
-            <DetailItem
-              label="Delivery Address"
-              value={order?.delivery_address}
-            />
+const OrderView = ({ order, updateOrder }) => {
+  const rejectOrder = () => updateOrder(order.order_id, "REJECTED");
+  const acceptOrder = () => updateOrder(order.order_id, "ACCEPTED");
+  const markReadyForDelivery = () => updateOrder(order.order_id, "READY_FOR_DELIVERY");
+  const markDelivered = () => updateOrder(order.order_id, "DELIVERED");
+  const completeOrder = () => updateOrder(order.order_id, "COMPLETED");
 
-            <DetailItem label="Delivery Phone" value={order?.delivery_phone} />
-            <DetailItem label="Customer Name" value={order?.user?.name} />
-            <DetailItem label="Customer Email" value={order?.user?.email} />
-          </div>
-
-          <div className="flex flex-col md:flex-row space-y-4 justify-between items-center">
-            {order?.order_status === "PENDING" && (
-              <>
-                <button type="button" className={btn_class_name} onClick={acceptOrder}>Confirm</button>
-                <button type="button" className={btn_class_name} onClick={rejectOrder}>Reject</button>
-              </>
-            )}
-
-            {order?.order_status === "ACCEPTED" && (
-              <button type="button" className={btn_class_name}onClick={markReadyForDelivery}> Mark Ready For Delivery </button>
-            )}
-            
-            {order?.order_status === "READY_FOR_DELIVERY" && (
-              <button type="button"className={btn_class_name} onClick={markDelivered}> Mark Delivered </button>
-            )}
-
-            {order?.order_status === "DELIVERED" && (
-              <button type="button" className={btn_class_name} onClick={completeOrder}>Complete Order</button>
-            )}
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="bg-white shadow rounded-lg overflow-hidden">
+        {/* Order Header */}
+        <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+          <div className="flex items-center justify-between">
+           <div>
+             <h2 className="text-xl font-bold text-gray-900">  Order #{order?.order_id} </h2>
+            <div className="mt-1 flex items-center space-x-2">
+              <StatusBadge status={order?.order_status} />
+              <span className="text-sm text-gray-500">
+                {formatDateTime(order?.order_date)}
+              </span>
+            </div>
+           </div>
           </div>
         </div>
-      </div>
 
-      {/** dishes  image, name, price and quantiy */}
-      <div className="rounded-lg shadow-lg bg-white w-[32rem] flex flex-col space-y-4 p-6">
-        {order?.dishes?.map((dish) => (
-          <OrderedDishItem
-            dishOrderDetails={dish}
-            key={Math.random()} //?
-            dishDetails={dish?.metadata}//?
-          />
-        ))}
-          <DetailItem label="Total Price" value={`Ksh. ${order?.total_price}`} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6">
+          {/* Order Details */}
+          <div className="space-y-4">
+            <h2 className="text-lg font-medium text-gray-900">Order Details</h2>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <DetailCard
+                title="Customer Name"
+                value={order?.user?.name}
+                icon={<FiUser />}
+              />
+              <DetailCard
+                title="Customer Email"
+                value={order?.user?.email}
+                icon={<FiMail />}
+              />
+              <DetailCard
+                title="Delivery Address"
+                value={order?.delivery_address}
+                icon={<FiMapPin />}
+              />
+              <DetailCard
+                title="Delivery Phone"
+                value={order?.delivery_phone}
+                icon={<FiPhone />}
+              />
+            </div>
+
+            {/* Order Actions */}
+            <div className="space-y-4">
+              <h2 className="text-lg font-medium text-gray-900">
+                Order Actions
+              </h2>
+              <div className="flex flex-wrap gap-3">
+                {order?.order_status === "PENDING" && (
+                  <>
+                    <ActionButton onClick={acceptOrder} variant="success">
+                      Accept Order
+                    </ActionButton>
+                    <ActionButton onClick={rejectOrder} variant="danger">
+                      Reject Order
+                    </ActionButton>
+                  </>
+                )}
+                {order?.order_status === "ACCEPTED" && (
+                  <ActionButton
+                    onClick={markReadyForDelivery}
+                    variant="secondary"
+                  >
+                    Ready for Delivery
+                  </ActionButton>
+                )}
+                {order?.order_status === "READY_FOR_DELIVERY" && (
+                  <ActionButton onClick={markDelivered}>
+                    Mark as Delivered
+                  </ActionButton>
+                )}
+                {order?.order_status === "DELIVERED" && (
+                  <ActionButton onClick={completeOrder} variant="success">
+                    Complete Order
+                  </ActionButton>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Ordered Items */}
+          <div>
+            <h2 className="text-lg font-medium text-gray-900 mb-4">
+              Ordered Items ({order?.dishes?.length || 0})
+            </h2>
+            <div className="bg-gray-50 rounded-lg p-4 divide-y divide-gray-200">
+              {order?.dishes?.map((dish) => (
+                <OrderedDishItem
+                  key={dish.id}
+                  dishOrderDetails={dish}
+                  dishDetails={dish?.metadata}
+                />
+              ))}
+              <div className="flex justify-between items-center pt-4">
+                <span className="text-lg font-medium text-gray-900">Total</span>
+                <span className="text-xl font-bold text-blue-600">
+                  Ksh {order?.total_price}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
