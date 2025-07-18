@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CustomersList from "../Components/Customers/CustomersList";
+import CustomersList from "../Components/users/Users";
 import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 
