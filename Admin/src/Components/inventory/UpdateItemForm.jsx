@@ -96,6 +96,31 @@ const UpdateItemForm = () => {
                     </Link>
                   </li>
                   <li className="flex items-center">
+                      <Link 
+                      to="/inventory" 
+                      className="group flex items-center transition-all duration-200 hover:-translate-x-0.5"
+                    >
+                    <svg
+                      className="h-4 w-4 text-gray-300 mx-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      aria-hidden="true"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    <div className="p-1.5 rounded-lg bg-orange-50 group-hover:bg-orange-100 mr-2 transition-colors duration-200 shadow-sm">
+                      <MdOutlineInventory className="text-orange-500 group-hover:text-orange-700" size={16} />
+                      </div>
+                      <span className="text-sm font-medium text-orange-600 group-hover:text-orange-800 transition-colors duration-200">
+                         Inventory
+                      </span>
+                    </Link>
+                  </li>
+                   <li className="flex items-center">
                     <svg
                       className="h-4 w-4 text-gray-300 mx-1"
                       fill="currentColor"
@@ -109,8 +134,7 @@ const UpdateItemForm = () => {
                       />
                     </svg>
                     <span className="text-sm font-medium text-gray-600 ml-1 flex items-center">
-                      <MdOutlineInventory className="mr-1.5 text-orange-500" size={16} />
-                      Inventory
+                      Update Inventory
                     </span>
                   </li>
                 </ol>
