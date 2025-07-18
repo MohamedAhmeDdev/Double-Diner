@@ -75,12 +75,21 @@ const ActionButton = ({ onClick, children, variant = "primary" }) => {
   );
 };
 
-const OrderView = ({ order, updateOrder }) => {
+
+const OrderView = ({ order, updateOrder, isLoading }) => {
   const rejectOrder = () => updateOrder(order.order_id, "REJECTED");
   const acceptOrder = () => updateOrder(order.order_id, "ACCEPTED");
   const markReadyForDelivery = () => updateOrder(order.order_id, "READY_FOR_DELIVERY");
   const markDelivered = () => updateOrder(order.order_id, "DELIVERED");
   const completeOrder = () => updateOrder(order.order_id, "COMPLETED");
+
+    if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

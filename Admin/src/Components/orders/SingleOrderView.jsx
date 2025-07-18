@@ -6,14 +6,21 @@ import { useParams } from "react-router-dom";
 
 const SingleOrderView = () => {
   const { id } = useParams();
-
+ const [isLoading, setIsLoading] = useState(true);
   const [order, setOrder] = useState({});
 
   useEffect(() => {
     const fetchOrder = async () => {
+      try{
       const response = await apiCall(`orders/${id}`, "GET");
       setOrder(response.order);
+        } catch (error) {
+        console.error("Error fetching dish:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+    
 
     fetchOrder();
   }, [id]);
@@ -29,7 +36,7 @@ const SingleOrderView = () => {
   };
 
   return (
-    <div>{order && <OrderView order={order} updateOrder={updateOrder} />}</div>
+    <div>{order && <OrderView order={order} updateOrder={updateOrder} isLoading={isLoading} />}</div>
   );
 };
 
