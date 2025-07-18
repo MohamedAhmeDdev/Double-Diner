@@ -69,9 +69,9 @@ const SingleOrderView = () => {
                         />
                       </svg>
                       </span>
-                      <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800 transition-colors duration-200">
-                        <GiShoppingCart className="mr-1.5 text-green-500" size={16} />
-                      </span>
+                        <div className="p-1.5 rounded-lg bg-green-50 group-hover:bg-green-100 mr-2 transition-colors duration-200 shadow-sm">
+                        <GiShoppingCart className="text-green-500 group-hover:text-green-700" size={16} />
+                      </div>
                        <span className="text-sm font-medium text-green-500 group-hover:text-green-500 transition-colors duration-200">
                           Orders
                         </span>
