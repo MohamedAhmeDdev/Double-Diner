@@ -5,12 +5,23 @@ import { toast } from "react-toastify";
 
 const Inventory = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    apiCall("/dishes", "GET").then((response) => {
+useEffect(() => {
+  const fetchInventoryItems = async () => {
+    try {
+      const response = await apiCall("/dishes", "GET");
       setInventoryItems(response.dishes);
-    });
-  }, []);
+    } catch (error) {
+      toast.error("Failed to fetch inventory items");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchInventoryItems();
+}, []);
+
 
   const handleDelete = (id) => {
     apiCall(`/dishes/${id}`, "DELETE").then((response) => {
@@ -22,7 +33,7 @@ const Inventory = () => {
 
   return (
     <div className="flex flex-col">
-      <InventoryList listItems={inventoryItems} onDelete={handleDelete} />
+      <InventoryList listItems={inventoryItems} onDelete={handleDelete} isLoading={isLoading} />
     </div>
   );
 };
