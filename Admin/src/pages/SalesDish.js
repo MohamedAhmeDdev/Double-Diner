@@ -76,10 +76,10 @@ function SalesDish() {
         <div className="w-full mx-auto px-4 sm:px-6 lg:px-8">
     <div className="bg-white rounded-xl shadow-sm overflow-hidden">
       {/* Header */}
-       <div className="flex justify-between items-center pb-4 border-b border-gray-100">
+       <div className="flex flex-col md:flex-row md:justify-between md:items-center space-y-3 md:space-y-0 pb-4 px-2 border-b border-gray-100">
         <div>
-          <h2 className="text-xl font-semibold text-gray-800 flex items-center">
-            <FiTrendingUp className="mr-2 text-indigo-600" />
+          <h2 className="text-sm md:text-lg font-semibold text-gray-800 flex items-center">
+            <FiTrendingUp className="mr-2  text-indigo-600" />
             Sales Performance Report
           </h2>
           <p className="mt-1 text-sm text-gray-500">
@@ -88,7 +88,7 @@ function SalesDish() {
         </div>
         <button
           onClick={handlePrint}
-          className="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+          className="flex justify-center items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
         >
           <FiPrinter className="mr-2" />
           Export PDF
