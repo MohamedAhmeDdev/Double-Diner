@@ -49,16 +49,13 @@ const AdminDashboard = () => {
               <RiDashboardLine className="text-indigo-600" size={24} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">
+              <h1 className="text-md md:text-2xl font-bold text-gray-900">
                 Admin Dashboard
               </h1>
               <p className="text-sm text-gray-500">Welcome back</p>
             </div>
           </div>
            <div className="flex items-center space-x-4">
-             <div className="text-sm font-medium text-indigo-600 bg-indigo-50 px-4 py-2 rounded-full">
-              <p> Double Diner Restaurant</p>
-            </div>
             <Link to={`/UpdateProfile/${user.id}`}>
             <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-indigo-50 text-[#181111] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
               <div class="text-indigo-600" data-icon="User" data-size="20px" data-weight="regular">
