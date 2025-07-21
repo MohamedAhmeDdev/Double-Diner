@@ -17,6 +17,9 @@ const Cart = () => {
             <FiChevronLeft className="mr-2" size={20} />
             Continue Shopping
           </Link>
+        </div>
+
+            <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold text-gray-900 flex items-center">
             <FiShoppingBag className="mr-2" />
             Your Cart
