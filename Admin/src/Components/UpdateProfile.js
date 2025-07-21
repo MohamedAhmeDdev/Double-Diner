@@ -15,14 +15,11 @@ function UpdateProfile() {
 
   const getUserById = async () => {
     try {
-      setIsLoading(true);
       const response = await axios.get(`${SERVER_URL}/auth/${id}`);
       setName(response.data.user.name);
       setEmail(response.data.user.email);
     } catch (error) {
       toast.error("Failed to fetch user data");
-    } finally {
-      setIsLoading(false);
     }
   };
   
@@ -113,11 +110,11 @@ function UpdateProfile() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`flex-1 flex items-center justify-center px-4 py-3 rounded-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition ${
+              className={`flex-1 flex items-center justify-center px-4 py-3 rounded-lg font-medium text-white text-sm bg-indigo-600 hover:bg-indigo-700 transition ${
                 isLoading ? 'opacity-70 cursor-not-allowed' : ''
               }`}
             >
-              <FiEdit2 className="mr-2" />
+              {/* <FiEdit2 className="mr-2" /> */}
               {isLoading ? 'Updating...' : 'Update Profile'}
             </button>
             
