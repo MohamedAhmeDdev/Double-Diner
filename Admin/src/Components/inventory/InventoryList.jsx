@@ -8,12 +8,12 @@ const InventoryList = ({ listItems, onDelete, isLoading }) => {
       <div className="flex flex-col space-y-6">
         {/* Header with add button */}
         <div className="flex justify-between items-center pb-4 border-b border-gray-100">
-          <h1 className="text-2xl font-semibold text-gray-900">Inventory Management</h1>
+          <h1 className="text-md md:text-2xl font-semibold text-gray-900">Inventory Management</h1>
           <Link
             to="/inventory/add"
             className="inline-flex items-center px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200"
           >
-            <svg className="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+            <svg className="-ml-1 mr-2 h-5 w-5 text-sm md:text-md " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clipRule="evenodd" />
             </svg>
             Add New Item
@@ -107,7 +107,7 @@ const InventoryList = ({ listItems, onDelete, isLoading }) => {
           
           {/* Empty state */}
           {listItems?.length === 0 && (
-            <div className="text-center py-12">
+            <div className=" text-center py-12">
               <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
