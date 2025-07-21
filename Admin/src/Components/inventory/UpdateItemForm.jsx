@@ -81,13 +81,13 @@ const UpdateItemForm = () => {
   return (
     <div className="flex flex-col">
       <nav className="flex h-16 items-center mb-3 pl-4 lg:pl-6 border-b border-gray-100 bg-white" aria-label="Breadcrumb">
-                <ol className="flex items-center space-x-2">
+                <ol className="flex items-center space-x-1">
                   <li className="flex items-center">
                     <Link 
                       to="/" 
                       className="group flex items-center transition-all duration-200 hover:-translate-x-0.5"
                     >
-                      <div className="p-1.5 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 mr-2 transition-colors duration-200 shadow-sm">
+                      <div className="p-1.5 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 mr-1 transition-colors duration-200 shadow-sm">
                         <RiDashboardLine className="text-indigo-600 group-hover:text-indigo-700" size={16} />
                       </div>
                       <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800 transition-colors duration-200">
@@ -112,7 +112,7 @@ const UpdateItemForm = () => {
                         clipRule="evenodd"
                       />
                     </svg>
-                    <div className="p-1.5 rounded-lg bg-orange-50 group-hover:bg-orange-100 mr-2 transition-colors duration-200 shadow-sm">
+                    <div className="p-1.5 rounded-lg bg-orange-50 group-hover:bg-orange-100 mr-1 transition-colors duration-200 shadow-sm">
                       <MdOutlineInventory className="text-orange-500 group-hover:text-orange-700" size={16} />
                       </div>
                       <span className="text-sm font-medium text-orange-600 group-hover:text-orange-800 transition-colors duration-200">
