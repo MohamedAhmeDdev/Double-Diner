@@ -21,7 +21,6 @@ import Reservation from "./pages/Reservation";
 import jwt_decode from 'jwt-decode';
 import { useEffect } from 'react';
 import ConfirmPayment from "./pages/ConfirmPayment";
-import Payment from "./pages/Payment";
 
 
 function App() {
@@ -75,8 +74,7 @@ function App() {
           <Route path="/Policy" element={<Policy />} />
           <Route path="/Terms" element={<Terms />} />
           <Route path="/checkout"element={user ? <CheckOutPage /> : <Navigate to="/login" />}/>
-          <Route path="/confirmPayment"element={user ? <ConfirmPayment /> : <Navigate to="/login" />}/>
-          <Route path="/payment"element={user ? <Payment /> : <Navigate to="/login" />}/>
+          <Route path="/confirmPayment"element={user ? <ConfirmPayment /> : <Navigate to="/login" />}/>Z
           <Route path="/orders" element={user ? <OrdersListPage /> : <Navigate to="/login" />} />
           <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/login" />} />
           <Route path="/Reservation" element={user ? <Reservation/> : <Navigate to="/login" />} />
