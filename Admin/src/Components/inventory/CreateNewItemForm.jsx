@@ -58,13 +58,13 @@ const CreateNewItemForm = () => {
   return (
      <div className="flex flex-col">
       <nav className="flex h-16 items-center mb-3 pl-4 lg:pl-6 border-b border-gray-100 bg-white" aria-label="Breadcrumb">
-             <ol className="flex items-center space-x-2">
+             <ol className="flex items-center space-x-1">
                             <li className="flex items-center">
                               <Link 
                                 to="/" 
                                 className="group flex items-center transition-all duration-200 hover:-translate-x-0.5"
                               >
-                                <div className="p-1.5 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 mr-2 transition-colors duration-200 shadow-sm">
+                                <div className="p-1.5 rounded-lg bg-indigo-50 group-hover:bg-indigo-100 mr-1 transition-colors duration-200 shadow-sm">
                                   <RiDashboardLine className="text-indigo-600 group-hover:text-indigo-700" size={16} />
                                 </div>
                                 <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-800 transition-colors duration-200">
@@ -89,7 +89,7 @@ const CreateNewItemForm = () => {
                                   clipRule="evenodd"
                                 />
                               </svg>
-                              <div className="p-1.5 rounded-lg bg-orange-50 group-hover:bg-orange-100 mr-2 transition-colors duration-200 shadow-sm">
+                              <div className="p-1.5 rounded-lg bg-orange-50 group-hover:bg-orange-100 mr-1 transition-colors duration-200 shadow-sm">
                                 <MdOutlineInventory className="text-orange-500 group-hover:text-orange-700" size={16} />
                                 </div>
                                 <span className="text-sm font-medium text-orange-600 group-hover:text-orange-800 transition-colors duration-200">
@@ -119,7 +119,7 @@ const CreateNewItemForm = () => {
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl font-extrabold text-gray-900">Add New Inventory Item</h2>
+            <h2 className="text-xl md:text-3xl font-extrabold text-gray-900">Add New Inventory Item</h2>
             <p className="mt-2 text-sm text-gray-600">
               Fill out the form below to add a new item to your inventory
             </p>
