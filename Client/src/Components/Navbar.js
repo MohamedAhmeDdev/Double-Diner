@@ -41,9 +41,9 @@ function Navbar() {
                 <h2 class="text-[#181111] text-lg font-bold leading-tight tracking-[-0.015em]">Double Diner</h2>
               </div>
            <div class="flex px-11 gap-9 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent md:opacity-100 md:transition-none absolute  flex-col justify-center top-[70px] right-0 h-[200px] w-full bg-white opacity-90 p-[6px_14px] transition-[1s]" style={{ left: openMenu ? "-100%" : "0" }}>
-                <Link class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
-                <Link class="text-[#181111] text-sm font-medium leading-normal" to="/orders">orders</Link>
-                <Link class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
+                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
+                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/orders">orders</Link>
+                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
               </div>
             </div>
             <div class="flex flex-1 justify-end gap-5">
@@ -89,8 +89,8 @@ function Navbar() {
                 <h2 class="text-[#181111] text-lg font-bold leading-tight tracking-[-0.015em]">Double Diner</h2>
               </div>
               <div class="flex px-11 gap-9 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent md:opacity-100 md:transition-none absolute  flex-col justify-center top-[70px] right-0 h-[200px] w-full bg-white opacity-90 p-[6px_14px] transition-[1s]" style={{ left: openMenu ? "-100%" : "0" }}>
-                <Link class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
-                <Link class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
+                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
+                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
               </div>
             </div>
             <div class="flex flex-1 justify-end gap-5">
