@@ -211,7 +211,7 @@ const forgotPassword = async(req,res)=>{
     const mailOption={
       to:`${user.email}`,
       subject:"Forgot password link",
-      html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="https://double-diner-user.vercel.app/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
+      html:'<p>You requested for reset password, You have this email because you have request to recover your account Click on the following link bellow to proceed the link will expire in 5 min <a href="https://double-diner.netlify.app/resetPassword/' + user.id + '">Forgot Password</a> if you did not request this please ignore this email and your password will remain the same</p>'
     }
     
     transporter.sendMail(mailOption,(err ,response)=>{

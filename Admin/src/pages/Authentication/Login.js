@@ -16,7 +16,7 @@ const Login = () => {
 
   const login = async (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsLoading(true); // Starts the loading state
     
     try {
       const response = await axios.post(`${SERVER_URL}/auth/login`, {
@@ -24,16 +24,17 @@ const Login = () => {
         password: password,
       });
 
-      const user = response.data.user;
+      const user = response.data?.user;
 
       if (response?.data?.success) { 
-        if (user.role === "admin") {
+        if (user && user.role === "admin") {
           localStorage.setItem("user", JSON.stringify(user));
           dispatch({ type: "LOGIN", payload: user });
           toast.success("Welcome back, Admin!");
           navigate("/");
         } else {
           toast.error("Access Denied: Admin privileges required");
+          setIsLoading(false); //  Fix: Ensure loading stops if they are not an admin
         }
       }
     } catch (error) {
@@ -44,8 +45,10 @@ const Login = () => {
       } else {
         toast.error("Login failed. Please try again.");
       }
+      setIsLoading(false); //  Fix: Ensure loading stops on error
     } finally {
-      isLoading(false);
+      // Clean up fallback to guarantee loading state is turned off
+      setIsLoading(false); 
     }
   };
 

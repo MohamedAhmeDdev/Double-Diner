@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { SERVER_URL } from "../../constants";
 import axios from "axios";
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FiLock, FiCheckCircle, FiArrowRight } from "react-icons/fi";
 import { FaKey } from "react-icons/fa";
 
@@ -13,6 +13,7 @@ function ResetPassword() {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
   const { id } = useParams();
+   const navigate = useNavigate();
 
   const validatePassword = (value) => {
     setPasswordValid(value.length >= 6);
@@ -43,6 +44,7 @@ function ResetPassword() {
       setPassword('');
       setConfirmPassword('');
       toast.success("Password updated successfully!");
+        navigate('/login')
     } catch (error) {
       if (error.response?.status === 400) {
         toast.error("Password reset failed. Please try again.");
