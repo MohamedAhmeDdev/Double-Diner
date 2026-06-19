@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SERVER_URL } from "../constants";
 import { apiCall } from "../utils/apiCall";
 import { UseCartContext } from "../hook/UseCartContext";
 import { Link } from 'react-router-dom';
-import { FiCheckCircle, FiXCircle, FiRotateCw } from 'react-icons/fi';
+import { FiCheckCircle, FiXCircle} from 'react-icons/fi';
 import ClipLoader from "react-spinners/ClipLoader";
 
 function ConfirmPayment() {
@@ -15,16 +15,18 @@ function ConfirmPayment() {
   const [resultCode, setResultCode] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
-  const getRequestId = async () => {
+  // 1. Wrapped in useCallback to stabilize the reference
+  const getRequestId = useCallback(async () => {
     try {
       const res = await apiCall(`${SERVER_URL}/orders/RequestID`, "GET");
       setRequestId(res.user.CheckoutRequestID);
     } catch (err) {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const verifyPayment = async (id) => {
+  // 2. Wrapped in useCallback and included cartItems and clear as dependencies
+  const verifyPayment = useCallback(async (id) => {
     try {
       const order = {
         dishes: cartItems.map((item) => ({
@@ -52,17 +54,19 @@ function ConfirmPayment() {
     } catch (err) {
       setIsLoading(false);
     }
-  };
+  }, [cartItems, clear]); // Safely tracks external variables
 
+  // 3. Added getRequestId to the dependency array
   useEffect(() => {
     getRequestId();
-  }, []);
+  }, [getRequestId]);
 
+  // 4. Added verifyPayment to the dependency array
   useEffect(() => {
     if (requestId) {
       verifyPayment(requestId);
     }
-  }, [requestId]);
+  }, [requestId, verifyPayment]);
 
   if (isLoading) {
     return (

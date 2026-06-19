@@ -3,8 +3,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
 import Users from "./pages/Users";
 import Inventory from "./pages/Inventory";
-import Login from "./pages/Login";
-import Navbar from "./Components/Navbar";
+import Login from "./pages/Authentication/Login";
 import Orders from "./pages/Orders";
 import React from "react";
 import SingleOrderView from "./Components/orders/SingleOrderView";
@@ -13,8 +12,8 @@ import { UseAuthContext } from "./hook/UseAuthContext";
 import UpdateProfile from "./Components/UpdateProfile";
 import Reservation from "./pages/Reservation";
 import SalesDish from "./pages/SalesDish";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+import ForgotPassword from "./pages/Authentication/ForgotPassword";
+import ResetPassword from "./pages/Authentication/ResetPassword";
 import jwt_decode from 'jwt-decode';
 import { useEffect } from 'react';
 
@@ -60,7 +59,6 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-        {/* <Navbar /> */}
         <Routes>
           <Route  path="/Login"  element={!user ? <Login /> : <Navigate to="/" />} />
           <Route path="/"  element={user ? <AdminDashboard /> : <Navigate to="/Login" />}  />

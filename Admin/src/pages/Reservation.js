@@ -4,7 +4,7 @@ import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 
 
-function Reservation({}) {
+function Reservation() {
     const [reservation, setReservation] = useState([]);
 
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { SERVER_URL } from "../../constants";
 import { formatDateTime } from "../../utils/functions";
-import { FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, FiDollarSign, FiMapPin, FiPhone, FiUser, FiMail } from "react-icons/fi";
+import { FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, FiMapPin, FiPhone, FiUser, FiMail } from "react-icons/fi";
 
 const StatusBadge = ({ status }) => {
   const statusConfig = {

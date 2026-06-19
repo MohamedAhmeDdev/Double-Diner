@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FiUser, FiMail, FiEye, FiTrash2, FiEdit, FiChevronRight } from "react-icons/fi";
+import { FiUser, FiMail, FiTrash2, FiEdit } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { apiCall } from "../../utils/apiCall";
 import UpdateUser from "./UpdateUser";

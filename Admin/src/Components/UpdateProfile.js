@@ -4,7 +4,7 @@ import axios from "axios"
 import { toast } from "react-toastify";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { SERVER_URL } from "../constants";
-import { FiUser, FiMail, FiEdit2, FiLogOut } from "react-icons/fi";
+import { FiUser, FiMail, FiLogOut } from "react-icons/fi";
 
 function UpdateProfile() {
   const [name, setName] = useState(''); 
@@ -25,7 +25,7 @@ function UpdateProfile() {
   
   useEffect(() => {
     getUserById();
-  }, []);
+  }, [{id}]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();

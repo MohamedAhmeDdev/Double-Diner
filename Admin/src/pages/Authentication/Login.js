@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UseAuthContext } from "../hook/UseAuthContext";
+import { UseAuthContext } from "../../hook/UseAuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../../constants";
 import { FiLock, FiMail, FiLogIn } from "react-icons/fi";
 import { FaShieldAlt } from "react-icons/fa";
 
@@ -45,36 +45,40 @@ const Login = () => {
         toast.error("Login failed. Please try again.");
       }
     } finally {
-      setIsLoading(false);
+      isLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 antialiased">
       <div className="w-full max-w-md">
         {/* Login Card */}
-        <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           {/* Header */}
-          <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-center text-white">
-            <div className="flex justify-center mb-4">
-              <FaShieldAlt className="text-4xl" />
+          <div className="p-8 text-center bg-white border-b border-gray-100">
+            <div className="flex justify-center mb-3">
+              <div className="p-3 bg-gray-900 rounded-lg text-white">
+                <FaShieldAlt className="text-2xl" />
+              </div>
             </div>
-            <h1 className="text-2xl font-bold">Admin Portal</h1>
-            <p className="text-indigo-100 mt-1">Secure access to dashboard</p>
+            <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Admin Portal</h1>
+            <p className="text-sm text-gray-500 mt-1">Secure access to dashboard</p>
           </div>
 
           {/* Form */}
-          <form className="p-8 space-y-6" onSubmit={login}>
+          <form className="p-8 space-y-5" onSubmit={login}>
             {/* Email Field */}
-            <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">Email Address</label>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600">
+                Email Address
+              </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiMail className="text-gray-400" />
+                  <FiMail className="text-gray-400 text-sm" />
                 </div>
                 <input
                   type="email"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
                   value={emailAddress}
                   onChange={(e) => setEmailAddress(e.target.value)}
                   placeholder="admin@example.com"
@@ -84,23 +88,25 @@ const Login = () => {
             </div>
 
             {/* Password Field */}
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <div className="flex justify-between items-center">
-                <label className="block text-sm font-medium text-gray-700">Password</label>
+                <label className="block text-xs font-semibold uppercase tracking-wider text-gray-600">
+                  Password
+                </label>
                 <Link 
                   to="/ForgotPassword" 
-                  className="text-xs text-indigo-600 hover:text-indigo-800 hover:underline"
+                  className="text-xs text-gray-500 hover:text-gray-900 hover:underline transition"
                 >
                   Forgot Password?
                 </Link>
               </div>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FiLock className="text-gray-400" />
+                  <FiLock className="text-gray-400 text-sm" />
                 </div>
                 <input
                   type="password"
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
@@ -113,18 +119,18 @@ const Login = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className={`w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition ${
+              className={`w-full flex items-center justify-center py-2.5 px-4 rounded-lg shadow-sm text-sm font-medium text-white bg-gray-900 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all ${
                 isLoading ? 'opacity-75 cursor-not-allowed' : ''
               }`}
             >
-              <FiLogIn className="mr-2" />
+              <FiLogIn className="mr-2 text-sm" />
               {isLoading ? 'Authenticating...' : 'Login'}
             </button>
           </form>
 
           {/* Footer */}
-          <div className="bg-gray-50 px-8 py-4 text-center border-t border-gray-200">
-            <p className="text-xs text-gray-500">
+          <div className="bg-gray-50 px-8 py-4 text-center border-t border-gray-100">
+            <p className="text-[11px] text-gray-400 tracking-wide uppercase">
               Restricted access. Unauthorized entry prohibited.
             </p>
           </div>

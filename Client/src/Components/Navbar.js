@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { BsCartCheck } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { UseCartContext } from "../hook/UseCartContext";

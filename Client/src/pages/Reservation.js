@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { toast } from "react-toastify";

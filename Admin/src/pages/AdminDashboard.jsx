@@ -1,5 +1,5 @@
-import { GiMeal, GiShoppingCart } from "react-icons/gi";
-import { FiUsers, FiPieChart, FiCalendar } from "react-icons/fi";
+import { GiShoppingCart } from "react-icons/gi";
+import { FiUsers, FiPieChart } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { MdOutlineInventory } from "react-icons/md";
 import { RiDashboardLine } from "react-icons/ri";
