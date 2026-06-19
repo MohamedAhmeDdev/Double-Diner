@@ -51,7 +51,7 @@ const Login = () => {
                           <FiLogIn className="text-2xl" />
                         </div>
                       </div>
-                      <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Create Account</h1>
+                      <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Sign In</h1>
                       <p className="text-sm text-gray-500 mt-1">Sign in to your account</p>
                     </div>
           
