@@ -1,100 +1,105 @@
-import { GiShoppingCart } from "react-icons/gi";
-import { FiUsers, FiPieChart } from "react-icons/fi";
+import React from "react";
 import { Link } from "react-router-dom";
+import { GiShoppingCart } from "react-icons/gi";
+import { FiUsers, FiPieChart, FiSettings } from "react-icons/fi";
 import { MdOutlineInventory } from "react-icons/md";
-import { RiDashboardLine } from "react-icons/ri";
 import { UseAuthContext } from "../hook/UseAuthContext";
 
 const AdminDashboard = () => {
-    const { user } = UseAuthContext();
+  const { user } = UseAuthContext();
 
   const dashboardItems = [
     {
       title: "Orders",
-      icon: <GiShoppingCart className="text-white" size={24} />,
+      icon: <GiShoppingCart className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/orders",
-      bgColor: "bg-gradient-to-br from-green-300 to-green-600",
-      hoverColor: "hover:shadow-lg hover:scale-[1.02]"
     },
     {
       title: "Users",
-      icon: <FiUsers className="text-white" size={24} />,
+      icon: <FiUsers className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/users",
-      bgColor: "bg-gradient-to-br from-purple-300 to-purple-600",
-      hoverColor: "hover:shadow-lg hover:scale-[1.02]"
     },
     {
       title: "Inventory",
-      icon: <MdOutlineInventory className="text-white" size={24} />,
+      icon: <MdOutlineInventory className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/inventory",
-      bgColor: "bg-gradient-to-br from-orange-300 to-orange-600",
-      hoverColor: "hover:shadow-lg hover:scale-[1.02]"
     },
     {
       title: "Sales Reports",
-      icon: <FiPieChart className="text-white" size={24} />,
+      icon: <FiPieChart className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/dishReport",
-      bgColor: "bg-gradient-to-br from-red-300 to-red-600",
-      hoverColor: "hover:shadow-lg hover:scale-[1.02]"
+    },
+    {
+      title: "Profile Settings",
+      icon: <FiSettings className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
+      path: user?.id ? `/update-profile/${user.id}` : "/update-profile",
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="p-2 rounded-lg bg-indigo-100">
-              <RiDashboardLine className="text-indigo-600" size={24} />
-            </div>
-            <div>
-              <h1 className="text-md md:text-2xl font-bold text-gray-900">
-                Admin Dashboard
-              </h1>
-              <p className="text-sm text-gray-500">Welcome back</p>
-            </div>
-          </div>
-           <div className="flex items-center space-x-4">
-            <Link to={`/UpdateProfile/${user.id}`}>
-            <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-indigo-50 text-[#181111] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-              <div class="text-indigo-600" data-icon="User" data-size="20px" data-weight="regular">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256" >
-                  <path d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"></path>
-                </svg>
-              </div>
-            </button>
-          </Link>
-           </div>
+    <div className="min-h-screen bg-white text-gray-900 antialiased p-6 md:p-12 lg:p-16 max-w-7xl mx-auto">
+      
+      {/* Settings Dashboard Header */}
+      <header className="border-b border-gray-200 pb-6 mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-900 uppercase">
+            Admin Dashboard
+          </h1>
+          <p className="text-sm text-black mt-1">
+            Welcome back{user?.name ? `, ${user.name}` : ''}
+          </p>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        {/* Welcome Banner */}
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl p-6 mb-8 text-white shadow-lg">
-          <h2 className="text-2xl font-bold mb-2">Restaurant Overview</h2>
-          <p className="opacity-90">
-            Manage your restaurant operations efficiently
-          </p>
+      <main className="space-y-12">
+        {/* Welcome Banner (Inverted High Contrast Minimalist Grid Container) */}
+        <div className="bg-black rounded-lg p-8 text-white flex flex-col justify-between items-start shadow-sm">
+          <div>
+            <h2 className="text-lg font-bold tracking-tight uppercase mb-2">
+              Restaurant Overview
+            </h2>
+            <p className="text-sm text-white font-light max-w-xl leading-relaxed">
+              Manage your day-to-day restaurant operations, check inventory quantities, run analytical sales charts, and maintain user access keys.
+            </p>
+          </div>
         </div>
 
-        {/* Dashboard Cards */}
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+        {/* Section Title */}
+        <div className="border-b border-gray-200 pb-2">
+          <h3 className="text-xs font-semibold tracking-wider text-black uppercase">
+            Management Console
+          </h3>
+        </div>
+
+        {/* Dashboard Cards Grid Layout */}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-5xl">
           {dashboardItems.map((item, index) => (
             <Link
               key={index}
               to={item.path}
-              className={`${item.bgColor} ${item.hoverColor} rounded-xl shadow-md overflow-hidden transition-all duration-300 transform hover:shadow-xl`}
+              className="group relative block border border-gray-200 rounded-xl bg-white p-6 transition-all duration-300 hover:bg-black hover:border-black hover:shadow-md"
             >
-              <div className="p-6 flex flex-col items-center">
-                <div className="flex items-center justify-center h-12 w-12 rounded-full bg-white/20 mb-4">
+              <div className="flex flex-col h-full justify-between space-y-6">
+                {/* Icon Container Frame */}
+                <div className="flex items-center justify-center h-12 w-12 border border-gray-200 rounded-lg bg-gray-50 group-hover:bg-black group-hover:border-white transition-colors duration-300">
                   {item.icon}
                 </div>
-                <h3 className="text-lg font-semibold text-center text-white">
-                  {item.title}
-                </h3>
-                <p className="text-white/80 text-sm mt-1">View details</p>
+                
+                {/* Text Content Area */}
+                <div>
+                  <h4 className="text-base font-semibold tracking-tight text-black group-hover:text-white transition-colors duration-300 uppercase">
+                    {item.title}
+                  </h4>
+                  <div className="flex items-center justify-between mt-3 pt-3 border-t border-dashed border-gray-100 group-hover:border-zinc-800 transition-colors duration-300">
+                    <span className="text-xs text-black group-hover:text-white font-medium tracking-wide transition-colors duration-300">
+                      Manage Entry
+                    </span>
+                    <span className="text-sm transform translate-x-0 text-black group-hover:text-white group-hover:translate-x-1 transition-all duration-300">
+                      →
+                    </span>
+                  </div>
+                </div>
               </div>
             </Link>
           ))}

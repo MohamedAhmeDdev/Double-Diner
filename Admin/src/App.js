@@ -1,47 +1,44 @@
-import { BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import jwt_decode from 'jwt-decode';
+import Navbar from "./Components/Navbar";
 import AdminDashboard from "./pages/AdminDashboard";
-import CreateNewItemForm from "./Components/inventory/CreateNewItemForm";
+import CreateNewItemForm from "./pages/inventory/CreateNewItemForm";
 import Users from "./pages/Users";
-import Inventory from "./pages/Inventory";
+import Inventory from "./pages/inventory/Inventory";
 import Login from "./pages/Authentication/Login";
-import Orders from "./pages/Orders";
-import React from "react";
-import SingleOrderView from "./Components/orders/SingleOrderView";
-import UpdateInventory from "./pages/UpdateInventory";
-import { UseAuthContext } from "./hook/UseAuthContext";
-import UpdateProfile from "./Components/UpdateProfile";
-import Reservation from "./pages/Reservation";
+import Orders from "./pages/orders/Orders";
+import SingleOrderView from "./pages/orders/SingleOrderView";
+import UpdateInventory from "./pages/inventory/UpdateInventory";
+import UpdateProfile from "./pages/UpdateProfile";
 import SalesDish from "./pages/SalesDish";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
-import jwt_decode from 'jwt-decode';
-import { useEffect } from 'react';
+
+import { UseAuthContext } from "./hook/UseAuthContext";
+import { ProtectedRoute, PublicRoute } from "./utils/ProtectedRoute.jsx"; 
 
 function App() {
-  const { user } = UseAuthContext();
-  const { dispatch } = UseAuthContext();
-
+  const { user, dispatch } = UseAuthContext();
 
   useEffect(() => {
     const checkTokenExpiration = () => {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (!user || !user.token) {
-        console.log('Token not found');
-        return;
-      }
-      const decodedToken = jwt_decode(user.token);
-      if (!decodedToken.exp) {
-        console.error('Token does not have an expiration time:', user.token);
-        return;
-      }
+      const storedUser = JSON.parse(localStorage.getItem('user'));
+      if (!storedUser || !storedUser.token) return;
+
+      const decodedToken = jwt_decode(storedUser.token);
+      if (!decodedToken.exp) return;
+
       const expirationDate = new Date(decodedToken.exp * 1000);
       const currentTime = new Date();
       const timeDifference = expirationDate.getTime() - currentTime.getTime();
+
       if (timeDifference <= 0) {
         localStorage.removeItem("user");
         dispatch({ type: "LOGOUT" });
       } else {
         setTimeout(() => {
+          localStorage.removeItem("user");
           dispatch({ type: "LOGOUT" });
         }, timeDifference);
       }
@@ -49,30 +46,36 @@ function App() {
 
     checkTokenExpiration();
     const intervalId = setInterval(checkTokenExpiration, 60000);
-    return () => {
-      clearInterval(intervalId);
-    };
+    return () => clearInterval(intervalId);
   }, [dispatch]);
-  
- 
-  
+
   return (
     <div>
       <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route  path="/Login"  element={!user ? <Login /> : <Navigate to="/" />} />
-          <Route path="/"  element={user ? <AdminDashboard /> : <Navigate to="/Login" />}  />
-          <Route path="/inventory/add"  element={user ? <CreateNewItemForm /> : <Navigate to="/" />} />
-          <Route path="/inventory/update/:id" element={user ? <UpdateInventory /> : <Navigate to="/" />}  />
-          <Route path="/inventory" element={user ? <Inventory /> : <Navigate to="/" />} />
-          <Route path="/orders" element={user ? <Orders /> : <Navigate to="/" />}  />
-          <Route path="/Reservation" element={user ? <Reservation/> : <Navigate to="/" />}  />
-          <Route path="/orders/:id" element={user ? <SingleOrderView /> : <Navigate to="/" />}/>
-          <Route path="/users" element={user ? <Users /> : <Navigate to="/" />}  />
-          <Route path="/UpdateProfile/:id" element={user ? <UpdateProfile/> : <Navigate to="/" />}  />
-          <Route path="/dishReport" element={user ? <SalesDish/> : <Navigate to="/" />}  />
-          <Route path="/ForgotPassword" element={<ForgotPassword />}/>
-          <Route path="/resetPassword/:id" element={<ResetPassword/>}/>
+          {/* PUBLIC ROUTES (Accessible only when LOGGED OUT) */}
+          <Route element={<PublicRoute />}>
+            <Route path="/Login" element={<Login />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
+            <Route path="/resetPassword/:id" element={<ResetPassword />} />
+          </Route>
+
+          {/* PROTECTED ROUTES (Accessible only when LOGGED IN) */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<AdminDashboard />} />
+            <Route path="/inventory" element={<Inventory />} />
+            <Route path="/inventory/add" element={<CreateNewItemForm />} />
+            <Route path="/inventory/update/:id" element={<UpdateInventory />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:id" element={<SingleOrderView />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/update-profile/:id" element={<UpdateProfile />} />
+            <Route path="/dishReport" element={<SalesDish />} />
+          </Route>
+
+          {/* Catch-all route to prevent blank screens */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </div>

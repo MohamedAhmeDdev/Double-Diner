@@ -1,0 +1,349 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { RiDashboardLine } from "react-icons/ri";
+import { GiShoppingCart } from "react-icons/gi";
+import { FiEye, FiClock, FiCheckCircle, FiTruck, FiX } from "react-icons/fi";
+import { apiCall } from "../../utils/apiCall";
+import { formatDateTime } from "../../utils/functions";
+
+const Orders = () => {
+  const [orders, setOrders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = orders.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const fetchOrders = async () => {
+    try {
+      setIsLoading(true);
+      const response = await apiCall("orders", "GET");
+      setOrders(response.orders);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  // Minimal Mono Status Badge Component
+  const getStatusBadge = (status) => {
+    const baseStyle = "inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold uppercase tracking-wider font-mono border";
+    
+    switch(status?.toLowerCase()) {
+      case 'pending':
+        return (
+          <span className={`${baseStyle} bg-white border-neutral-300 text-neutral-600`}>
+            <FiClock className="mr-1" strokeWidth={2.5} /> Pending
+          </span>
+        );
+      case 'completed':
+        return (
+          <span className={`${baseStyle} bg-black border-black text-white`}>
+            <FiCheckCircle className="mr-1" strokeWidth={2.5} /> Complete
+          </span>
+        );
+      case 'cancelled':
+        return (
+          <span className={`${baseStyle} bg-white border-red-200 text-red-600`}>
+            <FiX className="mr-1" strokeWidth={2.5} /> Cancelled
+          </span>
+        );
+      case 'delivered':
+        return (
+          <span className={`${baseStyle} bg-neutral-100 border-neutral-400 text-black`}>
+            <FiTruck className="mr-1" strokeWidth={2.5} /> Delivered
+          </span>
+        );
+      default:
+        return (
+          <span className={`${baseStyle} bg-white border-neutral-200 text-neutral-400`}>
+            {status || 'Unknown'}
+          </span>
+        );
+    }
+  };
+
+  // Skeleton row component
+  const SkeletonRow = () => (
+    <tr className="animate-pulse">
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-16"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-32 mb-1"></div>
+        <div className="h-3 bg-gray-200 rounded w-24"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-6 bg-gray-200 rounded w-20"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-28"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-20"></div>
+      </td>
+      <td className="px-6 py-4">
+        <div className="h-4 bg-gray-200 rounded w-40 mb-1"></div>
+        <div className="h-3 bg-gray-200 rounded w-28"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-right">
+        <div className="h-8 bg-gray-200 rounded w-16 ml-auto"></div>
+      </td>
+    </tr>
+  );
+
+  // Modern Mono Pagination Component
+  const Pagination = () => {
+    const pageNumbers = [];
+
+    for (let i = 1; i <= Math.ceil(orders.length / postsPerPage); i++) {
+      pageNumbers.push(i);
+    }
+
+    return (
+      <nav className="flex items-center justify-between w-full font-mono text-xs">
+        {/* Mobile Layout */}
+        <div className="flex-1 flex justify-between sm:hidden">
+          <button
+            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className={`px-4 py-2 border border-neutral-200 font-bold uppercase tracking-wider rounded ${
+              currentPage === 1 
+                ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' 
+                : 'bg-white text-black hover:border-black'
+            }`}
+          >
+            Prev
+          </button>
+          <button
+            onClick={() => setCurrentPage(prev => Math.min(prev + 1, pageNumbers.length))}
+            disabled={currentPage === pageNumbers.length}
+            className={`px-4 py-2 border border-neutral-200 font-bold uppercase tracking-wider rounded ${
+              currentPage === pageNumbers.length 
+                ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' 
+                : 'bg-white text-black hover:border-black'
+            }`}
+          >
+            Next
+          </button>
+        </div>
+
+        {/* Desktop Layout */}
+        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p className="text-neutral-500 font-medium tracking-wide">
+              Showing <span className="font-bold text-black">{indexOfFirstPost + 1}</span> to{' '}
+              <span className="font-bold text-black">
+                {Math.min(indexOfLastPost, orders.length)}
+              </span>{' '}
+              of <span className="font-bold text-black">{orders.length}</span> entries
+            </p>
+          </div>
+          <div>
+            <nav className="relative z-0 inline-flex rounded border border-neutral-200 -space-x-px overflow-hidden shadow-sm" aria-label="Pagination">
+              <button
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
+                  currentPage === 1 ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
+                }`}
+              >
+                <span className="sr-only">Previous</span>
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {pageNumbers.map(number => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number)}
+                  className={`relative inline-flex items-center px-3.5 py-2 font-bold transition-colors ${
+                    currentPage === number
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-neutral-500 hover:bg-neutral-50 border-neutral-100 border-r'
+                  }`}
+                >
+                  {number}
+                </button>
+              ))}
+
+              <button
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, pageNumbers.length))}
+                disabled={currentPage === pageNumbers.length}
+                className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
+                  currentPage === pageNumbers.length ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
+                }`}
+              >
+                <span className="sr-only">Next</span>
+                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </nav>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-white text-neutral-900 antialiased p-6 md:p-12 lg:p-16 mx-auto flex flex-col">
+
+      {/* Optional: Add back breadcrumb for navigation */}
+      <nav className="flex h-12 items-center mb-8 border-b border-gray-200 bg-white" aria-label="Breadcrumb">
+        <ol className="flex items-center space-x-2">
+          <li className="flex items-center">
+            <Link 
+              to="/" 
+              className="group flex items-center transition-all duration-200 hover:-translate-x-0.5"
+            >
+              <div className="p-1.5 rounded-lg bg-gray-50 group-hover:bg-black mr-2 transition-colors duration-200">
+                <RiDashboardLine className="text-black group-hover:text-white transition-colors duration-200" size={16} />
+              </div>
+              <span className="text-sm font-semibold text-black uppercase tracking-wide">
+                Dashboard
+              </span>
+            </Link>
+          </li>
+          <li className="flex items-center">
+            <svg
+              className="h-4 w-4 text-gray-300 mx-1"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              aria-hidden="true"
+            >
+              <path
+                fillRule="evenodd"
+                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="text-sm font-semibold text-gray-400 ml-1 flex items-center uppercase tracking-wide">
+              <GiShoppingCart className="mr-1.5 text-gray-400" size={16} />
+              Orders
+            </span>
+          </li>
+        </ol>
+      </nav>
+
+      {/* Header View Section */}
+      <div className="w-full space-y-8">
+        <div className="border-b border-neutral-200 pb-6 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight text-neutral-900 uppercase">
+              Order Registry Management
+            </h1>
+            <p className="mt-1 text-sm text-neutral-500">
+              Monitor incoming transactions, verify localized logistics, and track full ledger fulfillments.
+            </p>
+          </div>
+        </div>
+
+        {/* Core Table Architecture Box */}
+        <div className="border border-neutral-200 rounded-xl overflow-x-auto shadow-sm bg-white">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-neutral-200">
+              <thead className="bg-neutral-50">
+                <tr>
+                  <th scope="col" className="whitespace-nowrap px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider font-mono">
+                    ID Reference
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    Customer Details
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    State Flag
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    Timestamp
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider font-mono">
+                    Valuation
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    Logistics / Target Destination
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-right text-xs font-bold text-black uppercase tracking-wider">
+                    Execution
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="bg-white divide-y divide-neutral-200">
+                {isLoading ? (
+                  // Show 5 skeleton rows while loading
+                  Array.from({ length: 5 }).map((_, index) => (
+                    <SkeletonRow key={`skeleton-${index}`} />
+                  ))
+                ) : currentPosts?.length > 0 ? (
+                  currentPosts.map((order) => (
+                    <tr key={order.order_id} className="hover:bg-neutral-50/50 transition-colors duration-150">
+                      <td className="px-6 py-4 whitespace-nowrap font-mono text-sm font-bold text-black">
+                        #{order.order_id}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-bold text-neutral-900">{order.user?.name || 'N/A'}</div>
+                        <div className="text-xs text-neutral-400 font-mono mt-0.5">{order.user?.email || 'N/A'}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {getStatusBadge(order.order_status)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-xs text-neutral-600 font-mono">
+                        {formatDateTime(order.order_date)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap font-mono text-sm font-bold text-black">
+                        Ksh {order.total_price}
+                      </td>
+                      <td className="px-6 py-4 max-w-xs">
+                        <div className="text-xs font-semibold text-neutral-800 line-clamp-1">{order.delivery_address}</div>
+                        <div className="text-xs text-neutral-400 font-mono mt-0.5">{order.delivery_phone}</div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <Link 
+                          to={`/orders/${order.order_id}`}
+                          className="inline-flex items-center bg-white hover:bg-black border border-neutral-200 text-black hover:text-white px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all"
+                        >
+                          <FiEye className="mr-1.5" strokeWidth={2.5} /> View
+                        </Link>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="text-center py-16 border-t border-neutral-100">
+                      <svg className="mx-auto h-8 w-8 text-neutral-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                      </svg>
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-black">No active manifests located</h3>
+                      <p className="mt-1 text-xs text-neutral-400">Order pipelines are currently unpopulated.</p>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Table Footer / Pagination controls block */}
+          {!isLoading && orders.length > 0 && (
+            <div className="px-6 py-4 border-t border-neutral-200 bg-neutral-50/30">
+              <Pagination />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Orders;
