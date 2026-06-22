@@ -62,7 +62,7 @@ const Cart = () => {
 
         {/* Cart Content */}
         {cartItems.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
+          <div className="text-center">
             <div className="max-w-md mx-auto">
               <div className="w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <FiShoppingCart size={40} className="text-gray-400" />

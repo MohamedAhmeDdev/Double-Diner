@@ -7,7 +7,7 @@ import {
   MdArrowBack,
   MdRestaurant,
 } from "react-icons/md";
-import { FiShoppingBag, FiTag, FiClock, FiStar } from "react-icons/fi";
+import { FiClock, FiStar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { UseCartContext } from "../hook/UseCartContext";
 

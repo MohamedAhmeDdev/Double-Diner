@@ -14,8 +14,6 @@ import {
   FiCreditCard,
   FiShoppingBag,
   FiHome,
-  FiClock,
-  FiDollarSign
 } from "react-icons/fi";
 
 const CheckOutPage = () => {

@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { UseCartContext } from "../hook/UseCartContext";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
-import { FiShoppingBag, FiUser, FiLogIn, FiHome, FiClipboard, FiMail } from "react-icons/fi";
+import { FiShoppingBag, FiUser, FiLogIn, FiHome, FiClipboard } from "react-icons/fi";
 
 function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
@@ -64,7 +64,7 @@ function Navbar() {
             </Link>
           </div>
 
-          {/* Navigation Links (Desktop) */}
+          {/* Navigation Links (Desktop) - Removed Contact Link */}
           <nav className="hidden md:flex items-center gap-1">
             <Link 
               to="/" 
@@ -78,7 +78,7 @@ function Navbar() {
               Home
             </Link>
             
-            {user ? (
+            {user && (
               <Link 
                 to="/orders" 
                 className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
@@ -89,18 +89,6 @@ function Navbar() {
               >
                 <FiClipboard size={18} />
                 Orders
-              </Link>
-            ) : (
-              <Link 
-                to="/contact" 
-                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
-                  isActive("/contact") 
-                    ? "bg-gray-900 text-white" 
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`}
-              >
-                <FiMail size={18} />
-                Contact
               </Link>
             )}
           </nav>
@@ -132,7 +120,7 @@ function Navbar() {
             ) : (
               <Link 
                 to="/login" 
-                className="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+                className="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-5 py-2.5 rounded-xl"
               >
                 <FiLogIn size={16} />
                 Sign In
@@ -141,7 +129,7 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Menu Dropdown */}
+        {/* Mobile Menu Dropdown - Removed Contact Link */}
         <div 
           className={`
             md:hidden overflow-hidden transition-all duration-300 ease-in-out
@@ -162,7 +150,7 @@ function Navbar() {
               Home
             </Link>
             
-            {user ? (
+            {user && (
               <Link 
                 to="/orders" 
                 className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-3 ${
@@ -175,25 +163,12 @@ function Navbar() {
                 <FiClipboard size={18} />
                 Orders
               </Link>
-            ) : (
-              <Link 
-                to="/contact" 
-                className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-3 ${
-                  isActive("/contact") 
-                    ? "bg-gray-900 text-white" 
-                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                }`}
-                onClick={() => setOpenMenu(false)}
-              >
-                <FiMail size={18} />
-                Contact
-              </Link>
             )}
 
             {!user && (
               <Link 
                 to="/login" 
-                className="mt-2 px-4 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                className="mt-2 px-4 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 "
                 onClick={() => setOpenMenu(false)}
               >
                 <FiLogIn size={18} />
