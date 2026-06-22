@@ -3,22 +3,18 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import React, { useEffect } from "react";
 import jwt_decode from 'jwt-decode';
 
-import Cart from "./Components/Cart";
+import Cart from "./pages/Cart.js";
 import CheckOutPage from "./pages/CheckOutPage";
-import Contact from "./Components/Contact";
 import DishView from "./pages/SingleDishView";
 import HomePage from "./pages/Home";
 import Login from "./pages/Authentication/Login";
 import Navbar from "./Components/Navbar";
-import OrdersListPage from "./pages/OrdersListPage";
-import Policy from "./Components/Policy";
+import Orders from "./pages/orders/Orders";
 import SignUpPage from "./pages/Authentication/SignUp";
-import SingleOrderView from "./pages/SingleOrderView";
-import Terms from "./Components/Terms";
+import SingleOrder from "./pages/orders/SingleOrder";
 import UpdateProfile from "./pages/UpdateProfile";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
-import Reservation from "./pages/Reservation";
 import ConfirmPayment from "./pages/ConfirmPayment";
 
 import { UseAuthContext } from "./hook/UseAuthContext";
@@ -66,9 +62,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/dishes/:id" element={<DishView />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/Contact" element={<Contact />} />
-          <Route path="/Policy" element={<Policy />} />
-          <Route path="/Terms" element={<Terms />} />
+
 
           {/* ========================================================= */}
           {/* 2. GUEST-ONLY ROUTES (Redirects to "/" if logged in)      */}
@@ -86,9 +80,8 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path="/checkout" element={<CheckOutPage />} />
             <Route path="/confirmPayment" element={<ConfirmPayment />} />
-            <Route path="/orders" element={<OrdersListPage />} />
-            <Route path="/orders/:id" element={<SingleOrderView />} />
-            <Route path="/Reservation" element={<Reservation />} />
+            <Route path="/orders" element={<Orders />} />
+            <Route path="/orders/:id" element={<SingleOrder />} />
             <Route path="/UpdateProfile/:id" element={<UpdateProfile />} />
           </Route>
 

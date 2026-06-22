@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { RiDashboardLine } from "react-icons/ri";
-import { GiShoppingCart } from "react-icons/gi";
 import { FiEye, FiClock, FiCheckCircle, FiTruck, FiX } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
 import { formatDateTime } from "../../utils/functions";
@@ -147,7 +145,6 @@ const Orders = () => {
               <span className="font-bold text-black">
                 {Math.min(indexOfLastPost, orders.length)}
               </span>{' '}
-              of <span className="font-bold text-black">{orders.length}</span> entries
             </p>
           </div>
           <div>
@@ -201,43 +198,6 @@ const Orders = () => {
   return (
     <div className="min-h-screen bg-white text-neutral-900 antialiased p-6 md:p-12 lg:p-16 mx-auto flex flex-col">
 
-      {/* Optional: Add back breadcrumb for navigation */}
-      <nav className="flex h-12 items-center mb-8 border-b border-gray-200 bg-white" aria-label="Breadcrumb">
-        <ol className="flex items-center space-x-2">
-          <li className="flex items-center">
-            <Link 
-              to="/" 
-              className="group flex items-center transition-all duration-200 hover:-translate-x-0.5"
-            >
-              <div className="p-1.5 rounded-lg bg-gray-50 group-hover:bg-black mr-2 transition-colors duration-200">
-                <RiDashboardLine className="text-black group-hover:text-white transition-colors duration-200" size={16} />
-              </div>
-              <span className="text-sm font-semibold text-black uppercase tracking-wide">
-                Dashboard
-              </span>
-            </Link>
-          </li>
-          <li className="flex items-center">
-            <svg
-              className="h-4 w-4 text-gray-300 mx-1"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              aria-hidden="true"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-            <span className="text-sm font-semibold text-gray-400 ml-1 flex items-center uppercase tracking-wide">
-              <GiShoppingCart className="mr-1.5 text-gray-400" size={16} />
-              Orders
-            </span>
-          </li>
-        </ol>
-      </nav>
-
       {/* Header View Section */}
       <div className="w-full space-y-8">
         <div className="border-b border-neutral-200 pb-6 flex justify-between items-center">
@@ -264,16 +224,16 @@ const Orders = () => {
                     Customer Details
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
-                    State Flag
+                    State
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
-                    Timestamp
+                    Order Date
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider font-mono">
-                    Valuation
+                   Amount
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
-                    Logistics / Target Destination
+                    Delivery Info
                   </th>
                   <th scope="col" className="px-6 py-4 text-right text-xs font-bold text-black uppercase tracking-wider">
                     Execution

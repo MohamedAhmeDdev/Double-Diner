@@ -1,118 +1,209 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { UseCartContext } from "../hook/UseCartContext";
-import { IoMdMenu } from "react-icons/io";
+import { IoMdMenu, IoMdClose } from "react-icons/io";
+import { FiShoppingBag, FiUser, FiLogIn, FiHome, FiClipboard, FiMail } from "react-icons/fi";
 
 function Navbar() {
-  const [openMenu, setOpenMenu] = useState(true);
-  const [bColor, setBColor] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  
   const { user } = UseAuthContext();
-
   const { cartItems } = UseCartContext();
+  const location = useLocation();
 
-  const changeBackgroundColor = () => {
-    if (window.scrollY >= 80) {
-      setBColor(true);
-    } else {
-      setBColor(false);
-    }
-  };
-  window.addEventListener("scroll", changeBackgroundColor);
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY >= 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setOpenMenu(false);
+  }, [location]);
 
-  //  ----responsive navbar-----
-  const openResponsive = () => setOpenMenu(!openMenu);
+  const toggleMenu = () => setOpenMenu(!openMenu);
+
+  // Check if link is active
+  const isActive = (path) => location.pathname === path;
 
   return (
-    <>
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f0f0] px-10 py-3 ">
-        {user && (
-          <>
-            <span class="cursor-pointer text-[#181111] md:hidden" onClick={openResponsive}>
-                <IoMdMenu size={30} />
-            </span>
-            <div class="flex items-center gap-8">
-              <div class="flex items-center gap-4 text-[#181111]">
-                <div class="size-4">
-                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path></svg>
-                </div>
-                <h2 class="text-[#181111] text-lg font-bold leading-tight tracking-[-0.015em]">Double Diner</h2>
-              </div>
-           <div class="flex px-11 gap-9 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent md:opacity-100 md:transition-none absolute  flex-col justify-center top-[70px] right-0 h-[200px] w-full bg-white opacity-90 p-[6px_14px] transition-[1s]" style={{ left: openMenu ? "-100%" : "0" }}>
-                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
-                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/orders">orders</Link>
-                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
-              </div>
-            </div>
-            <div class="flex flex-1 justify-end gap-5">
-               <Link to='/cart'>
-              <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f4f0f0] text-[#181111] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                  <div class="text-[#181111]" data-icon="ShoppingCart" data-size="20px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div className="">{cartItems.length}</div>
-                </button>
-                </Link>
-              <Link to={`/UpdateProfile/${user.id}`}>
-                <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f4f0f0] text-[#181111] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                  <div class="text-[#181111]" data-icon="User" data-size="20px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M230.92,212c-15.23-26.33-38.7-45.21-66.09-54.16a72,72,0,1,0-73.66,0C63.78,166.78,40.31,185.66,25.08,212a8,8,0,1,0,13.85,8c18.84-32.56,52.14-52,89.07-52s70.23,19.44,89.07,52a8,8,0,1,0,13.85-8ZM72,96a56,56,0,1,1,56,56A56.06,56.06,0,0,1,72,96Z"
-                      ></path>
-                    </svg>
-                  </div>
-                </button>
+    <header 
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100/50" 
+          : "bg-white border-b border-gray-100"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          
+          {/* Left: Mobile Toggle & Brand */}
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={toggleMenu} 
+              className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition-colors focus:outline-none"
+              aria-label="Toggle Menu"
+            >
+              {openMenu ? (
+                <IoMdClose size={24} className="text-gray-700" />
+              ) : (
+                <IoMdMenu size={24} className="text-gray-700" />
+              )}
+            </button>
+
+            <Link to="/" className="flex items-center gap-2.5 group">
+              <span className="text-xl font-extrabold tracking-tight text-gray-900">
+                Double Diner
+              </span>
+            </Link>
+          </div>
+
+          {/* Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-1">
+            <Link 
+              to="/" 
+              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                isActive("/") 
+                  ? "bg-gray-900 text-white" 
+                  : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              }`}
+            >
+              <FiHome size={18} />
+              Home
+            </Link>
+            
+            {user ? (
+              <Link 
+                to="/orders" 
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                  isActive("/orders") || location.pathname.startsWith("/orders/")
+                    ? "bg-gray-900 text-white" 
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                <FiClipboard size={18} />
+                Orders
               </Link>
-            </div>
-          </>
-        )}
-
-
-        {!user && (
-          <>
-            <span class="cursor-pointer text-[#181111] md:hidden" onClick={openResponsive}>
-                <IoMdMenu size={30} />
-            </span>
-
-            <div class="flex items-center gap-8">
-              <div class="flex items-center gap-4 text-[#181111]">
-                <div class="size-4">
-                  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path></svg>
-                </div>
-                <h2 class="text-[#181111] text-lg font-bold leading-tight tracking-[-0.015em]">Double Diner</h2>
-              </div>
-              <div class="flex px-11 gap-9 md:static md:flex-row md:w-auto md:h-auto md:bg-transparent md:opacity-100 md:transition-none absolute  flex-col justify-center top-[70px] right-0 h-[200px] w-full bg-white opacity-90 p-[6px_14px] transition-[1s]" style={{ left: openMenu ? "-100%" : "0" }}>
-                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/">Home</Link>
-                <Link onClick={openResponsive} class="text-[#181111] text-sm font-medium leading-normal" to="/Contact">Contact</Link>
-              </div>
-            </div>
-            <div class="flex flex-1 justify-end gap-5">
-            <Link to='/cart'>
-              <button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-[#f4f0f0] text-[#181111] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
-                  <div class="text-[#181111]" data-icon="ShoppingCart" data-size="20px" data-weight="regular">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill="currentColor" viewBox="0 0 256 256">
-                      <path
-                        d="M222.14,58.87A8,8,0,0,0,216,56H54.68L49.79,29.14A16,16,0,0,0,34.05,16H16a8,8,0,0,0,0,16h18L59.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,152,204a28,28,0,1,0,28-28H83.17a8,8,0,0,1-7.87-6.57L72.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,222.14,58.87ZM96,204a12,12,0,1,1-12-12A12,12,0,0,1,96,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,192,204Zm4-74.57A8,8,0,0,1,188.1,136H69.22L57.59,72H206.41Z"
-                      ></path>
-                    </svg>
-                  </div>
-                  <div className="">{cartItems.length}</div>
-                </button>
+            ) : (
+              <Link 
+                to="/contact" 
+                className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-2 ${
+                  isActive("/contact") 
+                    ? "bg-gray-900 text-white" 
+                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                }`}
+              >
+                <FiMail size={18} />
+                Contact
               </Link>
-               <div class="flex items-center gap-9" >
-                <Link class="text-[#181111] text-sm font-medium leading-normal bg-[#f4f0f0] px-3 py-2 rounded-md " to="/login">Signin</Link>
-              </div>
-            </div>
-          </>
-        )}
-        </header>
-  </>
+            )}
+          </nav>
+
+          {/* Right: Actions */}
+          <div className="flex items-center gap-2">
+            {/* Cart Button */}
+            <Link 
+              to="/cart" 
+              className="relative p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-700 transition-all duration-200 hover:scale-105 active:scale-95 border border-gray-200"
+            >
+              <FiShoppingBag size={20} />
+              {cartItems?.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-gray-900 text-white font-bold text-[10px] w-5 h-5 flex items-center justify-center rounded-full shadow-sm">
+                  {cartItems.length}
+                </span>
+              )}
+            </Link>
+
+            {/* User Profile or Sign In */}
+            {user ? (
+              <Link 
+                to={`/UpdateProfile/${user.id}`} 
+                className="p-2.5 rounded-xl bg-gray-50 hover:bg-gray-100 text-gray-700 transition-all duration-200 border border-gray-200 hover:scale-105 active:scale-95"
+                aria-label="Profile"
+              >
+                <FiUser size={20} className="text-gray-700" />
+              </Link>
+            ) : (
+              <Link 
+                to="/login" 
+                className="flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              >
+                <FiLogIn size={16} />
+                Sign In
+              </Link>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        <div 
+          className={`
+            md:hidden overflow-hidden transition-all duration-300 ease-in-out
+            ${openMenu ? "max-h-96 opacity-100 py-4" : "max-h-0 opacity-0"}
+          `}
+        >
+          <div className="flex flex-col gap-1 border-t border-gray-100 pt-4">
+            <Link 
+              to="/" 
+              className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-3 ${
+                isActive("/") 
+                  ? "bg-gray-900 text-white" 
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+              onClick={() => setOpenMenu(false)}
+            >
+              <FiHome size={18} />
+              Home
+            </Link>
+            
+            {user ? (
+              <Link 
+                to="/orders" 
+                className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-3 ${
+                  isActive("/orders") || location.pathname.startsWith("/orders/")
+                    ? "bg-gray-900 text-white" 
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                }`}
+                onClick={() => setOpenMenu(false)}
+              >
+                <FiClipboard size={18} />
+                Orders
+              </Link>
+            ) : (
+              <Link 
+                to="/contact" 
+                className={`px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center gap-3 ${
+                  isActive("/contact") 
+                    ? "bg-gray-900 text-white" 
+                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                }`}
+                onClick={() => setOpenMenu(false)}
+              >
+                <FiMail size={18} />
+                Contact
+              </Link>
+            )}
+
+            {!user && (
+              <Link 
+                to="/login" 
+                className="mt-2 px-4 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded-xl text-sm font-semibold flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                onClick={() => setOpenMenu(false)}
+              >
+                <FiLogIn size={18} />
+                Sign In
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
   );
 }
 

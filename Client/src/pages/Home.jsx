@@ -1,63 +1,62 @@
 import React, { useState } from "react";
 import DishesMenuList from "../Components/DishesMenuList";
 
-
 export const DISH_CATEGORIES = [
-  { id: 0, name: "Full Menu", value: "all" },
-  { id: 1, name: "Appetizer", value: "appetizer" },
+  { id: 0, name: "All", value: "all" },
+  { id: 1, name: "Appetizers", value: "appetizer" },
   { id: 2, name: "Main Course", value: "maincourse" },
-  { id: 3, name: "Dessert", value: "dessert" },
-  { id: 4, name: "Beverage", value: "beverage" },
-  { id: 5, name: "Side Dish", value: "sidedish" },
-  { id: 6, name: "Salad", value: "salad" },
+  { id: 3, name: "Desserts", value: "dessert" },
+  { id: 4, name: "Beverages", value: "beverage" },
+  { id: 5, name: "Sides", value: "sidedish" },
+  { id: 6, name: "Salads", value: "salad" },
   { id: 7, name: "Drinks", value: "drinks" },
 ];
 
-const TabItem = ({ dishCategory, activeTab, setActiveTab }) => {
-  return (
-    <li className="nav-item  cursor-pointer" role="presentation">
-      <span
-        className={`flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-lg bg-[#f4f0f0] pl-4 pr-4 text-[#181111] text-sm font-medium leading-normal ${
-          activeTab === dishCategory.value
-            ? "text-green-500"
-            : ""
-        }`}
-        id="tabs-home-tab"
-        data-bs-toggle="pill"
-        data-bs-target="#tabs-home"
-        role="tab"
-        aria-controls="tabs-home"
-        aria-selected="true"
-        onClick={() => setActiveTab(dishCategory.value)} //changes the category
-      >
-        {dishCategory.name}
-      </span>
-    </li>
-  );
-};
-
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);  //set to all categories
+  const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);
 
   return (
-  <>
-      <div class="mt-1 lg:px-40 flex-row flex-1 justify-center py-5">
-        <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-          <h2 class="text-[#181111] tracking-light text-[28px] font-bold leading-tight px-4 text-left pb-3 pt-5">Menu</h2>
-          <ul  className="flex gap-3 p-3 flex-wrap pr-4" id="tabs-tab" role="tablist">
-            {DISH_CATEGORIES.map((dishCategory) => ( //mapping the DISH_CATEGORIES array
-              <TabItem key={dishCategory.id} dishCategory={dishCategory} activeTab={activeTab}  setActiveTab={setActiveTab} />
+    <>
+      {/* Header */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="mx-auto max-w-7xl px-4 py-6 md:py-8 md:px-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
+                Our Menu
+              </h1>
+              <p className="text-gray-500 text-sm mt-0.5">
+                Discover our delicious selection of carefully crafted dishes
+              </p>
+            </div>
+          </div>
+
+          {/* Category Filter */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            {DISH_CATEGORIES.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveTab(category.value)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  activeTab === category.value
+                    ? "bg-gray-900 text-white shadow-sm"
+                    : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {category.name}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col  items-center">
-        <div className="mb-10">
+      {/* Menu grid */}
+      <div className="bg-gray-50/50">
+        <div className="mx-auto max-w-7xl py-8 md:py-12 px-4 md:px-6">
           <DishesMenuList category={activeTab} />
         </div>
       </div>
-  </>
+    </>
   );
 };
 

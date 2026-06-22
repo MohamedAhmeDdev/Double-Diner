@@ -8,7 +8,7 @@ import Users from "./pages/Users";
 import Inventory from "./pages/inventory/Inventory";
 import Login from "./pages/Authentication/Login";
 import Orders from "./pages/orders/Orders";
-import SingleOrderView from "./pages/orders/SingleOrderView";
+import SingleOrder from "./pages/orders/SingleOrder";
 import UpdateInventory from "./pages/inventory/UpdateInventory";
 import UpdateProfile from "./pages/UpdateProfile";
 import SalesDish from "./pages/SalesDish";
@@ -68,7 +68,7 @@ function App() {
             <Route path="/inventory/add" element={<CreateNewItemForm />} />
             <Route path="/inventory/update/:id" element={<UpdateInventory />} />
             <Route path="/orders" element={<Orders />} />
-            <Route path="/orders/:id" element={<SingleOrderView />} />
+            <Route path="/orders/:id" element={<SingleOrder />} />
             <Route path="/users" element={<Users />} />
             <Route path="/update-profile/:id" element={<UpdateProfile />} />
             <Route path="/dishReport" element={<SalesDish />} />

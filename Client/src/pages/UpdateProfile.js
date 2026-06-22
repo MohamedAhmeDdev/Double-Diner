@@ -123,7 +123,7 @@ function UpdateProfile() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 p-6 md:p-12 lg:p-16 max-w-5xl mx-auto antialiased">
+    <div className="min-h-screen bg-gray-50/50 text-gray-900 p-6 md:p-12 lg:p-16 max-w-5xl mx-auto antialiased">
       
       {/* Settings Dashboard Header */}
       <div className="border-b border-gray-200 pb-6 mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

@@ -3,11 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import { 
   FiPackage, FiTruck, FiCheckCircle, FiXCircle, FiClock, 
   FiMapPin, FiPhone, FiUser, FiMail, FiArrowLeft, FiShoppingBag,
-  FiCreditCard, FiCalendar, FiPrinter, FiShare2, FiMoreVertical,
-  FiChevronRight, FiCheck, FiAlertCircle, FiMessageSquare
+  FiCreditCard, FiCalendar,  FiCheck, FiAlertCircle
 } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
-import { SERVER_URL } from "../../constants";
 import { formatDateTime } from "../../utils/functions";
 import { OrderProgressBar } from "../../Components/OrderProgressBar";
 import { OrderedDishItem } from "../../Components/OrderedDishItem";
@@ -89,22 +87,17 @@ const DetailItem = ({ title, value, icon, action }) => (
   </div>
 );
 
-
-
-
-
-
 // Order Summary Card
 const OrderSummaryCard = ({ order }) => (
   <div className="bg0white border border-blue-100/80 rounded-2xl p-5 mb-6">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-2  lg:grid-cols-5 gap-6">
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
         <p className="text-sm font-bold text-slate-800 mt-1">#{order?.order_id}</p>
       </div>
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Date</p>
-        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
+        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center whitespace-nowrap">
           <FiCalendar className="w-3 h-3 mr-1.5 text-slate-400" />
           {formatDateTime(order?.order_date)}
         </p>
@@ -118,8 +111,14 @@ const OrderSummaryCard = ({ order }) => (
       </div>
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Total</p>
-        <p className="text-lg font-black text-slate-800 mt-1">
+      <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
           Ksh {order?.total_price?.toLocaleString()}
+        </p>
+      </div>
+        <div>
+        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order Status </p>
+        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
+          <StatusBadge status={order?.order_status} size="sm" />
         </p>
       </div>
     </div>
@@ -128,7 +127,7 @@ const OrderSummaryCard = ({ order }) => (
 
 
 
-const SingleOrderView = () => {
+const SingleOrder = () => {
   const { id } = useParams();
   const [isLoading, setIsLoading] = useState(true);
   const [order, setOrder] = useState({});
@@ -178,7 +177,7 @@ const SingleOrderView = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-8 px-4 sm:px-6 lg:px-8 font-sans">
+    <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8 font-sans">
       <div className="max-w-7xl mx-auto">
         
         {/* Header with actions */}
@@ -190,9 +189,6 @@ const SingleOrderView = () => {
             <FiArrowLeft className="mr-2 w-4 h-4 group-hover:-translate-x-0.5 transition-transform" /> 
             Back to Orders
           </Link>
-          <div className="flex items-center gap-2">
-            <StatusBadge status={order?.order_status} size="lg" />
-          </div>
         </div>
 
         {/* Order Summary Card */}
@@ -271,19 +267,15 @@ const SingleOrderView = () => {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-base font-black text-slate-800">Total Payable</span>
-                  <span className="text-2xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                  <span className="text-lg font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                     Ksh {order?.total_price?.toLocaleString() || '0'}
                   </span>
                 </div>
               </div>
             </div>
-          </div>
 
-        </div>
-
-
-                    {/* Order Actions */}
-            <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm max-w-md  mt-6">
+          {/* Order Actions */}
+            <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm mt-6">
               <h3 className="text-base font-extrabold text-slate-800 tracking-tight mb-4 border-b border-slate-100 pb-3 flex items-center">
                 <FiCheckCircle className="w-4 h-4 mr-2 text-blue-600" />
                 Order Actions
@@ -373,9 +365,11 @@ const SingleOrderView = () => {
                 )}
               </div>
             </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default SingleOrderView;
+export default SingleOrder;

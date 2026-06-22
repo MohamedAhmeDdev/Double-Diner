@@ -1,4 +1,5 @@
-import { MdAddShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
+import { MdAddShoppingCart, MdRemoveShoppingCart, MdArrowOutward } from "react-icons/md";
+import { FiShoppingBag, FiClock } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SERVER_URL } from "../constants";
@@ -8,107 +9,166 @@ import axios from "axios";
 const DishItem = ({ dish }) => {
   const { cartItems, addToCart, removeFromCart } = UseCartContext();
   const [isLoading, setIsLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
   const isAdded = cartItems.find((item) => item.id === dish.id);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setIsLoading(false);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timeout);
   }, []);
 
+  if (isLoading) {
+    return (
+      <div className="w-full animate-pulse">
+        <div className="h-52 w-full rounded-t-xl bg-gray-200" />
+        <div className="space-y-3 rounded-b-xl border border-t-0 border-gray-100 bg-white p-4 pt-6">
+          <div className="h-5 w-2/3 rounded bg-gray-200" />
+          <div className="h-3 w-full rounded bg-gray-200" />
+          <div className="h-3 w-4/5 rounded bg-gray-200" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="mb-6">
-      {isLoading ? (
-        <div className="animate-pulse bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 h-96 w-80">
-          <div className="bg-gray-200 h-48 w-full"></div>
-          <div className="p-4 space-y-3">
-            <div className="bg-gray-200 h-6 w-3/4 rounded"></div>
-            <div className="bg-gray-200 h-4 w-full rounded"></div>
-            <div className="bg-gray-200 h-4 w-5/6 rounded"></div>
-            <div className="flex justify-between items-center pt-4">
-              <div className="bg-gray-200 h-8 w-20 rounded"></div>
-              <div className="bg-gray-200 h-8 w-8 rounded-full"></div>
-            </div>
+    <div className="group bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      {/* Image */}
+      <div className="relative h-52 w-full overflow-hidden bg-gray-100">
+        <img
+          className="h-full w-full object-cover"
+          src={`${SERVER_URL}/${dish?.image}`}
+          alt={dish?.name}
+        />
+        <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-sm px-2 py-1 md:px-3 md:py-1.5 rounded-lg shadow-sm border border-gray-100">
+          <span className="font-mono text-xs md:text-sm font-bold text-gray-900">
+            Ksh {dish?.price?.toLocaleString()}
+          </span>
+        </div>
+        {dish?.prep_time && (
+          <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-lg shadow-sm border border-gray-100">
+            <span className="flex items-center gap-1 text-xs text-gray-500">
+              <FiClock size={12} />
+              {dish.prep_time}min
+            </span>
           </div>
-        </div>
-      ) : (
-        <div 
-          className="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <div className="relative h-48 w-full overflow-hidden">
-            <img 
-              className={`w-full h-full object-cover transition-transform duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`} 
-              src={`${SERVER_URL}/${dish?.image}`} 
-              alt={dish?.name}
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-              <span className="text-white font-semibold text-lg">Ksh. {dish?.price}</span>
-        </div>
-          </div>
+        )}
+      </div>
 
-          <div className="p-4">
-            <div className="flex justify-between items-start">
-              <h3 className="text-lg font-semibold text-gray-800 mb-1">{dish?.name}</h3>
-              <button
-                onClick={() => isAdded ? removeFromCart(dish.id) : addToCart(dish)}
-                className={`p-2 rounded-full transition-colors duration-300 ${isAdded ? 'bg-rose-100 text-rose-600' : 'bg-emerald-100 text-emerald-600'} hover:${isAdded ? 'bg-rose-200' : 'bg-emerald-200'}`}
-              >
-                {isAdded ? <MdRemoveShoppingCart size={20} /> : <MdAddShoppingCart size={20} />}
-              </button>
-            </div>
-            
-            <p className="text-gray-600 text-sm mb-4 line-clamp-2">{dish?.description}</p>
-            
-            <div className="flex justify-between items-center">
-              <Link 
-                to={`/dishes/${dish.id}`} 
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-800 transition-colors"
-              >
-                View Details
-              </Link>
-            </div>
+      {/* Content */}
+      <div className="p-4">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="font-semibold text-gray-900 line-clamp-1">{dish?.name}</h3>
+          <button
+            onClick={() => (isAdded ? removeFromCart(dish.id) : addToCart(dish))}
+            className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-200 ${
+              isAdded
+                ? "bg-rose-50 text-rose-600 hover:bg-rose-100"
+                : "bg-gray-900 text-white hover:bg-gray-800 hover:shadow-md"
+            }`}
+          >
+            {isAdded ? <MdRemoveShoppingCart size={16} /> : <MdAddShoppingCart size={16} />}
+          </button>
         </div>
+
+        <p className="mt-1.5 line-clamp-2 text-sm text-gray-500">{dish?.description}</p>
+
+      <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+  <div className="flex flex-wrap items-center gap-2">
+    {dish?.category && (
+      <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 capitalize whitespace-nowrap">
+        {dish.category}
+      </span>
+    )}
+    {dish?.prep_time && (
+      <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 flex items-center gap-1 whitespace-nowrap">
+        <FiClock size={10} />
+        {dish.prep_time}min
+      </span>
+    )}
+  </div>
+  <Link
+    to={`/dishes/${dish.id}`}
+    className="text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-0.5 group shrink-0"
+  >
+    View Details
+    <MdArrowOutward size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+  </Link>
+</div>
+      </div>
     </div>
-     )}
-
-    </div>
-
   );
 };
 
 const DishesMenuList = ({ category }) => {
   const [dishes, setDishes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const URL = `${SERVER_URL}/dishes${category === "all" ? "" : `/list/?category=${category}`}`; 
+    setLoading(true);
+    const URL = `${SERVER_URL}/dishes${category === "all" ? "" : `/list/?category=${category}`}`;
 
     const fetchDishes = async () => {
-      const response = await axios.get(URL);
-      const allDishes = response.data.dishes;
+      try {
+        const response = await axios.get(URL);
+        const allDishes = response.data.dishes;
 
-      const availableDishes = allDishes.filter((dish) => dish.quantity > 0);
-      const dishes = availableDishes.map((dish) => {
-        return {
+        const availableDishes = allDishes.filter((dish) => dish.quantity > 0);
+        const dishes = availableDishes.map((dish) => ({
           ...dish,
           quantity: 1,
-        };
-      });
+        }));
 
-      setDishes(dishes);
+        setDishes(dishes);
+      } catch (error) {
+        console.error("Failed to fetch dishes:", error);
+        setDishes([]);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchDishes();
   }, [category]);
 
+  if (loading) {
+    return (
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+          <div key={i} className="w-full animate-pulse">
+            <div className="h-52 w-full rounded-t-xl bg-gray-200" />
+            <div className="space-y-3 rounded-b-xl border border-t-0 border-gray-100 bg-white p-4 pt-6">
+              <div className="h-5 w-2/3 rounded bg-gray-200" />
+              <div className="h-3 w-full rounded bg-gray-200" />
+              <div className="h-3 w-4/5 rounded bg-gray-200" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  if (dishes.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-4 px-5 py-20 text-center">
+        <div className="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center">
+          <FiShoppingBag size={32} className="text-gray-400" />
+        </div>
+        <div>
+          <h3 className="text-lg font-bold text-gray-900">No dishes available</h3>
+          <p className="text-sm text-gray-500 max-w-sm">
+            This category is empty right now. Try another category.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 px-5 md:px-10 py-6">
-      {dishes?.map((dish) => (
-        <DishItem dish={dish} key={dish.id} />
+    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+      {dishes.map((dish) => (
+        <DishItem key={dish.id} dish={dish} />
       ))}
     </div>
   );
