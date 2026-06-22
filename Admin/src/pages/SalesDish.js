@@ -17,7 +17,6 @@ function SalesDish() {
       const response = await apiCall("/report/dish", "get");
       setDishReport(response.dishReport);
     } catch (error) {
-      console.error("Error fetching report:", error);
       toast.error("Failed to load sales report");
     } finally {
       setIsLoading(false);

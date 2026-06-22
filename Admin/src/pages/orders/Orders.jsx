@@ -24,7 +24,6 @@ const Orders = () => {
       const response = await apiCall("orders", "GET");
       setOrders(response.orders);
     } catch (error) {
-      console.error("Failed to fetch orders:", error);
     } finally {
       setIsLoading(false);
     }

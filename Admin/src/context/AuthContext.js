@@ -39,7 +39,6 @@ export const AuthContextProvider = ({ children }) => {
     dispatch({ type: 'INITIALIZE_AUTH', payload: user });
   }, []);
 
-  console.log('AuthContext state :', state);
 
   return (
     // 4. Exposing ...state means your application now receives both { user, loading }

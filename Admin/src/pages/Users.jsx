@@ -20,7 +20,6 @@ const Customers = () => {
       setUsers(response.users);
     } catch (error) {
       toast.error("Failed to fetch customers");
-      console.error("Fetch customers error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -40,7 +39,6 @@ const Customers = () => {
       toast.success("User updated successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to update user");
-      console.error("Update user error:", error);
     }
   };
 
@@ -52,7 +50,6 @@ const Customers = () => {
       toast.success("User deleted successfully");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to delete user");
-      console.error("Delete user error:", error);
     }
   };
 

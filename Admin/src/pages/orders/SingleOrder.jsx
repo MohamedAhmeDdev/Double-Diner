@@ -139,7 +139,6 @@ const SingleOrder = () => {
         const response = await apiCall(`orders/${id}`, "GET");
         setOrder(response.order);
       } catch (error) {
-        console.error("Error fetching order:", error);
       } finally {
         setIsLoading(false);
       }

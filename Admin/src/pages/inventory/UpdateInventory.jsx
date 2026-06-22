@@ -34,7 +34,6 @@ const UpdateInventory = () => {
       setCurrentImage(dish.image);
     } catch (error) {
       toast.error("Failed to fetch item details");
-      console.error("Fetch error:", error);
     } finally {
       setIsLoading(false);
     }
@@ -79,7 +78,6 @@ const UpdateInventory = () => {
       })
       .catch((error) => {
         toast.error("Failed to update item");
-        console.error("Update error:", error);
       })
       .finally(() => {
         setIsSubmitting(false);

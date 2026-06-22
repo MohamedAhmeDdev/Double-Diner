@@ -84,8 +84,6 @@ export const CartContextProvider = ({ children }) => {
     dispatch({ type: "UPDATE_ITEM_QUANTITY", payload: item });
   };
 
-  console.log("CartContext state:", state);
-
   return (
     <CartContext.Provider
       value={{

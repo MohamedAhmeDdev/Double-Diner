@@ -32,7 +32,6 @@ const Inventory = () => {
       toast.success("Dish Deleted successfully");
     } catch (error) {
       toast.error("Failed to delete dish");
-      console.error("Delete error:", error);
     }
   };
 
