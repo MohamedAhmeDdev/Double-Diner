@@ -23,7 +23,7 @@ const SkeletonRow = () => (
       <div className="h-8 bg-gray-200 rounded-full w-24"></div>
     </td>
     <td className="px-6 py-4">
-      <div className="h-8 bg-gray-200 rounded-full w-20"></div>
+      <div className="h-4 bg-gray-200 rounded w-16"></div>
     </td>
     <td className="px-6 py-4">
       <div className="h-6 bg-gray-200 rounded w-16"></div>
@@ -102,31 +102,6 @@ const STATUS_CONFIG = {
   }
 };
 
-// Payment Status configuration
-const PAYMENT_STATUS_CONFIG = {
-  PENDING: {
-    bg: "bg-amber-50",
-    text: "text-amber-700",
-    border: "border-amber-200",
-    icon: FiClock,
-    label: "Pending"
-  },
-  PAID: {
-    bg: "bg-emerald-50",
-    text: "text-emerald-700",
-    border: "border-emerald-200",
-    icon: FiCheckCircle,
-    label: "Paid"
-  },
-  FAILED: {
-    bg: "bg-rose-50",
-    text: "text-rose-700",
-    border: "border-rose-200",
-    icon: FiAlertCircle,
-    label: "Failed"
-  }
-};
-
 // Payment Method Badge
 const PaymentMethodBadge = ({ method }) => {
   const getMethodColor = (method) => {
@@ -159,24 +134,14 @@ const OrderItem = ({ order, handleDelete }) => {
   };
 
   // Get the dishes array
-  const dishes = order?.dishes || [];
-  const statusConfig = STATUS_CONFIG[order.order_status] || STATUS_CONFIG.PENDING;
+  const dishes = order?.dishes;
+  const statusConfig = STATUS_CONFIG[order.order_status];
   const StatusIcon = statusConfig.icon;
-  
-  const paymentConfig = PAYMENT_STATUS_CONFIG[order.payment_status] || PAYMENT_STATUS_CONFIG.PENDING;
-  const PaymentIcon = paymentConfig.icon;
 
   const getStatusBadge = () => (
     <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${statusConfig.bg} ${statusConfig.text} ${statusConfig.border}`}>
       <StatusIcon size={14} className="flex-shrink-0" />
       {statusConfig.label}
-    </span>
-  );
-
-  const getPaymentStatusBadge = () => (
-    <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${paymentConfig.bg} ${paymentConfig.text} ${paymentConfig.border}`}>
-      <PaymentIcon size={14} className="flex-shrink-0" />
-      {paymentConfig.label}
     </span>
   );
 
@@ -216,7 +181,7 @@ const OrderItem = ({ order, handleDelete }) => {
   };
 
   return (
-    <tr className="border-b border-gray-100 hover:bg-gray-50/50 transition-all duration-200 group">
+    <tr className="border-b border-gray-100 hover:bg-gray-50/50 transition-all duration-200 group whitespace-nowrap">
       {/* Order ID */}
       <td className="px-6 py-4">
         <div className="flex items-center gap-3">
@@ -246,9 +211,11 @@ const OrderItem = ({ order, handleDelete }) => {
         {getStatusBadge()}
       </td>
 
-      {/* Payment Status */}
+      {/* Payment Status - Simplified */}
       <td className="px-6 py-4">
-        {getPaymentStatusBadge()}
+        <span className="text-sm text-gray-700 capitalize">
+          {order.payment_status?.toLowerCase() || 'pending'}
+        </span>
       </td>
 
       {/* Payment Method */}

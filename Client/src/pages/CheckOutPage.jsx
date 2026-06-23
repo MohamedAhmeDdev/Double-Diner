@@ -5,7 +5,6 @@ import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import validator from "validator";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { 
   FiArrowLeft, 
@@ -45,23 +44,12 @@ const CheckOutPage = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    if (!phoneNo) {
-      toast.error("Please fill in your phone number");
-      setIsSubmitting(false);
-      return;
-    }
-    if (!validator.isMobilePhone(phoneNo, "en-KE")) {
-      toast.error("Please enter a valid Kenyan phone number (e.g. 07XXXXXXXX)");
-      setIsSubmitting(false);
-      return;
-    }  
     const order = {
       dishes: cartItems.map((item) => ({
         dish_id: item.dish_id,
         quantity: item.quantity,
         unit_price: item.price,
       })),
-      delivery_phone: phoneNo,
     };
 
     apiCall("/orders", "POST", order)
@@ -162,45 +150,20 @@ const CheckOutPage = () => {
               </div>
             </div>
 
-            {/* Payment Section */}
+            {/* Simplified Payment Section*/}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="px-6 py-5 border-b border-gray-100 flex items-center gap-2">
-                <FiSmartphone size={18} className="text-gray-700" />
-                <h2 className="text-lg font-bold text-gray-900">Payment Details</h2>
+                <FiCreditCard size={18} className="text-gray-700" />
+                <h2 className="text-lg font-bold text-gray-900">Payment</h2>
               </div>
               
               <div className="p-6">
                 <form onSubmit={placeOrder} className="space-y-5">
-                  {/* Phone Input */}
-                  <div>
-                    <label className="block text-xs font-bold tracking-wide uppercase text-gray-600 mb-2 flex items-center gap-1.5">
-                      <FiSmartphone size={14} className="text-gray-700" />
-                      M-Pesa Phone Number
-                    </label>
-                    <div className="flex rounded-xl border-2 border-gray-200 focus-within:border-gray-900 focus-within:ring-2 focus-within:ring-gray-900/10 transition-all overflow-hidden bg-white">
-                      <span className="inline-flex items-center px-3.5 bg-gray-50 text-gray-500 text-sm font-semibold border-r border-gray-200 select-none">
-                        +254
-                      </span>
-                      <input
-                        type="tel"
-                        value={phoneNo}
-                        onChange={(e) => setPhoneNo(e.target.value)}
-                        placeholder="712345678"
-                        className="w-full px-4 py-3 text-gray-800 placeholder:text-gray-400 outline-none font-medium text-sm sm:text-base"
-                      />
-                    </div>
-                    <p className="mt-1.5 text-xs text-gray-400 flex items-center gap-1">
-                      <FiShield size={12} className="text-gray-500 flex-shrink-0" />
-                      Ensure this number is registered with M-Pesa
-                    </p>
-                  </div>
-
-
                   {/* Submit Button */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-white font-bold text-base  ${
+                    className={`w-full flex items-center justify-center gap-2 py-4 px-6 rounded-xl text-white font-bold text-base ${
                       isSubmitting 
                         ? 'bg-gray-300 cursor-not-allowed' 
                         : 'bg-gray-900 hover:bg-gray-800'
@@ -212,12 +175,12 @@ const CheckOutPage = () => {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
-                        <span>Processing Payment...</span>
+                        <span>Processing Order...</span>
                       </>
                     ) : (
                       <>
                         <FiCreditCard size={18} />
-                        <span>Make Pay</span>
+                        <span>Place Order</span>
                       </>
                     )}
                   </button>

@@ -93,7 +93,7 @@ const DetailItem = ({ title, value, icon, action }) => (
 // Order Summary Card
 const OrderSummaryCard = ({ order }) => (
   <div className="bg-white border border-blue-100/80 rounded-2xl p-5 mb-6">
-    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6">
+       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
         <p className="text-sm font-bold text-slate-800 mt-1">{order?.order_number}</p>
@@ -110,6 +110,12 @@ const OrderSummaryCard = ({ order }) => (
         <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
           <FiCreditCard className="w-3 h-3 mr-1.5 text-slate-400" />
           {order?.payment_method}
+        </p>
+      </div>
+       <div>
+        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment Status</p>
+        <p className="text-sm font-semibold text-slate-700 mt-1">
+          {order?.payment_status}
         </p>
       </div>
       <div>
@@ -254,9 +260,9 @@ const SingleOrder = () => {
                     const dishData = {
                       ...dish,
                       // The quantity and total_price are in order_dishes
-                      quantity: dish.order_dishes?.quantity || dish.quantity || 0,
-                      unit_price: parseFloat(dish.price) || 0,
-                      total_price: parseFloat(dish.order_dishes?.total_price) || parseFloat(dish.total_price) || 0
+                      quantity: dish.order_dishes?.quantity,
+                      unit_price: parseFloat(dish.price) ,
+                      total_price: parseFloat(dish.order_dishes?.total_price)
                     };
                     
                     return (

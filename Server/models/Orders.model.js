@@ -38,7 +38,6 @@ const Orders = db.define(
     },
     payment_status: {
       type: DataTypes.ENUM('pending', 'paid', 'failed', 'refunded'),
-      defaultValue: 'pending',
       allowNull: false,
     },
     payment_method: {

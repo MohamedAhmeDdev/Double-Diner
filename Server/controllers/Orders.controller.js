@@ -34,8 +34,8 @@ const createOrder = async (req, res) => {
       user_id,
       order_number: "DD-" + Math.floor(100000 + Math.random() * 900000),
       order_status: "PENDING",
-      payment_status: "pending", // Defaulting to pending state for custom operations later
-      payment_method: "cash",    // Default baseline fallback method
+      payment_status: "paid",
+      payment_method: "cash",
       subtotal: total_price,
       total_price,
     });

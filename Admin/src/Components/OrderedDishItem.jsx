@@ -6,13 +6,13 @@ export const OrderedDishItem = ({ dishOrderDetails, dishDetails }) => {
   const [imageError, setImageError] = useState(false);
   
   // Safely access properties with fallbacks
-  const dishName = dishDetails?.name || dishOrderDetails?.name || 'Unknown Dish';
-  const unitPrice = parseFloat(dishOrderDetails?.unit_price) || parseFloat(dishDetails?.price) || 0;
-  const quantity = dishOrderDetails?.quantity || dishDetails?.quantity || 0;
+  const dishName = dishDetails?.name 
+  const unitPrice = parseFloat(dishOrderDetails?.unit_price);
+  const quantity = dishOrderDetails?.quantity;
   const totalPrice = quantity * unitPrice;
   
   // For image URL - handle the path correctly
-  const imagePath = dishDetails?.image || dishOrderDetails?.image;
+  const imagePath = dishDetails?.image
   const imageUrl = imagePath ? `${SERVER_URL}/${imagePath}` : null;
   
   return (
