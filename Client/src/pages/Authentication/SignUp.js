@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import { SERVER_URL } from "../../constants";
 import axios from "axios";
-import { FiUser, FiMail, FiPhone, FiHome, FiLock, FiArrowRight } from "react-icons/fi";
+import { FiUser, FiMail, FiPhone, FiHome, FiLock, FiArrowRight, FiMapPin } from "react-icons/fi";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState(""); // Added city state
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,8 +32,9 @@ const SignUp = () => {
 
       await axios.post(`${SERVER_URL}/auth/signup`, {
         name: name,
-        phoneNumber: phoneNumber,
+        phone: phoneNumber,
         address: address,
+        city: city,
         email: email,
         password: password,
       });
@@ -50,15 +52,13 @@ const SignUp = () => {
     }
   };
 
- 
-
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4 antialiased">
       <div className="w-full max-w-md">
         {/* Signup Card */}
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           {/* Header */}
-              <div className="p-8 text-center bg-white border-b border-gray-100">
+          <div className="p-8 text-center bg-white border-b border-gray-100">
             <div className="flex justify-center mb-3">
               <div className="p-3 bg-gray-900 rounded-lg text-white">
                 <FiUser className="text-2xl" />
@@ -124,7 +124,7 @@ const SignUp = () => {
                 <input
                   type="tel"
                   id="phone"
-                  className="block w-full pl-9 pr-3 py-2.5 border border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
                   placeholder="0712345678"
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
@@ -144,10 +144,30 @@ const SignUp = () => {
                 <input
                   type="text"
                   id="address"
-                  className="block w-full pl-9 pr-3 py-2.5 border border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
                   placeholder="Your address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* City Field - NEW */}
+            <div className="space-y-1.5">
+              <label htmlFor="city" className="block text-xs font-semibold uppercase tracking-wider text-gray-600">
+                City
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiMapPin className="text-gray-400 text-sm" />
+                </div>
+                <input
+                  type="text"
+                  id="city"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
+                  placeholder="Your city"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
             </div>
@@ -164,7 +184,7 @@ const SignUp = () => {
                 <input
                   type="password"
                   id="password"
-                  className="block w-full pl-9 pr-3 py-2.5 border border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition outline-none"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -177,9 +197,9 @@ const SignUp = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={ isLoading}
+              disabled={isLoading}
               className={`w-full !mt-6 flex justify-center items-center py-2.5 px-4 rounded-lg shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-all ${
-                 isLoading
+                isLoading
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
                   : 'bg-gray-900 hover:bg-black text-white'
               }`}

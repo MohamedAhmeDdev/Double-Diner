@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { SERVER_URL } from "../constants";
-import { FiUser, FiMail, FiPhone, FiHome, FiLogOut, FiCheck, FiLock, FiCheckCircle } from 'react-icons/fi';
+import { FiUser, FiMail, FiPhone, FiHome, FiLogOut, FiCheck, FiLock, FiCheckCircle, FiMapPin } from 'react-icons/fi';
 
 function UpdateProfile() {
   // --- Core Profile Info States ---
@@ -12,6 +12,7 @@ function UpdateProfile() {
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState("");
   const [address, setAddress] = useState("");
+  const [city, setCity] = useState(""); // Added city state
   const [isProfileLoading, setIsProfileLoading] = useState(false);
   
   // --- Security / Password Update States ---
@@ -32,7 +33,8 @@ function UpdateProfile() {
       setName(response.data.user.name || '');
       setEmail(response.data.user.email || '');
       setAddress(response.data.user.address || '');
-      setPhoneNumber(response.data.user.phoneNumber || '');
+      setCity(response.data.user.city || ''); // Added city to data fetch
+      setPhoneNumber(response.data.user.phone || '');
     } catch (error) {
       toast.error("Failed to fetch profile info");
     }
@@ -63,14 +65,16 @@ function UpdateProfile() {
       await axios.patch(`${SERVER_URL}/auth/${id}`, {
         name: name,
         email: email,
-        phoneNumber: phoneNumber,
+        phone: phoneNumber,
         address: address,
+        city: city, // Added city to update payload
       });
       
       const user = JSON.parse(localStorage.getItem("user"));
       if (user) {
         user.name = name;
         user.email = email;
+        user.city = city; // Added city to localStorage update
         localStorage.setItem("user", JSON.stringify(user));
       }
       
@@ -220,9 +224,29 @@ function UpdateProfile() {
                   type="text"
                   id="address"
                   className="block w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all outline-none"
-                  placeholder="123 Main St, City, Country"
+                  placeholder="123 Main St"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
+                />
+              </div>
+            </div>
+
+            {/* City - NEW */}
+            <div className="space-y-1.5">
+              <label htmlFor="city" className="block text-xs font-semibold uppercase tracking-wider text-gray-500">
+                City
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <FiMapPin className="text-gray-400 text-sm" />
+                </div>
+                <input
+                  type="text"
+                  id="city"
+                  className="block w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:bg-white focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-all outline-none"
+                  placeholder="New York"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
               </div>
             </div>

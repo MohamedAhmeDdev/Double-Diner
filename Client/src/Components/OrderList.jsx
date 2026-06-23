@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { 
   FiEye, FiX, FiTrash2, FiClock, FiCheckCircle, 
   FiTruck, FiPackage, FiShoppingBag, FiCalendar,
+  FiCreditCard, FiAlertCircle
 } from "react-icons/fi";
 import { formatDateTime } from "../utils/functions";
 
@@ -20,6 +21,12 @@ const SkeletonRow = () => (
     </td>
     <td className="px-6 py-4">
       <div className="h-8 bg-gray-200 rounded-full w-24"></div>
+    </td>
+    <td className="px-6 py-4">
+      <div className="h-8 bg-gray-200 rounded-full w-20"></div>
+    </td>
+    <td className="px-6 py-4">
+      <div className="h-6 bg-gray-200 rounded w-16"></div>
     </td>
     <td className="px-6 py-4">
       <div className="h-4 bg-gray-200 rounded w-32"></div>
@@ -45,21 +52,21 @@ const STATUS_CONFIG = {
     label: "Pending",
     dotColor: "bg-amber-500"
   },
-  COMPLETED: {
-    bg: "bg-emerald-50",
-    text: "text-emerald-700",
-    border: "border-emerald-200",
+  ACCEPTED: {
+    bg: "bg-sky-50",
+    text: "text-sky-700",
+    border: "border-sky-200",
     icon: FiCheckCircle,
-    label: "Completed",
-    dotColor: "bg-emerald-500"
+    label: "Accepted",
+    dotColor: "bg-sky-500"
   },
-  CANCELLED: {
-    bg: "bg-rose-50",
-    text: "text-rose-700",
-    border: "border-rose-200",
-    icon: FiX,
-    label: "Cancelled",
-    dotColor: "bg-rose-500"
+  READY_FOR_DELIVERY: {
+    bg: "bg-purple-50",
+    text: "text-purple-700",
+    border: "border-purple-200",
+    icon: FiPackage,
+    label: "Ready for Delivery",
+    dotColor: "bg-purple-500"
   },
   DELIVERED: {
     bg: "bg-blue-50",
@@ -68,12 +75,82 @@ const STATUS_CONFIG = {
     icon: FiTruck,
     label: "Delivered",
     dotColor: "bg-blue-500"
+  },
+  COMPLETED: {
+    bg: "bg-emerald-50",
+    text: "text-emerald-700",
+    border: "border-emerald-200",
+    icon: FiCheckCircle,
+    label: "Completed",
+    dotColor: "bg-emerald-500"
+  },
+  REJECTED: {
+    bg: "bg-rose-50",
+    text: "text-rose-700",
+    border: "border-rose-200",
+    icon: FiX,
+    label: "Rejected",
+    dotColor: "bg-rose-500"
+  },
+  CANCELLED: {
+    bg: "bg-rose-50",
+    text: "text-rose-700",
+    border: "border-rose-200",
+    icon: FiX,
+    label: "Cancelled",
+    dotColor: "bg-rose-500"
   }
 };
 
+// Payment Status configuration
+const PAYMENT_STATUS_CONFIG = {
+  PENDING: {
+    bg: "bg-amber-50",
+    text: "text-amber-700",
+    border: "border-amber-200",
+    icon: FiClock,
+    label: "Pending"
+  },
+  PAID: {
+    bg: "bg-emerald-50",
+    text: "text-emerald-700",
+    border: "border-emerald-200",
+    icon: FiCheckCircle,
+    label: "Paid"
+  },
+  FAILED: {
+    bg: "bg-rose-50",
+    text: "text-rose-700",
+    border: "border-rose-200",
+    icon: FiAlertCircle,
+    label: "Failed"
+  }
+};
+
+// Payment Method Badge
+const PaymentMethodBadge = ({ method }) => {
+  const getMethodColor = (method) => {
+    const colors = {
+      cash: "bg-green-50 text-green-700 border-green-200",
+      card: "bg-blue-50 text-blue-700 border-blue-200",
+      mpesa: "bg-purple-50 text-purple-700 border-purple-200",
+      bank_transfer: "bg-indigo-50 text-indigo-700 border-indigo-200"
+    };
+    return colors[method?.toLowerCase()] || "bg-gray-50 text-gray-700 border-gray-200";
+  };
+
+  return (
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${getMethodColor(method)}`}>
+      <FiCreditCard size={12} />
+      {method ? method.replace(/_/g, ' ').charAt(0).toUpperCase() + method.replace(/_/g, ' ').slice(1).toLowerCase() : 'N/A'}
+    </span>
+  );
+};
+
 const OrderItem = ({ order, handleDelete }) => {
-  const formatItemsListToString = (items = []) => {
-    const itemsList = items.map((item) => item?.name || "Unknown").filter(Boolean);
+  // Format items list - updated to use the dish name directly
+  const formatItemsListToString = (dishes = []) => {
+    const itemsList = dishes.map((dish) => dish?.name || "Unknown").filter(Boolean);
     if (itemsList.length === 0) return "No items";
     if (itemsList.length > 3) {
       return `${itemsList.slice(0, 3).join(", ")} +${itemsList.length - 3} more`;
@@ -81,14 +158,25 @@ const OrderItem = ({ order, handleDelete }) => {
     return itemsList.join(", ");
   };
 
-  const orderedItems = order?.dishes?.map((item) => item?.metadata) || [];
+  // Get the dishes array
+  const dishes = order?.dishes || [];
   const statusConfig = STATUS_CONFIG[order.order_status] || STATUS_CONFIG.PENDING;
   const StatusIcon = statusConfig.icon;
+  
+  const paymentConfig = PAYMENT_STATUS_CONFIG[order.payment_status] || PAYMENT_STATUS_CONFIG.PENDING;
+  const PaymentIcon = paymentConfig.icon;
 
   const getStatusBadge = () => (
     <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${statusConfig.bg} ${statusConfig.text} ${statusConfig.border}`}>
       <StatusIcon size={14} className="flex-shrink-0" />
       {statusConfig.label}
+    </span>
+  );
+
+  const getPaymentStatusBadge = () => (
+    <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border ${paymentConfig.bg} ${paymentConfig.text} ${paymentConfig.border}`}>
+      <PaymentIcon size={14} className="flex-shrink-0" />
+      {paymentConfig.label}
     </span>
   );
 
@@ -106,8 +194,8 @@ const OrderItem = ({ order, handleDelete }) => {
       </Link>
     );
 
-    // Delete button for cancelled orders only
-    if (order.order_status === "CANCELLED") {
+    // Delete button for cancelled/rejected orders only
+    if (order.order_status === "CANCELLED" || order.order_status === "REJECTED") {
       buttons.push(
         <button
           key="delete"
@@ -136,7 +224,8 @@ const OrderItem = ({ order, handleDelete }) => {
             <FiShoppingBag className="text-gray-700" size={16} />
           </div>
           <div>
-            <span className="font-semibold text-gray-900 text-sm">#{order.order_id}</span>
+            <span className="font-semibold text-gray-900 text-sm">#{order.order_number || order.order_id}</span>
+            <div className="text-xs text-gray-400">{order.order_id}</div>
           </div>
         </div>
       </td>
@@ -145,8 +234,11 @@ const OrderItem = ({ order, handleDelete }) => {
       <td className="px-6 py-4">
         <div className="flex items-center gap-1.5 text-sm text-gray-500">
           Ksh
-          <span className="font-medium text-gray-900">{order.total_price.toLocaleString()}</span>
+          <span className="font-medium text-gray-900">{order.total_price?.toLocaleString() || 0}</span>
         </div>
+        {order.subtotal && order.subtotal !== order.total_price && (
+          <div className="text-xs text-gray-400">Subtotal: Ksh {order.subtotal?.toLocaleString()}</div>
+        )}
       </td>
 
       {/* Status */}
@@ -154,14 +246,24 @@ const OrderItem = ({ order, handleDelete }) => {
         {getStatusBadge()}
       </td>
 
+      {/* Payment Status */}
+      <td className="px-6 py-4">
+        {getPaymentStatusBadge()}
+      </td>
+
+      {/* Payment Method */}
+      <td className="px-6 py-4">
+        <PaymentMethodBadge method={order.payment_method} />
+      </td>
+
       {/* Items */}
       <td className="px-6 py-4">
         <div className="flex items-center gap-1.5">
-          <span className="text-sm text-gray-600 truncate max-w-[180px]" title={formatItemsListToString(orderedItems)}>
-            {formatItemsListToString(orderedItems)}
+          <span className="text-sm text-gray-600 truncate max-w-[180px]" title={formatItemsListToString(dishes)}>
+            {formatItemsListToString(dishes)}
           </span>
-          {orderedItems.length > 3 && (
-            <span className="text-xs text-gray-400 font-medium">+{orderedItems.length - 3}</span>
+          {dishes.length > 3 && (
+            <span className="text-xs text-gray-400 font-medium">+{dishes.length - 3}</span>
           )}
         </div>
       </td>
@@ -170,7 +272,7 @@ const OrderItem = ({ order, handleDelete }) => {
       <td className="px-6 py-4">
         <div className="flex items-center gap-1.5 text-sm text-gray-500 whitespace-nowrap">
           <FiCalendar size={14} className="flex-shrink-0" />
-          <span>{formatDateTime(order.order_date)}</span>
+          <span>{formatDateTime(order.order_date || order.created_at)}</span>
         </div>
       </td>
 
@@ -228,6 +330,12 @@ const OrderList = ({ orders, handleDelete, loading }) => {
                   Status
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Payment
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                  Method
+                </th>
+                <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                   Items
                 </th>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -267,6 +375,12 @@ const OrderList = ({ orders, handleDelete, loading }) => {
               </th>
               <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Status
+              </th>
+              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Payment
+              </th>
+              <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                Method
               </th>
               <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                 Items

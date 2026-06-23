@@ -71,6 +71,38 @@ const Orders = () => {
     }
   };
 
+  // Payment Status Badge
+  const getPaymentStatusBadge = (status) => {
+    const baseStyle = "inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono border";
+    
+    switch(status?.toLowerCase()) {
+      case 'paid':
+        return (
+          <span className={`${baseStyle} bg-green-50 border-green-300 text-green-700`}>
+            <FiCheckCircle className="mr-1" strokeWidth={2.5} /> Paid
+          </span>
+        );
+      case 'pending':
+        return (
+          <span className={`${baseStyle} bg-yellow-50 border-yellow-300 text-yellow-700`}>
+            <FiClock className="mr-1" strokeWidth={2.5} /> Pending
+          </span>
+        );
+      case 'failed':
+        return (
+          <span className={`${baseStyle} bg-red-50 border-red-300 text-red-700`}>
+            <FiX className="mr-1" strokeWidth={2.5} /> Failed
+          </span>
+        );
+      default:
+        return (
+          <span className={`${baseStyle} bg-white border-neutral-200 text-neutral-400`}>
+            {status || 'N/A'}
+          </span>
+        );
+    }
+  };
+
   // Skeleton row component
   const SkeletonRow = () => (
     <tr className="animate-pulse">
@@ -89,6 +121,9 @@ const Orders = () => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="h-4 bg-gray-200 rounded w-20"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-6 bg-gray-200 rounded w-16"></div>
       </td>
       <td className="px-6 py-4">
         <div className="h-4 bg-gray-200 rounded w-40 mb-1"></div>
@@ -217,25 +252,28 @@ const Orders = () => {
               <thead className="bg-neutral-50">
                 <tr>
                   <th scope="col" className="whitespace-nowrap px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider font-mono">
-                    ID Reference
+                    Order #
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
                     Customer Details
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
-                    State
+                    Status
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
-                    Order Date
+                    Payment
                   </th>
-                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider font-mono">
-                   Amount
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    Method
+                  </th>
+                  <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                    Amount
                   </th>
                   <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
                     Delivery Info
                   </th>
                   <th scope="col" className="px-6 py-4 text-right text-xs font-bold text-black uppercase tracking-wider">
-                    Execution
+                    Action
                   </th>
                 </tr>
               </thead>
@@ -249,24 +287,33 @@ const Orders = () => {
                   currentPosts.map((order) => (
                     <tr key={order.order_id} className="hover:bg-neutral-50/50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap font-mono text-sm font-bold text-black">
-                        #{order.order_id}
+                        {order.order_number}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-bold text-neutral-900">{order.user?.name || 'N/A'}</div>
-                        <div className="text-xs text-neutral-400 font-mono mt-0.5">{order.user?.email || 'N/A'}</div>
+                        <div className="text-sm font-bold text-neutral-900">{order.user?.name}</div>
+                        <div className="text-xs text-neutral-400 font-mono mt-0.5">{order.user?.email}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {getStatusBadge(order.order_status)}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-xs text-neutral-600 font-mono">
-                        {formatDateTime(order.order_date)}
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {getPaymentStatusBadge(order.payment_status)}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider font-mono border border-neutral-200 bg-white text-neutral-700">
+                          {order.payment_method}
+                        </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap font-mono text-sm font-bold text-black">
                         Ksh {order.total_price}
                       </td>
                       <td className="px-6 py-4 max-w-xs">
-                        <div className="text-xs font-semibold text-neutral-800 line-clamp-1">{order.delivery_address}</div>
-                        <div className="text-xs text-neutral-400 font-mono mt-0.5">{order.delivery_phone}</div>
+                        <div className="text-xs font-semibold text-neutral-800 line-clamp-1">
+                          {order.user?.address}
+                        </div>
+                        <div className="text-xs text-neutral-400 font-mono mt-0.5">
+                          {order.user?.phone}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <Link 
@@ -280,7 +327,7 @@ const Orders = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} className="text-center py-16 border-t border-neutral-100">
+                    <td colSpan={8} className="text-center py-16 border-t border-neutral-100">
                       <svg className="mx-auto h-8 w-8 text-neutral-400 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                       </svg>

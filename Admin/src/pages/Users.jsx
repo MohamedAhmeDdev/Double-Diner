@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiUser, FiMail, FiTrash2, FiEdit } from "react-icons/fi";
+import { FiUser, FiMail, FiTrash2, FiEdit, FiPhone, FiHome, FiMapPin } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { apiCall } from "../utils/apiCall";
 import UpdateUser from "../Components/UpdateUser";
@@ -100,7 +100,13 @@ const Customers = () => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <div className="h-4 bg-gray-200 rounded w-16"></div>
+        <div className="h-4 bg-gray-200 rounded w-24"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-20"></div>
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap">
+        <div className="h-4 bg-gray-200 rounded w-24"></div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex justify-end space-x-2">
@@ -121,8 +127,8 @@ const Customers = () => {
             <h1 className="text-md md:text-2xl font-bold tracking-tight text-gray-900 uppercase">
               Customer Management
             </h1>
-               <p className="mt-1 text-sm text-gray-500">
-                View and manage all registered customers and administrators in the system. Use the tabs to switch between user roles and perform actions such as editing or deleting accounts.
+            <p className="mt-1 text-sm text-gray-500">
+              View and manage all registered customers and administrators in the system. Use the tabs to switch between user roles and perform actions such as editing or deleting accounts.
             </p>
           </div>
         </div>
@@ -165,6 +171,15 @@ const Customers = () => {
                   Email
                 </th>
                 <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                  Phone
+                </th>
+                <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                  City
+                </th>
+                <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                  Address
+                </th>
+                <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Role
                 </th>
                 <th scope="col" className="relative px-6 py-4">
@@ -196,6 +211,24 @@ const Customers = () => {
                         <span>{user.email}</span>
                       </div>
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <FiPhone className="mr-2 text-gray-400 flex-shrink-0" size={14} />
+                        <span>{user.phone || user.phoneNumber || '-'}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <FiMapPin className="mr-2 text-gray-400 flex-shrink-0" size={14} />
+                        <span>{user.city || '-'}</span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex items-center text-sm text-gray-600">
+                        <FiHome className="mr-2 text-gray-400 flex-shrink-0" size={14} />
+                        <span>{user.address || '-'}</span>
+                      </div>
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 uppercase font-mono tracking-wide">
                       {user.role}
                     </td>
@@ -221,7 +254,7 @@ const Customers = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={4} className="px-6 py-20 text-center">
+                  <td colSpan={7} className="px-6 py-20 text-center">
                     <div className="mx-auto h-12 w-12 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-4">
                       <FiUser className="text-gray-400" size={18} />
                     </div>
@@ -233,11 +266,6 @@ const Customers = () => {
                         ? "There are currently no administrator accounts configured." 
                         : "No user registrations match the standard customer parameter arrays."}
                     </p>
-                    <div className="mt-6">
-                      <button className="inline-flex justify-center items-center px-4 py-2 bg-black hover:bg-neutral-800 text-white text-xs font-semibold uppercase tracking-wider rounded-lg shadow-sm transition-all">
-                        Add {activeRole === "admin" ? "Admin" : "Customer"}
-                      </button>
-                    </div>
                   </td>
                 </tr>
               )}

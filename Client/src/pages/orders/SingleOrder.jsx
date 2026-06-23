@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { 
   FiArrowLeft, FiClock, FiMapPin, FiPhone, FiPackage, 
-  FiX, FiCheckCircle, FiTruck,
+  FiX, FiCheckCircle, FiTruck, FiUser, FiMail,
   FiCreditCard, FiCalendar, FiShoppingBag, FiAlertCircle
 } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
@@ -13,6 +13,8 @@ import { OrderProgressBar } from "../../Components/OrderProgressBar";
 
 // Enhanced Status Badge Component
 const StatusBadge = ({ status, size = "md" }) => {
+  const normalizedStatus = status?.toUpperCase() || 'PENDING';
+  
   const STATUS_CONFIG = {
     PENDING: { 
       bg: "bg-amber-50", 
@@ -54,7 +56,7 @@ const StatusBadge = ({ status, size = "md" }) => {
       text: "text-emerald-700", 
       border: "border-emerald-200",
       icon: <FiCheckCircle className="w-4 h-4 mr-1.5" />,
-      label: "Completed ✓"
+      label: "Completed"
     },
     CANCELLED: {
       bg: "bg-rose-50",
@@ -65,7 +67,7 @@ const StatusBadge = ({ status, size = "md" }) => {
     }
   };
 
-  const config = STATUS_CONFIG[status] || STATUS_CONFIG.PENDING;
+  const config = STATUS_CONFIG[normalizedStatus] || STATUS_CONFIG.PENDING;
   
   const sizeClasses = {
     sm: "px-2.5 py-0.5 text-[10px]",
@@ -75,6 +77,44 @@ const StatusBadge = ({ status, size = "md" }) => {
 
   return (
     <span className={`inline-flex items-center rounded-full font-semibold border tracking-wide uppercase shadow-sm ${sizeClasses[size]} ${config.bg} ${config.text} ${config.border}`}>
+      {config.icon}
+      {config.label}
+    </span>
+  );
+};
+
+// Payment Status Badge
+const PaymentStatusBadge = ({ status }) => {
+  const normalizedStatus = status?.toUpperCase() || 'PENDING';
+  
+  const PAYMENT_CONFIG = {
+    PENDING: {
+      bg: "bg-amber-50",
+      text: "text-amber-700",
+      border: "border-amber-200",
+      icon: <FiClock className="w-4 h-4 mr-1.5 animate-pulse" />,
+      label: "Pending"
+    },
+    PAID: {
+      bg: "bg-emerald-50",
+      text: "text-emerald-700",
+      border: "border-emerald-200",
+      icon: <FiCheckCircle className="w-4 h-4 mr-1.5" />,
+      label: "Paid"
+    },
+    FAILED: {
+      bg: "bg-rose-50",
+      text: "text-rose-700",
+      border: "border-rose-200",
+      icon: <FiAlertCircle className="w-4 h-4 mr-1.5" />,
+      label: "Failed"
+    }
+  };
+
+  const config = PAYMENT_CONFIG[normalizedStatus] || PAYMENT_CONFIG.PENDING;
+
+  return (
+    <span className={`inline-flex items-center rounded-full font-semibold border tracking-wide uppercase text-xs px-3 py-1.5 ${config.bg} ${config.text} ${config.border}`}>
       {config.icon}
       {config.label}
     </span>
@@ -97,36 +137,54 @@ const DetailItem = ({ title, value, icon, className = "" }) => (
 );
 
 // Order Summary Card Component
-const OrderSummaryCard = ({ order }) => (
-  <div className=" border border-blue-100/80 rounded-2xl p-5 mb-6 shadow-sm">
-<div className="grid grid-cols-2 md:grid-cols-2  lg:grid-cols-4 gap-6">     
-   <div>
-        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
-        <p className="text-sm font-bold text-slate-800 mt-1">#{order?.order_id}</p>
-      </div>
-      <div>
-        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider ">Date</p>
-        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center whitespace-nowrap">
-          <FiCalendar className="w-3 h-3 mr-1.5 text-slate-400" />
-          {formatDate(order?.order_date)} at {formatTime(order?.order_date)}
-        </p>
-      </div>
-      <div>
-        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment</p>
-        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
-          <FiCreditCard className="w-3 h-3 mr-1.5 text-slate-400" />
-          {order?.payment_method || 'Not specified'}
-        </p>
-      </div>
-      <div>
-        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Total</p>
-     <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
-          Ksh {order?.total_price?.toLocaleString()}
-        </p>
+const OrderSummaryCard = ({ order }) => {
+  const orderStatus = order?.order_status?.toUpperCase() || 'PENDING';
+  const paymentStatus = order?.payment_status?.toUpperCase() || 'PENDING';
+  
+  return (
+    <div className="bg-white border border-blue-100/80 rounded-2xl p-5 mb-6 shadow-sm">
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">     
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
+          <p className="text-sm font-bold text-slate-800 mt-1">{order?.order_number || `#${order?.order_id}`}</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Date</p>
+          <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center whitespace-nowrap">
+            <FiCalendar className="w-3 h-3 mr-1.5 text-slate-400" />
+            {formatDate(order?.order_date || order?.created_at)}
+          </p>
+          <p className="text-xs text-slate-400 ml-5">{formatTime(order?.order_date || order?.created_at)}</p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment Method</p>
+          <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
+            <FiCreditCard className="w-3 h-3 mr-1.5 text-slate-400" />
+            {order?.payment_method?.toUpperCase() || 'N/A'}
+          </p>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment Status</p>
+          <div className="mt-1">
+            <PaymentStatusBadge status={paymentStatus} />
+          </div>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order Status</p>
+          <div className="mt-1">
+            <StatusBadge status={orderStatus} size="sm" />
+          </div>
+        </div>
+        <div>
+          <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Total</p>
+          <p className="text-sm font-bold text-slate-800 mt-1 flex items-center">
+            Ksh {parseFloat(order?.total_price || 0).toLocaleString()}
+          </p>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SingleOrder = () => {
   const [order, setOrder] = useState({});
@@ -141,11 +199,21 @@ const SingleOrder = () => {
 
   const getOrder = async () => {
     setLoading(true);
-    const data = await apiCall(`/orders/${id}`, "GET");
-    if (data) {
-      setOrder(data.order);
+    try {
+      const data = await apiCall(`/orders/${id}`, "GET");
+      console.log("Fetched order:", data);
+      
+      if (data) {
+        // Check if order is nested in data.order or directly in data
+        const orderData = data.order || data;
+        setOrder(orderData);
+      }
+    } catch (error) {
+      console.error("Error fetching order:", error);
+      toast.error("Failed to fetch order details");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const cancelOrder = async () => {
@@ -154,19 +222,24 @@ const SingleOrder = () => {
     }
 
     setCancelling(true);
-    const data = await apiCall(`/orders/${id}`, "PATCH", {
-      order_status: "CANCELLED",
-    });
+    try {
+      const data = await apiCall(`/orders/${id}`, "PATCH", {
+        order_status: "CANCELLED",
+      });
 
-    if (data) {
-      const updatedOrder = data.order;
-      setOrder(updatedOrder);
-      toast.info("Order Cancelled Successfully");
-      setTimeout(() => {
-        navigate("/orders");
-      }, 1500);
+      if (data) {
+        const updatedOrder = data.order || data;
+        setOrder(updatedOrder);
+        toast.info("Order Cancelled Successfully");
+        setTimeout(() => {
+          navigate("/orders");
+        }, 1500);
+      }
+    } catch (error) {
+      toast.error("Failed to cancel order");
+    } finally {
+      setCancelling(false);
     }
-    setCancelling(false);
   };
 
   if (loading) {
@@ -184,6 +257,8 @@ const SingleOrder = () => {
       </div>
     );
   }
+
+  const orderStatus = order?.order_status?.toUpperCase() || 'PENDING';
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8">
@@ -204,16 +279,15 @@ const SingleOrder = () => {
         <OrderSummaryCard order={order} />
 
         {/* Order Progress Timeline */}
-        <OrderProgressBar currentStatus={order?.order_status} />
-
+        <OrderProgressBar currentStatus={orderStatus} />
 
         {/* Main Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           
           {/* Left Column - Details */}
-          <div className="bg-white lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6">
             {/* Order Timeline */}
-            <div className=" border border-slate-200/80 rounded-2xl p-6 shadow-sm">
+            <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
               <h3 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center mb-4 border-b border-slate-100 pb-3">
                 <FiClock className="w-4 h-4 mr-2 text-blue-600" />
                 Order Timeline
@@ -221,20 +295,25 @@ const SingleOrder = () => {
               <div className="space-y-2">
                 <DetailItem 
                   title="Placed on" 
-                  value={`${formatDate(order.order_date)} at ${formatTime(order.order_date)}`} 
+                  value={`${formatDate(order.order_date || order.created_at)} at ${formatTime(order.order_date || order.created_at)}`} 
                   icon={<FiCalendar />} 
                 />
-                {order.delivery_time && (
+                {order.delivery_date && (
                   <DetailItem 
-                    title="Delivered on" 
-                    value={`${formatDate(order.delivery_time)} at ${formatTime(order.delivery_time)}`} 
+                    title="Delivery Date" 
+                    value={`${formatDate(order.delivery_date)}`} 
                     icon={<FiTruck />} 
                   />
                 )}
                 <DetailItem 
                   title="Current Status" 
-                  value={<StatusBadge status={order.order_status} size="sm" />} 
+                  value={<StatusBadge status={orderStatus} size="sm" />} 
                   icon={<FiCheckCircle />} 
+                />
+                <DetailItem 
+                  title="Payment Status" 
+                  value={<PaymentStatusBadge status={order.payment_status} />} 
+                  icon={<FiCreditCard />} 
                 />
               </div>
             </div>
@@ -242,16 +321,30 @@ const SingleOrder = () => {
             {/* Customer Details */}
             <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
               <h3 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center mb-4 border-b border-slate-100 pb-3">
-                <FiShoppingBag className="w-4 h-4 mr-2 text-blue-600" />
-                 Delivery Details
+                <FiUser className="w-4 h-4 mr-2 text-blue-600" />
+                Customer Information
               </h3>
               <div className="divide-y divide-slate-100">
                 <DetailItem 
+                  title="Customer Name" 
+                  value={order?.user?.name } 
+                  icon={<FiUser />}
+                />
+                <DetailItem 
+                  title="Email" 
+                  value={order?.user?.email } 
+                  icon={<FiMail />}
+                />
+                <DetailItem 
                   title="Delivery Address" 
-                  value={order?.delivery_address} 
+                  value={order?.user?.address } 
                   icon={<FiMapPin />}
                 />
-                <DetailItem title="Contact Phone" value={order?.delivery_phone} icon={<FiPhone />} />
+                <DetailItem 
+                  title="Contact Phone" 
+                  value={order?.user?.phone} 
+                  icon={<FiPhone />} 
+                />
               </div>
             </div>
           </div>
@@ -265,32 +358,53 @@ const SingleOrder = () => {
                   Order Items
                 </h3>
                 <span className="text-xs font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-full">
-                  {order?.dishes?.length || 0} {order?.dishes?.length === 1 ? 'item' : 'items'}
+                  {order?.dishes?.length } {order?.dishes?.length === 1 ? 'item' : 'items'}
                 </span>
               </div>
               
               {/* Items List */}
               <div className="divide-y divide-slate-100 max-h-[420px] overflow-y-auto pr-1">
                 {order?.dishes && order.dishes.length > 0 ? (
-                  order.dishes.map((dish, index) => (
-                    <div key={index} className="flex items-start py-4 first:pt-0 last:pb-0">
-                      <img 
-                        className="w-20 h-20 rounded-lg object-cover mr-4"
-                        src={`${SERVER_URL}/${dish.metadata.image}`} 
-                        alt={dish.metadata.name}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="text-sm text-slate-800">{dish.metadata.name}</h4>
-                        <p className="text-sm text-slate-500 mt-0.5">Qty: {dish.quantity}</p>
+                  order.dishes.map((dish) => {
+                    // Get quantity from order_dishes or directly from dish
+                    const quantity = dish.order_dishes?.quantity || dish.quantity || 1;
+                    const dishPrice = parseFloat(dish.price) || 0;
+                    const total = dishPrice * quantity;
+                    const imageUrl = dish.image ? `${SERVER_URL}/${dish.image}` : null;
+                    
+                    return (
+                      <div key={dish.dish_id || dish.id} className="flex items-start py-4 first:pt-0 last:pb-0">
+                        <div className="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0 mr-4">
+                          {imageUrl ? (
+                            <img 
+                              className="w-full h-full object-cover"
+                              src={imageUrl} 
+                              alt={dish.name || 'Dish'}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                                e.target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center text-2xl">🍽️</div>';
+                              }}
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-2xl">🍽️</div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-sm font-semibold text-slate-800">{dish.name || 'Unknown Dish'}</h4>
+                          {dish.description && (
+                            <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{dish.description}</p>
+                          )}
+                          <p className="text-sm text-slate-500 mt-1">Qty: {quantity}</p>
+                        </div>
+                        <div className="text-right flex-shrink-0 ml-4">
+                          <p className="text-xs font-medium text-slate-500">Ksh {dishPrice} × {quantity}</p>
+                          <p className="text-sm font-bold text-slate-800 mt-0.5">
+                            Ksh {total.toLocaleString()}
+                          </p>
+                        </div>
                       </div>
-                      <div className="text-right flex-shrink-0 ml-4">
-                        <p className="text-xs font-medium text-slate-500">Ksh {dish.metadata.price} × {dish.quantity}</p>
-                        <p className="text-sm font-bold text-slate-800 mt-0.5">
-                          Ksh {(dish.metadata.price * dish.quantity).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-                  ))
+                    );
+                  })
                 ) : (
                   <div className="py-8 text-center text-slate-500">
                     <FiShoppingBag className="w-12 h-12 mx-auto text-slate-300 mb-3" />
@@ -304,13 +418,21 @@ const SingleOrder = () => {
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-slate-500">Subtotal</span>
                   <span className="text-sm font-semibold text-slate-700">
-                    Ksh {order?.total_price?.toLocaleString() || '0'}
+                    Ksh {parseFloat(order?.subtotal).toLocaleString()}
                   </span>
                 </div>
+                {order?.payment_method && (
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm text-slate-500">Payment Method</span>
+                    <span className="text-sm font-semibold text-slate-700 capitalize">
+                      {order.payment_method}
+                    </span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-base font-black text-slate-800">Total Payable</span>
                   <span className="text-lg font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                    Ksh {order?.total_price?.toLocaleString() || '0'}
+                    Ksh {parseFloat(order?.total_price ).toLocaleString()}
                   </span>
                 </div>
               </div>
@@ -325,7 +447,7 @@ const SingleOrder = () => {
               
               <div className="space-y-3">
                 {/* Cancel Order - Only for PENDING orders */}
-                {order.order_status === "PENDING" && (
+                {orderStatus === "PENDING" && (
                   <button
                     onClick={cancelOrder}
                     disabled={cancelling}
@@ -336,42 +458,42 @@ const SingleOrder = () => {
                 )}
 
                 {/* Status Messages for non-cancellable orders */}
-                {order.order_status === "CANCELLED" && (
+                {orderStatus === "CANCELLED" && (
                   <div className="w-full bg-gradient-to-r from-rose-50 to-rose-100/50 text-rose-800 text-sm font-semibold p-4 rounded-xl text-center border border-rose-100/80 flex items-center justify-center">
                     <FiAlertCircle className="w-5 h-5 mr-2 text-rose-600 flex-shrink-0" />
                     This order has been cancelled
                   </div>
                 )}
 
-                {order.order_status === "COMPLETED" && (
+                {orderStatus === "COMPLETED" && (
                   <div className="w-full bg-gradient-to-r from-emerald-50 to-emerald-100/50 text-emerald-800 text-sm font-semibold p-4 rounded-xl text-center border border-emerald-100/80 flex items-center justify-center">
                     <FiCheckCircle className="w-5 h-5 mr-2 text-emerald-600 flex-shrink-0" />
                     Order has been completed successfully
                   </div>
                 )}
 
-                {order.order_status === "ACCEPTED" && (
+                {orderStatus === "ACCEPTED" && (
                   <div className="w-full bg-gradient-to-r from-sky-50 to-sky-100/50 text-sky-800 text-sm font-semibold p-4 rounded-xl text-center border border-sky-100/80 flex items-center justify-center">
                     <FiCheckCircle className="w-5 h-5 mr-2 text-sky-600 flex-shrink-0" />
                     Your order has been accepted and is being prepared
                   </div>
                 )}
 
-                {order.order_status === "READY_FOR_DELIVERY" && (
+                {orderStatus === "READY_FOR_DELIVERY" && (
                   <div className="w-full bg-gradient-to-r from-purple-50 to-purple-100/50 text-purple-800 text-sm font-semibold p-4 rounded-xl text-center border border-purple-100/80 flex items-center justify-center">
                     <FiPackage className="w-5 h-5 mr-2 text-purple-600 flex-shrink-0" />
                     Your order is ready for pickup/delivery
                   </div>
                 )}
 
-                {order.order_status === "DELIVERED" && (
+                {orderStatus === "DELIVERED" && (
                   <div className="w-full bg-gradient-to-r from-blue-50 to-blue-100/50 text-blue-800 text-sm font-semibold p-4 rounded-xl text-center border border-blue-100/80 flex items-center justify-center">
                     <FiTruck className="w-5 h-5 mr-2 text-blue-600 flex-shrink-0" />
                     Your order is on the way!
                   </div>
                 )}
 
-                {order.order_status === "REJECTED" && (
+                {orderStatus === "REJECTED" && (
                   <div className="w-full bg-gradient-to-r from-rose-50 to-rose-100/50 text-rose-800 text-sm font-semibold p-4 rounded-xl text-center border border-rose-100/80 flex items-center justify-center">
                     <FiAlertCircle className="w-5 h-5 mr-2 text-rose-600 flex-shrink-0" />
                     Your order has been rejected
@@ -379,10 +501,10 @@ const SingleOrder = () => {
                 )}
 
                 {/* Helpful message for orders that can't be cancelled */}
-                {order.order_status !== "PENDING" && 
-                 order.order_status !== "CANCELLED" && 
-                 order.order_status !== "COMPLETED" && 
-                 order.order_status !== "REJECTED" && (
+                {orderStatus !== "PENDING" && 
+                 orderStatus !== "CANCELLED" && 
+                 orderStatus !== "COMPLETED" && 
+                 orderStatus !== "REJECTED" && (
                   <p className="text-xs text-slate-500 text-center mt-2">
                     <FiAlertCircle className="inline w-3 h-3 mr-1" />
                     Orders cannot be cancelled once they've been processed

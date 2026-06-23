@@ -2,24 +2,26 @@ const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 const { JWT_SECRET } = require("../constants");
 const User = require("../models/User.model");
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 const dotenv = require("dotenv");
 dotenv.config();
 
-const createToken = (id, name, email) => {
+// Helper to create token (Using user_id)
+const createToken = (user_id, name, email) => {
   return JWT.sign(
     {
-      id: id,
+      id: user_id,
       name: name,
       email: email,
     },
-    JWT_SECRET, { expiresIn: "1d" }
+    JWT_SECRET, 
+    { expiresIn: "1d" }
   );
 };
 
-// signup
+// SIGNUP
 const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phone, address, city } = req.body;  
 
   try {
     const encryptPassword = await bcrypt.hash(password, 10);
@@ -36,25 +38,28 @@ const signup = async (req, res) => {
       name: name,
       email: email,
       password: encryptPassword,
+      phone: phone,
+      city: city,
+      address:address
     });
 
-    const token = createToken(user.id, user.name, user.email);
+    const token = createToken(user.user_id, user.name, user.email);
     return res.status(200).json({
       success: true,
       user: {
-        id: user.id,
+        id: user.user_id,
         name: user.name,
         email: user.email,
         token: token,
         role: user.role,
       },
     });
-  } catch (error) {
+  } catch (error) {    
     return res.status(500).json({ success: false, message: error.message });
   }
 };
 
-// login
+// LOGIN
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -82,16 +87,15 @@ const login = async (req, res) => {
       });
     }
 
-    const token = createToken(foundUser.id, foundUser.name, foundUser.email);
+    const token = createToken(foundUser.user_id, foundUser.name, foundUser.email);
     return res.status(200).json({
       success: true,
       user: {
-        id: foundUser.id,
+        id: foundUser.user_id,
         name: foundUser.name,
         email: foundUser.email,
         token: token,
         role: foundUser.role,
-        userStatus: foundUser.userStatus,
       },
     });
   } catch (error) {
@@ -99,10 +103,12 @@ const login = async (req, res) => {
   }
 };
 
-// for changing role - admin
+// UPDATE ROLE (ADMIN ONLY)
 const updateRole = async (req, res) => { 
+  const { id } = req.params;
   try {
-    const updatedUser = await User.update(req.body, { where: { id: req.params.id} });
+    await User.update(req.body, { where: { user_id: id } });
+    const updatedUser = await User.findOne({ where: { user_id: id } });
     return res.status(200).json({
       success: true,
       user: updatedUser,
@@ -112,10 +118,17 @@ const updateRole = async (req, res) => {
   }
 };
 
-// for changing username or password and activate 
+// UPDATE USER DETAILS
 const updateDetails = async (req, res) => {
+  const { id } = req.params;
   try {
-    const updatedUser = await User.update(req.body, { where: { id: req.params.id}});
+    if (req.body.password) {
+      req.body.password = await bcrypt.hash(req.body.password, 10);
+    }
+
+    await User.update(req.body, { where: { user_id: id } });
+    const updatedUser = await User.findOne({ where: { user_id: id } });
+
     return res.status(200).json({
       success: true,
       user: updatedUser,
@@ -127,18 +140,20 @@ const updateDetails = async (req, res) => {
 
 // Get all users except admins 
 const getAllUsers = async (req, res) => {
+  console.log("gyfgv");
+  
   try {
     const users = await User.findAll();
     return res.status(200).json({
       success: true,
-      users: users.filter((user) => user.role !== "admin"),
+      users: users,
     });
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });
   }
 };
 
-// get user by id
+// GET USER BY ID
 const getUserById = async (req, res) => {
   const { id } = req.params;
   if (!id) {
@@ -149,7 +164,7 @@ const getUserById = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ where: { id: id } });
+    const user = await User.findOne({ where: { user_id: id } });
     if (!user) {
       return res.status(404).json({
         success: false,
@@ -166,7 +181,7 @@ const getUserById = async (req, res) => {
   }
 };
 
-// FORGOT PASSWORD (FIXED FOR RENDER & GMAIL)
+// FORGOT PASSWORD
 const forgotPassword = async(req, res) => {
   const { email } = req.body;
   
@@ -183,14 +198,13 @@ const forgotPassword = async(req, res) => {
       return res.status(404).json({ success: false, message: 'Email does not exist' });
     }
 
-    // Explicit configurations bypasses Render's general port 25 filters
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
-      port: 465, // Use 465 (SSL) or 587 (TLS). Do not rely on service: 'gmail' defaults
+      port: 465, 
       secure: true, 
       auth: {
         user: process.env.USER,
-        pass: process.env.PASS, // MUST BE A 16-DIGIT GMAIL APP PASSWORD
+        pass: process.env.PASS, 
       },
     });
 
@@ -199,10 +213,9 @@ const forgotPassword = async(req, res) => {
       to: user.email,
       subject: "Forgot password link",
       html: `<p>You requested a password reset. Click the link below to proceed (expires in 5 mins):</p>
-             <a href="https://double-diner.netlify.app/resetPassword/${user.id}">Forgot Password</a>`
+             <a href="https://double-diner.netlify.app/resetPassword/${user.user_id}">Forgot Password</a>`
     };
     
-    // Converted to modern async/await syntax to stop hanging errors
     await transporter.sendMail(mailOption);
     return res.status(200).json({ success: true, message: 'Recovery email sent successfully' });
 
@@ -229,7 +242,7 @@ const resetPassword = async(req, res) => {
 
   try {
     const encryptPassword = await bcrypt.hash(password, 10);
-    await User.update({ password: encryptPassword }, { where: { id: req.params.id } });
+    await User.update({ password: encryptPassword }, { where: { user_id: req.params.id } });
     
     return res.status(200).json({
       success: true,
@@ -240,7 +253,7 @@ const resetPassword = async(req, res) => {
   }
 };
 
-// delete user by id - admin
+// DELETE USER BY ID (ADMIN ONLY)
 const deleteUserById = async (req, res) => {
   const { id } = req.params;
   if (!id) {
@@ -251,7 +264,7 @@ const deleteUserById = async (req, res) => {
   }
 
   try {
-    const user = await User.findOne({ where: { id: id } });
+    const user = await User.findOne({ where: { user_id: id } });
 
     if (!user) {
       return res.status(404).json({
@@ -260,10 +273,10 @@ const deleteUserById = async (req, res) => {
       });
     } 
 
-    await User.destroy({ where: { id: id } });
+    await User.destroy({ where: { user_id: id } });
     return res.status(200).json({
       success: true,
-      user: { id: user.id },
+      user: { id: user.user_id },
     });
   } catch (error) {
     return res.status(500).json({ message: error.message, success: false });

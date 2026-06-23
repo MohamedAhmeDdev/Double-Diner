@@ -12,6 +12,9 @@ import { OrderedDishItem } from "../../Components/OrderedDishItem";
 
 // Enhanced Status Badge with animations
 const StatusBadge = ({ status, size = "md" }) => {
+  // Normalize status to uppercase for comparison
+  const normalizedStatus = status?.toUpperCase() || '';
+  
   const statusConfig = {
     PENDING: { 
       color: "bg-amber-50 text-amber-700 border-amber-200/60", 
@@ -41,11 +44,11 @@ const StatusBadge = ({ status, size = "md" }) => {
     COMPLETED: { 
       color: "bg-emerald-50 text-emerald-700 border-emerald-200/60", 
       icon: <FiCheckCircle className="w-4 h-4 mr-1.5" />,
-      label: "Completed ✓"
+      label: "Completed"
     }
   };
 
-  const config = statusConfig[status] || { 
+  const config = statusConfig[normalizedStatus] || { 
     color: "bg-slate-50 text-slate-700 border-slate-200/60", 
     icon: null,
     label: status
@@ -89,11 +92,11 @@ const DetailItem = ({ title, value, icon, action }) => (
 
 // Order Summary Card
 const OrderSummaryCard = ({ order }) => (
-  <div className="bg0white border border-blue-100/80 rounded-2xl p-5 mb-6">
-    <div className="grid grid-cols-2 md:grid-cols-2  lg:grid-cols-5 gap-6">
+  <div className="bg-white border border-blue-100/80 rounded-2xl p-5 mb-6">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-6">
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
-        <p className="text-sm font-bold text-slate-800 mt-1">#{order?.order_id}</p>
+        <p className="text-sm font-bold text-slate-800 mt-1">{order?.order_number}</p>
       </div>
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Date</p>
@@ -106,17 +109,17 @@ const OrderSummaryCard = ({ order }) => (
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment</p>
         <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
           <FiCreditCard className="w-3 h-3 mr-1.5 text-slate-400" />
-          {order?.payment_method || 'Not specified'}
+          {order?.payment_method}
         </p>
       </div>
       <div>
         <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Total</p>
-      <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
-          Ksh {order?.total_price?.toLocaleString()}
+        <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
+          Ksh {parseFloat(order?.total_price).toLocaleString()}
         </p>
       </div>
-        <div>
-        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order Status </p>
+      <div>
+        <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order Status</p>
         <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
           <StatusBadge status={order?.order_status} size="sm" />
         </p>
@@ -124,8 +127,6 @@ const OrderSummaryCard = ({ order }) => (
     </div>
   </div>
 );
-
-
 
 const SingleOrder = () => {
   const { id } = useParams();
@@ -139,6 +140,7 @@ const SingleOrder = () => {
         const response = await apiCall(`orders/${id}`, "GET");
         setOrder(response.order);
       } catch (error) {
+        console.error("Error fetching order:", error);
       } finally {
         setIsLoading(false);
       }
@@ -202,7 +204,7 @@ const SingleOrder = () => {
           {/* Left Column */}
           <div className="lg:col-span-6 space-y-6">
             
-            {/* Customer Details */}
+            {/* Customer Details*/}
             <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                 <h3 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center">
@@ -215,18 +217,25 @@ const SingleOrder = () => {
                 <DetailItem title="Email Address" value={order?.user?.email} icon={<FiMail />} />
                 <DetailItem 
                   title="Delivery Address" 
-                  value={order?.delivery_address} 
+                  value={order?.user?.address} 
                   icon={<FiMapPin />}
                 />
-                <DetailItem title="Contact Phone" value={order?.delivery_phone} icon={<FiPhone />} />
+                <DetailItem title="Contact Phone" value={order?.user?.phone} icon={<FiPhone />} />
+                {order?.delivery_date && (
+                  <DetailItem 
+                    title="Delivery Date" 
+                    value={formatDateTime(order.delivery_date)} 
+                    icon={<FiCalendar />} 
+                  />
+                )}
               </div>
             </div>
 
           </div>
 
-          {/* Right Column - Order Items - FIXED */}
+          {/* Right Column - Order Items */}
           <div className="lg:col-span-6">
-            <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm  sticky top-6">
+            <div className="bg-white border border-slate-200/80 rounded-2xl p-4 shadow-sm sticky top-6">
               <div className="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
                 <h3 className="text-base font-extrabold text-slate-800 tracking-tight flex items-center">
                   <FiShoppingBag className="w-4 h-4 mr-2 text-blue-600" />
@@ -237,16 +246,27 @@ const SingleOrder = () => {
                 </span>
               </div>
               
-              {/* Items List - Fixed with better padding and spacing */}
+              {/* Items List */}
               <div className="divide-y divide-slate-100 max-h-[420px] overflow-y-auto pr-1">
                 {order?.dishes && order.dishes.length > 0 ? (
-                  order.dishes.map((dish) => (
-                    <OrderedDishItem
-                      key={dish.id || dish.dish_id}
-                      dishOrderDetails={dish}
-                      dishDetails={dish?.metadata}
-                    />
-                  ))
+                  order.dishes.map((dish) => {
+                    // Extract dish details properly
+                    const dishData = {
+                      ...dish,
+                      // The quantity and total_price are in order_dishes
+                      quantity: dish.order_dishes?.quantity || dish.quantity || 0,
+                      unit_price: parseFloat(dish.price) || 0,
+                      total_price: parseFloat(dish.order_dishes?.total_price) || parseFloat(dish.total_price) || 0
+                    };
+                    
+                    return (
+                      <OrderedDishItem
+                        key={dish.dish_id}
+                        dishOrderDetails={dishData}
+                        dishDetails={dish}
+                      />
+                    );
+                  })
                 ) : (
                   <div className="py-8 text-center text-slate-500">
                     <FiShoppingBag className="w-12 h-12 mx-auto text-slate-300 mb-3" />
@@ -256,24 +276,24 @@ const SingleOrder = () => {
                 )}
               </div>
 
-              {/* Order Total - Fixed with proper spacing */}
+              {/* Order Total */}
               <div className="pt-4 mt-4 border-t-2 border-dashed border-slate-200">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-sm text-slate-500">Subtotal</span>
                   <span className="text-sm font-semibold text-slate-700">
-                    Ksh {order?.total_price?.toLocaleString() || '0'}
+                    Ksh {parseFloat(order?.subtotal).toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-base font-black text-slate-800">Total Payable</span>
                   <span className="text-lg font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                    Ksh {order?.total_price?.toLocaleString() || '0'}
+                    Ksh {parseFloat(order?.total_price).toLocaleString()}
                   </span>
                 </div>
               </div>
             </div>
 
-          {/* Order Actions */}
+            {/* Order Actions */}
             <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-sm mt-6">
               <h3 className="text-base font-extrabold text-slate-800 tracking-tight mb-4 border-b border-slate-100 pb-3 flex items-center">
                 <FiCheckCircle className="w-4 h-4 mr-2 text-blue-600" />
@@ -281,7 +301,7 @@ const SingleOrder = () => {
               </h3>
               
               <div className="flex flex-wrap gap-3">
-                {order?.order_status === "PENDING" && (
+                {order?.order_status?.toUpperCase() === "PENDING" && (
                   <>
                     <button 
                       onClick={() => updateOrder(order.order_id, "ACCEPTED")}
@@ -305,7 +325,7 @@ const SingleOrder = () => {
                     </button>
                   </>
                 )}
-                {order?.order_status === "ACCEPTED" && (
+                {order?.order_status?.toUpperCase() === "ACCEPTED" && (
                   <button 
                     onClick={() => updateOrder(order.order_id, "READY_FOR_DELIVERY")}
                     disabled={isUpdating}
@@ -320,7 +340,7 @@ const SingleOrder = () => {
                     )}
                   </button>
                 )}
-                {order?.order_status === "READY_FOR_DELIVERY" && (
+                {order?.order_status?.toUpperCase() === "READY_FOR_DELIVERY" && (
                   <button 
                     onClick={() => updateOrder(order.order_id, "DELIVERED")}
                     disabled={isUpdating}
@@ -335,7 +355,7 @@ const SingleOrder = () => {
                     )}
                   </button>
                 )}
-                {order?.order_status === "DELIVERED" && (
+                {order?.order_status?.toUpperCase() === "DELIVERED" && (
                   <button 
                     onClick={() => updateOrder(order.order_id, "COMPLETED")}
                     disabled={isUpdating}
@@ -350,13 +370,13 @@ const SingleOrder = () => {
                     )}
                   </button>
                 )}
-                {order?.order_status === "COMPLETED" && (
+                {order?.order_status?.toUpperCase() === "COMPLETED" && (
                   <div className="w-full bg-gradient-to-r from-emerald-50 to-emerald-100/50 text-emerald-800 text-sm font-semibold p-4 rounded-xl text-center border border-emerald-100/80 flex items-center justify-center">
                     <FiCheckCircle className="w-5 h-5 mr-2 text-emerald-600" />
                     Order successfully completed
                   </div>
                 )}
-                {order?.order_status === "REJECTED" && (
+                {order?.order_status?.toUpperCase() === "REJECTED" && (
                   <div className="w-full bg-gradient-to-r from-rose-50 to-rose-100/50 text-rose-800 text-sm font-semibold p-4 rounded-xl text-center border border-rose-100/80 flex items-center justify-center">
                     <FiAlertCircle className="w-5 h-5 mr-2 text-rose-600" />
                     Order has been cancelled

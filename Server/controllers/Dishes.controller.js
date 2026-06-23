@@ -2,11 +2,11 @@ const Dishes = require("../models/Dishes.Model.js");
 
 const createDish = async (req, res) => {
   const { name, description, price, category, quantity } = req.body;
-
-  // image will be a url ,  come from upload image middleware
-  const image = req.file ? req.file.path : "";
+  const image = req.file ? req.file.path.replace(/\\/g, "/") : "";
 
   if (!name || !description || !price || !category || !quantity) {
+    console.log(req.body);
+    
     return res.status(400).json({
       success: false,
       message: "All fields are required",
@@ -14,7 +14,14 @@ const createDish = async (req, res) => {
   }
 
   try {
-    const dish = await Dishes.create({ name, description, price, image: image.replace(/\\/g, "/"),category, quantity, });
+    const dish = await Dishes.create({ 
+      name, 
+      description, 
+      price, 
+      image, 
+      category, 
+      quantity 
+    });
 
     return res.status(201).json({
       success: true,
@@ -51,15 +58,9 @@ const getAllDishes = async (req, res) => {
 
 const getDishById = async (req, res) => {
   const { id } = req.params;
-  if (!id) {
-    return res.status(400).json({
-      success: false,
-      message: "Id is missing",
-    });
-  }
 
   try {
-    const dish = await Dishes.findOne({ where: { id } });
+    const dish = await Dishes.findOne({ where: { dish_id: id } });
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -85,31 +86,16 @@ const updateDish = async (req, res) => {
   const { id } = req.params;
   const { name, description, price, category, quantity } = req.body;
 
-  const image = req.file ? req.file.path : "";
 
-  if ( !id ||!name || !description  ||!price   ||!category || !quantity) {
+  if (!id || !name || !description || !price || !category || quantity === undefined) {
     return res.status(400).json({
       success: false,
-      message:
-        "Id or name or description or price  or category or quantity is missing",
+      message: "Required fields or ID missing",
     });
   }
 
   try {
-    const dish = await Dishes.findOne({ where: { id } });
-
-    let info = {
-       name: req.body.name, 
-       description: req.body.description, 
-       price: req.body.price, 
-       category: req.body.category,
-       quantity:req.body.quantity, 
-    }
-
-    if(req.file){
-      info.image=  image.replace(/\\/g, "/")
-    }
-
+    const dish = await Dishes.findOne({ where: { dish_id: id } });
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -117,10 +103,23 @@ const updateDish = async (req, res) => {
       });
     }
 
-     await Dishes.update(info, {where: {  id: req.params.id} });
+    let info = {
+      name,
+      description,
+      price,
+      category,
+      quantity,
+    };
+
+    if (req.file) {
+      info.image = req.file.path.replace(/\\/g, "/");
+    }
+
+    await Dishes.update(info, { where: { dish_id: id } });
+    const updatedDish = await Dishes.findOne({ where: { dish_id: id } });
     return res.status(200).json({
       success: true,
-      dish: Dishes,
+      dish: updatedDish,
     });
   } catch (error) {
     return res.status(500).json({
@@ -136,15 +135,9 @@ const updateDish = async (req, res) => {
 
 const deleteDish = async (req, res) => {
   const { id } = req.params;
-  if (!id) {
-    return res.status(400).json({
-      success: false,
-      message: "Id is missing",
-    });
-  }
 
   try {
-    const dish = await Dishes.findOne({ where: { id } });
+    const dish = await Dishes.findOne({ where: { dish_id: id } });
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -152,7 +145,7 @@ const deleteDish = async (req, res) => {
       });
     }
 
-    await Dishes.destroy({ where: { id } });
+    await Dishes.destroy({ where: { dish_id: id } });
     return res.status(200).json({
       success: true,
       dishId: id,

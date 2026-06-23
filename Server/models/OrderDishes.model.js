@@ -1,11 +1,6 @@
 const { DataTypes } = require("sequelize");
 const db = require("../config/dbConfig.js");
 
-/**
- * This is the model for the order_dishes table, it has a foreign key to the orders table and a foreign key to the dishes table
- * It is a junction table that will store the dishes that are ordered in a specific order
- */
-
 const OrderDishes = db.define(
   "order_dishes",
   {
@@ -16,30 +11,44 @@ const OrderDishes = db.define(
     },
     order_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'orders',
+        key: 'order_id',
+      },
     },
     dish_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'dishes',
+        key: 'dish_id',
+      },
     },
     quantity: {
       type: DataTypes.INTEGER,
+      allowNull: false,
     },
-    unit_price: {
-      type: DataTypes.FLOAT,
+    total_price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
     freezeTableName: true,
     timestamps: true,
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
     initialAutoIncrement: 100,
   }
 );
-
-db.sync()
-  .then(() => {
-    console.log("OrderDishes table Synced successfully!");
-  })
-  .catch((error) => {
-    console.log("Unable to Synced OrderDishes table", error);
-  });
 
 module.exports = OrderDishes;

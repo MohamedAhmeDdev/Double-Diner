@@ -139,7 +139,7 @@ const Inventory = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <div className="flex justify-end space-x-2">
                           <Link 
-                            to={`/inventory/update/${item.id}`} 
+                            to={`/inventory/update/${item.dish_id}`} 
                             className="text-black hover:text-white p-2 border border-gray-200 hover:border-black hover:bg-black rounded-lg transition-all inline-flex items-center"
                           >
                             <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -150,7 +150,7 @@ const Inventory = () => {
                           <button 
                             type="button" 
                             className="text-red-600 hover:text-white p-2 border border-gray-200 hover:border-red-600 hover:bg-red-600 rounded-lg transition-all inline-flex items-center" 
-                            onClick={() => handleDelete(item.id)}
+                            onClick={() => handleDelete(item.dish_id)}
                           >
                             <svg className="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />

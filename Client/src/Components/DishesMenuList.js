@@ -89,7 +89,7 @@ const DishItem = ({ dish }) => {
     )}
   </div>
   <Link
-    to={`/dishes/${dish.id}`}
+    to={`/dishes/${dish.dish_id}`}
     className="text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-0.5 group shrink-0"
   >
     View Details

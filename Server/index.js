@@ -1,50 +1,73 @@
 const express = require("express");
 const cors = require("cors");
-const morgan = require("morgan");  //routing and middleware
+const morgan = require("morgan");
 
 const app = express();
 
+// Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cors());
+app.use("/Images", express.static("./Images"));
 
+// Database & Models configuration
 const database = require("./config/dbConfig");
+const Users = require("./models/User.model");
+const Dishes = require("./models/Dishes.Model");
+const Orders = require("./models/Orders.model");
+const OrderDishes = require("./models/OrderDishes.model");
+
+// Define Core System Relationships
+// 1. One-to-Many: Users <-> Orders
+Users.hasMany(Orders, { foreignKey: "user_id", onDelete: "CASCADE" });
+Orders.belongsTo(Users, { foreignKey: "user_id" });
+
+// 2. Many-to-Many: Orders <-> Dishes via OrderDishes
+Orders.belongsToMany(Dishes, { through: OrderDishes, foreignKey: "order_id", otherKey: "dish_id" });
+Dishes.belongsToMany(Orders, { through: OrderDishes, foreignKey: "dish_id", otherKey: "order_id" });
+
+// 3. Super Many-to-Many: Allowing direct querying via target models
+Orders.hasMany(OrderDishes, { foreignKey: "order_id" });
+OrderDishes.belongsTo(Orders, { foreignKey: "order_id" });
+
+Dishes.hasMany(OrderDishes, { foreignKey: "dish_id" });
+OrderDishes.belongsTo(Dishes, { foreignKey: "dish_id" });
+
+// Initialize Database Connection and Synchronize Tables Sequential order
+async function initDatabase() {
+  try {
+    await database.authenticate();
+    console.log("Connected to the database successfully...");
+    
+    // Sync all tables with relational constraints applied concurrently 
+    await database.sync();
+    console.log("All tables and relationships synced successfully!");
+  } catch (error) {
+    console.error("Database initialization failed:", error);
+  }
+}
+initDatabase();
+
+// Routing Configurations
 const AuthRouter = require("./routes/Auth.route");
 const DishesRouter = require("./routes/Dishes.route");
 const OrdersRouter = require("./routes/Orders.route");
-const ReservationRouter = require("./routes/ReservationRoute");
 
-//Admin
+// Admin Routing Configurations
 const AdminOrdersRouter = require("./routes/admin_orders.route");
 const AdminUsersRouter = require("./routes/admin_customers.route");
 const AdminDishesRouter = require("./routes/admin_dishes.route");
-const AdminReservationRouter = require("./routes/admin_reservation.route");
 const AdminReportDishRouter = require("./routes/report/inventory.route");
 
-try {
-  database.authenticate();
-  console.log("you are connected to the database...");
-} catch (error) {
-  console.error("Connection error:", error);
-}
-
-app.use(cors());
-
-//static Images Folder
-app.use("/Images", express.static("./Images"));
-
+// User Application Endpoints
 app.use("/auth", AuthRouter);
-
-//user api routes
 app.use("/dishes", DishesRouter);
 app.use("/orders", OrdersRouter);
-app.use("/reservation", ReservationRouter);
 
-
-//Admin api routes
+// Admin Application Endpoints
 app.use("/admin/orders", AdminOrdersRouter);
 app.use("/admin/users", AdminUsersRouter);
 app.use("/admin/dishes", AdminDishesRouter);
-app.use("/admin/reservation", AdminReservationRouter);
 app.use("/admin/report/dish", AdminReportDishRouter);
 
 app.listen(5000, () => console.log("Server running at port 5000"));

@@ -1,7 +1,6 @@
 const OrderRouter = require("express").Router();
 
 const {
-  createToken,
   createOrder,
   getAllOrdersForUser,
   getOrderForUserById,
@@ -13,7 +12,7 @@ const { verifyToken } = require("../middleware/VerifyToken");
 
 OrderRouter.use(verifyToken);
 
-OrderRouter.route("/").post( createToken, createOrder).get(getAllOrdersForUser);
+OrderRouter.route("/").post( createOrder).get(getAllOrdersForUser);
 
 OrderRouter.route("/:id")
   .get(getOrderForUserById)
