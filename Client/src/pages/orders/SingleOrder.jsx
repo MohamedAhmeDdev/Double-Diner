@@ -13,7 +13,7 @@ import { OrderProgressBar } from "../../Components/OrderProgressBar";
 
 // Enhanced Status Badge Component
 const StatusBadge = ({ status, size = "md" }) => {
-  const normalizedStatus = status?.toUpperCase() || 'PENDING';
+  const normalizedStatus = status?.toUpperCase();
   
   const STATUS_CONFIG = {
     PENDING: { 
@@ -67,7 +67,7 @@ const StatusBadge = ({ status, size = "md" }) => {
     }
   };
 
-  const config = STATUS_CONFIG[normalizedStatus] || STATUS_CONFIG.PENDING;
+  const config = STATUS_CONFIG[normalizedStatus];
   
   const sizeClasses = {
     sm: "px-2.5 py-0.5 text-[10px]",
@@ -85,7 +85,7 @@ const StatusBadge = ({ status, size = "md" }) => {
 
 // Payment Status Badge
 const PaymentStatusBadge = ({ status }) => {
-  const normalizedStatus = status?.toUpperCase() || 'PENDING';
+  const normalizedStatus = status?.toUpperCase();
   
   const PAYMENT_CONFIG = {
     PENDING: {
@@ -111,7 +111,7 @@ const PaymentStatusBadge = ({ status }) => {
     }
   };
 
-  const config = PAYMENT_CONFIG[normalizedStatus] || PAYMENT_CONFIG.PENDING;
+  const config = PAYMENT_CONFIG[normalizedStatus];
 
   return (
     <span className={`inline-flex items-center rounded-full font-semibold border tracking-wide uppercase text-xs px-3 py-1.5 ${config.bg} ${config.text} ${config.border}`}>
@@ -130,7 +130,7 @@ const DetailItem = ({ title, value, icon, className = "" }) => (
     <div className="min-w-0 flex-1">
       <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">{title}</p>
       <p className="text-sm font-semibold text-slate-800 mt-0.5 break-words">
-        {value || <span className="text-slate-400 font-normal">Not provided</span>}
+        {value}
       </p>
     </div>
   </div>
@@ -138,29 +138,29 @@ const DetailItem = ({ title, value, icon, className = "" }) => (
 
 // Order Summary Card Component
 const OrderSummaryCard = ({ order }) => {
-  const orderStatus = order?.order_status?.toUpperCase() || 'PENDING';
-  const paymentStatus = order?.payment_status?.toUpperCase() || 'PENDING';
+  const orderStatus = order?.order_status?.toUpperCase();
+  const paymentStatus = order?.payment_status?.toUpperCase();
   
   return (
     <div className="bg-white border border-blue-100/80 rounded-2xl p-5 mb-6 shadow-sm">
       <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">     
         <div>
           <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Order ID</p>
-          <p className="text-sm font-bold text-slate-800 mt-1">{order?.order_number || `#${order?.order_id}`}</p>
+          <p className="text-sm font-bold text-slate-800 mt-1">{order?.order_number}</p>
         </div>
         <div>
           <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Date</p>
           <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center whitespace-nowrap">
             <FiCalendar className="w-3 h-3 mr-1.5 text-slate-400" />
-            {formatDate(order?.order_date || order?.created_at)}
+            {formatDate(order?.order_date)}
           </p>
-          <p className="text-xs text-slate-400 ml-5">{formatTime(order?.order_date || order?.created_at)}</p>
+          <p className="text-xs text-slate-400 ml-5">{formatTime(order?.order_date)}</p>
         </div>
         <div>
           <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Payment Method</p>
           <p className="text-sm font-semibold text-slate-700 mt-1 flex items-center">
             <FiCreditCard className="w-3 h-3 mr-1.5 text-slate-400" />
-            {order?.payment_method?.toUpperCase() || 'N/A'}
+            {order?.payment_method?.toUpperCase()}
           </p>
         </div>
         <div>
@@ -178,7 +178,7 @@ const OrderSummaryCard = ({ order }) => {
         <div>
           <p className="text-[10px] font-bold text-blue-600 uppercase tracking-wider">Total</p>
           <p className="text-sm font-bold text-slate-800 mt-1 flex items-center">
-            Ksh {parseFloat(order?.total_price || 0).toLocaleString()}
+            Ksh {parseFloat(order?.total_price).toLocaleString()}
           </p>
         </div>
       </div>
@@ -205,7 +205,7 @@ const SingleOrder = () => {
       
       if (data) {
         // Check if order is nested in data.order or directly in data
-        const orderData = data.order || data;
+        const orderData = data.order;
         setOrder(orderData);
       }
     } catch (error) {
@@ -217,10 +217,6 @@ const SingleOrder = () => {
   };
 
   const cancelOrder = async () => {
-    if (!window.confirm('Are you sure you want to cancel this order?')) {
-      return;
-    }
-
     setCancelling(true);
     try {
       const data = await apiCall(`/orders/${id}`, "PATCH", {
@@ -228,7 +224,7 @@ const SingleOrder = () => {
       });
 
       if (data) {
-        const updatedOrder = data.order || data;
+        const updatedOrder = data.order;
         setOrder(updatedOrder);
         toast.info("Order Cancelled Successfully");
         setTimeout(() => {
@@ -258,7 +254,7 @@ const SingleOrder = () => {
     );
   }
 
-  const orderStatus = order?.order_status?.toUpperCase() || 'PENDING';
+  const orderStatus = order?.order_status?.toUpperCase();
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8">
@@ -295,7 +291,7 @@ const SingleOrder = () => {
               <div className="space-y-2">
                 <DetailItem 
                   title="Placed on" 
-                  value={`${formatDate(order.order_date || order.created_at)} at ${formatTime(order.order_date || order.created_at)}`} 
+                  value={`${formatDate(order.order_date )} at ${formatTime(order.order_date)}`} 
                   icon={<FiCalendar />} 
                 />
                 {order.delivery_date && (
@@ -367,19 +363,19 @@ const SingleOrder = () => {
                 {order?.dishes && order.dishes.length > 0 ? (
                   order.dishes.map((dish) => {
                     // Get quantity from order_dishes or directly from dish
-                    const quantity = dish.order_dishes?.quantity || dish.quantity || 1;
-                    const dishPrice = parseFloat(dish.price) || 0;
+                    const quantity = dish.order_dishes?.quantity;
+                    const dishPrice = parseFloat(dish.price);
                     const total = dishPrice * quantity;
                     const imageUrl = dish.image ? `${SERVER_URL}/${dish.image}` : null;
                     
                     return (
-                      <div key={dish.dish_id || dish.id} className="flex items-start py-4 first:pt-0 last:pb-0">
+                      <div key={dish.dish_id} className="flex items-start py-4 first:pt-0 last:pb-0">
                         <div className="w-20 h-20 rounded-lg overflow-hidden bg-slate-100 flex-shrink-0 mr-4">
                           {imageUrl ? (
                             <img 
                               className="w-full h-full object-cover"
                               src={imageUrl} 
-                              alt={dish.name || 'Dish'}
+                              alt={dish.name}
                               onError={(e) => {
                                 e.target.style.display = 'none';
                                 e.target.parentElement.innerHTML = '<div class="w-full h-full flex items-center justify-center text-2xl">🍽️</div>';
@@ -390,7 +386,7 @@ const SingleOrder = () => {
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-semibold text-slate-800">{dish.name || 'Unknown Dish'}</h4>
+                          <h4 className="text-sm font-semibold text-slate-800">{dish.name}</h4>
                           {dish.description && (
                             <p className="text-xs text-slate-500 mt-0.5 line-clamp-1">{dish.description}</p>
                           )}

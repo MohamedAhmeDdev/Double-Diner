@@ -30,11 +30,11 @@ function UpdateProfile() {
   const getUserById = async () => {
     try {
       const response = await axios.get(`${SERVER_URL}/auth/${id}`);
-      setName(response.data.user.name || '');
-      setEmail(response.data.user.email || '');
-      setAddress(response.data.user.address || '');
-      setCity(response.data.user.city || ''); // Added city to data fetch
-      setPhoneNumber(response.data.user.phone || '');
+      setName(response.data.user.name);
+      setEmail(response.data.user.email);
+      setAddress(response.data.user.address);
+      setCity(response.data.user.city);
+      setPhoneNumber(response.data.user.phone);
     } catch (error) {
       toast.error("Failed to fetch profile info");
     }
@@ -113,7 +113,7 @@ function UpdateProfile() {
       setConfirmPassword('');
       toast.success("Security credentials modified successfully!");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to alter password key.");
+      toast.error(error.response?.data?.message);
     } finally {
       setIsPasswordLoading(false);
     }

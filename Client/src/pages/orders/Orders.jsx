@@ -49,8 +49,7 @@ const Orders = () => {
   const filteredOrders = orders.filter((order) => {
     const matchesSearch = 
       order.order_id?.toString().includes(searchTerm) ||
-      order.order_number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.dishes?.some(item => item?.name?.toLowerCase().includes(searchTerm.toLowerCase()));
+      order.order_number?.toLowerCase().includes(searchTerm.toLowerCase())
     
     const matchesStatus = filterStatus === "ALL" || order.order_status?.toUpperCase() === filterStatus;
     const matchesPaymentStatus = filterPaymentStatus === "ALL" || order.payment_status?.toUpperCase() === filterPaymentStatus;

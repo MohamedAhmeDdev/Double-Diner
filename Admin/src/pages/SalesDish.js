@@ -34,7 +34,7 @@ function SalesDish() {
   });
 
   const totalPrice = dishReport.reduce((total, sales) => total + (sales.unit_price * sales.quantity), 0);
-  const totalDishesSold = dishReport.reduce((sum, item) => sum + Number(item.dish_id_quantity || 0), 0);
+  const totalDishesSold = dishReport.reduce((sum, item) => sum + Number(item.dish_id_quantity), 0);
 
   // Skeleton row component
   const SkeletonRow = () => (
@@ -180,7 +180,7 @@ function SalesDish() {
                       #{item.dish_id}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold uppercase tracking-tight">
-                      {item.metadata?.name || "N/A"}
+                      {item.metadata?.name}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
                       {item.dish_id_quantity}

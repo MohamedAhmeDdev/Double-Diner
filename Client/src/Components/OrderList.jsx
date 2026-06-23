@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { 
   FiEye, FiX, FiTrash2, FiClock, FiCheckCircle, 
   FiTruck, FiPackage, FiShoppingBag, FiCalendar,
-  FiCreditCard, FiAlertCircle
+  FiCreditCard,
 } from "react-icons/fi";
 import { formatDateTime } from "../utils/functions";
 
@@ -111,7 +111,7 @@ const PaymentMethodBadge = ({ method }) => {
       mpesa: "bg-purple-50 text-purple-700 border-purple-200",
       bank_transfer: "bg-indigo-50 text-indigo-700 border-indigo-200"
     };
-    return colors[method?.toLowerCase()] || "bg-gray-50 text-gray-700 border-gray-200";
+    return colors[method?.toLowerCase()];
   };
 
   return (
@@ -125,7 +125,7 @@ const PaymentMethodBadge = ({ method }) => {
 const OrderItem = ({ order, handleDelete }) => {
   // Format items list - updated to use the dish name directly
   const formatItemsListToString = (dishes = []) => {
-    const itemsList = dishes.map((dish) => dish?.name || "Unknown").filter(Boolean);
+    const itemsList = dishes.map((dish) => dish?.name).filter(Boolean);
     if (itemsList.length === 0) return "No items";
     if (itemsList.length > 3) {
       return `${itemsList.slice(0, 3).join(", ")} +${itemsList.length - 3} more`;
@@ -160,15 +160,11 @@ const OrderItem = ({ order, handleDelete }) => {
     );
 
     // Delete button for cancelled/rejected orders only
-    if (order.order_status === "CANCELLED" || order.order_status === "REJECTED") {
+ if (order.order_status === "CANCELLED" || order.order_status === "REJECTED") {
       buttons.push(
         <button
           key="delete"
-          onClick={() => {
-            if (window.confirm('Are you sure you want to permanently delete this order?')) {
-              handleDelete(order.order_id);
-            }
-          }}
+          onClick={() => handleDelete(order.order_id)}
           className="p-2 rounded-lg text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-all duration-200"
           title="Delete Order"
         >
@@ -189,7 +185,7 @@ const OrderItem = ({ order, handleDelete }) => {
             <FiShoppingBag className="text-gray-700" size={16} />
           </div>
           <div>
-            <span className="font-semibold text-gray-900 text-sm">#{order.order_number || order.order_id}</span>
+            <span className="font-semibold text-gray-900 text-sm">#{order.order_number}</span>
             <div className="text-xs text-gray-400">{order.order_id}</div>
           </div>
         </div>
@@ -199,7 +195,7 @@ const OrderItem = ({ order, handleDelete }) => {
       <td className="px-6 py-4">
         <div className="flex items-center gap-1.5 text-sm text-gray-500">
           Ksh
-          <span className="font-medium text-gray-900">{order.total_price?.toLocaleString() || 0}</span>
+          <span className="font-medium text-gray-900">{order.total_price?.toLocaleString()}</span>
         </div>
         {order.subtotal && order.subtotal !== order.total_price && (
           <div className="text-xs text-gray-400">Subtotal: Ksh {order.subtotal?.toLocaleString()}</div>
@@ -214,7 +210,7 @@ const OrderItem = ({ order, handleDelete }) => {
       {/* Payment Status - Simplified */}
       <td className="px-6 py-4">
         <span className="text-sm text-gray-700 capitalize">
-          {order.payment_status?.toLowerCase() || 'pending'}
+          {order.payment_status?.toLowerCase()}
         </span>
       </td>
 
@@ -239,7 +235,7 @@ const OrderItem = ({ order, handleDelete }) => {
       <td className="px-6 py-4">
         <div className="flex items-center gap-1.5 text-sm text-gray-500 whitespace-nowrap">
           <FiCalendar size={14} className="flex-shrink-0" />
-          <span>{formatDateTime(order.order_date || order.created_at)}</span>
+          <span>{formatDateTime(order.order_date)}</span>
         </div>
       </td>
 

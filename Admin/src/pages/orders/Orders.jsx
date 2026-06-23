@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiEye, FiClock, FiCheckCircle, FiTruck, FiX } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
-import { formatDateTime } from "../../utils/functions";
+
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -65,7 +65,7 @@ const Orders = () => {
       default:
         return (
           <span className={`${baseStyle} bg-white border-neutral-200 text-neutral-400`}>
-            {status || 'Unknown'}
+            {status}
           </span>
         );
     }
@@ -97,7 +97,7 @@ const Orders = () => {
       default:
         return (
           <span className={`${baseStyle} bg-white border-neutral-200 text-neutral-400`}>
-            {status || 'N/A'}
+            {status}
           </span>
         );
     }

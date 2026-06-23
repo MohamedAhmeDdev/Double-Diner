@@ -106,7 +106,7 @@ function UpdateProfile() {
       setConfirmPassword('');
       toast.success("Security credentials modified successfully!");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to alter password key.");
+      toast.error(error.response?.data?.message);
     } finally {
       setIsPasswordLoading(false);
     }

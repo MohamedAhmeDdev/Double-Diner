@@ -37,7 +37,7 @@ function UpdateUser({ closeModal, selectedUser, role, setRole, handleUpdate }) {
                   className="w-full bg-gray-50 border border-gray-200 rounded-lg py-2.5 px-3 text-sm font-semibold text-gray-500 uppercase tracking-tight font-sans cursor-not-allowed focus:outline-none"
                   id="name"
                   type="text"
-                  value={selectedUser?.name || ""}
+                  value={selectedUser?.name}
                   readOnly
                 />
               </div>
@@ -50,7 +50,7 @@ function UpdateUser({ closeModal, selectedUser, role, setRole, handleUpdate }) {
                   className="w-full bg-gray-50 border border-gray-200 rounded-lg py-2.5 px-3 text-sm font-medium text-gray-500 font-mono cursor-not-allowed focus:outline-none"
                   id="email"
                   type="email"
-                  value={selectedUser?.email || ""}
+                  value={selectedUser?.email}
                   readOnly
                 />
               </div>

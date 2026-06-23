@@ -106,7 +106,7 @@ const DishView = () => {
   }
 
   // Calculate total price for current quantity
-  const totalPrice = (dish.price || 0) * quantity;
+  const totalPrice = (dish.price) * quantity;
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8">
@@ -149,7 +149,7 @@ const DishView = () => {
               <div className="mb-6">
                 <div className="flex items-start justify-between">
                   <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 leading-tight">
-                    {dish?.name || 'Delicious Dish'}
+                    {dish?.name}
                   </h1>
                 </div>
                 

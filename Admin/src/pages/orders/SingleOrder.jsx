@@ -13,7 +13,7 @@ import { OrderedDishItem } from "../../Components/OrderedDishItem";
 // Enhanced Status Badge with animations
 const StatusBadge = ({ status, size = "md" }) => {
   // Normalize status to uppercase for comparison
-  const normalizedStatus = status?.toUpperCase() || '';
+  const normalizedStatus = status?.toUpperCase();
   
   const statusConfig = {
     PENDING: { 
@@ -84,7 +84,7 @@ const DetailItem = ({ title, value, icon, action }) => (
         )}
       </p>
       <p className="text-sm font-semibold text-slate-800 mt-0.5 break-words">
-        {value || <span className="text-slate-400 font-normal">Not provided</span>}
+        {value}
       </p>
     </div>
   </div>
@@ -248,7 +248,7 @@ const SingleOrder = () => {
                   Order Items
                 </h3>
                 <span className="text-xs font-bold bg-blue-50 text-blue-600 px-3 py-1 rounded-full">
-                  {order?.dishes?.length || 0} {order?.dishes?.length === 1 ? 'item' : 'items'}
+                  {order?.dishes?.length} {order?.dishes?.length === 1 ? 'item' : 'items'}
                 </span>
               </div>
               
@@ -375,6 +375,13 @@ const SingleOrder = () => {
                       </>
                     )}
                   </button>
+                )}
+                  
+                {order?.order_status?.toUpperCase() === "CANCELLED" && (
+                  <div className="w-full bg-gradient-to-r from-rose-50 to-rose-100/50 text-rose-800 text-sm font-semibold p-4 rounded-xl text-center border border-rose-100/80 flex items-center justify-center">
+                    <FiAlertCircle className="w-5 h-5 mr-2 text-rose-600 flex-shrink-0" />
+                    This order has been cancelled
+                  </div>
                 )}
                 {order?.order_status?.toUpperCase() === "COMPLETED" && (
                   <div className="w-full bg-gradient-to-r from-emerald-50 to-emerald-100/50 text-emerald-800 text-sm font-semibold p-4 rounded-xl text-center border border-emerald-100/80 flex items-center justify-center">

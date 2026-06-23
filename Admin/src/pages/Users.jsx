@@ -38,7 +38,7 @@ const Customers = () => {
       ));
       toast.success("User updated successfully");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to update user");
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -49,7 +49,7 @@ const Customers = () => {
       setUsers(users.filter(user => user.id !== id));
       toast.success("User deleted successfully");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to delete user");
+      toast.error(error.response?.data?.message);
     }
   };
 
@@ -214,19 +214,19 @@ const Customers = () => {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center text-sm text-gray-600">
                         <FiPhone className="mr-2 text-gray-400 flex-shrink-0" size={14} />
-                        <span>{user.phone || user.phoneNumber || '-'}</span>
+                        <span>{user.phone}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center text-sm text-gray-600">
                         <FiMapPin className="mr-2 text-gray-400 flex-shrink-0" size={14} />
-                        <span>{user.city || '-'}</span>
+                        <span>{user.city}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center text-sm text-gray-600">
                         <FiHome className="mr-2 text-gray-400 flex-shrink-0" size={14} />
-                        <span>{user.address || '-'}</span>
+                        <span>{user.address}</span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 uppercase font-mono tracking-wide">

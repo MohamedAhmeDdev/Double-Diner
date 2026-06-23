@@ -8,19 +8,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { UseAuthContext } from "../hook/UseAuthContext";
 import { 
   FiArrowLeft, 
-  FiSmartphone, 
-  FiShield, 
+
   FiTruck,
   FiCreditCard,
   FiShoppingBag,
   FiMapPin,
-  FiDollarSign
 } from "react-icons/fi";
 
 const CheckOutPage = () => {
   const { cartItems = [], clear } = UseCartContext();
   const { user } = UseAuthContext();
-  const [phoneNo, setPhoneNo] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState(null);
@@ -59,7 +56,7 @@ const CheckOutPage = () => {
         navigate("/orders");
       })
       .catch((err) => {
-        const errorMessage = err?.response?.data?.message || "Failed to create order. Please try again.";
+        const errorMessage = err?.response?.data?.message;
         toast.error(errorMessage);
       })
       .finally(() => {
@@ -136,16 +133,16 @@ const CheckOutPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
-                    <span className="text-gray-900 font-medium block truncate">{userInfo?.name || 'N/A'}</span>
+                    <span className="text-gray-900 font-medium block truncate">{userInfo?.name}</span>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Email Address</label>
-                    <span className="text-gray-900 font-medium block truncate">{userInfo?.email || 'N/A'}</span>
+                    <span className="text-gray-900 font-medium block truncate">{userInfo?.email}</span>
                   </div>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-1">Delivery Address</label>
-                  <span className="text-gray-900 block break-words">{userInfo?.address || 'No address provided'}</span>
+                  <span className="text-gray-900 block break-words">{userInfo?.address}</span>
                 </div>
               </div>
             </div>
