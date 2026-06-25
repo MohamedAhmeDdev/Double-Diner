@@ -246,16 +246,6 @@ const CheckOutPage = () => {
                     </span>
                     <span className="font-medium text-emerald-600">Free</span>
                   </div>
-                  
-                  {deliveryFee > 0 && (
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-amber-700 bg-amber-50 px-3 py-2.5 rounded-lg border border-amber-200/60">
-                      <span className="flex items-center gap-1.5">
-                        <FiTruck size={12} className="text-amber-500 flex-shrink-0" />
-                        Free delivery on orders over Ksh 500
-                      </span>
-                      <span className="font-semibold">Add Ksh {(500 - total).toLocaleString()} more</span>
-                    </div>
-                  )}
 
                   <div className="flex justify-between text-lg font-bold pt-4 border-t border-gray-100">
                     <span className="text-gray-900">Total</span>
