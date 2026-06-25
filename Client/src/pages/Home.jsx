@@ -48,7 +48,7 @@ const HomePage = () => {
       </div>
 
       {/* Menu grid */}
-      <div className="bg-gray-50/50">
+      <div className="">
         <div className="mx-auto max-w-7xl py-8 md:py-12 px-4 md:px-6">
           <DishesMenuList category={activeTab} />
         </div>
