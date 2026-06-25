@@ -87,7 +87,7 @@ const Cart = () => {
                   <ul className="divide-y divide-gray-100">
                     {cartItems.map((item, index) => (
                       <li 
-                        key={item.id} 
+                        key={item.dish_id}
                         className="p-6 hover:bg-gray-50/50 transition-all duration-200 group"
                       >
                         <div className="flex flex-col sm:flex-row gap-4">
@@ -128,9 +128,9 @@ const Cart = () => {
                                 <button
                                   onClick={() => {
                                     if (item.quantity > 1) {
-                                      updateItemQuantity({ id: item.id, quantity: item.quantity - 1 });
+                                      updateItemQuantity({ dish_id: item.dish_id, quantity: item.quantity - 1 });
                                     } else {
-                                      removeFromCart(item.id);
+                                      removeFromCart(item.dish_id);
                                     }
                                   }}
                                   className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 rounded-full transition-all duration-200 hover:shadow-sm"
@@ -140,7 +140,7 @@ const Cart = () => {
                                 </button>
                                 <span className="w-10 text-center text-sm font-semibold text-gray-900">{item.quantity}</span>
                                 <button
-                                  onClick={() => updateItemQuantity({ id: item.id, quantity: item.quantity + 1 })}
+                                  onClick={() => updateItemQuantity({ dish_id: item.dish_id, quantity: item.quantity + 1 })}
                                   className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 rounded-full transition-all duration-200 hover:shadow-sm"
                                   aria-label="Increase quantity"
                                 >
@@ -148,7 +148,7 @@ const Cart = () => {
                                 </button>
                               </div>
                               <button 
-                                onClick={() => removeFromCart(item.id)} 
+                                onClick={() => removeFromCart(item.dish_id)} 
                                 className="p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 transition-all duration-200"
                                 aria-label="Remove item"
                               >

@@ -74,7 +74,7 @@ const DishItem = ({ dish }) => {
 
         <p className="mt-1.5 line-clamp-2 text-sm text-gray-500">{dish?.description}</p>
 
-        <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+        <div className="mt-3 flex flex-row items-center justify-between gap-2 sm:gap-0">
           <div className="flex flex-wrap items-center gap-2">
             {dish?.category && (
               <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 capitalize whitespace-nowrap">
@@ -128,7 +128,7 @@ const DishesMenuList = ({ category }) => {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
         {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
           <div key={i} className="w-full animate-pulse">
             <div className="h-52 w-full rounded-t-xl bg-gray-200" />
@@ -160,7 +160,7 @@ const DishesMenuList = ({ category }) => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
       {dishes.map((dish) => (
         <DishItem key={dish.dish_id} dish={dish} />
       ))}

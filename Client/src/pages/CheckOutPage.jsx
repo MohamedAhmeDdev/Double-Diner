@@ -187,7 +187,7 @@ const CheckOutPage = () => {
           </div>
 
           {/* Right Column - Order Summary */}
-          <div className="lg:col-span-5 sticky top-6 space-y-6 order-1 lg:order-2">
+          <div className="lg:col-span-5  space-y-6 order-1 lg:order-2">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
                 <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">

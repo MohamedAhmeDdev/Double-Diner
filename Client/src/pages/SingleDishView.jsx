@@ -126,7 +126,7 @@ const DishView = () => {
           <div className="lg:flex">
             {/* Image Section */}
             <div className="lg:w-1/2 relative">
-              <div className="h-[530px]  relative overflow-hidden bg-gray-100">
+              <div className="md:h-[530px]  relative overflow-hidden bg-gray-100">
                 <img 
                   className="w-full h-full object-cover" 
                   src={`${SERVER_URL}/${dish?.image}`} 
