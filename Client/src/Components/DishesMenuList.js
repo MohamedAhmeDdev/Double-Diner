@@ -9,7 +9,7 @@ import axios from "axios";
 const DishItem = ({ dish }) => {
   const { cartItems, addToCart, removeFromCart } = UseCartContext();
   const [isLoading, setIsLoading] = useState(true);
-  const isAdded = cartItems.find((item) => item.id === dish.id);
+  const isAdded = cartItems.find((item) => item.dish_id === dish.dish_id);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -61,7 +61,7 @@ const DishItem = ({ dish }) => {
         <div className="flex items-start justify-between gap-3">
           <h3 className="font-semibold text-gray-900 line-clamp-1">{dish?.name}</h3>
           <button
-            onClick={() => (isAdded ? removeFromCart(dish.id) : addToCart(dish))}
+            onClick={() => (isAdded ? removeFromCart(dish.dish_id) : addToCart(dish))}
             className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-200 ${
               isAdded
                 ? "bg-rose-50 text-rose-600 hover:bg-rose-100"
@@ -74,28 +74,22 @@ const DishItem = ({ dish }) => {
 
         <p className="mt-1.5 line-clamp-2 text-sm text-gray-500">{dish?.description}</p>
 
-      <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
-  <div className="flex flex-wrap items-center gap-2">
-    {dish?.category && (
-      <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 capitalize whitespace-nowrap">
-        {dish.category}
-      </span>
-    )}
-    {dish?.prep_time && (
-      <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 flex items-center gap-1 whitespace-nowrap">
-        <FiClock size={10} />
-        {dish.prep_time}min
-      </span>
-    )}
-  </div>
-  <Link
-    to={`/dishes/${dish.dish_id}`}
-    className="text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-0.5 group shrink-0"
-  >
-    View Details
-    <MdArrowOutward size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-  </Link>
-</div>
+        <div className="mt-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
+          <div className="flex flex-wrap items-center gap-2">
+            {dish?.category && (
+              <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 capitalize whitespace-nowrap">
+                {dish.category}
+              </span>
+            )}
+          </div>
+          <Link
+            to={`/dishes/${dish.dish_id}`}
+            className="text-xs font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-0.5 group shrink-0"
+          >
+            View Details
+            <MdArrowOutward size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </Link>
+        </div>
       </div>
     </div>
   );
@@ -168,7 +162,7 @@ const DishesMenuList = ({ category }) => {
   return (
     <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
       {dishes.map((dish) => (
-        <DishItem key={dish.id} dish={dish} />
+        <DishItem key={dish.dish_id} dish={dish} />
       ))}
     </div>
   );

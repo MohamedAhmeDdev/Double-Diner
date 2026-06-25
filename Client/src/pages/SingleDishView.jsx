@@ -82,7 +82,7 @@ const DishView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const isAdded = cartItems.find((item) => item.id === dish.id);
+  const isAdded = cartItems.find((item) => item.dish_id === dish.dish_id);
 
   useEffect(() => {
     const getDish = async () => {
@@ -126,7 +126,7 @@ const DishView = () => {
           <div className="lg:flex">
             {/* Image Section */}
             <div className="lg:w-1/2 relative">
-              <div className="h-80 lg:h-full min-h-[400px] relative overflow-hidden bg-gray-100">
+              <div className="h-[530px]  relative overflow-hidden bg-gray-100">
                 <img 
                   className="w-full h-full object-cover" 
                   src={`${SERVER_URL}/${dish?.image}`} 
@@ -135,8 +135,8 @@ const DishView = () => {
                 />
 
                 {/* Price Badge on Image */}
-                 <div className="absolute  bottom-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
-          <span className="text-lg font-bold text-gray-900">
+                <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm border border-gray-100">
+                  <span className="text-lg font-bold text-gray-900">
                     Ksh {dish?.price?.toLocaleString()}
                   </span>
                 </div>
@@ -156,7 +156,7 @@ const DishView = () => {
                 {/* Quick Info Tags */}
                 <div className="flex flex-wrap items-center gap-3 mt-4">
                   {dish?.category && (
-                        <span className="px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-700 text-sm font-semibold rounded-full shadow-sm border border-gray-200 flex items-center gap-1.5">
+                    <span className="px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-700 text-sm font-semibold rounded-full shadow-sm border border-gray-200 flex items-center gap-1.5">
                       {dish.category}
                     </span>
                   )}
@@ -214,8 +214,8 @@ const DishView = () => {
               <div className="space-y-3">
                 {isAdded ? (
                   <button 
-                    onClick={() => removeFromCart(dish.id)}
-                    className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-lg "
+                    onClick={() => removeFromCart(dish.dish_id)}
+                    className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-lg"
                   >
                     <MdRemoveShoppingCart size={22} />
                     Remove from Cart
@@ -223,9 +223,13 @@ const DishView = () => {
                 ) : (
                   <button 
                     onClick={() => {
-                      addToCart({ ...dish, quantity });
+                      addToCart({ 
+                        ...dish, 
+                        quantity: quantity,
+                        dish_id: dish.dish_id 
+                      });
                     }}
-                    className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 hover:bg-gray-800 text-white font-bold text-base rounded-xl"
+                    className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 hover:bg-gray-800 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                   >
                     <MdAddShoppingCart size={22} />
                     Add to Cart

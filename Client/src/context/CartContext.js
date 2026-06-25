@@ -16,15 +16,40 @@ export const cartReducer = (state, action) => {
       };
 
     case "ADD_TO_CART":
+      const existingItem = state.cartItems.find(
+        (item) => item.dish_id === action.payload.dish_id
+      );
+      
+      if (existingItem) {
+        const newStateUpdate = {
+          cartItems: state.cartItems.map((item) => {
+            if (item.dish_id === action.payload.dish_id) {
+              return {
+                ...item,
+                quantity: (item.quantity || 1) + (action.payload.quantity || 1),
+              };
+            }
+            return item;
+          }),
+        };
+        localStorage.setItem("cart", JSON.stringify(newStateUpdate.cartItems));
+        return newStateUpdate;
+      }
+
       const newStateAdd = {
-        cartItems: [action.payload, ...state.cartItems],
+        cartItems: [{
+          ...action.payload,
+          quantity: action.payload.quantity || 1
+        }, ...state.cartItems],
       };
       localStorage.setItem("cart", JSON.stringify(newStateAdd.cartItems));
       return newStateAdd;
 
     case "REMOVE_FROM_CART":
       const newStateRemove = {
-        cartItems: state.cartItems.filter((item) => item.id !== action.payload),
+        cartItems: state.cartItems.filter(
+          (item) => item.dish_id !== action.payload
+        ),
       };
       localStorage.setItem("cart", JSON.stringify(newStateRemove.cartItems));
       return newStateRemove;
@@ -38,7 +63,7 @@ export const cartReducer = (state, action) => {
     case "UPDATE_ITEM_QUANTITY":
       const newStateUpdate = {
         cartItems: state.cartItems.map((item) => {
-          if (item.id === action.payload.id) {
+          if (item.dish_id === action.payload.dish_id) {
             return {
               ...item,
               quantity: action.payload.quantity,
