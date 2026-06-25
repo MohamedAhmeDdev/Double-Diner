@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import DishesMenuList from "../Components/DishesMenuList";
 
 export const DISH_CATEGORIES = [
-  { id: 0, name: "All", value: "all" },
-  { id: 1, name: "Appetizers", value: "appetizer" },
+  { id: 1, name: "Appetizer", value: "appetizer" },
   { id: 2, name: "Main Course", value: "maincourse" },
-  { id: 3, name: "Desserts", value: "dessert" },
-  { id: 4, name: "Beverages", value: "beverage" },
-  { id: 5, name: "Sides", value: "sidedish" },
-  { id: 6, name: "Salads", value: "salad" },
-  { id: 7, name: "Drinks", value: "drinks" },
+  { id: 3, name: "Dessert", value: "dessert" },
+  { id: 4, name: "Beverage", value: "beverage" },
+  { id: 5, name: "Side Dish", value: "sidedish" },
 ];
 
 const HomePage = () => {
