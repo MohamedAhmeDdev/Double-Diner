@@ -1,4 +1,4 @@
-const Category = require("../models/Category.Model.js");
+const Category = require("../models/Category.model.js");
 const Dishes = require("../models/Dishes.Model.js");
 
 // ==================== CREATE CATEGORY ====================
