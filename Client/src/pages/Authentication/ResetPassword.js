@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../../utils/constants/index";
 import axios from "axios";
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { FiLock, FiCheckCircle, FiArrowRight } from "react-icons/fi";

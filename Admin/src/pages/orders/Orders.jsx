@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiEye, FiClock, FiCheckCircle, FiTruck, FiX } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
+import Pagination from "../../Components/Pagination";
 
 
 const Orders = () => {
@@ -24,6 +25,7 @@ const Orders = () => {
       const response = await apiCall("orders", "GET");
       setOrders(response.orders);
     } catch (error) {
+      console.error("Error fetching orders:", error);
     } finally {
       setIsLoading(false);
     }
@@ -135,103 +137,8 @@ const Orders = () => {
     </tr>
   );
 
-  // Modern Mono Pagination Component
-  const Pagination = () => {
-    const pageNumbers = [];
-
-    for (let i = 1; i <= Math.ceil(orders.length / postsPerPage); i++) {
-      pageNumbers.push(i);
-    }
-
-    return (
-      <nav className="flex items-center justify-between w-full font-mono text-xs">
-        {/* Mobile Layout */}
-        <div className="flex-1 flex justify-between sm:hidden">
-          <button
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className={`px-4 py-2 border border-neutral-200 font-bold uppercase tracking-wider rounded ${
-              currentPage === 1 
-                ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' 
-                : 'bg-white text-black hover:border-black'
-            }`}
-          >
-            Prev
-          </button>
-          <button
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, pageNumbers.length))}
-            disabled={currentPage === pageNumbers.length}
-            className={`px-4 py-2 border border-neutral-200 font-bold uppercase tracking-wider rounded ${
-              currentPage === pageNumbers.length 
-                ? 'bg-neutral-50 text-neutral-300 cursor-not-allowed' 
-                : 'bg-white text-black hover:border-black'
-            }`}
-          >
-            Next
-          </button>
-        </div>
-
-        {/* Desktop Layout */}
-        <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-          <div>
-            <p className="text-neutral-500 font-medium tracking-wide">
-              Showing <span className="font-bold text-black">{indexOfFirstPost + 1}</span> to{' '}
-              <span className="font-bold text-black">
-                {Math.min(indexOfLastPost, orders.length)}
-              </span>{' '}
-            </p>
-          </div>
-          <div>
-            <nav className="relative z-0 inline-flex rounded border border-neutral-200 -space-x-px overflow-hidden shadow-sm" aria-label="Pagination">
-              <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-                className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
-                  currentPage === 1 ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
-                }`}
-              >
-                <span className="sr-only">Previous</span>
-                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              </button>
-
-              {pageNumbers.map(number => (
-                <button
-                  key={number}
-                  onClick={() => paginate(number)}
-                  className={`relative inline-flex items-center px-3.5 py-2 font-bold transition-colors ${
-                    currentPage === number
-                      ? 'bg-black text-white border-black'
-                      : 'bg-white text-neutral-500 hover:bg-neutral-50 border-neutral-100 border-r'
-                  }`}
-                >
-                  {number}
-                </button>
-              ))}
-
-              <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, pageNumbers.length))}
-                disabled={currentPage === pageNumbers.length}
-                className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
-                  currentPage === pageNumbers.length ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
-                }`}
-              >
-                <span className="sr-only">Next</span>
-                <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                </svg>
-              </button>
-            </nav>
-          </div>
-        </div>
-      </nav>
-    );
-  };
-
   return (
     <div className="min-h-screen bg-white text-neutral-900 antialiased p-6 md:p-12 lg:p-16 mx-auto flex flex-col">
-
       {/* Header View Section */}
       <div className="w-full space-y-8">
         <div className="border-b border-neutral-200 pb-6 flex justify-between items-center">
@@ -279,7 +186,6 @@ const Orders = () => {
               </thead>
               <tbody className="bg-white divide-y divide-neutral-200">
                 {isLoading ? (
-                  // Show 5 skeleton rows while loading
                   Array.from({ length: 5 }).map((_, index) => (
                     <SkeletonRow key={`skeleton-${index}`} />
                   ))
@@ -343,7 +249,12 @@ const Orders = () => {
           {/* Table Footer / Pagination controls block */}
           {!isLoading && orders.length > 0 && (
             <div className="px-6 py-4 border-t border-neutral-200 bg-neutral-50/30">
-              <Pagination />
+              <Pagination
+                currentPage={currentPage}
+                totalItems={orders.length}
+                itemsPerPage={postsPerPage}
+                onPageChange={paginate}
+              />
             </div>
           )}
         </div>

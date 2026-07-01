@@ -1,3 +1,4 @@
+const Category = require("../../models/Category.model");
 const Dish = require("../../models/Dishes.Model");
 const OrderDishes = require("../../models/OrderDishes.model");
 const sequelize = require('sequelize');
@@ -13,7 +14,8 @@ const getDishForReport = async (req, res) => {
       ],
       include: [{
         model: Dish,
-        attributes: ['name', 'category', 'price', 'quantity'], 
+        attributes: ['name','price', 'quantity'], 
+        include: [{ model: Category}]
       }]
     });
 

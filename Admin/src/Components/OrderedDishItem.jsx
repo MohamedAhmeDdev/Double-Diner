@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants";
 
 
 export const OrderedDishItem = ({ dishOrderDetails, dishDetails }) => {

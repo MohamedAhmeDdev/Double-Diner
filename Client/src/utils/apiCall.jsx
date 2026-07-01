@@ -1,4 +1,4 @@
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants/index";
 import axios from "axios";
 import { toast } from "react-toastify";
 

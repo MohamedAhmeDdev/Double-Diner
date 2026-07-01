@@ -14,7 +14,9 @@ import UpdateProfile from "./pages/UpdateProfile";
 import SalesDish from "./pages/SalesDish";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
-
+import Category from "./pages/Category/Category.jsx";
+import CreateCategory from "./pages/Category/CreateCategory.jsx";
+import UpdateCategory from "./pages/Category/UpdateCategory.jsx";
 import { UseAuthContext } from "./hook/UseAuthContext";
 import { ProtectedRoute, PublicRoute } from "./utils/ProtectedRoute.jsx"; 
 
@@ -64,6 +66,9 @@ function App() {
           {/* PROTECTED ROUTES (Accessible only when LOGGED IN) */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<AdminDashboard />} />
+            <Route path="/categories" element={<Category />} />
+            <Route path="/categories/create" element={<CreateCategory />} />
+            <Route path="/categories/update/:id" element={<UpdateCategory />} />
             <Route path="/inventory" element={<Inventory />} />
             <Route path="/inventory/add" element={<CreateNewItemForm />} />
             <Route path="/inventory/update/:id" element={<UpdateInventory />} />

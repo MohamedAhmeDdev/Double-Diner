@@ -15,7 +15,6 @@ import SingleOrder from "./pages/orders/SingleOrder";
 import UpdateProfile from "./pages/UpdateProfile";
 import ForgotPassword from "./pages/Authentication/ForgotPassword";
 import ResetPassword from "./pages/Authentication/ResetPassword";
-import ConfirmPayment from "./pages/ConfirmPayment";
 
 import { UseAuthContext } from "./hook/UseAuthContext";
 import { ProtectedRoute, PublicRoute } from "./utils/ProtectedRoute.jsx"; // Reusing your wrappers
@@ -79,7 +78,6 @@ function App() {
           {/* ========================================================= */}
           <Route element={<ProtectedRoute />}>
             <Route path="/checkout" element={<CheckOutPage />} />
-            <Route path="/confirmPayment" element={<ConfirmPayment />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/orders/:id" element={<SingleOrder />} />
             <Route path="/UpdateProfile/:id" element={<UpdateProfile />} />

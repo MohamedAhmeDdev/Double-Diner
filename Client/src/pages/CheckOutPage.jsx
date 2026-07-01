@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants/index";
 import { UseCartContext } from "../hook/UseCartContext";
 import { apiCall } from "../utils/apiCall";
 import { toast } from "react-toastify";

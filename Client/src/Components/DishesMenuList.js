@@ -2,7 +2,7 @@ import { MdAddShoppingCart, MdRemoveShoppingCart, MdArrowOutward } from "react-i
 import { FiShoppingBag, FiClock } from "react-icons/fi";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants/index";
 import { UseCartContext } from "../hook/UseCartContext";
 import axios from "axios";
 
@@ -78,7 +78,7 @@ const DishItem = ({ dish }) => {
           <div className="flex flex-wrap items-center gap-2">
             {dish?.category && (
               <span className="text-xs px-2.5 py-1 bg-gray-100 rounded-full text-gray-600 capitalize whitespace-nowrap">
-                {dish.category}
+                {dish.category.name}
               </span>
             )}
           </div>

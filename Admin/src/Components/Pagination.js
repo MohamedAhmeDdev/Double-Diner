@@ -1,116 +1,73 @@
-import React, { useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+// components/Pagination.jsx
+import React from 'react';
 
-function Pagination({
-  postsPerPage,
-  totalPosts,
-  paginate,
-  currentPage,
-  setCurrentPage
-}) {
-  const [pageNumberLimit] = useState(5);
-  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
-  const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
+const Pagination = ({ 
+  currentPage, 
+  totalItems, 
+  itemsPerPage, 
+  onPageChange 
+}) => {
   const pageNumbers = [];
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
 
-  const renderPageNumbers = pageNumbers.map(number => {
-    if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
-      return (
-        <button
-          key={number}
-          onClick={() => paginate(number)}
-          className={`flex items-center justify-center w-10 h-10 mx-1 rounded-full transition-colors duration-200 ${
-            currentPage === number 
-              ? 'bg-indigo-600 text-white shadow-md'
-              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-          }`}
-        >
-          {number}
-        </button>
-      );
-    }
-    return null;
-  });
-
-  const handlePrev = () => {
-    setCurrentPage(currentPage - 1);
-
-    if ((currentPage - 1) % pageNumberLimit === 0) {
-      setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-      setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-    }
-  };
-
-  const handleNext = () => {
-    setCurrentPage(currentPage + 1);
-
-    if (currentPage + 1 > maxPageNumberLimit) {
-      setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-      setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-    }
-  };
-
-  let pageDecrementBtn = null;
-  if (minPageNumberLimit >= 1) {
-    pageDecrementBtn = (
-      <button 
-        className="flex items-center justify-center w-10 h-10 mx-1 text-gray-500"
-        onClick={handlePrev}
-      >
-        &hellip;
-      </button>
-    );
-  }
-
-  let pageIncrementBtn = null;
-  if (pageNumbers.length > maxPageNumberLimit) {
-    pageIncrementBtn = (
-      <button 
-        className="flex items-center justify-center w-10 h-10 mx-1 text-gray-500"
-        onClick={handleNext}
-      >
-        &hellip;
-      </button>
-    );
-  }
+  if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center my-8">
-      <nav className="flex items-center space-x-1">
-        <button
-          onClick={handlePrev}
-          disabled={currentPage === pageNumbers[0]}
-          className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
-            currentPage === pageNumbers[0]
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-          }`}
-        >
-          <FiChevronLeft className="w-5 h-5" />
-        </button>
+    <nav className="flex items-center justify-between w-full font-mono text-xs">
+      <div className="flex-1 sm:flex items-center justify-end">
+        <div>
+          <nav 
+            className="relative z-0 inline-flex rounded border border-neutral-200 -space-x-px overflow-hidden shadow-sm" 
+            aria-label="Pagination"
+          >
+            <button
+              onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
+              disabled={currentPage === 1}
+              className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
+                currentPage === 1 ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
+              }`}
+            >
+              <span className="sr-only">Previous</span>
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
 
-        {pageDecrementBtn}
-        {renderPageNumbers}
-        {pageIncrementBtn}
+            {pageNumbers.map(number => (
+              <button
+                key={number}
+                onClick={() => onPageChange(number)}
+                className={`relative inline-flex items-center px-3.5 py-2 font-bold transition-colors ${
+                  currentPage === number
+                    ? 'bg-black text-white border-black'
+                    : 'bg-white text-neutral-500 hover:bg-neutral-50 border-neutral-100 border-r'
+                }`}
+              >
+                {number}
+              </button>
+            ))}
 
-        <button
-          onClick={handleNext}
-          disabled={currentPage === pageNumbers[pageNumbers.length - 1]}
-          className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 ${
-            currentPage === pageNumbers[pageNumbers.length - 1]
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-          }`}
-        >
-          <FiChevronRight className="w-5 h-5" />
-        </button>
-      </nav>
-    </div>
+            <button
+              onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`relative inline-flex items-center px-3 py-2 bg-white text-sm ${
+                currentPage === totalPages ? 'text-neutral-300 cursor-not-allowed' : 'text-black hover:bg-neutral-50'
+              }`}
+            >
+              <span className="sr-only">Next</span>
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </nav>
   );
-}
+};
 
 export default Pagination;

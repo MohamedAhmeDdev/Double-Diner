@@ -6,8 +6,7 @@ import {
   FiCreditCard, FiCalendar, FiShoppingBag, FiAlertCircle
 } from "react-icons/fi";
 import { apiCall } from "../../utils/apiCall";
-import { formatDate, formatTime } from "../../constants/index";
-import { SERVER_URL } from "../../constants";
+import { formatDate, formatTime, SERVER_URL } from "../../utils/constants/index";
 import { toast } from "react-toastify";
 import { OrderProgressBar } from "../../Components/OrderProgressBar";
 

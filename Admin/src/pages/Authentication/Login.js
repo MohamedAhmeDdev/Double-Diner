@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { UseAuthContext } from "../../hook/UseAuthContext";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../../utils/constants";
 import { FiLock, FiMail, FiLogIn } from "react-icons/fi";
 import { FaShieldAlt } from "react-icons/fa";
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
 import { UseCartContext } from "../hook/UseCartContext";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants/index";
 import { 
   FiTrash2, 
   FiShoppingBag, 
@@ -19,6 +19,7 @@ const Cart = () => {
   const totalPrice = cartItems.reduce((price, item) => price + item.quantity * item.price, 0);
   const itemCount = cartItems.reduce((count, item) => count + item.quantity, 0);
 
+  
   return (
     <div className="min-h-screen bg-gray-50/50">
       <div className="max-w-7xl mx-auto px-4 py-6 md:py-8 md:px-6">
@@ -106,9 +107,9 @@ const Cart = () => {
                             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
                               <div className="flex-1 min-w-0">
                                 <h3 className="text-lg font-semibold text-gray-900 truncate">{item.name}</h3>
-                                {item.category && (
+                                {item.category.name && (
                                   <span className="inline-block mt-1 text-xs font-medium text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
-                                    {item.category}
+                                    {item.category.name}
                                   </span>
                                 )}
                               </div>

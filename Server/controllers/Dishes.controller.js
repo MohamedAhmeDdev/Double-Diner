@@ -1,11 +1,12 @@
 const Dishes = require("../models/Dishes.Model.js");
+const Category = require("../models/Category.Model.js"); 
 
 const createDish = async (req, res) => {
   const { name, description, price, category, quantity } = req.body;
+  
   const image = req.file ? req.file.path.replace(/\\/g, "/") : "";
 
   if (!name || !description || !price || !category || !quantity) {
-    console.log(req.body);
     
     return res.status(400).json({
       success: false,
@@ -13,19 +14,23 @@ const createDish = async (req, res) => {
     });
   }
 
+    const findCategoryId = await Category.findOne({ 
+      where: { name: category.trim() } 
+    });
+  
   try {
     const dish = await Dishes.create({ 
       name, 
       description, 
       price, 
       image, 
-      category, 
+      category_id: findCategoryId.category_id,
       quantity 
     });
 
     return res.status(201).json({
       success: true,
-      dish,
+      dish
     });
   } catch (error) {
     return res.status(500).json({
@@ -35,12 +40,11 @@ const createDish = async (req, res) => {
   }
 };
 
-
-
-
 const getAllDishes = async (req, res) => {
   try {
-    const dishes = await Dishes.findAll();
+    const dishes = await Dishes.findAll({
+      include: [{ model: Category }]
+    });
     return res.status(200).json({
       success: true,
       dishes,
@@ -53,14 +57,14 @@ const getAllDishes = async (req, res) => {
   }
 };
 
-
-
-
 const getDishById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const dish = await Dishes.findOne({ where: { dish_id: id } });
+    const dish = await Dishes.findOne({ 
+      where: { dish_id: id },
+      include: [{ model: Category }]
+    });
     if (!dish) {
       return res.status(404).json({
         success: false,
@@ -94,6 +98,10 @@ const updateDish = async (req, res) => {
     });
   }
 
+   const findCategoryId = await Category.findOne({ 
+      where: { name: category.trim() } 
+    });
+
   try {
     const dish = await Dishes.findOne({ where: { dish_id: id } });
     if (!dish) {
@@ -107,7 +115,7 @@ const updateDish = async (req, res) => {
       name,
       description,
       price,
-      category,
+      category_id: findCategoryId.category_id,
       quantity,
     };
 
@@ -116,7 +124,10 @@ const updateDish = async (req, res) => {
     }
 
     await Dishes.update(info, { where: { dish_id: id } });
-    const updatedDish = await Dishes.findOne({ where: { dish_id: id } });
+    const updatedDish = await Dishes.findOne({ 
+      where: { dish_id: id },
+      include: [{ model: Category }] 
+    });
     return res.status(200).json({
       success: true,
       dish: updatedDish,
@@ -159,9 +170,6 @@ const deleteDish = async (req, res) => {
 };
 
 
-
-
-// query params category=veg
 const getDishesInCategory = async (req, res) => {
   const { category } = req.query;
   if (!category) {
@@ -172,7 +180,12 @@ const getDishesInCategory = async (req, res) => {
   }
 
   try {
-    const dishes = await Dishes.findAll({ where: { category } });
+    const dishes = await Dishes.findAll({ 
+      include: [{ 
+        model: Category,
+        where: { name:category }
+      }] 
+    });
     return res.status(200).json({
       success: true,
       dishes,

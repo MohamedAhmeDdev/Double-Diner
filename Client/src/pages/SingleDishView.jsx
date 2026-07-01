@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MdAddShoppingCart, MdRemoveShoppingCart } from "react-icons/md";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants/index";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { 
@@ -10,32 +10,26 @@ import {
 import { FiClock, FiStar } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { UseCartContext } from "../hook/UseCartContext";
+import { FiMinus, FiPlus, FiTrash2 } from "react-icons/fi";
 
 // Skeleton Component
 const DishViewSkeleton = () => {
   return (
     <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        {/* Back Button Skeleton */}
         <div className="inline-flex items-center mb-8">
           <div className="p-1.5 rounded-lg bg-gray-200 mr-2 w-8 h-8 animate-pulse"></div>
           <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
         </div>
-
-        {/* Main Card Skeleton */}
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="lg:flex">
-            {/* Image Section Skeleton */}
             <div className="lg:w-1/2">
               <div className="h-80 lg:h-full min-h-[400px] relative overflow-hidden bg-gray-200 animate-pulse">
-                {/* Price Badge Skeleton */}
                 <div className="absolute bottom-4 right-4">
                   <div className="px-5 py-2.5 bg-gray-300 rounded-xl w-28 h-12"></div>
                 </div>
               </div>
             </div>
-
-            {/* Details Section Skeleton */}
             <div className="lg:w-1/2 p-6 sm:p-8 lg:p-10">
               <div className="mb-6">
                 <div className="h-10 bg-gray-200 rounded-lg w-3/4 animate-pulse"></div>
@@ -77,12 +71,12 @@ const DishViewSkeleton = () => {
 };
 
 const DishView = () => {
-  const { cartItems, addToCart, removeFromCart } = UseCartContext();
+  const { cartItems, addToCart, updateItemQuantity, removeFromCart } = UseCartContext();
   const [dish, setDish] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1);
   const { id } = useParams();
-  const isAdded = cartItems.find((item) => item.dish_id === dish.dish_id);
+  const cartItem = cartItems.find((item) => item.dish_id === dish.dish_id);
+  const quantity = cartItem ? cartItem.quantity : 0;
 
   useEffect(() => {
     const getDish = async () => {
@@ -106,7 +100,7 @@ const DishView = () => {
   }
 
   // Calculate total price for current quantity
-  const totalPrice = (dish.price) * quantity;
+  const totalPrice = (dish.price || 0) * quantity;
 
   return (
     <div className="min-h-screen bg-gray-50/50 py-8 px-4 sm:px-6 lg:px-8">
@@ -126,7 +120,7 @@ const DishView = () => {
           <div className="lg:flex">
             {/* Image Section */}
             <div className="lg:w-1/2 relative">
-              <div className="md:h-[530px]  relative overflow-hidden bg-gray-100">
+              <div className="md:h-[530px] relative overflow-hidden bg-gray-100">
                 <img 
                   className="w-full h-full object-cover" 
                   src={`${SERVER_URL}/${dish?.image}`} 
@@ -157,7 +151,7 @@ const DishView = () => {
                 <div className="flex flex-wrap items-center gap-3 mt-4">
                   {dish?.category && (
                     <span className="px-4 py-2 bg-white/90 backdrop-blur-sm text-gray-700 text-sm font-semibold rounded-full shadow-sm border border-gray-200 flex items-center gap-1.5">
-                      {dish.category}
+                      {dish.category.name}
                     </span>
                   )}
                   {dish?.prep_time && (
@@ -187,22 +181,35 @@ const DishView = () => {
                 <label className="block text-xs font-bold tracking-wide uppercase text-gray-600 mb-3">
                   Select Quantity
                 </label>
-                <div className="flex items-center gap-4 bg-gray-50 p-2 rounded-xl border border-gray-200 w-fit">
+                <div className="flex items-center bg-gray-50 rounded-full border border-gray-200 p-1 w-fit">
                   <button
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="w-10 h-10 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-bold transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow hover:-translate-y-0.5"
-                    disabled={quantity <= 1}
+                    onClick={() => {
+                      if (cartItem) {
+                        if (quantity > 1) {
+                          updateItemQuantity({ dish_id: dish.dish_id, quantity: quantity - 1 });
+                        } else {
+                          removeFromCart(dish.dish_id);
+                        }
+                      }
+                    }}
+                    className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 rounded-full transition-all duration-200 hover:shadow-sm"
+                    aria-label="Decrease quantity"
                   >
-                    −
+                    <FiMinus size={14} />
                   </button>
-                  <span className="text-xl font-bold text-gray-800 min-w-[40px] text-center">
-                    {quantity}
-                  </span>
+                  <span className="w-10 text-center text-sm font-semibold text-gray-900">{quantity}</span>
                   <button
-                    onClick={() => setQuantity(quantity + 1)}
-                    className="w-10 h-10 rounded-lg bg-white hover:bg-gray-100 text-gray-700 font-bold transition-all duration-200 flex items-center justify-center shadow-sm hover:shadow hover:-translate-y-0.5"
+                    onClick={() => {
+                      if (cartItem) {
+                        updateItemQuantity({ dish_id: dish.dish_id, quantity: quantity + 1 });
+                      } else {
+                        addToCart({ dish_id: dish.dish_id, quantity: 1 });
+                      }
+                    }}
+                    className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-white hover:text-gray-900 rounded-full transition-all duration-200 hover:shadow-sm"
+                    aria-label="Increase quantity"
                   >
-                    +
+                    <FiPlus size={14} />
                   </button>
                 </div>
                 <p className="mt-2 text-sm text-gray-500">
@@ -212,7 +219,7 @@ const DishView = () => {
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                {isAdded ? (
+                {cartItem ? (
                   <button 
                     onClick={() => removeFromCart(dish.dish_id)}
                     className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gradient-to-r from-rose-500 to-rose-600 hover:from-rose-600 hover:to-rose-700 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-lg"
@@ -222,20 +229,13 @@ const DishView = () => {
                   </button>
                 ) : (
                   <button 
-                    onClick={() => {
-                      addToCart({ 
-                        ...dish, 
-                        quantity: quantity,
-                        dish_id: dish.dish_id 
-                      });
-                    }}
+                    onClick={() => addToCart({ dish_id: dish.dish_id, quantity: 1 })}
                     className="w-full flex items-center justify-center gap-3 py-4 px-6 bg-gray-900 hover:bg-gray-800 text-white font-bold text-base rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5"
                   >
                     <MdAddShoppingCart size={22} />
                     Add to Cart
                   </button>
                 )}
-                
               </div>
 
               {/* Additional Info */}

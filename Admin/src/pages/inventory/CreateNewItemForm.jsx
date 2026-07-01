@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { DISH_CATEGORIES } from "../../constants";
+import React, { useEffect, useState } from "react";
 import { apiCall } from "../../utils/apiCall";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { RiDashboardLine } from "react-icons/ri";
-import { MdOutlineInventory } from "react-icons/md";
 
 const CreateNewItemForm = () => {
+  const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -17,6 +15,19 @@ const CreateNewItemForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const navigate = useNavigate();
+
+   const fetchCategories = async () => {
+      try {
+        const response = await apiCall('/categories', 'get');
+        setCategories(response.categories);
+      } catch (error) {
+        toast.error('Failed to load categories');
+      }
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -172,7 +183,7 @@ const CreateNewItemForm = () => {
                   className="w-full bg-white border border-gray-200 hover:border-black rounded-lg py-2.5 px-4 text-sm font-semibold text-black uppercase tracking-wide appearance-none focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 >
                   <option value="" className="text-gray-400">Select standard category type</option>
-                  {DISH_CATEGORIES.map((cat) => (
+                  {categories.map((cat) => (
                     <option key={cat.id} value={cat.value}>
                       {cat.name}
                     </option>

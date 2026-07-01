@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { GiShoppingCart } from "react-icons/gi";
-import { FiUsers, FiPieChart, FiSettings } from "react-icons/fi";
+import { FiUsers, FiPieChart, FiGrid } from "react-icons/fi";
 import { MdOutlineInventory } from "react-icons/md";
 import { UseAuthContext } from "../hook/UseAuthContext";
 
@@ -15,32 +15,32 @@ const AdminDashboard = () => {
       path: "/orders",
     },
     {
-      title: "Users",
-      icon: <FiUsers className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
-      path: "/users",
-    },
-    {
       title: "Inventory",
       icon: <MdOutlineInventory className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/inventory",
+    },
+       {
+      title: "Category",
+      icon: <FiGrid className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
+      path: "/categories",
+    },
+    {
+      title: "Users",
+      icon: <FiUsers className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
+      path: "/users",
     },
     {
       title: "Sales Reports",
       icon: <FiPieChart className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
       path: "/dishReport",
     },
-    {
-      title: "Profile Settings",
-      icon: <FiSettings className="text-black group-hover:text-white transition-colors duration-300" size={24} />,
-      path: user?.id ? `/update-profile/${user.id}` : "/update-profile",
-    }
   ];
 
   return (
     <div className="min-h-screen bg-white text-gray-900 antialiased p-6 md:p-12 lg:p-16 max-w-7xl mx-auto">
       
       {/* Settings Dashboard Header */}
-      <header className="border-b border-gray-200 pb-6 mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <header className="pb-6 mb-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-gray-900 uppercase">
             Admin Dashboard
@@ -53,17 +53,6 @@ const AdminDashboard = () => {
 
       {/* Main Content */}
       <main className="space-y-12">
-        {/* Welcome Banner (Inverted High Contrast Minimalist Grid Container) */}
-        <div className="bg-black rounded-lg p-8 text-white flex flex-col justify-between items-start shadow-sm">
-          <div>
-            <h2 className="text-lg font-bold tracking-tight uppercase mb-2">
-              Restaurant Overview
-            </h2>
-            <p className="text-sm text-white font-light max-w-xl leading-relaxed">
-              Manage your day-to-day restaurant operations, check inventory quantities, run analytical sales charts, and maintain user access keys.
-            </p>
-          </div>
-        </div>
 
         {/* Section Title */}
         <div className="border-b border-gray-200 pb-2">

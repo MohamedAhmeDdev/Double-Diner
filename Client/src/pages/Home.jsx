@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DishesMenuList from "../Components/DishesMenuList";
-
-export const DISH_CATEGORIES = [
-  { id: 1, name: "Appetizer", value: "appetizer" },
-  { id: 2, name: "Main Course", value: "maincourse" },
-  { id: 3, name: "Dessert", value: "dessert" },
-  { id: 4, name: "Beverage", value: "beverage" },
-  { id: 5, name: "Side Dish", value: "sidedish" },
-];
+import axios from "axios";
+import { SERVER_URL } from "../utils/constants";
 
 const HomePage = () => {
-  const [activeTab, setActiveTab] = useState(DISH_CATEGORIES[0].value);
+  const [categories, setCategories] = useState([]);
+  const [activeTab, setActiveTab] = useState("");
+
+  const fetchCategories = async () => {
+    try {
+     const response = await axios.get(`${SERVER_URL}/categories`, 'get');
+      setCategories(response.data.categories); 
+      
+      if (response.data.categories && response.data.categories.length > 0) {
+        setActiveTab(response.data.categories[0].name);
+      }
+    } catch (error) {
+      console.error("Failed to fetch categories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <>
@@ -30,12 +42,12 @@ const HomePage = () => {
 
           {/* Category Filter */}
           <div className="mt-6 flex flex-wrap gap-2">
-            {DISH_CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setActiveTab(category.value)}
+                onClick={() => setActiveTab(category.name)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeTab === category.value
+                  activeTab === category.name
                     ? "bg-gray-900 text-white shadow-sm"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}

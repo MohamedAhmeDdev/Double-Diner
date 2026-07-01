@@ -16,6 +16,7 @@ const Users = require("./models/User.model");
 const Dishes = require("./models/Dishes.Model");
 const Orders = require("./models/Orders.model");
 const OrderDishes = require("./models/OrderDishes.model");
+const Category = require("./models/Category.model");
 
 // Define Core System Relationships
 // 1. One-to-Many: Users <-> Orders
@@ -32,6 +33,9 @@ OrderDishes.belongsTo(Orders, { foreignKey: "order_id" });
 
 Dishes.hasMany(OrderDishes, { foreignKey: "dish_id" });
 OrderDishes.belongsTo(Dishes, { foreignKey: "dish_id" });
+
+Category.hasMany(Dishes, { foreignKey: "category_id" });
+Dishes.belongsTo(Category, { foreignKey: "category_id" });
 
 // Initialize Database Connection and Synchronize Tables Sequential order
 async function initDatabase() {
@@ -52,21 +56,26 @@ initDatabase();
 const AuthRouter = require("./routes/Auth.route");
 const DishesRouter = require("./routes/Dishes.route");
 const OrdersRouter = require("./routes/Orders.route");
+const CategoryRouter = require("./routes/Category.route");
 
 // Admin Routing Configurations
 const AdminOrdersRouter = require("./routes/admin_orders.route");
 const AdminUsersRouter = require("./routes/admin_customers.route");
+const AdminCategoryRouter = require("./routes/admin_category");
 const AdminDishesRouter = require("./routes/admin_dishes.route");
 const AdminReportDishRouter = require("./routes/report/inventory.route");
+
 
 // User Application Endpoints
 app.use("/auth", AuthRouter);
 app.use("/dishes", DishesRouter);
 app.use("/orders", OrdersRouter);
+app.use("/categories", CategoryRouter);
 
 // Admin Application Endpoints
 app.use("/admin/orders", AdminOrdersRouter);
 app.use("/admin/users", AdminUsersRouter);
+app.use("/admin/categories", AdminCategoryRouter);
 app.use("/admin/dishes", AdminDishesRouter);
 app.use("/admin/report/dish", AdminReportDishRouter);
 

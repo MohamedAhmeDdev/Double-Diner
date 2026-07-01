@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../../utils/constants/index";
 import axios from "axios";
 import { FiUser, FiMail, FiPhone, FiHome, FiLock, FiArrowRight, FiMapPin } from "react-icons/fi";
 

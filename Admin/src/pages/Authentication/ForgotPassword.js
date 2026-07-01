@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { SERVER_URL } from "../../constants";
+import { SERVER_URL } from "../../utils/constants";
 import axios from "axios";
 import { FiMail, FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import { FaKey } from "react-icons/fa";

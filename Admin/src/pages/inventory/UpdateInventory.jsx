@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { RiDashboardLine } from "react-icons/ri";
-import { MdOutlineInventory } from "react-icons/md";
 import { apiCall } from "../../utils/apiCall";
-import { DISH_CATEGORIES, SERVER_URL } from "../../constants";
+import { DISH_CATEGORIES, SERVER_URL } from "../../utils/constants";
 
 const UpdateInventory = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const [categories, setCategories] = useState([]);
   // Form state
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
@@ -21,6 +19,20 @@ const UpdateInventory = () => {
   const [currentImage, setCurrentImage] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
+    const fetchCategories = async () => {
+        try {
+          const response = await apiCall('/categories', 'get');
+          setCategories(response.categories);
+        } catch (error) {
+          toast.error('Failed to load categories');
+        }
+    };
+  
+    useEffect(() => {
+          fetchCategories();
+    }, []);
+  
+    
   // Fetch inventory item by ID
   const getInventoryById = async () => {
     try {
@@ -29,7 +41,7 @@ const UpdateInventory = () => {
       setName(dish.name);
       setDescription(dish.description);
       setPrice(dish.price);
-      setCategory(dish.category);
+      setCategory(dish.category.name);
       setQuantity(dish.quantity);
       setCurrentImage(dish.image);
     } catch (error) {
@@ -213,7 +225,7 @@ const UpdateInventory = () => {
                   className="w-full bg-white border border-gray-200 hover:border-black rounded-lg py-2.5 px-4 text-sm font-semibold text-black uppercase tracking-wide appearance-none focus:outline-none focus:border-black focus:ring-1 focus:ring-black"
                 >
                   <option value="" className="text-gray-400">Select standard category type</option>
-                  {DISH_CATEGORIES.map((cat) => (
+                  {categories.map((cat) => (
                     <option key={cat.id} value={cat.value}>
                       {cat.name}
                     </option>

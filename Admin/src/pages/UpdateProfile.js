@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from "axios";
 import { toast } from "react-toastify";
 import { UseAuthContext } from "../hook/UseAuthContext";
-import { SERVER_URL } from "../constants";
+import { SERVER_URL } from "../utils/constants";
 import { FiUser, FiMail, FiLogOut, FiCheck, FiLock, FiCheckCircle } from "react-icons/fi";
 
 function UpdateProfile() {

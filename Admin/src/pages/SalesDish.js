@@ -3,8 +3,6 @@ import { apiCall } from "../utils/apiCall";
 import { useReactToPrint } from "react-to-print";
 import { FiPrinter, FiDollarSign, FiPieChart, FiTrendingUp } from "react-icons/fi";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import { RiDashboardLine } from "react-icons/ri";
 
 function SalesDish() {
   const [dishReport, setDishReport] = useState([]);
@@ -15,7 +13,17 @@ function SalesDish() {
     try {
       setIsLoading(true);
       const response = await apiCall("/report/dish", "get");
-      setDishReport(response.dishReport);
+      const mappedData = response.dishReport.map(item => ({
+        dish_id: item.dish_id,
+        dish_name: item.dish?.name,
+        dish_category: item.dish?.category.name,
+        unit_price: parseFloat(item.dish?.price),
+        quantity: parseInt(item.total_units_sold),
+        total_orders: item.total_orders_count,
+        ...item
+      }));
+      
+      setDishReport(mappedData);
     } catch (error) {
       toast.error("Failed to load sales report");
     } finally {
@@ -34,7 +42,7 @@ function SalesDish() {
   });
 
   const totalPrice = dishReport.reduce((total, sales) => total + (sales.unit_price * sales.quantity), 0);
-  const totalDishesSold = dishReport.reduce((sum, item) => sum + Number(item.dish_id_quantity), 0);
+  const totalDishesSold = dishReport.reduce((sum, item) => sum + item.quantity, 0);
 
   // Skeleton row component
   const SkeletonRow = () => (
@@ -160,6 +168,9 @@ function SalesDish() {
                   Dish Name
                 </th>
                 <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
+                  Category
+                </th>
+                <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
                   Quantity Sold
                 </th>
                 <th scope="col" className="px-6 py-4 text-left text-xs font-bold text-black uppercase tracking-wider">
@@ -174,16 +185,19 @@ function SalesDish() {
                   <SkeletonRow key={`skeleton-${index}`} />
                 ))
               ) : dishReport?.length > 0 ? (
-                dishReport.map((item, id) => (
-                  <tr key={id} className="hover:bg-gray-50 transition-colors duration-150">
+                dishReport.map((item, index) => (
+                  <tr key={index} className="hover:bg-gray-50 transition-colors duration-150">
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
                       #{item.dish_id}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold uppercase tracking-tight">
-                      {item.metadata?.name}
+                      {item.dish_name}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 capitalize">
+                      {item.dish_category}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
-                      {item.dish_id_quantity}
+                      {item.quantity}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-bold">
                       Ksh {(item.unit_price * item.quantity).toLocaleString()}
@@ -192,7 +206,7 @@ function SalesDish() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="px-6 py-20 text-center">
+                  <td colSpan="5" className="px-6 py-20 text-center">
                     <div className="mx-auto h-12 w-12 rounded-full bg-gray-50 border border-gray-100 flex items-center justify-center mb-4">
                       <FiPieChart className="text-gray-400" size={18} />
                     </div>
@@ -208,7 +222,7 @@ function SalesDish() {
             {!isLoading && dishReport?.length > 0 && (
               <tfoot className="bg-gray-50 border-t border-gray-200">
                 <tr>
-                  <td colSpan="3" className="px-6 py-5 text-xs font-bold uppercase tracking-wider text-black text-right">
+                  <td colSpan="4" className="px-6 py-5 text-xs font-bold uppercase tracking-wider text-black text-right">
                     Cumulative Balance:
                   </td>
                   <td className="px-6 py-5 whitespace-nowrap text-sm font-black text-black">

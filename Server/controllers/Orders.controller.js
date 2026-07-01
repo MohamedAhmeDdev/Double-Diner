@@ -2,6 +2,7 @@ const Order = require("../models/Orders.model");
 const OrderDishes = require("../models/OrderDishes.model");
 const User = require("../models/User.model");
 const Dish = require("../models/Dishes.Model");
+const Category = require("../models/Category.Model");
 
 // CREATE NEW ORDER (Pure Database Flow)
 const createOrder = async (req, res) => {
@@ -88,7 +89,8 @@ const getAllOrdersForUser = async (req, res) => {
       where: { user_id },
       include: [{
         model: Dish,
-        through: { attributes: ['quantity', 'total_price'] }
+        through: { attributes: ['quantity', 'total_price'] },
+        include: [{ model: Category }]
       }]
     });
 
@@ -108,9 +110,13 @@ const getOrderForUserById = async (req, res) => {
     const order = await Order.findOne({
       where: { order_id: id, user_id },
       include: [
-          { model: User, attributes: ['user_id', 'name', 'email', 'phone', 'address', 'city'] }, 
-          { model: Dish, through: { attributes: ['quantity', 'total_price'] }
-      }]
+        { model: User, attributes: ['user_id', 'name', 'email', 'phone', 'address', 'city'] }, 
+        { 
+          model: Dish, 
+          through: { attributes: ['quantity', 'total_price'] },
+          include: [{ model: Category }]
+        }
+      ]
     });
 
     if (!order) {
@@ -139,7 +145,10 @@ const updateOrderForUserById = async (req, res) => {
 
     const updatedOrder = await Order.findOne({
       where: { order_id: id, user_id },
-      include: [{ model: Dish }]
+      include: [{ 
+        model: Dish,
+        include: [{ model: Category }]
+      }]
     });
 
     return res.status(200).json({ success: true, order: updatedOrder });
@@ -174,7 +183,11 @@ const getAllOrders = async (req, res) => {
     const orders = await Order.findAll({
       include: [
         { model: User, attributes: ['user_id', 'name', 'email', 'phone', 'address', 'city'] }, 
-        { model: Dish, through: { attributes: ['quantity', 'total_price'] } }
+        { 
+          model: Dish, 
+          through: { attributes: ['quantity', 'total_price'] },
+          include: [{ model: Category }]
+        }
       ]
     });
 
@@ -192,7 +205,11 @@ const getOrderById = async (req, res) => {
       where: { order_id: id },
       include: [
         { model: User, attributes: ['user_id', 'name', 'email', 'phone', 'address', 'city'] },
-        { model: Dish, through: { attributes: ['quantity', 'total_price'] } }
+        { 
+          model: Dish, 
+          through: { attributes: ['quantity', 'total_price'] },
+          include: [{ model: Category }]
+        }
       ]
     });
 
@@ -222,7 +239,11 @@ const updateOrderById = async (req, res) => {
       where: { order_id: id },
       include: [
         { model: User, attributes: ['user_id', 'name', 'email', 'phone', 'address', 'city'] },
-        { model: Dish, through: { attributes: ['quantity', 'total_price'] } }
+        { 
+          model: Dish, 
+          through: { attributes: ['quantity', 'total_price'] },
+          include: [{ model: Category }]
+        }
       ]
     });
 
