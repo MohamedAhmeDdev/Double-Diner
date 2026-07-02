@@ -2,7 +2,7 @@ const Order = require("../models/Orders.model");
 const OrderDishes = require("../models/OrderDishes.model");
 const User = require("../models/User.model");
 const Dish = require("../models/Dishes.Model");
-const Category = require("../models/Category.Model");
+const Category = require("../models/Category.model.js"); 
 
 // CREATE NEW ORDER (Pure Database Flow)
 const createOrder = async (req, res) => {
