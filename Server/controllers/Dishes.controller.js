@@ -1,4 +1,4 @@
-const Dishes = require("../models/dishes.model.js");
+const Dishes = require("../models/Dishes.Model.js");
 const Category = require("../models/Category.model.js"); 
 
 const createDish = async (req, res) => {
